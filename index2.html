@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasarela de Pagos</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #qr-code {
+            margin-top: 20px;
+            display: none;
+            text-align: center;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        .policies {
+            margin-top: 20px;
+            display: none;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            width: 300px;
+        }
+        .toggle-button {
+            background-color: transparent;
+            border: none;
+            color: #4CAF50;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Pasarela de Pagos</h2>
+    <form id="payment-form">
+        <input type="text" id="nombre" placeholder="Nombre y Apellidos" required>
+        <input type="text" id="documento" placeholder="Documento de Identidad" required>
+        <input type="text" id="cuenta" placeholder="Número de Cuenta" pattern="[0-9]{10,20}" required>
+        
+        <!-- Wallet fija para recibir WLD -->
+        <input type="text" id="wallet" value="0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" readonly>
+        <label>Wallet para recibir WLD (fija)</label>
+
+        <!-- Nueva sección para que el cliente ingrese su wallet -->
+        <input type="text" id="wallet-cliente" placeholder="Wallet del Cliente para enviar WLD" required>
+        <label>Wallet del Cliente para enviar WLD</label>
+
+        <label for="metodo">Método de Pago:</label>
+        <select id="metodo" required>
+            <option value="nequi">Nequi</option>
+            <option value="daviplata">Daviplata</option>
+            <option value="ahorro_ala_mano">Ahorro a la Mano</option>
+        </select>
+
+        <label for="cantidad-wld">Cantidad de WLD a enviar:</label>
+        <input type="number" id="cantidad-wld" placeholder="Cantidad de WLD" required oninput="calcularValorRecibir()">
+        <p>Precio actual de WLD: <span id="precio-wld">Cargando...</span> COP</p>
+        <p>Valor a recibir: <span id="valor-recibir">0</span> COP</p>
+
+        <button type="button" onclick="iniciarVerificacion()">Verificar Identidad</button>
+        <button type="button" onclick="generarQRCode()">Confirmar Pago</button>
+        <button type="button" onclick="enviarWhatsApp()">Reconfirmar y Enviar a WhatsApp</button>
+        <p id="error-msg" class="error"></p>
+    </form>
+
+    <div id="qr-code"></div>
+
+    <button class="toggle-button" onclick="togglePolicies()">Ver Políticas de Privacidad y Uso</button>
+    <div id="policies" class="policies">
+        <h3>Políticas de Privacidad</h3>
+        <p>Su privacidad es importante para nosotros. Recopilamos información personal para procesar sus pagos y mejorar nuestros servicios. No compartiremos su información con terceros sin su consentimiento.</p>
+        
+        <h3>Políticas de Uso</h3>
+        <p>El uso de nuestra pasarela de pagos implica aceptar nuestras políticas. Se prohíbe el uso de este servicio para actividades ilegales. Nos reservamos el derecho a suspender cuentas por violaciones a estas políticas.</p>
+    </div>
+
+    <script>
+        let precioWLD = 0;
+
+        function obtenerPrecioWLD() {
+            fetch('https://api.binance.com/api/v3/ticker/price?symbol=WLDUSDT')
+                .then(response => response.json())
+                .then(data => {
+                    const precioUSDT = parseFloat(data.price);
+                    const tasaCambio = 4160; // Tasa de cambio de USDT a COP
+                    precioWLD = precioUSDT * tasaCambio;
+                    document.getElementById("precio-wld").textContent = precioWLD.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+                    calcularValorRecibir();
+                })
+                .catch(error => {
+                    console.error('Error obteniendo precio:', error);
+                    document.getElementById("precio-wld").textContent = "Error cargando";
+                });
+        }
+
+        function calcularValorRecibir() {
+            const cantidad = parseFloat(document.getElementById("cantidad-wld").value);
+            const comision = calcularComision(precioWLD);
+            if (!isNaN(cantidad) && precioWLD > 0) {
+                const valorReal = cantidad * precioWLD;
+                const descuento = valorReal * 0.25;
+                const valorRecibir = valorReal - descuento - comision;
+                document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 });
+            } else {
+                document.getElementById("valor-recibir").textContent = "0 COP";
+            }
+        }
+
+        function calcularComision(precio) {
+            return precio * 0.00; // Ajusta la comisión si es necesario
+        }
+
+        function generarQRCode() {
+            const wallet = document.getElementById("wallet").value;
+            $('#qr-code').empty().show();
+            $('#qr-code').qrcode({
+                text: wallet,
+                width: 128,
+                height: 128
+            });
+        }
+
+        function enviarWhatsApp() {
+            const nombre = document.getElementById("nombre").value;
+            const documento = document.getElementById("documento").value;
+            const cuenta = document.getElementById("cuenta").value;
+            const walletCliente = document.getElementById("wallet-cliente").value; // Nueva wallet del cliente
+            const metodo = document.getElementById("metodo").value;
+            const cantidadWLD = document.getElementById("cantidad-wld").value;
+            const valorRecibir = document.getElementById("valor-recibir").textContent;
+            const errorMsg = document.getElementById("error-msg");
+            errorMsg.textContent = '';
+
+            if (cantidadWLD <= 0) {
+                errorMsg.textContent = 'La cantidad de WLD debe ser mayor a 0.';
+                return;
+            }
+
+            const telefono = "3229609433"; // Cambia el número de teléfono según sea necesario
+            const mensaje = encodeURIComponent(
+                `Confirmo que envié los Wordcoins.\n\n` +
+                `Detalles de la transferencia:\n` +
+                `Nombre: ${nombre}\n` +
+                `Documento: ${documento}\n` +
+                `Número de Cuenta: ${cuenta}\n` +
+                `Wallet del Cliente: ${walletCliente}\n` + // Incluye la wallet del cliente
+                `Método de Pago: ${metodo}\n` +
+                `Cantidad de WLD: ${cantidadWLD}\n` +
+                `Valor a recibir: ${valorRecibir} COP`
+            );
+
+            window.open(`https://wa.me/${telefono}?text=${mensaje}`);
+        }
+
+        function iniciarVerificacion() {
+            const clientId = 'app_2248679d8f07eb1b7eacd922f9a26a1e'; // Tu client ID
+            const redirectUrl = 'https://wallet-bussines.github.io/'; // Tu URL de redirección
+
+            const url = `https://worldcoin.org/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUrl)}&response_type=token`;
+
+            window.location.href = url;
+        }
+
+        function togglePolicies() {
+            const policies = document.getElementById("policies");
+            policies.style.display = policies.style.display === "none" ? "block" : "none";
+        }
+
+        obtenerPrecioWLD();
+    </script>
+
+</body>
+</html>
