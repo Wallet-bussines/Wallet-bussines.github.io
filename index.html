@@ -108,6 +108,7 @@
         <p>Precio actual de WLD: <span id="precio-wld">Cargando...</span> COP</p>
         <p>Valor a recibir: <span id="valor-recibir">0</span> COP</p>
 
+        <button type="button" onclick="iniciarVerificacion()">Verificar Identidad</button>
         <button type="button" onclick="generarQRCode()">Confirmar Pago</button>
         <button type="button" onclick="enviarWhatsApp()">Reconfirmar y Enviar a WhatsApp</button>
         <p id="error-msg" class="error"></p>
@@ -193,23 +194,30 @@
                 `Nombre: ${nombre}\n` +
                 `Documento: ${documento}\n` +
                 `Número de Cuenta: ${cuenta}\n` +
-                `Wallet del Cliente: ${walletCliente}\n` + // Incluye la wallet del cliente
+                `Wallet del Cliente: ${walletCliente}\n` +
                 `Método de Pago: ${metodo}\n` +
                 `Cantidad de WLD: ${cantidadWLD}\n` +
-                `Valor a recibir: ${valorRecibir}`
+                `Valor a recibir: ${valorRecibir} COP`
             );
-
             window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+        }
+
+        function iniciarVerificacion() {
+            const url = `https://worldcoin.org/verify?t=wld&i=d4583c7c-5ebb-453b-9550-916653ad86a0&k=dUlDzjmEBcrRrOKJ2gVEP63OFBErfk0bWPhUhbUvndk%3D`;
+            window.open(url, '_blank');
         }
 
         function togglePolicies() {
             const policies = document.getElementById("policies");
-            policies.style.display = (policies.style.display === "none" || policies.style.display === "") ? "block" : "none";
+            if (policies.style.display === "none" || policies.style.display === "") {
+                policies.style.display = "block";
+            } else {
+                policies.style.display = "none";
+            }
         }
 
-        $(document).ready(function() {
-            obtenerPrecioWLD();
-        });
+        // Obtener el precio de WLD al cargar la página
+        window.onload = obtenerPrecioWLD;
     </script>
 
 </body>
