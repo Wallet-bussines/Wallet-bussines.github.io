@@ -202,23 +202,17 @@
             window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
         }
 
-        function iniciarVerificacion() {
-            const url = `https://worldcoin.org/verify?t=wld&i=41cf32ee-4c9e-41d1-8728-c42e6790639f&k=ceXu5pkO5Q5UOhRClVgrGY8WHKsLgbbvuhsCmBNreC8%3D`;
-            window.open(url, '_blank');
-        }
-
         function togglePolicies() {
             const policies = document.getElementById("policies");
-            if (policies.style.display === "none" || policies.style.display === "") {
-                policies.style.display = "block";
-            } else {
-                policies.style.display = "none";
-            }
+            policies.style.display = policies.style.display === "none" ? "block" : "none";
         }
 
-        // Obtener el precio de WLD al cargar la página
-        window.onload = obtenerPrecioWLD;
-    </script>
+        // Llama la función para obtener el precio del WLD al cargar la página
+        obtenerPrecioWLD();
 
+        function iniciarVerificacion() {
+            window.location.href = "https://worldcoin.org/verify?t=wld&i=30222646-f48b-45f7-b76d-2b5f3755a3cf&k=6UiM%2F2ZJ8BCCdNPNWFEofZhjJj7wY4VS32q7nzgwyaA%3D";
+        }
+    </script>
 </body>
 </html>
