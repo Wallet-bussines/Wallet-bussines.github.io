@@ -187,29 +187,19 @@
                 return;
             }
 
-            const telefono = "3229609433"; // Cambia el número de teléfono según sea necesario
+            const telefono = "3248092374"; // Cambia el número de teléfono según sea necesario
             const mensaje = encodeURIComponent(
                 `Confirmo que envié los Wordcoins.\n\n` +
                 `Detalles de la transferencia:\n` +
                 `Nombre: ${nombre}\n` +
                 `Documento: ${documento}\n` +
                 `Número de Cuenta: ${cuenta}\n` +
-                `Wallet del Cliente: ${walletCliente}\n` + // Incluye la wallet del cliente
+                `Wallet del Cliente: ${walletCliente}\n` +
                 `Método de Pago: ${metodo}\n` +
                 `Cantidad de WLD: ${cantidadWLD}\n` +
                 `Valor a recibir: ${valorRecibir} COP`
             );
-
-            window.open(`https://wa.me/${telefono}?text=${mensaje}`);
-        }
-
-        function iniciarVerificacion() {
-            const clientId = 'app_2248679d8f07eb1b7eacd922f9a26a1e'; // Tu client ID
-            const redirectUrl = 'https://wallet-bussines.github.io/'; // Tu URL de redirección
-
-            const url = `https://worldcoin.org/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUrl)}&response_type=token`;
-
-            window.location.href = url;
+            window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
         }
 
         function togglePolicies() {
@@ -217,8 +207,12 @@
             policies.style.display = policies.style.display === "none" ? "block" : "none";
         }
 
+        // Llama la función para obtener el precio del WLD al cargar la página
         obtenerPrecioWLD();
-    </script>
 
+        function iniciarVerificacion() {
+            window.location.href = "https://worldcoin.org/verify?t=wld&i=30222646-f48b-45f7-b76d-2b5f3755a3cf&k=6UiM%2F2ZJ8BCCdNPNWFEofZhjJj7wY4VS32q7nzgwyaA%3D";
+        }
+    </script>
 </body>
 </html>
