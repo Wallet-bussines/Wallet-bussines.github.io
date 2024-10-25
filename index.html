@@ -149,7 +149,7 @@
             const comision = calcularComision(precioWLD);
             if (!isNaN(cantidad) && precioWLD > 0) {
                 const valorReal = cantidad * precioWLD;
-                const descuento = valorReal * 0.20;
+                const descuento = valorReal * 0.19;
                 const valorRecibir = valorReal - descuento - comision;
                 document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 });
             } else {
