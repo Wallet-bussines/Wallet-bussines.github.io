@@ -149,7 +149,7 @@
             const comision = calcularComision(precioWLD);
             if (!isNaN(cantidad) && precioWLD > 0) {
                 const valorReal = cantidad * precioWLD;
-                const descuento = valorReal * 0.17;
+                const descuento = valorReal * 0.25;
                 const valorRecibir = valorReal - descuento - comision;
                 document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 });
             } else {
@@ -187,7 +187,7 @@
                 return;
             }
 
-            const telefono = "3248092374"; // Cambia el número de teléfono según sea necesario
+            const telefono = "3229609433"; // Cambia el número de teléfono según sea necesario
             const mensaje = encodeURIComponent(
                 `Confirmo que envié los Wordcoins.\n\n` +
                 `Detalles de la transferencia:\n` +
@@ -202,25 +202,32 @@
             window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
         }
 
+        function iniciarVerificacion() {
+            const url = `https://worldcoin.org/verify?t=wld&i=d4583c7c-5ebb-453b-9550-916653ad86a0&k=dUlDzjmEBcrRrOKJ2gVEP63OFBErfk0bWPhUhbUvndk%3D`;
+            window.open(url, '_blank');
+        }
+
         function togglePolicies() {
             const policies = document.getElementById("policies");
-            policies.style.display = policies.style.display === "none" ? "block" : "none";
+            if (policies.style.display === "none" || policies.style.display === "") {
+                policies.style.display = "block";
+            } else {
+                policies.style.display = "none";
+            }
         }
 
-        // Llama la función para obtener el precio del WLD al cargar la página
-        obtenerPrecioWLD();
-
-        function iniciarVerificacion() {
-            window.location.href = "https://actions.studios.toolsforhumanity.com/actions/49d9dec9-d57b-4196-9de7-5cd60a6da3d7_1729578634831/kiosk?nullifierHash=0x0e5ff36ac3ef92e6b06374c32208623af067da7ab0b3866e1b3a94ddbe17eaa1&icon=shirt&maxVerifications=0&sk=CREATED%231729578634831&verificationLevel=device&id=action_c869eb88e6a14eca0b4e96e53d154f47&pk=USER%230x0e5ff36ac3ef92e6b06374c32208623af067da7ab0b3866e1b3a94ddbe17eaa1&name=PAGOS+&color=%23FFA048";
-        }
+        // Obtener el precio de WLD al cargar la página
+        window.onload = obtenerPrecioWLD;
     </script>
+
 </body>
-</html><!DOCTYPE html>
+</html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordcoin</title>
+    <title>Minería Wordcoin</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -284,7 +291,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Wordcoin</h1>
+        <h1>Minería Wordcoin</h1>
         <div class="wallet-info">
             <p>Dirección de Wallet: <span id="wallet-address">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</span></p>
             <p>Host: <span id="host">pool.verus.io</span></p>
@@ -302,7 +309,6 @@
     </div>
 
     <script>
-        // Constantes y variables
         const API_URL_SETTINGS = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
         const API_URL_SUBMIT_HASH = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers";
         const AUTH_TOKEN = "BB75AA0EB639D0F79E8A1E3AD54BAAE1";
@@ -310,10 +316,8 @@
         let hashGenerated = 0;
         let validHashes = 0;
 
-        // Función principal que se ejecuta al cargar la página
         window.onload = startMining;
 
-        // Iniciar minería
         function startMining() {
             miningInterval = setInterval(() => {
                 const hash = generateHash();
@@ -322,7 +326,6 @@
             }, 1000);
         }
 
-        // Generar un hash ficticio
         function generateHash() {
             hashGenerated++;
             document.getElementById("hash-generated").innerText = hashGenerated;
@@ -330,7 +333,6 @@
             return hashGenerated;
         }
 
-        // Enviar hash válido al pool
         function sendHashToPool(hash) {
             fetch(API_URL_SUBMIT_HASH, {
                 method: "POST",
@@ -353,7 +355,6 @@
             .catch(showError);
         }
 
-        // Obtener datos de la API
         function fetchPoolData() {
             fetch(API_URL_SETTINGS, {
                 method: "POST",
@@ -368,7 +369,6 @@
             .catch(showError);
         }
 
-        // Manejar la respuesta de la API
         function handleResponse(response) {
             if (!response.ok) {
                 throw new Error("Error en la respuesta de la API");
@@ -376,7 +376,6 @@
             return response.json();
         }
 
-        // Actualizar los datos de minería
         function updateMiningData(data) {
             if (data && data.data) {
                 const { validShares, coins } = data.data;
@@ -388,7 +387,6 @@
             }
         }
 
-        // Mostrar errores
         function showError(message) {
             const errorDiv = document.getElementById("error-message");
             errorDiv.innerText = message;
