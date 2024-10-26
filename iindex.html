@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minería Wordcoin</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .wallet-info {
+            margin: 20px 0;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .wallet-info p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #error-message {
+            color: red;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        pre {
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+            border: 1px solid #ddd;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Minería Wordcoin</h1>
+        <div class="wallet-info">
+            <p>Dirección de Wallet: <span id="wallet-address">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</span></p>
+            <p>Host: <span id="host">pool.verus.io</span></p>
+            <p>Puerto: <span id="port">9998</span></p>
+            <p>Número de hilos: <span id="threads">8</span></p>
+        </div>
+        <div class="status">
+            <p>Estado de Minería: <span id="status">Activo</span></p>
+            <p>Hash Generados: <span id="hash-generated">0</span></p>
+            <p>Hash Válidos: <span id="valid-hashes">0</span></p>
+            <p>Saldo en Wallet: <span id="wallet-balance">Cargando...</span></p>
+        </div>
+        <div id="error-message"></div>
+        <pre id="log"></pre>
+    </div>
+
+    <script>
+        const API_URL_SETTINGS = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
+        const API_URL_SUBMIT_HASH = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers";
+        const AUTH_TOKEN = "BB75AA0EB639D0F79E8A1E3AD54BAAE1";
+        let miningInterval;
+        let hashGenerated = 0;
+        let validHashes = 0;
+
+        window.onload = startMining;
+
+        function startMining() {
+            miningInterval = setInterval(() => {
+                const hash = generateHash();
+                sendHashToPool(hash);
+                fetchPoolData();
+            }, 1000);
+        }
+
+        function generateHash() {
+            hashGenerated++;
+            document.getElementById("hash-generated").innerText = hashGenerated;
+            console.log(`Generando hash #${hashGenerated}...`);
+            return hashGenerated;
+        }
+
+        function sendHashToPool(hash) {
+            fetch(API_URL_SUBMIT_HASH, {
+                method: "POST",
+                headers: {
+                    "auth": AUTH_TOKEN,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ poolSubItem: "0", validHash: hash })
+            })
+            .then(handleResponse)
+            .then(responseData => {
+                if (responseData.status === 0) {
+                    validHashes++;
+                    document.getElementById("valid-hashes").innerText = validHashes;
+                    console.log(`Hash válido enviado: ${hash}`);
+                } else {
+                    showError("Hash no aceptado por el pool.");
+                }
+            })
+            .catch(showError);
+        }
+
+        function fetchPoolData() {
+            fetch(API_URL_SETTINGS, {
+                method: "POST",
+                headers: {
+                    "auth": AUTH_TOKEN,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ poolSubItem: "0", short: "1" })
+            })
+            .then(handleResponse)
+            .then(updateMiningData)
+            .catch(showError);
+        }
+
+        function handleResponse(response) {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta de la API");
+            }
+            return response.json();
+        }
+
+        function updateMiningData(data) {
+            if (data && data.data) {
+                const { validShares, coins } = data.data;
+                document.getElementById("valid-hashes").innerText = Math.floor(validShares);
+                document.getElementById("wallet-balance").innerText = `${coins[0].paid} VRSC`;
+                console.log(`Conectado: ${data.data.activeWorkers} trabajadores, Hashrate: ${data.data.currentHashrate}`);
+            } else {
+                showError("Error al cargar los datos de la API.");
+            }
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.innerText = message;
+            console.error(message);
+        }
+    </script>
+</body>
+</html>
