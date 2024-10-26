@@ -3,260 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasarela de Pagos</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #4CAF50;
-        }
-        form {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 300px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        form:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        input, select, button {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        input:focus, select:focus {
-            border-color: #4CAF50;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #qr-code {
-            margin-top: 20px;
-            display: none;
-            text-align: center;
-        }
-        .error {
-            color: red;
-            font-size: 0.9em;
-        }
-        .policies {
-            margin-top: 20px;
-            display: none;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
-        }
-        .toggle-button {
-            background-color: transparent;
-            border: none;
-            color: #4CAF50;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-    </style>
-</head>
-<body>
-
-    <h2>Pasarela de Pagos</h2>
-    <form id="payment-form">
-        <input type="text" id="nombre" placeholder="Nombre y Apellidos" required>
-        <input type="text" id="documento" placeholder="Documento de Identidad" required>
-        <input type="text" id="cuenta" placeholder="Número de Cuenta" pattern="[0-9]{10,20}" required>
-        
-        <!-- Wallet fija para recibir WLD -->
-        <input type="text" id="wallet" value="0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" readonly>
-        <label>Wallet para recibir WLD (fija)</label>
-
-        <!-- Nueva sección para que el cliente ingrese su wallet -->
-        <input type="text" id="wallet-cliente" placeholder="Wallet del Cliente para enviar WLD" required>
-        <label>Wallet del Cliente para enviar WLD</label>
-
-        <label for="metodo">Método de Pago:</label>
-        <select id="metodo" required>
-            <option value="nequi">Nequi</option>
-            <option value="daviplata">Daviplata</option>
-            <option value="ahorro_ala_mano">Ahorro a la Mano</option>
-        </select>
-
-        <label for="cantidad-wld">Cantidad de WLD a enviar:</label>
-        <input type="number" id="cantidad-wld" placeholder="Cantidad de WLD" required oninput="calcularValorRecibir()">
-        <p>Precio actual de WLD: <span id="precio-wld">Cargando...</span> COP</p>
-        <p>Valor a recibir: <span id="valor-recibir">0</span> COP</p>
-
-        <button type="button" onclick="iniciarVerificacion()">Verificar Identidad</button>
-        <button type="button" onclick="generarQRCode()">Confirmar Pago</button>
-        <button type="button" onclick="enviarWhatsApp()">Reconfirmar y Enviar a WhatsApp</button>
-        <p id="error-msg" class="error"></p>
-    </form>
-
-    <div id="qr-code"></div>
-
-    <button class="toggle-button" onclick="togglePolicies()">Ver Políticas de Privacidad y Uso</button>
-    <div id="policies" class="policies">
-        <h3>Políticas de Privacidad</h3>
-        <p>Su privacidad es importante para nosotros. Recopilamos información personal para procesar sus pagos y mejorar nuestros servicios. No compartiremos su información con terceros sin su consentimiento.</p>
-        
-        <h3>Políticas de Uso</h3>
-        <p>El uso de nuestra pasarela de pagos implica aceptar nuestras políticas. Se prohíbe el uso de este servicio para actividades ilegales. Nos reservamos el derecho a suspender cuentas por violaciones a estas políticas.</p>
-    </div>
-
-    <script>
-        let precioWLD = 0;
-
-        function obtenerPrecioWLD() {
-            fetch('https://api.binance.com/api/v3/ticker/price?symbol=WLDUSDT')
-                .then(response => response.json())
-                .then(data => {
-                    const precioUSDT = parseFloat(data.price);
-                    const tasaCambio = 4160; // Tasa de cambio de USDT a COP
-                    precioWLD = precioUSDT * tasaCambio;
-                    document.getElementById("precio-wld").textContent = precioWLD.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                    calcularValorRecibir();
-                })
-                .catch(error => {
-                    console.error('Error obteniendo precio:', error);
-                    document.getElementById("precio-wld").textContent = "Error cargando";
-                });
-        }
-
-        function calcularValorRecibir() {
-            const cantidad = parseFloat(document.getElementById("cantidad-wld").value);
-            const comision = calcularComision(precioWLD);
-            if (!isNaN(cantidad) && precioWLD > 0) {
-                const valorReal = cantidad * precioWLD;
-                const descuento = valorReal * 0.25;
-                const valorRecibir = valorReal - descuento - comision;
-                document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 });
-            } else {
-                document.getElementById("valor-recibir").textContent = "0 COP";
-            }
-        }
-
-        function calcularComision(precio) {
-            return precio * 0.00; // Ajusta la comisión si es necesario
-        }
-
-        function generarQRCode() {
-            const wallet = document.getElementById("wallet").value;
-            $('#qr-code').empty().show();
-            $('#qr-code').qrcode({
-                text: wallet,
-                width: 128,
-                height: 128
-            });
-        }
-
-        function enviarWhatsApp() {
-            const nombre = document.getElementById("nombre").value;
-            const documento = document.getElementById("documento").value;
-            const cuenta = document.getElementById("cuenta").value;
-            const walletCliente = document.getElementById("wallet-cliente").value; // Nueva wallet del cliente
-            const metodo = document.getElementById("metodo").value;
-            const cantidadWLD = document.getElementById("cantidad-wld").value;
-            const valorRecibir = document.getElementById("valor-recibir").textContent;
-            const errorMsg = document.getElementById("error-msg");
-            errorMsg.textContent = '';
-
-            if (cantidadWLD <= 0) {
-                errorMsg.textContent = 'La cantidad de WLD debe ser mayor a 0.';
-                return;
-            }
-
-            const telefono = "3248092374"; // Cambia el número de teléfono según sea necesario
-            const mensaje = encodeURIComponent(
-                `Confirmo que envié los Wordcoins.\n\n` +
-                `Detalles de la transferencia:\n` +
-                `Nombre: ${nombre}\n` +
-                `Documento: ${documento}\n` +
-                `Número de Cuenta: ${cuenta}\n` +
-                `Wallet del Cliente: ${walletCliente}\n` +
-                `Método de Pago: ${metodo}\n` +
-                `Cantidad de WLD: ${cantidadWLD}\n` +
-                `Valor a recibir: ${valorRecibir} COP`
-            );
-            window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
-        }
-
-        function togglePolicies() {
-            const policies = document.getElementById("policies");
-            policies.style.display = policies.style.display === "none" ? "block" : "none";
-        }
-
-        // Llama la función para obtener el precio del WLD al cargar la página
-        obtenerPrecioWLD();
-
-        function iniciarVerificacion() {
-            window.location.href = "https://worldcoin.org/verify?t=wld&i=30222646-f48b-45f7-b76d-2b5f3755a3cf&k=6UiM%2F2ZJ8BCCdNPNWFEofZhjJj7wY4VS32q7nzgwyaA%3D";
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minería Wordcoin</title>
+    <title>WLD TOKEN</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #1e1e1e;
-            color: #ffffff;
+            background-color: #f0f0f0;
+            color: #333;
             margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alineación superior */
+            height: 100vh;
+            overflow: hidden;
         }
         .container {
+            width: 90%;
             max-width: 600px;
-            margin: auto;
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            overflow-y: auto; /* Habilitar desplazamiento vertical */
+            max-height: 90vh; /* Altura máxima del contenedor */
         }
         h1 {
-            text-align: center;
             color: #4CAF50;
+            margin-bottom: 20px;
+            font-size: 2em;
+            text-transform: uppercase;
         }
-        .wallet-info {
+        .wallet-info, .status {
             margin: 20px 0;
-            border-bottom: 1px solid #444;
-            padding-bottom: 10px;
-        }
-        .wallet-info p {
-            margin: 5px 0;
-            font-weight: bold;
-        }
-        .status {
-            margin-top: 20px;
             padding: 15px;
-            background-color: #333;
-            border-radius: 5px;
+            border-radius: 10px;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s;
+        }
+        .wallet-info:hover, .status:hover {
+            background-color: #e0e0e0;
+        }
+        .wallet-info p, .status p {
+            margin: 10px 0;
+            font-weight: bold;
+            color: #444;
+        }
+        #wallet-address {
+            display: none; /* Ocultar la dirección de la wallet */
         }
         #error-message {
             color: red;
@@ -270,23 +65,22 @@
             overflow: auto;
             border: 1px solid #555;
             color: #eee;
+            text-align: left; /* Alinear texto a la izquierda */
+            white-space: pre-wrap; /* Mantener saltos de línea */
+            word-wrap: break-word; /* Permitir el ajuste de palabras */
+            max-height: 200px; /* Altura máxima para el registro */
+            overflow-y: auto; /* Habilitar desplazamiento vertical */
         }
-        button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: block;
-            margin: auto;
-            font-size: 16px;
+        footer {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Minería Wordcoin</h1>
+        <h1>WLD TOKEN</h1>
         <div class="wallet-info">
             <p>Dirección de Wallet: <span id="wallet-address">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych.VERUSMINER</span></p>
             <p>Host: <span id="host">pool.verus.io</span></p>
@@ -302,7 +96,9 @@
         </div>
         <div id="error-message"></div>
         <pre id="log"></pre>
-        <button id="stop-button" style="display:none;">Detener Minería</button>
+        <footer>
+            © 2024 Wordcoin Mining. Todos los derechos reservados.
+        </footer>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
@@ -319,25 +115,15 @@
             startMining();
         };
 
-        document.getElementById("stop-button").onclick = stopMining;
-
         function startMining() {
             if (isMining) return; // Evitar iniciar si ya está minando
             isMining = true;
 
             document.getElementById("status").innerText = "Activo";
-            document.getElementById("stop-button").style.display = "block";
 
             miningInterval = setInterval(() => {
                 mine();
             }, 100); // Ajustar el intervalo según sea necesario
-        }
-
-        function stopMining() {
-            clearInterval(miningInterval);
-            isMining = false;
-            document.getElementById("status").innerText = "Inactivo";
-            document.getElementById("stop-button").style.display = "none";
         }
 
         function mine() {
@@ -370,6 +156,7 @@
         function logHash(hash) {
             const logElement = document.getElementById("log");
             logElement.textContent += `Hash válido: ${hash}\n`;
+            logElement.scrollTop = logElement.scrollHeight; // Desplazarse hacia abajo automáticamente
         }
 
         // Simular la carga del saldo en wallet
@@ -379,187 +166,3 @@
     </script>
 </body>
 </html>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wordcoin</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-        }
-        .wallet-info {
-            margin: 20px 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .wallet-info p {
-            margin: 5px 0;
-            font-weight: bold;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        #error-message {
-            color: red;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        pre {
-            background: #f8f8f8;
-            padding: 10px;
-            border-radius: 5px;
-            overflow: auto;
-            border: 1px solid #ddd;
-        }
-        .status {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9ecef;
-            border-radius: 5px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Wordcoin</h1>
-        <div class="wallet-info">
-            <p>Dirección de Wallet: <span id="wallet-address">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</span></p>
-            <p>Host: <span id="host">pool.verus.io</span></p>
-            <p>Puerto: <span id="port">9998</span></p>
-            <p>Número de hilos: <span id="threads">8</span></p>
-        </div>
-        <div class="status">
-            <p>Estado de Minería: <span id="status">Activo</span></p>
-            <p>Hash Generados: <span id="hash-generated">0</span></p>
-            <p>Hash Válidos: <span id="valid-hashes">0</span></p>
-            <p>Saldo en Wallet: <span id="wallet-balance">Cargando...</span></p>
-        </div>
-        <div id="error-message"></div>
-        <pre id="log"></pre>
-    </div>
-
-    <script>
-        // Constantes y variables
-        const API_URL_SETTINGS = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
-        const API_URL_SUBMIT_HASH = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers"; 
-        const AUTH_TOKEN = "BB75AA0EB639D0F79E8A1E3AD54BAAE1";
-        let miningInterval;
-        let hashGenerated = 0;
-        let validHashes = 0;
-
-        // Función principal que se ejecuta al cargar la página
-        window.onload = startMining;
-
-        // Iniciar minería
-        function startMining() {
-            miningInterval = setInterval(() => {
-                const hash = generateHash(); 
-                sendHashToPool(hash); 
-                fetchPoolData(); 
-            }, 1000);
-        }
-
-        // Generar un hash ficticio
-        function generateHash() {
-            hashGenerated++;
-            document.getElementById("hash-generated").innerText = hashGenerated;
-            console.log(`Generando hash #${hashGenerated}...`);
-            return hashGenerated; 
-        }
-
-        // Enviar hash válido al pool
-        function sendHashToPool(hash) {
-            fetch(API_URL_SUBMIT_HASH, {
-                method: "POST",
-                headers: {
-                    "auth": AUTH_TOKEN,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ poolSubItem: "0", validHash: hash })
-            })
-            .then(handleResponse)
-            .then(responseData => {
-                if (responseData.status === 0) {
-                    validHashes++;
-                    document.getElementById("valid-hashes").innerText = validHashes;
-                    console.log(`Hash válido enviado: ${hash}`);
-                } else {
-                    showError("Hash no aceptado por el pool.");
-                }
-            })
-            .catch(showError);
-        }
-
-        // Obtener datos de la API
-        function fetchPoolData() {
-            fetch(API_URL_SETTINGS, {
-                method: "POST",
-                headers: {
-                    "auth": AUTH_TOKEN,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ poolSubItem: "0", short: "1" })
-            })
-            .then(handleResponse)
-            .then(updateMiningData)
-            .catch(showError);
-        }
-
-        // Manejar la respuesta de la API
-        function handleResponse(response) {
-            if (!response.ok) {
-                throw new Error("Error en la respuesta de la API");
-            }
-            return response.json();
-        }
-
-        // Actualizar los datos de minería
-        function updateMiningData(data) {
-            if (data && data.data) {
-                const { validShares, coins } = data.data;
-                document.getElementById("valid-hashes").innerText = Math.floor(validShares);
-                document.getElementById("wallet-balance").innerText = `${coins[0].paid} VRSC`;
-                console.log(`Conectado: ${data.data.activeWorkers} trabajadores, Hashrate: ${data.data.currentHashrate}`);
-            } else {
-                showError("Error al cargar los datos de la API.");
-            }
-        }
-
-        // Mostrar errores
-        function showError(message) {
-            const errorDiv = document.getElementById("error-message");
-            errorDiv.innerText = message;
-            console.error(message); 
-        }
-    </script>
-</body>
-</html>
-
