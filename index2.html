@@ -3,166 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WLD TOKEN</title>
+    <title>Minería de Wallet VRSC</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            margin: 0;
-            padding: 0;
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* Alineación superior */
-            height: 100vh;
-            overflow: hidden;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
         .container {
             width: 90%;
-            max-width: 600px;
-            background: #ffffff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
             text-align: center;
-            overflow-y: auto; /* Habilitar desplazamiento vertical */
-            max-height: 90vh; /* Altura máxima del contenedor */
         }
-        h1 {
-            color: #4CAF50;
-            margin-bottom: 20px;
-            font-size: 2em;
-            text-transform: uppercase;
-        }
-        .wallet-info, .status {
-            margin: 20px 0;
-            padding: 15px;
+        .box {
+            background-color: #1e1e1e;
+            padding: 20px;
             border-radius: 10px;
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            transition: background-color 0.3s;
+            margin-bottom: 20px;
         }
-        .wallet-info:hover, .status:hover {
-            background-color: #e0e0e0;
-        }
-        .wallet-info p, .status p {
-            margin: 10px 0;
-            font-weight: bold;
-            color: #444;
-        }
-        #wallet-address {
-            display: none; /* Ocultar la dirección de la wallet */
-        }
-        #error-message {
-            color: red;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        pre {
-            background: #2c2c2c;
-            padding: 10px;
+        .button {
+            background-color: #4cafab;
+            color: white;
+            padding: 10px 20px;
+            border: none;
             border-radius: 5px;
-            overflow: auto;
-            border: 1px solid #555;
-            color: #eee;
-            text-align: left; /* Alinear texto a la izquierda */
-            white-space: pre-wrap; /* Mantener saltos de línea */
-            word-wrap: break-word; /* Permitir el ajuste de palabras */
-            max-height: 200px; /* Altura máxima para el registro */
-            overflow-y: auto; /* Habilitar desplazamiento vertical */
+            cursor: pointer;
+            font-size: 16px;
         }
-        footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #888;
+        .hash-text {
+            word-wrap: break-word;
+            font-size: 12px;
+            color: #a1a1a1;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>WLD TOKEN</h1>
-        <div class="wallet-info">
-            <p>Dirección de Wallet: <span id="wallet-address">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych.VERUSMINER</span></p>
-            <p>Host: <span id="host">pool.verus.io</span></p>
-            <p>Puerto: <span id="port">9998</span></p>
-            <p>Número de hilos: <span id="threads">8</span></p>
+        <div class="box">
+            <h2>Minería de Wallet VRSC</h2>
+            <p>Wallet: RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</p>
         </div>
-        <div class="status">
-            <p>Estado de Minería: <span id="status">Inactivo</span></p>
-            <p>Hash Generados: <span id="hash-generated">0</span></p>
-            <p>Hash Válidos: <span id="valid-hashes">0</span></p>
-            <p>Dificultad: <span id="difficulty">1</span></p>
-            <p>Saldo en Wallet: <span id="wallet-balance">Cargando...</span></p>
+        <div class="box">
+            <h3>Estado de la Red</h3>
+            <p>Conexiones a la Red: 99</p>
+            <p>Dificultad: 22</p>
+            <p>Supply de la Moneda (VRSC): 58132.16</p>
+            <p>Balance de la Wallet: 5.16 VRSC</p>
         </div>
-        <div id="error-message"></div>
-        <pre id="log"></pre>
-        <footer>
-            © 2024 Wordcoin Mining. Todos los derechos reservados.
-        </footer>
+        <div class="box">
+            <h3>Minería</h3>
+            <p id="hash-result" class="hash-text"></p>
+        </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
-        let miningInterval;
-        let hashGenerated = 0;
-        let validHashes = 0;
-        let difficulty = 1;
-        const targetHashRate = 100; // Hash rate objetivo para ajustar dificultad
-        let isMining = false;
-
-        // Iniciar minería automáticamente al cargar la página
-        window.onload = function() {
-            startMining();
-        };
-
+        // Función para simular el proceso de minería
         function startMining() {
-            if (isMining) return; // Evitar iniciar si ya está minando
-            isMining = true;
+            const hashResult = document.getElementById("hash-result");
 
-            document.getElementById("status").innerText = "Activo";
+            // Genera un nonce y un hash aleatorio simulado
+            const nonce = Math.floor(Math.random() * 1000000);
+            const hash = cryptoRandomHash(nonce);
 
-            miningInterval = setInterval(() => {
-                mine();
-            }, 100); // Ajustar el intervalo según sea necesario
+            // Muestra el resultado en pantalla
+            hashResult.textContent = `Hash válido encontrado:\n${hash}\ncon nonce: ${nonce}`;
+
+            // Llama a la función nuevamente después de un retraso
+            setTimeout(startMining, 2000); // 2 segundos de espera antes de intentar otro hash
         }
 
-        function mine() {
-            const data = `mining-data-${hashGenerated}-${new Date().getTime()}`;
-            const hash = CryptoJS.SHA256(data).toString();
-
-            hashGenerated++;
-            document.getElementById("hash-generated").innerText = hashGenerated;
-
-            // Validación de hash simulada
-            const isValid = Math.random() < (1 / difficulty); // Validación basada en dificultad
-            if (isValid) {
-                validHashes++;
-                document.getElementById("valid-hashes").innerText = validHashes;
-                logHash(hash);
-                adjustDifficulty();
-            }
+        // Función para generar un hash aleatorio simulado
+        function cryptoRandomHash(nonce) {
+            return Array(64).fill(0).map(() => Math.floor(Math.random() * 16).toString(16)).join('');
         }
 
-        function adjustDifficulty() {
-            if (validHashes >= targetHashRate) {
-                difficulty++;
-                validHashes = 0; // Reiniciar el contador de hashes válidos
-            } else if (difficulty > 1) {
-                difficulty = Math.max(1, difficulty - 1); // No permitir que la dificultad sea menor que 1
-            }
-            document.getElementById("difficulty").innerText = difficulty;
-        }
-
-        function logHash(hash) {
-            const logElement = document.getElementById("log");
-            logElement.textContent += `Hash válido: ${hash}\n`;
-            logElement.scrollTop = logElement.scrollHeight; // Desplazarse hacia abajo automáticamente
-        }
-
-        // Simular la carga del saldo en wallet
-        setTimeout(() => {
-            document.getElementById("wallet-balance").innerText = "10 VRSC"; // Simulación de saldo
-        }, 2000);
+        // Inicia la minería automática
+        startMining();
     </script>
 </body>
 </html>
