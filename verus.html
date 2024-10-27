@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minería Automática de Verus Coin</title>
+    <style>
+        body {
+            background-color: #121212; /* Color de fondo oscuro */
+            color: #00ff00; /* Color de texto neón */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            color: #4CAF50; /* Color de encabezado */
+        }
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #00ff00; /* Borde neón */
+            background-color: #1a1a1a; /* Fondo del estado de minería */
+        }
+        button {
+            background-color: #00ff00; /* Color de botón */
+            color: #121212; /* Texto del botón */
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #00cc00; /* Color de botón al pasar el ratón */
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: calc(100% - 22px); /* Ajustar el ancho */
+        }
+    </style>
+</head>
+<body>
+    <h1>Minería Automática de Verus Coin</h1>
+    <div>
+        <label for="wallet">Dirección de la Billetera:</label>
+        <input type="text" id="wallet" value="RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych" placeholder="Ingrese su dirección de billetera">
+    </div>
+    <div>
+        <label for="pool">URL del Pool:</label>
+        <input type="text" id="pool" value="stratum+tcp://pool.verus.io:9998">
+    </div>
+    <button id="start-mining">Iniciar Minería</button>
+    <button id="get-balance">Obtener Saldo</button>
+    
+    <div id="status">
+        <h2>Estado de la Minería</h2>
+        <p id="mining-status">Minería no iniciada.</p>
+        <p>Hash Rate: <span id="hash-rate">0 H/s</span></p>
+        <p>Saldo del Pool: <span id="pool-balance">0 VRSC</span></p>
+    </div>
+
+    <script>
+        const startMiningButton = document.getElementById('start-mining');
+        const getBalanceButton = document.getElementById('get-balance');
+        const miningStatus = document.getElementById('mining-status');
+        const hashRateDisplay = document.getElementById('hash-rate');
+        const poolBalanceDisplay = document.getElementById('pool-balance');
+
+        // Función para iniciar la minería
+        const startMining = async () => {
+            const wallet = document.getElementById('wallet').value;
+            const pool = document.getElementById('pool').value;
+
+            miningStatus.textContent = "Minería iniciada...";
+            hashRateDisplay.textContent = "Calculando...";
+
+            // Simulando el proceso de minería con 8 hilos
+            let totalHashRate = 0;
+            const threadCount = 8; // Máximo 8 hilos
+            const hashRates = new Array(threadCount).fill(0); // Array para almacenar hash rates
+
+            for (let i = 0; i < threadCount; i++) {
+                setInterval(() => {
+                    const simulatedHashRate = (Math.random() * 12.5).toFixed(2); // Aumentando el valor promedio por hilo
+                    hashRates[i] = parseFloat(simulatedHashRate); // Guardar el hash rate del hilo actual
+                    totalHashRate = hashRates.reduce((a, b) => a + b, 0); // Sumar los hash rates
+                    hashRateDisplay.textContent = `${totalHashRate.toFixed(2)} H/s`;
+                }, 1000);
+            }
+        };
+
+        startMiningButton.addEventListener('click', startMining);
+
+        // Iniciar minería automáticamente al cargar la página
+        window.onload = () => {
+            document.getElementById('wallet').value = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
+            document.getElementById('pool').value = 'stratum+tcp://pool.verus.io:9998';
+            startMining();
+        };
+
+        // Función para obtener el saldo real de la wallet
+        getBalanceButton.addEventListener('click', async () => {
+            const wallet = document.getElementById('wallet').value;
+
+            const url = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
+            const headers = {
+                "If-None-Match": "W/\"1fd-9E5x1iDFsG8DZk6m0A7Qh+UtvE4\"",
+                "auth": "BB75AA0EB639D0F79E8A1E3AD54BAAE1",
+                "Content-Type": "application/json; charset=utf-8",
+                "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)",
+                "Accept-Encoding": "gzip",
+                "Connection": "Keep-Alive"
+            };
+            const body = JSON.stringify({"poolSubItem":"0","short":"1"});
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: body
+                });
+                const data = await response.json();
+                if (data.status === 0) {
+                    const balance = data.data.coins[0].unpaid; // Saldo no pagado
+                    poolBalanceDisplay.textContent = `${balance} VRSC`;
+                } else {
+                    alert("Error al obtener los datos de la API");
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al conectar con la API');
+            }
+        });
+
+        // Manejo de cierre de la pestaña
+        window.addEventListener('beforeunload', function() {
+            // Aquí puedes añadir cualquier lógica de limpieza si es necesario
+        });
+    </script>
+</body>
+</html>
