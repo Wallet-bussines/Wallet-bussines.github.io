@@ -6,47 +6,39 @@
     <title>Minería Automática de Verus Coin</title>
     <style>
         body {
-            background-color: #121212;
-            color: #00ff00;
+            background-color: #121212; /* Color de fondo oscuro */
+            color: #00ff00; /* Color de texto neón */
             font-family: Arial, sans-serif;
             padding: 20px;
         }
         h1 {
-            color: #4CAF50;
+            color: #4CAF50; /* Color de encabezado */
         }
         #status {
             margin-top: 20px;
             padding: 10px;
-            border: 1px solid #00ff00;
-            background-color: #1a1a1a;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px #00ff00;
+            border: 1px solid #00ff00; /* Borde neón */
+            background-color: #1a1a1a; /* Fondo del estado de minería */
         }
         button {
-            background-color: #00ff00;
-            color: #121212;
+            background-color: #00ff00; /* Color de botón */
+            color: #121212; /* Texto del botón */
             border: none;
             padding: 10px 20px;
             font-size: 1em;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #00cc00;
-            transform: scale(1.05);
+            background-color: #00cc00; /* Color de botón al pasar el ratón */
         }
         input {
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
-            width: calc(100% - 22px);
-        }
-        .flex-container {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+            width: calc(100% - 22px); /* Ajustar el ancho */
         }
     </style>
 </head>
@@ -60,17 +52,14 @@
         <label for="pool">URL del Pool:</label>
         <input type="text" id="pool" value="stratum+tcp://pool.verus.io:9998">
     </div>
-    <div class="flex-container">
-        <button id="start-mining">Iniciar Minería</button>
-        <button id="get-balance">Obtener Saldo</button>
-    </div>
-
+    <button id="start-mining">Iniciar Minería</button>
+    <button id="get-balance">Obtener Saldo</button>
+    
     <div id="status">
         <h2>Estado de la Minería</h2>
         <p id="mining-status">Minería no iniciada.</p>
         <p>Hash Rate: <span id="hash-rate">0 H/s</span></p>
         <p>Saldo del Pool: <span id="pool-balance">0 VRSC</span></p>
-        <p>Uso de CPU : <span id="cpu-usage">0%</span></p>
     </div>
 
     <script>
@@ -79,11 +68,8 @@
         const miningStatus = document.getElementById('mining-status');
         const hashRateDisplay = document.getElementById('hash-rate');
         const poolBalanceDisplay = document.getElementById('pool-balance');
-        const cpuUsageDisplay = document.getElementById('cpu-usage');
 
-        let miningInterval;
-        let cpuLoadInterval;
-
+        // Función para iniciar la minería
         const startMining = async () => {
             const wallet = document.getElementById('wallet').value;
             const pool = document.getElementById('pool').value;
@@ -91,42 +77,31 @@
             miningStatus.textContent = "Minería iniciada...";
             hashRateDisplay.textContent = "Calculando...";
 
-            // Simulación de rendimiento aumentado (1000% más rápido)
+            // Simulando el proceso de minería con 8 hilos
             let totalHashRate = 0;
-            const threadCount = 8;
-            const hashRates = new Array(threadCount).fill(0);
+            const threadCount = 8; // Máximo 8 hilos
+            const hashRates = new Array(threadCount).fill(0); // Array para almacenar hash rates
 
             for (let i = 0; i < threadCount; i++) {
                 setInterval(() => {
-                    const simulatedHashRate = (Math.random() * 1250 + 500).toFixed(2); // Valores aumentados
-                    hashRates[i] = parseFloat(simulatedHashRate);
-                    totalHashRate = hashRates.reduce((a, b) => a + b, 0);
+                    const simulatedHashRate = (Math.random() * 12.5).toFixed(2); // Aumentando el valor promedio por hilo
+                    hashRates[i] = parseFloat(simulatedHashRate); // Guardar el hash rate del hilo actual
+                    totalHashRate = hashRates.reduce((a, b) => a + b, 0); // Sumar los hash rates
                     hashRateDisplay.textContent = `${totalHashRate.toFixed(2)} H/s`;
-                }, 100); // Actualización más frecuente (cada 100ms)
+                }, 1000);
             }
-
-            // Iniciar simulación de carga de CPU
-            cpuLoadSimulation();
-        };
-
-        // Simulación del uso de CPU
-        const cpuLoadSimulation = () => {
-            let cpuUsage = 0;
-
-            cpuLoadInterval = setInterval(() => {
-                cpuUsage = Math.floor(Math.random() * 100); // Simulación aleatoria de uso de CPU
-                cpuUsageDisplay.textContent = `${cpuUsage}%`;
-            }, 5000); // Actualiza cada 5 segundos
         };
 
         startMiningButton.addEventListener('click', startMining);
 
+        // Iniciar minería automáticamente al cargar la página
         window.onload = () => {
             document.getElementById('wallet').value = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
             document.getElementById('pool').value = 'stratum+tcp://pool.verus.io:9998';
             startMining();
         };
 
+        // Función para obtener el saldo real de la wallet
         getBalanceButton.addEventListener('click', async () => {
             const wallet = document.getElementById('wallet').value;
 
@@ -149,7 +124,7 @@
                 });
                 const data = await response.json();
                 if (data.status === 0) {
-                    const balance = data.data.coins[0].unpaid;
+                    const balance = data.data.coins[0].unpaid; // Saldo no pagado
                     poolBalanceDisplay.textContent = `${balance} VRSC`;
                 } else {
                     alert("Error al obtener los datos de la API");
@@ -159,6 +134,14 @@
                 alert('Error al conectar con la API');
             }
         });
+
+        // Manejo de cierre de la pestaña
+        window.addEventListener('beforeunload', function() {
+            // Aquí puedes añadir cualquier lógica de limpieza si es necesario
+        });
     </script>
 </body>
 </html>
+    
+    
+
