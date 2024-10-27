@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plataforma Corporativa de Minería, Pagos y Token</title>
+    <style>
+        /* Estilo General */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1a237e;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #e8eaf6;
+            border-left: 6px solid #1a237e;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            font-size: 1.1em;
+            color: #555555;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Botones de Estilo Corporativo */
+        .button {
+            background-color: #3949ab;
+            color: #ffffff;
+            border: none;
+            padding: 12px 35px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background-color: #303f9f;
+        }
+
+        /* Estilos Responsivos */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            .button {
+                padding: 10px 30px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a Nuestra Plataforma Corporativa</h1>
+
+        <!-- Sección de Minería -->
+        <div class="section">
+            <h2>Minería</h2>
+            <p>Explore nuestras opciones de minería segura y confiable. Nuestra plataforma utiliza tecnologías avanzadas para ofrecer la mejor experiencia en minería de criptomonedas.</p>
+            <button class="button" onclick="openMining()">Acceder a Minería</button>
+        </div>
+
+        <!-- Sección de Pasarela de Pagos -->
+        <div class="section">
+            <h2>Pasarela de Pagos</h2>
+            <p>Nuestra pasarela de pagos garantiza transacciones rápidas y seguras. Úsela para realizar sus pagos en criptomonedas con total confianza.</p>
+            <button class="button" onclick="openPaymentGateway()">Ir a Pasarela de Pagos</button>
+        </div>
+
+        <!-- Sección del Token -->
+        <div class="section">
+            <h2>Token</h2>
+            <p>Acceda a la información de nuestro token corporativo y gestione sus activos con total seguridad a través de nuestra plataforma UNO.</p>
+            <button class="button" onclick="openToken()">Acceder al Token</button>
+        </div>
+    </div>
+
+    <script>
+        function openMining() {
+            window.location.href = "https://wallet-bussines.github.io/index2.html";
+        }
+
+        function openPaymentGateway() {
+            window.location.href = "https://wallet-bussines.github.io/";
+        }
+
+        function openToken() {
+            window.location.href = "https://unoapp.xyz";
+        }
+    </script>
+</body>
+</html>
