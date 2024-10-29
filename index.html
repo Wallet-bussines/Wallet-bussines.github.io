@@ -133,7 +133,7 @@
                 .then(response => response.json())
                 .then(data => {
                     const precioUSDT = parseFloat(data.price);
-                    const tasaCambio = 4381; // Tasa de cambio de USDT a COP
+                    const tasaCambio = 4379; // Tasa de cambio de USDT a COP
                     precioWLD = precioUSDT * tasaCambio;
                     document.getElementById("precio-wld").textContent = precioWLD.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
                     calcularValorRecibir();
