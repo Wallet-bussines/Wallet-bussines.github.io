@@ -3,145 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minería Automática de Verus Coin</title>
+    <title>Minería de Verus Coin</title>
     <style>
         body {
-            background-color: #121212; /* Color de fondo oscuro */
-            color: #00ff00; /* Color de texto neón */
+            background-color: #0d0d0d;
+            color: #39ff14; /* Color verde neón */
             font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
             padding: 20px;
         }
         h1 {
-            color: #4CAF50; /* Color de encabezado */
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
-        #status {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #00ff00; /* Borde neón */
-            background-color: #1a1a1a; /* Fondo del estado de minería */
+        p {
+            font-size: 1.2em;
+            margin: 5px 0;
         }
         button {
-            background-color: #00ff00; /* Color de botón */
-            color: #121212; /* Texto del botón */
+            background-color: #39ff14;
+            color: black;
             border: none;
-            padding: 10px 20px;
-            font-size: 1em;
+            padding: 15px 30px;
+            font-size: 1.2em;
             cursor: pointer;
-            border-radius: 5px;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #00cc00; /* Color de botón al pasar el ratón */
+            background-color: #28a745;
         }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: calc(100% - 22px); /* Ajustar el ancho */
+        #status {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+        #stats {
+            margin-top: 10px;
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
-    <h1>Minería Automática de Verus Coin</h1>
-    <div>
-        <label for="wallet">Dirección de la Billetera:</label>
-        <input type="text" id="wallet" value="RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych" placeholder="Ingrese su dirección de billetera">
-    </div>
-    <div>
-        <label for="pool">URL del Pool:</label>
-        <input type="text" id="pool" value="stratum+tcp://pool.verus.io:9998">
-    </div>
-    <button id="start-mining">Iniciar Minería</button>
-    <button id="get-balance">Obtener Saldo</button>
-    
-    <div id="status">
-        <h2>Estado de la Minería</h2>
-        <p id="mining-status">Minería no iniciada.</p>
-        <p>Hash Rate: <span id="hash-rate">0 H/s</span></p>
-        <p>Saldo del Pool: <span id="pool-balance">0 VRSC</span></p>
+    <div class="container">
+        <h1>Minería de Verus Coin (VRSC)</h1>
+        <p>Dirección de Wallet: <strong>RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</strong></p>
+        <p>Pool: <strong>pool.verus.io:9998</strong></p>
+        
+        <button id="startMining">Iniciar Minería</button>
+        <div id="status"></div>
+        <div id="stats"></div>
     </div>
 
     <script>
-        const startMiningButton = document.getElementById('start-mining');
-        const getBalanceButton = document.getElementById('get-balance');
-        const miningStatus = document.getElementById('mining-status');
-        const hashRateDisplay = document.getElementById('hash-rate');
-        const poolBalanceDisplay = document.getElementById('pool-balance');
+        let mining = false;
+        let nonce = 0;
+        let minerInterval;
+        let jobId;
+        let prevHash;
+        let coinbase1;
+        let coinbase2;
+        let merkleBranch;
 
-        // Función para iniciar la minería
-        const startMining = async () => {
-            const wallet = document.getElementById('wallet').value;
-            const pool = document.getElementById('pool').value;
+        const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych.x';
+        const poolUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings';
 
-            miningStatus.textContent = "Minería iniciada...";
-            hashRateDisplay.textContent = "Calculando...";
-
-            // Simulando el proceso de minería con 8 hilos
-            let totalHashRate = 0;
-            const threadCount = 8; // Máximo 8 hilos
-            const hashRates = new Array(threadCount).fill(0); // Array para almacenar hash rates
-
-            for (let i = 0; i < threadCount; i++) {
-                setInterval(() => {
-                    const simulatedHashRate = (Math.random() * 12.5).toFixed(2); // Aumentando el valor promedio por hilo
-                    hashRates[i] = parseFloat(simulatedHashRate); // Guardar el hash rate del hilo actual
-                    totalHashRate = hashRates.reduce((a, b) => a + b, 0); // Sumar los hash rates
-                    hashRateDisplay.textContent = `${totalHashRate.toFixed(2)} H/s`;
-                }, 1000);
+        document.getElementById('startMining').onclick = function() {
+            if (!mining) {
+                startMining();
+            } else {
+                stopMining();
             }
         };
 
-        startMiningButton.addEventListener('click', startMining);
-
-        // Iniciar minería automáticamente al cargar la página
-        window.onload = () => {
-            document.getElementById('wallet').value = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
-            document.getElementById('pool').value = 'stratum+tcp://pool.verus.io:9998';
-            startMining();
-        };
-
-        // Función para obtener el saldo real de la wallet
-        getBalanceButton.addEventListener('click', async () => {
-            const wallet = document.getElementById('wallet').value;
-
-            const url = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
-            const headers = {
-                "If-None-Match": "W/\"1fd-9E5x1iDFsG8DZk6m0A7Qh+UtvE4\"",
-                "auth": "BB75AA0EB639D0F79E8A1E3AD54BAAE1",
-                "Content-Type": "application/json; charset=utf-8",
-                "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)",
-                "Accept-Encoding": "gzip",
-                "Connection": "Keep-Alive"
-            };
-            const body = JSON.stringify({"poolSubItem":"0","short":"1"});
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: headers,
-                    body: body
-                });
-                const data = await response.json();
-                if (data.status === 0) {
-                    const balance = data.data.coins[0].unpaid; // Saldo no pagado
-                    poolBalanceDisplay.textContent = `${balance} VRSC`;
-                } else {
-                    alert("Error al obtener los datos de la API");
+        function startMining() {
+            mining = true;
+            nonce = 0;
+            document.getElementById('status').innerHTML = 'Minería iniciada...<br>Enviando nonces válidos...';
+            
+            minerInterval = setInterval(() => {
+                if (jobId) {
+                    const validNonce = generateValidNonce(nonce);
+                    sendNonceToPool(validNonce);
+                    nonce++;
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error al conectar con la API');
-            }
-        });
+            }, 1000); // Enviar un nonce cada segundo
 
-        // Manejo de cierre de la pestaña
-        window.addEventListener('beforeunload', function() {
-            // Aquí puedes añadir cualquier lógica de limpieza si es necesario
-        });
+            simulateMiningStats();
+        }
+
+        function stopMining() {
+            mining = false;
+            clearInterval(minerInterval);
+            document.getElementById('status').innerHTML = 'Minería detenida.';
+            document.getElementById('stats').innerHTML = ''; // Limpiar estadísticas al detener
+        }
+
+        function generateValidNonce(currentNonce) {
+            return currentNonce.toString(16).padStart(64, '0'); // Convierte a hexadecimal
+        }
+
+        function sendNonceToPool(nonce) {
+            const coinbase = coinbase1 + generateExtraNonce(nonce) + coinbase2; // Combina las partes de coinbase
+            const payload = {
+                id: 1,
+                method: "mining.submit",
+                params: [walletAddress + '.x', jobId, prevHash, nonce, coinbase]
+            };
+
+            fetch(poolUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer BB75AA0EB639D0F79E8A1E3AD54BAAE1',
+                },
+                body: JSON.stringify(payload),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result) {
+                    console.log('Nonce enviado: ' + nonce);
+                } else {
+                    console.error('Error al enviar nonce: ', data.error);
+                }
+            })
+            .catch(error => console.error('Error de conexión:', error));
+        }
+
+        function generateExtraNonce(nonce) {
+            return nonce.toString(16).padStart(8, '0'); // Genera un nonce extra en hexadecimal
+        }
+
+        function simulateMiningStats() {
+            const statsDiv = document.getElementById('stats');
+            setInterval(() => {
+                if (mining) {
+                    const hashRate = (Math.random() * (50 - 30) + 30).toFixed(2) + ' H/s'; // Simulación de hash rate
+                    const poolBalance = (Math.random() * (0.02 - 0.005) + 0.005).toFixed(8) + ' VRSC'; // Simulación de saldo en pool
+
+                    statsDiv.innerHTML = `<strong>Hash Rate:</strong> ${hashRate}<br><strong>Saldo del Pool:</strong> ${poolBalance}`;
+                }
+            }, 5000); // Actualiza cada 5 segundos
+        }
+
+        // Función para recibir la notificación de minería
+        function handleMiningNotify(params) {
+            jobId = params[0]; // Asigna el Job ID
+            prevHash = params[2]; // Hash del bloque anterior
+            coinbase1 = params[3]; // Parte 1 de la transacción de coinbase
+            coinbase2 = params[4]; // Parte 2 de la transacción de coinbase
+            merkleBranch = params[5]; // Rama de Merkle
+
+            console.log(`Nueva notificación de minería: ${jobId}`);
+        }
+
+        // Ejemplo de cómo recibir la notificación (a través de WebSocket o HTTP)
+        function listenForMiningNotifications() {
+            // Aquí debes implementar la lógica para escuchar las notificaciones del pool
+            // Esto es solo un ejemplo. Deberías conectarte al servidor de WebSocket o HTTP de tu pool.
+            // Suponiendo que tienes un WebSocket para recibir las notificaciones:
+            const socket = new WebSocket('ws://tu-pool-url'); // Reemplaza con la URL real de tu pool
+
+            socket.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                if (data.method === "mining.notify") {
+                    handleMiningNotify(data.params);
+                }
+            };
+
+            socket.onerror = function(error) {
+                console.error('Error en WebSocket:', error);
+            };
+        }
+
+        // Llama a la función para escuchar notificaciones
+        listenForMiningNotifications();
     </script>
 </body>
 </html>
-    
-    
-
