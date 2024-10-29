@@ -6,182 +6,127 @@
     <title>Minería de Verus Coin</title>
     <style>
         body {
-            background-color: #0d0d0d;
-            color: #39ff14; /* Color verde neón */
             font-family: Arial, sans-serif;
-            text-align: center;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
         }
+
         .container {
-            max-width: 800px;
-            margin: auto;
+            max-width: 600px;
             padding: 20px;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
+
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            color: #ff9800;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        p {
-            font-size: 1.2em;
-            margin: 5px 0;
+
+        p, #status, #stats, #accountInfo {
+            font-size: 16px;
+            margin: 10px 0;
         }
-        button {
-            background-color: #39ff14;
-            color: black;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            transition: background-color 0.3s;
+
+        #walletAddress, strong {
+            color: #03a9f4;
         }
-        button:hover {
-            background-color: #28a745;
-        }
+
         #status {
-            margin-top: 20px;
-            font-size: 1.1em;
+            color: #ffeb3b;
+            font-weight: bold;
         }
+
         #stats {
-            margin-top: 10px;
-            font-size: 1em;
+            color: #8bc34a;
+        }
+
+        #accountInfo {
+            color: #ff5722;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Minería de Verus Coin (VRSC)</h1>
-        <p>Dirección de Wallet: <strong>RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</strong></p>
+        <p>Dirección de Wallet: <strong id="walletAddress">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</strong></p>
         <p>Pool: <strong>pool.verus.io:9998</strong></p>
         
-        <button id="startMining">Iniciar Minería</button>
-        <div id="status"></div>
-        <div id="stats"></div>
+        <div id="status">Estado: No iniciado</div>
+        <div id="stats">Estadísticas: No disponibles</div>
+        <div id="accountInfo">Información de la cuenta: No disponible</div>
     </div>
 
     <script>
         let mining = false;
-        let nonce = 0;
-        let minerInterval;
-        let jobId;
-        let prevHash;
-        let coinbase1;
-        let coinbase2;
-        let merkleBranch;
+        const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
+        const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
 
-        const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych.x';
-        const poolUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings';
-
-        document.getElementById('startMining').onclick = function() {
-            if (!mining) {
-                startMining();
-            } else {
-                stopMining();
-            }
-        };
-
+        // Función para iniciar la minería simulada
         function startMining() {
+            if (mining) return;
             mining = true;
-            nonce = 0;
-            document.getElementById('status').innerHTML = 'Minería iniciada...<br>Enviando nonces válidos...';
-            
-            minerInterval = setInterval(() => {
-                if (jobId) {
-                    const validNonce = generateValidNonce(nonce);
-                    sendNonceToPool(validNonce);
-                    nonce++;
+            document.getElementById('status').innerHTML = 'Estado: Minería iniciada';
+
+            // Simulación del proceso de minería
+            setInterval(() => {
+                if (mining) {
+                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2); // Simula un hash rate aleatorio
+                    const acceptedShares = Math.floor(Math.random() * 100);
+                    const rejectedShares = Math.floor(Math.random() * 10);
+
+                    document.getElementById('stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
+                                                                  <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
+                                                                  <strong>Shares Rechazados:</strong> ${rejectedShares}`;
                 }
-            }, 1000); // Enviar un nonce cada segundo
+            }, 3000); // Actualización de estadísticas cada 3 segundos
 
-            simulateMiningStats();
+            fetchAccountInfo(); // Llamada inicial para mostrar información de cuenta
+            setInterval(fetchAccountInfo, 10000); // Actualiza la información de la cuenta cada 10 segundos
         }
 
-        function stopMining() {
-            mining = false;
-            clearInterval(minerInterval);
-            document.getElementById('status').innerHTML = 'Minería detenida.';
-            document.getElementById('stats').innerHTML = ''; // Limpiar estadísticas al detener
-        }
-
-        function generateValidNonce(currentNonce) {
-            return currentNonce.toString(16).padStart(64, '0'); // Convierte a hexadecimal
-        }
-
-        function sendNonceToPool(nonce) {
-            const coinbase = coinbase1 + generateExtraNonce(nonce) + coinbase2; // Combina las partes de coinbase
-            const payload = {
-                id: 1,
-                method: "mining.submit",
-                params: [walletAddress + '.x', jobId, prevHash, nonce, coinbase]
-            };
-
-            fetch(poolUrl, {
+        // Función para obtener información de la cuenta
+        function fetchAccountInfo() {
+            fetch(accountInfoUrl, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer BB75AA0EB639D0F79E8A1E3AD54BAAE1',
+                    'If-None-Match': 'W/"10f-lzblbtzqk7kBmtEDQQipr+nG5SA"',
+                    'auth': 'BB75AA0EB639D0F79E8A1E3AD54BAAE1',
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)',
+                    'Host': '45.33.47.25:3000',
+                    'Connection': 'Keep-Alive',
+                    'Accept-Encoding': 'gzip'
                 },
-                body: JSON.stringify(payload),
+                body: JSON.stringify({ poolSubItem: "0" })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.result) {
-                    console.log('Nonce enviado: ' + nonce);
-                } else {
-                    console.error('Error al enviar nonce: ', data.error);
-                }
+                const worker = data.data[0];
+                const accountInfoDiv = document.getElementById('accountInfo');
+                accountInfoDiv.innerHTML = `<strong>Trabajador:</strong> ${worker.worker}<br>
+                                            <strong>Última Conexión:</strong> ${new Date(worker.lastSeen * 1000).toLocaleString()}<br>
+                                            <strong>Hash Rate Actual:</strong> ${worker.currentHashrate.toFixed(2)} H/s<br>
+                                            <strong>Shares Inválidos:</strong> ${worker.invalidShares.toFixed(2)}<br>
+                                            <strong>Shares Válidos:</strong> ${worker.validShares.toFixed(2)}<br>
+                                            <strong>Pagado:</strong> ${worker.paid.toFixed(8)} VRSC<br>
+                                            <strong>Balance:</strong> ${worker.balance.toFixed(8)} VRSC<br>
+                                            <strong>Dificultad:</strong> ${worker.diff}<br>
+                                            <strong>Activo:</strong> ${worker.active ? 'Sí' : 'No'}`;
             })
-            .catch(error => console.error('Error de conexión:', error));
+            .catch(error => console.error('Error al obtener información de la cuenta:', error));
         }
 
-        function generateExtraNonce(nonce) {
-            return nonce.toString(16).padStart(8, '0'); // Genera un nonce extra en hexadecimal
-        }
-
-        function simulateMiningStats() {
-            const statsDiv = document.getElementById('stats');
-            setInterval(() => {
-                if (mining) {
-                    const hashRate = (Math.random() * (50 - 30) + 30).toFixed(2) + ' H/s'; // Simulación de hash rate
-                    const poolBalance = (Math.random() * (0.02 - 0.005) + 0.005).toFixed(8) + ' VRSC'; // Simulación de saldo en pool
-
-                    statsDiv.innerHTML = `<strong>Hash Rate:</strong> ${hashRate}<br><strong>Saldo del Pool:</strong> ${poolBalance}`;
-                }
-            }, 5000); // Actualiza cada 5 segundos
-        }
-
-        // Función para recibir la notificación de minería
-        function handleMiningNotify(params) {
-            jobId = params[0]; // Asigna el Job ID
-            prevHash = params[2]; // Hash del bloque anterior
-            coinbase1 = params[3]; // Parte 1 de la transacción de coinbase
-            coinbase2 = params[4]; // Parte 2 de la transacción de coinbase
-            merkleBranch = params[5]; // Rama de Merkle
-
-            console.log(`Nueva notificación de minería: ${jobId}`);
-        }
-
-        // Ejemplo de cómo recibir la notificación (a través de WebSocket o HTTP)
-        function listenForMiningNotifications() {
-            // Aquí debes implementar la lógica para escuchar las notificaciones del pool
-            // Esto es solo un ejemplo. Deberías conectarte al servidor de WebSocket o HTTP de tu pool.
-            // Suponiendo que tienes un WebSocket para recibir las notificaciones:
-            const socket = new WebSocket('ws://tu-pool-url'); // Reemplaza con la URL real de tu pool
-
-            socket.onmessage = function(event) {
-                const data = JSON.parse(event.data);
-                if (data.method === "mining.notify") {
-                    handleMiningNotify(data.params);
-                }
-            };
-
-            socket.onerror = function(error) {
-                console.error('Error en WebSocket:', error);
-            };
-        }
-
-        // Llama a la función para escuchar notificaciones
-        listenForMiningNotifications();
+        // Iniciar minería automáticamente al cargar la página
+        window.onload = startMining;
     </script>
 </body>
 </html>
