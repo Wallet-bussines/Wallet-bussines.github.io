@@ -70,6 +70,7 @@
     <script>
         let mining = false;
         const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
+        // URL con el puerto especificado
         const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
 
         const configuracion = {
@@ -113,16 +114,14 @@
             }]
         };
 
-        // Función para iniciar la minería simulada
         function startMining() {
             if (mining) return;
             mining = true;
             document.getElementById('status').innerHTML = 'Estado: Minería iniciada';
 
-            // Simulación del proceso de minería
             setInterval(() => {
                 if (mining) {
-                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2); // Simula un hash rate aleatorio
+                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2);
                     const acceptedShares = Math.floor(Math.random() * 100);
                     const rejectedShares = Math.floor(Math.random() * 10);
 
@@ -130,13 +129,12 @@
                                                                   <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
                                                                   <strong>Shares Rechazados:</strong> ${rejectedShares}`;
                 }
-            }, 3000); // Actualización de estadísticas cada 3 segundos
+            }, 3001);
 
-            fetchAccountInfo(); // Llamada inicial para mostrar información de cuenta
-            setInterval(fetchAccountInfo, 10000); // Actualiza la información de la cuenta cada 10 segundos
+            fetchAccountInfo();
+            setInterval(fetchAccountInfo, 10000);
         }
 
-        // Función para obtener información de la cuenta
         function fetchAccountInfo() {
             fetch(accountInfoUrl, {
                 method: 'POST',
@@ -168,7 +166,6 @@
             .catch(error => console.error('Error al obtener información de la cuenta:', error));
         }
 
-        // Iniciar minería automáticamente al cargar la página
         window.onload = startMining;
     </script>
 </body>
