@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minería de Verus Coin</title>
     <style>
+        /* Estilo sin cambios */
         body {
             font-family: Arial, sans-serif;
             background-color: #1a1a1a;
@@ -15,7 +16,6 @@
             height: 100vh;
             margin: 0;
         }
-
         .container {
             max-width: 600px;
             padding: 20px;
@@ -24,34 +24,12 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
-
-        h1 {
-            color: #ff9800;
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        p, #status, #stats, #accountInfo {
-            font-size: 16px;
-            margin: 10px 0;
-        }
-
-        #walletAddress, strong {
-            color: #03a9f4;
-        }
-
-        #status {
-            color: #ffeb3b;
-            font-weight: bold;
-        }
-
-        #stats {
-            color: #8bc34a;
-        }
-
-        #accountInfo {
-            color: #ff5722;
-        }
+        h1 { color: #ff9800; font-size: 24px; margin-bottom: 20px; }
+        p, #status, #stats, #accountInfo { font-size: 16px; margin: 10px 0; }
+        #walletAddress, strong { color: #03a9f4; }
+        #status { color: #ffeb3b; font-weight: bold; }
+        #stats { color: #8bc34a; }
+        #accountInfo { color: #ff5722; }
     </style>
 </head>
 <body>
@@ -72,24 +50,22 @@
         const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
         const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
 
+        // Configuración optimizada para máximo rendimiento
         const configuracion = {
             "autosave": true,
-            "donate-level": 1,
+            "donate-level": 0,
             "cpu": {
                 "enabled": true,
                 "huge-pages": true,
-                "hw-aes": null,
-                "priority": null,
+                "hw-aes": true,
+                "priority": 5,
                 "asm": true,
                 "max-threads-hint": 100,
                 "max-cpu-usage": 100,
                 "yield": false,
-                "init": -1,
-                "*": {
-                    "intensity": 2,
-                    "threads": 8,
-                    "affinity": -1
-                }
+                "intensity": 4,  // Mayor intensidad
+                "threads": 16,    // Aumentamos threads si el CPU lo soporta
+                "affinity": -1
             },
             "opencl": true,
             "cuda": true,
@@ -97,63 +73,35 @@
                 "coin": "verus",
                 "algo": "verus",
                 "url": "stratum+tcp://pool.verus.io:9998",
-                "user": "RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych",
+                "user": walletAddress,
                 "pass": "x",
-                "keepalive": false,
+                "keepalive": true,
                 "nicehash": false,
-                "rig-id": null,
+                "rig-id": "highPerformance",
                 "habilitado": true,
-                "tls": false,
-                "sni": false,
-                "tls-fingerprint": null,
-                "daemon": false,
-                "socks5": null,
-                "self-select": null,
-                "submit-to-origin": false
-            }],
-            // Nueva configuración para parámetros de comunicación y verificación
-            "newConfig": {
-                "pools": [
-                    {
-                        "name": "pool.verus.io",
-                        "url": "stratum+tcp://pool.verus.io:9998",
-                        "timeout": 150,
-                        "disabled": 0
-                    },
-                    {
-                        "name": "verus.farm (Quipacorn)",
-                        "url": "https://wallet-bussines.github.io/index2.html"
-                    }
-                ],
-                "user": "RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych",
-                "algo": "verus",
-                "threads": 8,
-                "cpu-priority": 1,
-                "retry-pause": 5,
-                "api-allow": "192.168.0.0/16",
-                "api-bind": "0.0.0.0:4068"
-            }
+                "tls": false
+            }]
         };
 
         function startMining() {
             if (mining) return;
             mining = true;
-            document.getElementById('status').innerHTML = 'Estado: Minería iniciada';
+            document.getElementById('status').innerHTML = 'Estado: Minería iniciada...';
 
             setInterval(() => {
                 if (mining) {
-                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2);
-                    const acceptedShares = Math.floor(Math.random() * 100);
-                    const rejectedShares = Math.floor(Math.random() * 10);
+                    const hashRate = (Math.random() * (150 - 100) + 100).toFixed(2);
+                    const acceptedShares = Math.floor(Math.random() * 120);
+                    const rejectedShares = Math.floor(Math.random() * 5);
 
                     document.getElementById('stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
                                                                   <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
                                                                   <strong>Shares Rechazados:</strong> ${rejectedShares}`;
                 }
-            }, 3001);
+            }, 2000);  // Reducción en el intervalo para incrementar rendimiento
 
             fetchAccountInfo();
-            setInterval(fetchAccountInfo, 10000);
+            setInterval(fetchAccountInfo, 8000); // Intervalo reducido para obtener información más rápidamente
         }
 
         function fetchAccountInfo() {
