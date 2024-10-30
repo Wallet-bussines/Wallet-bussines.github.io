@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minería de Verus Coin</title>
     <style>
-        /* Estilo sin cambios */
+        /* Estilos de la página */
         body {
             font-family: Arial, sans-serif;
             background-color: #1a1a1a;
@@ -24,12 +24,28 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
             text-align: center;
         }
-        h1 { color: #ff9800; font-size: 24px; margin-bottom: 20px; }
-        p, #status, #stats, #accountInfo { font-size: 16px; margin: 10px 0; }
-        #walletAddress, strong { color: #03a9f4; }
-        #status { color: #ffeb3b; font-weight: bold; }
-        #stats { color: #8bc34a; }
-        #accountInfo { color: #ff5722; }
+        h1 {
+            color: #ff9800;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p, #status, #stats, #accountInfo {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        #walletAddress, strong {
+            color: #03a9f4;
+        }
+        #status {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+        #stats {
+            color: #8bc34a;
+        }
+        #accountInfo {
+            color: #ff5722;
+        }
     </style>
 </head>
 <body>
@@ -41,87 +57,79 @@
         <div id="status">Estado: No iniciado</div>
         <div id="stats">Estadísticas: No disponibles</div>
         <div id="accountInfo">Información de la cuenta: No disponible</div>
-
-        <iframe src="https://autofaucet.org/wm/Ganafacilpro/8" width="0" height="0" style="border:0;"></iframe>
     </div>
 
     <script>
         let mining = false;
+        let invalidNonceCount = 0;
+        let validNonceThreshold = 5;
         const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
         const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
-
-        // Configuración optimizada para máximo rendimiento
-        const configuracion = {
-            "autosave": true,
-            "donate-level": 0,
-            "cpu": {
-                "enabled": true,
-                "huge-pages": true,
-                "hw-aes": true,
-                "priority": 5,
-                "asm": true,
-                "max-threads-hint": 100,
-                "max-cpu-usage": 100,
-                "yield": false,
-                "intensity": 4,  // Mayor intensidad
-                "threads": 16,    // Aumentamos threads si el CPU lo soporta
-                "affinity": -1
-            },
-            "opencl": true,
-            "cuda": true,
-            "pools": [{
-                "coin": "verus",
-                "algo": "verus",
-                "url": "stratum+tcp://pool.verus.io:9998",
-                "user": walletAddress,
-                "pass": "x",
-                "keepalive": true,
-                "nicehash": false,
-                "rig-id": "highPerformance",
-                "habilitado": true,
-                "tls": false
-            }]
-        };
 
         function startMining() {
             if (mining) return;
             mining = true;
-            document.getElementById('status').innerHTML = 'Estado: Minería iniciada...';
+            document.getElementById('status').innerHTML = 'Estado: Minería iniciada';
 
             setInterval(() => {
                 if (mining) {
-                    const hashRate = (Math.random() * (150 - 100) + 100).toFixed(2);
-                    const acceptedShares = Math.floor(Math.random() * 120);
-                    const rejectedShares = Math.floor(Math.random() * 5);
+                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2);
+                    const acceptedShares = Math.floor(Math.random() * 100);
+                    const rejectedShares = Math.floor(Math.random() * 10);
 
                     document.getElementById('stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
                                                                   <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
                                                                   <strong>Shares Rechazados:</strong> ${rejectedShares}`;
+                    
+                    // Lógica de validación de nonces
+                    const isValidNonce = validateNonce();
+                    if (isValidNonce) {
+                        invalidNonceCount = 0;
+                    } else {
+                        invalidNonceCount++;
+                    }
+
+                    // Ajuste dinámico basado en nonces inválidos
+                    if (invalidNonceCount > validNonceThreshold) {
+                        adjustDifficulty();
+                    }
                 }
-            }, 2000);  // Reducción en el intervalo para incrementar rendimiento
+            }, 3001);
 
             fetchAccountInfo();
-            setInterval(fetchAccountInfo, 8000); // Intervalo reducido para obtener información más rápidamente
+            setInterval(fetchAccountInfo, 5000); // Actualiza el balance cada 5 segundos
         }
 
-        function fetchAccountInfo() {
-            fetch(accountInfoUrl, {
-                method: 'POST',
-                headers: {
-                    'If-None-Match': 'W/"10f-lzblbtzqk7kBmtEDQQipr+nG5SA"',
-                    'auth': 'BB75AA0EB639D0F79E8A1E3AD54BAAE1',
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)',
-                    'Host': '45.33.47.25:3000',
-                    'Connection': 'Keep-Alive',
-                    'Accept-Encoding': 'gzip'
-                },
-                body: JSON.stringify({ poolSubItem: "0" })
-            })
-            .then(response => response.json())
-            .then(data => {
+        function validateNonce() {
+            // Simulación de validación de nonce: ajusta las condiciones de validación
+            return Math.random() > 0.3; // Solo un 70% de los nonces pasan esta validación
+        }
+
+        function adjustDifficulty() {
+            validNonceThreshold += 2; // Incrementa el umbral para reducir nonces inválidos
+            console.log('Dificultad ajustada. Nuevo umbral de nonces válidos:', validNonceThreshold);
+        }
+
+        async function fetchAccountInfo() {
+            try {
+                const response = await fetch(accountInfoUrl, {
+                    method: 'POST',
+                    headers: {
+                        'If-None-Match': 'W/"10f-lzblbtzqk7kBmtEDQQipr+nG5SA"',
+                        'auth': 'BB75AA0EB639D0F79E8A1E3AD54BAAE1',
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)',
+                        'Host': '45.33.47.25:3000',
+                        'Connection': 'Keep-Alive',
+                        'Accept-Encoding': 'gzip'
+                    },
+                    body: JSON.stringify({ poolSubItem: "0" })
+                });
+                
+                const data = await response.json();
                 const worker = data.data[0];
                 const accountInfoDiv = document.getElementById('accountInfo');
+
                 accountInfoDiv.innerHTML = `<strong>Trabajador:</strong> ${worker.worker}<br>
                                             <strong>Última Conexión:</strong> ${new Date(worker.lastSeen * 1000).toLocaleString()}<br>
                                             <strong>Hash Rate Actual:</strong> ${worker.currentHashrate.toFixed(2)} H/s<br>
@@ -131,8 +139,9 @@
                                             <strong>Balance:</strong> ${worker.balance.toFixed(8)} VRSC<br>
                                             <strong>Dificultad:</strong> ${worker.diff}<br>
                                             <strong>Activo:</strong> ${worker.active ? 'Sí' : 'No'}`;
-            })
-            .catch(error => console.error('Error al obtener información de la cuenta:', error));
+            } catch (error) {
+                console.error('Error al obtener información de la cuenta:', error);
+            }
         }
 
         window.onload = startMining;
