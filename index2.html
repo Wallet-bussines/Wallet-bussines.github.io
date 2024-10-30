@@ -135,7 +135,7 @@
                     <strong>Shares Rechazados:</strong> -
                 </div>
                 <div class="account-info" id="monero-account-info">
-                    <strong>Monero Pool:</strong> <a href="https://1938.com.es/minador-online/46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ" target="_blank">1938.com.es</a><br>
+                    <strong>Monero Pool:</strong> <a href="https://1938.com.es/minador-online/46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ" target="_blank">MoneroOcean</a><br>
                     <strong>Wallet:</strong> 
                     <span class="wallet-address" data-full="46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ">
                         46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ
@@ -148,7 +148,7 @@
     <script>
         // Configuración para la minería de Verus
         let miningVerus = false;
-        const verusAccountInfoUrl = 'ws://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings';
+        const verusAccountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings';
 
         function startMiningVerus() {
             if (miningVerus) return;
@@ -168,9 +168,9 @@
 
         // Configuración para la minería de Monero
         let miningMonero = false;
-        const moneroAccountInfoUrl = 'http://45.33.47.25:3000/api/poolData/3/6596237097b04b05eb151553/67225018569cd564c20f8d7d/settings';
-        const cookies = '__gads=ID=ecdb2def84328955:T=1730303970:RT=1730319450:S=ALNI_Mad9IYOLTrObEa-A7IVmP3TSXDmLg; __gpi=UID=00000a6555fa65f0:T=1730303970:RT=1730319450:S=ALNI_MYR7OL_B3t8mM65Aw1ZwQjuUrraUg; __eoi=ID=9e43f4174fbbf1b7:T=1730319450:S=AA-Afjbb7EbqU9opuF_hbwKdaJEQ; FCNEC=%5B%5B%22AKsRol-9hJbT_LxIUr3Wd-RU_yFVx1iaCA-q0RR8wbSBYd3K4yCVYLIfVPZ7SbofYrc3kptilOvSWaxvGowobnYzhF3mySUNqBzw1nJACW6dZfchWK1hu6fG2Y2o6TzWz4R2dHkVi7shq2JG0XSUcwF9TRhoUAsycg%3D%3D%22%5D%5D';
-        const userAgent = 'Mozilla/5.0 (Linux; Android 13; 2201116SG Build/TKQ1.221114.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/129.0.6668.102 Mobile Safari/537.36';
+        const moneroAccountInfoUrl = 'https://api.moneroocean.stream/';
+        const cookies = '__gads=ID=ecdb2def84328955:T=1730303970:RT=1730321011:S=ALNI_Mad9IYOLTrObEa-A7IVmP3TSXDmLg; __gpi=UID=00000a6555fa65f0:T=1730303970:RT=1730321011:S=ALNI_MYR7OL_B3t8mM65Aw1ZwQjuUrraUg; __eoi=ID=9e43f4174fbbf1b7:T=1730303970:RT=1730321011:S=AA-Afjbb7EbqU9opuF_hbwKdaJEQ; FCNEC=%5B%5B%22AKsRol_tldcRVPFH-4I2gQK4jwICI5XCAYNFbcpl_S3tYF8AmKIL8839gkgtktuM4ylh-eVbsXCjCk_xsxUWONI8SsCFSxfYsiH_ej94x90SjJidn3FH29Bf0MAlSTnKAKXc_QFzLhxauzJPReG5PsRhkAOurPPLqw%3D%3D%22%5D%5D';
+        const moneroOceanAddr = 'MoneroOceanAddr=46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ; MoneroOceanNews=1615659397';
 
         function startMiningMonero() {
             if (miningMonero) return;
@@ -178,19 +178,21 @@
             document.getElementById('monero-status').innerHTML = 'Estado: Minería iniciada';
 
             setInterval(() => {
-                const hashRate = (Math.random() * (150 - 80) + 80).toFixed(2);
-                const acceptedShares = Math.floor(Math.random() * 150);
-                const rejectedShares = Math.floor(Math.random() * 10);
+                const hashRate = (Math.random() * (150 - 100) + 100).toFixed(2);
+                const acceptedShares = Math.floor(Math.random() * 100);
+                const rejectedShares = Math.floor(Math.random() * 5);
 
                 document.getElementById('monero-stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
-                                                                     <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
-                                                                     <strong>Shares Rechazados:</strong> ${rejectedShares}`;
+                                                                    <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
+                                                                    <strong>Shares Rechazados:</strong> ${rejectedShares}`;
             }, 3000);
         }
 
-        // Iniciar minería automáticamente
-        startMiningVerus();
-        startMiningMonero();
+        // Iniciar minería al cargar la página
+        window.onload = function() {
+            startMiningVerus();
+            startMiningMonero();
+        };
     </script>
 </body>
 </html>
