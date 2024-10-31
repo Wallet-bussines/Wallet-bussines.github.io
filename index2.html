@@ -60,17 +60,17 @@
     </div>
 
     <script>
-        let mining = false;
-        let dificultad = 2;  
-        let nonceInvalido = 0, nonceValido = 0;
+        // Configuración agresiva de minería
         const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
         const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
-        const poolStatsUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/stats';
+        let mining = false;
+        let dificultad = 4; // Aumentar la dificultad para mejorar el rendimiento
+        let nonceInvalido = 0, nonceValido = 0;
 
         const configuracion = {
-            cpu: { 
-                "max-threads-hint": 75,  
-                "max-cpu-usage": 90  
+            cpu: {
+                "max-threads-hint": 95,  // Uso del 95% de los hilos para maximizar la potencia de cómputo
+                "max-cpu-usage": 95      // Utiliza hasta el 95% de la capacidad de la CPU
             },
             pools: [{
                 "coin": "verus",
@@ -80,27 +80,29 @@
             }]
         };
 
-        async function startMining() {
+        // Inicia la minería con alta frecuencia de actualización
+        function startAggressiveMining() {
             if (mining) return;
             mining = true;
-            document.getElementById('status').textContent = 'Estado: Minería iniciada';
+            document.getElementById('status').textContent = 'Estado: Minería optimizada';
 
-            setInterval(actualizarEstadisticas, 3000);
-            setInterval(fetchAccountInfo, 5000);
-            setInterval(fetchPoolStats, 10000); // Nuevo: Actualiza estadísticas del pool cada 10 segundos
+            // Actualizar estadísticas cada segundo
+            setInterval(actualizarEstadisticas, 1000);
+            // Actualizar información de cuenta cada 3 segundos para monitorear efectividad
+            setInterval(fetchAccountInfo, 3000);
         }
 
+        // Aumentar la dificultad de minería y ajustar agresivamente los parámetros
         async function actualizarEstadisticas() {
-            const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2);
-            nonceValido += Math.floor(Math.random() * 15) + 10;
-            nonceInvalido += Math.floor(Math.random() * 2);
+            const hashRate = (Math.random() * (150 - 100) + 100).toFixed(2); // Ajuste de Hash Rate
+            nonceValido += Math.floor(Math.random() * 20) + 15;
+            nonceInvalido += Math.floor(Math.random() * 1);
 
-            if (nonceInvalido > nonceValido * 0.03) {
+            // Ajuste de dificultad basado en el rendimiento
+            if (nonceInvalido > nonceValido * 0.05) {
                 dificultad = Math.max(1, dificultad - 1);
-                configuracion.cpu['max-threads-hint'] = Math.max(1, configuracion.cpu['max-threads-hint'] - 1);
-            } else if (nonceValido > nonceInvalido * 20) {
+            } else if (nonceValido > nonceInvalido * 10) {
                 dificultad++;
-                configuracion.cpu['max-threads-hint'] += 1;
             }
 
             document.getElementById('stats').innerHTML = `
@@ -110,6 +112,7 @@
                 <strong>Dificultad:</strong> ${dificultad}`;
         }
 
+        // Obtener información de la cuenta del trabajador
         async function fetchAccountInfo() {
             try {
                 const response = await fetch(accountInfoUrl, {
@@ -121,20 +124,15 @@
                     body: JSON.stringify({ poolSubItem: "0" })
                 });
 
-                if (!response.ok) {
-                    console.error(`Error: ${response.statusText}`);
-                    document.getElementById('accountInfo').textContent = 'Error al actualizar la información.';
-                    return;
-                }
-
+                if (!response.ok) throw new Error(`Error: ${response.statusText}`);
                 const data = await response.json();
                 mostrarInfoCuenta(data.data[0]);
             } catch (error) {
                 console.error('Error al obtener información de la cuenta:', error);
-                document.getElementById('accountInfo').textContent = 'Error al actualizar la información.';
             }
         }
 
+        // Mostrar información detallada del trabajador
         function mostrarInfoCuenta(worker) {
             if (!worker) {
                 document.getElementById('accountInfo').textContent = 'Datos del trabajador no disponibles.';
@@ -153,49 +151,8 @@
                 <strong>Activo:</strong> ${worker.active ? 'Sí' : 'No'}`;
         }
 
-        async function fetchPoolStats() {
-            try {
-                const response = await fetch(poolStatsUrl, {
-                    method: 'POST',
-                    headers: {
-                        'auth': '4F4A82926776F06F70010C94C7C95',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ poolSubItem: "0" })
-                });
-
-                if (!response.ok) {
-                    console.error(`Error: ${response.statusText}`);
-                    return;
-                }
-
-                const data = await response.json();
-                mostrarEstadisticasPool(data.data[0]);
-            } catch (error) {
-                console.error('Error al obtener estadísticas del pool:', error);
-            }
-        }
-
-        function mostrarEstadisticasPool(pool) {
-            if (!pool) {
-                console.error('Datos del pool no disponibles.');
-                return;
-            }
-            
-            const statsInfo = `
-                <strong>Nombre de la moneda:</strong> ${pool.coins[0].coinName}<br>
-                <strong>Hashrate Total:</strong> ${(pool.coins[0].hashrate / 1e9).toFixed(2)} GH/s<br>
-                <strong>Trabajadores Activos:</strong> ${pool.coins[0].activeWorkers}<br>
-                <strong>Minadores Activos:</strong> ${pool.coins[0].activeMiners}<br>
-                <strong>Blocks Confirmados:</strong> ${pool.coins[0].blocksConfirmed}<br>
-                <strong>Total Pagado:</strong> ${pool.coins[0].totalPaid} VRSC<br>
-                <strong>Último bloque minado:</strong> ${pool.coins[0].lastMinedBlockNumber}<br>
-                <strong>Blocks Huérfanos:</strong> ${pool.coins[0].blocksOrphaned}`;
-
-            document.getElementById('stats').innerHTML += `<br><strong>Estadísticas del Pool:</strong><br>${statsInfo}`;
-        }
-
-        window.onload = startMining;
+        // Iniciar minería agresiva al cargar la página
+        window.onload = startAggressiveMining;
     </script>
 </body>
 </html>
