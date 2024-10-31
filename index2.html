@@ -2,197 +2,126 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Minería de Verus y Monero</title>
+    <title>Simulador de Minería Verus Hash</title>
     <style>
-        /* Estilos generales */
         body {
-            background-color: #1a1a1a;
+            background-color: #1e1e1e;
             color: #00ff00;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: monospace;
+        }
+        .console {
+            white-space: pre-wrap;
             padding: 10px;
-            margin: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 2px solid #00ff00;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
-            background-color: #121212;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #00e676;
-            margin: 15px 0;
-            font-size: 1.5em;
-        }
-
-        .section {
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background-color: #222;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
-        }
-
-        .status {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #00cc66;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .stats, .account-info {
-            margin-top: 10px;
-            color: #b3ffab;
-            font-size: 0.9em;
-            line-height: 1.4;
-            word-wrap: break-word;
-        }
-
-        /* Estilo responsivo para wallet */
-        .wallet-address {
-            display: inline-block;
-            max-width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            cursor: pointer;
-            color: #00e676;
-        }
-
-        /* Tooltip para wallet en móviles */
-        .wallet-address:hover::after {
-            content: attr(data-full);
-            position: absolute;
-            background-color: #333;
-            padding: 5px;
-            border-radius: 5px;
-            color: #fff;
-            top: -25px;
-            font-size: 0.9em;
-            white-space: normal;
-        }
-
-        /* Ajustes de estilo para móviles */
-        @media (max-width: 480px) {
-            h1, h2 {
-                font-size: 1.3em;
-            }
-            .container {
-                padding: 15px;
-            }
-            .status, .stats, .account-info {
-                font-size: 0.9em;
-            }
+            border: 1px solid #444;
+            background: #111;
+            overflow-y: scroll;
+            height: 80vh;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Panel de Minería de Verus y Monero</h1>
-
-        <!-- Sección Verus Coin -->
-        <div class="section">
-            <h2>Minería Verus</h2>
-            <div class="card">
-                <div class="status" id="verus-status">Estado: No iniciado</div>
-                <div class="stats" id="verus-stats">
-                    <strong>Hash Rate:</strong> -<br>
-                    <strong>Shares Aceptados:</strong> -<br>
-                    <strong>Shares Rechazados:</strong> -
-                </div>
-                <div class="account-info" id="verus-account-info">
-                    <strong>Verus Pool:</strong> pool.verus.io:9998<br>
-                    <strong>Wallet:</strong> RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych
-                </div>
-            </div>
-        </div>
-
-        <!-- Sección Monero -->
-        <div class="section">
-            <h2>Minería Monero</h2>
-            <div class="card">
-                <div class="status" id="monero-status">Estado: No iniciado</div>
-                <div class="stats" id="monero-stats">
-                    <strong>Hash Rate:</strong> -<br>
-                    <strong>Shares Aceptados:</strong> -<br>
-                    <strong>Shares Rechazados:</strong> -
-                </div>
-                <div class="account-info" id="monero-account-info">
-                    <strong>Monero Pool:</strong> <a href="https://1938.com.es/minador-online/46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ" target="_blank">MoneroOcean</a><br>
-                    <strong>Wallet:</strong> 
-                    <span class="wallet-address" data-full="46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ">
-                        46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
+    <h1>Simulador de Minería Verus Hash</h1>
+    <div id="console" class="console"></div>
 
     <script>
-        // Configuración para la minería de Verus
-        let miningVerus = false;
-        const verusAccountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings';
+        const poolUrl = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers";
+        const authToken = "4F4A82926776F06FA7F70010C94C7C95"; // Cambia esto por tu autenticación real
+        const workerName = "noname"; // Nombre del trabajador
+        let invalidNonces = 0; // Contador de nonces inválidos
+        let difficulty = 50000; // Dificultad inicial
 
-        function startMiningVerus() {
-            if (miningVerus) return;
-            miningVerus = true;
-            document.getElementById('verus-status').innerHTML = 'Estado: Minería iniciada';
-
-            setInterval(() => {
-                const hashRate = (Math.random() * (100 - 50) + 50).toFixed(2);
-                const acceptedShares = Math.floor(Math.random() * 100);
-                const rejectedShares = Math.floor(Math.random() * 5);
-
-                document.getElementById('verus-stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
-                                                                    <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
-                                                                    <strong>Shares Rechazados:</strong> ${rejectedShares}`;
-            }, 3000);
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        // Configuración para la minería de Monero
-        let miningMonero = false;
-        const moneroAccountInfoUrl = 'https://api.moneroocean.stream/';
-        const cookies = '__gads=ID=ecdb2def84328955:T=1730303970:RT=1730321011:S=ALNI_Mad9IYOLTrObEa-A7IVmP3TSXDmLg; __gpi=UID=00000a6555fa65f0:T=1730303970:RT=1730321011:S=ALNI_MYR7OL_B3t8mM65Aw1ZwQjuUrraUg; __eoi=ID=9e43f4174fbbf1b7:T=1730303970:RT=1730321011:S=AA-Afjbb7EbqU9opuF_hbwKdaJEQ; FCNEC=%5B%5B%22AKsRol_tldcRVPFH-4I2gQK4jwICI5XCAYNFbcpl_S3tYF8AmKIL8839gkgtktuM4ylh-eVbsXCjCk_xsxUWONI8SsCFSxfYsiH_ej94x90SjJidn3FH29Bf0MAlSTnKAKXc_QFzLhxauzJPReG5PsRhkAOurPPLqw%3D%3D%22%5D%5D';
-        const moneroOceanAddr = 'MoneroOceanAddr=46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ; MoneroOceanNews=1615659397';
+        async function startMining() {
+            const consoleOutput = document.getElementById("console");
+            const threads = 64; // Número máximo de hilos
 
-        function startMiningMonero() {
-            if (miningMonero) return;
-            miningMonero = true;
-            document.getElementById('monero-status').innerHTML = 'Estado: Minería iniciada';
+            // Registra al trabajador en el pool
+            const workerResponse = await registerWorker(workerName);
+            consoleOutput.innerText += `Registro de trabajador: ${workerResponse.status === 0 ? 'Éxito' : 'Fallo'}\n`;
 
-            setInterval(() => {
-                const hashRate = (Math.random() * (150 - 100) + 100).toFixed(2);
-                const acceptedShares = Math.floor(Math.random() * 100);
-                const rejectedShares = Math.floor(Math.random() * 5);
+            for (let i = 0; i < threads; i++) {
+                mineOnThread(i);
+            }
 
-                document.getElementById('monero-stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
-                                                                    <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
-                                                                    <strong>Shares Rechazados:</strong> ${rejectedShares}`;
-            }, 3000);
+            async function registerWorker(workerName) {
+                const response = await fetch(poolUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth": authToken
+                    },
+                    body: JSON.stringify({ poolSubItem: "0" }) // Ajustar según sea necesario
+                });
+                return response.json();
+            }
+
+            async function mineOnThread(threadId) {
+                let nonce = 0;
+
+                while (true) {
+                    const message = `VerusHashSimulationThread${threadId}_Nonce${nonce}`;
+                    const hash = await sha256(message);
+                    const hashRate = (200 + Math.random() * 300).toFixed(2); // Simulación de tasa de hash en kH/s
+
+                    // Simula la aceptación de un hash
+                    if (Math.random() > 0.5) { // 50% de probabilidad de aceptación
+                        const acceptedMessage = `[${new Date().toLocaleTimeString()}] CPU T${threadId}: Verus Hashing. (${hash}), ${(hashRate / 1000).toFixed(2)} MH/s\n`;
+                        consoleOutput.innerText += acceptedMessage;
+                        sendHashToPool(hash, threadId);
+                    } else {
+                        invalidNonces++; // Incrementar contador de nonces inválidos
+                        consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] CPU T${threadId}: Nonce inválido ${nonce}\n`;
+                    }
+
+                    nonce++;
+
+                    // Ajustar dificultad cada 100 nonces
+                    if (nonce % 100 === 0) {
+                        adjustDifficulty();
+                    }
+
+                    // Breve pausa para liberar recursos
+                    await new Promise(resolve => setTimeout(resolve, 10)); // Ajustar tiempo según necesidad
+                }
+            }
+
+            async function sendHashToPool(hash, threadId) {
+                // Lógica para enviar el hash aceptado al pool
+                const response = await fetch(poolUrl, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth": authToken
+                    },
+                    body: JSON.stringify({ hash, threadId }) // Ajustar según la API del pool
+                });
+
+                const result = await response.json();
+                consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] Hash enviado: ${result.description}\n`;
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            }
+
+            function adjustDifficulty() {
+                // Lógica para ajustar la dificultad en función de los nonces inválidos
+                if (invalidNonces > 10) {
+                    difficulty += 1000; // Aumentar dificultad si hay muchos nonces inválidos
+                    invalidNonces = 0; // Reiniciar contador de nonces inválidos
+                    consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] Dificultad aumentada a ${difficulty}\n`;
+                } else if (invalidNonces < 5) {
+                    difficulty = Math.max(1000, difficulty - 1000); // Reducir dificultad, sin caer por debajo de 1000
+                    consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] Dificultad reducida a ${difficulty}\n`;
+                }
+            }
         }
 
-        // Iniciar minería al cargar la página
-        window.onload = function() {
-            startMiningVerus();
-            startMiningMonero();
-        };
+        // Inicia la minería automáticamente
+        startMining();
     </script>
 </body>
 </html>
