@@ -3,96 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasarela de Pagos</title>
+    <title>Pasarela de Pagos Empresarial</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
     <style>
+        /* Estilos empresariales */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #e9ecef; /* Color de fondo más claro */
+            color: #343a40; /* Color del texto */
             margin: 0;
-            padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-        }
-        h2 {
-            margin-bottom: 20px;
-            color: #4CAF50;
-        }
-        form {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
             padding: 20px;
-            width: 300px;
-            transition: transform 0.3s, box-shadow 0.3s;
         }
-        form:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
         }
-        input, select, button {
+
+        h2 {
+            font-size: 1.8em;
+            color: #007bff; /* Color azul para los encabezados */
+            margin-bottom: 20px;
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form select {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border-radius: 5px;
             border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
         }
-        input:focus, select:focus {
-            border-color: #4CAF50;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
+
+        form label {
+            text-align: left;
+            width: 100%;
+            color: #555;
             font-weight: bold;
+            margin-top: 15px;
+            display: block;
+        }
+
+        form button {
+            background-color: #007bff; /* Color azul para los botones */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            margin: 10px 5px;
+            border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
-        button:hover {
-            background-color: #45a049;
+
+        form button:hover {
+            background-color: #0056b3; /* Color más oscuro en hover */
         }
-        #qr-code {
-            margin-top: 20px;
-            display: none;
-            text-align: center;
+
+        p {
+            font-size: 1em;
+            color: #333;
         }
+
         .error {
-            color: red;
+            color: #e74c3c; /* Color rojo para errores */
+            font-weight: bold;
             font-size: 0.9em;
         }
-        .policies {
+
+        .token-table {
             margin-top: 20px;
-            display: none;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 300px;
         }
-        .toggle-button {
-            background-color: transparent;
+
+        .token-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .token-table th, .token-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .token-table th {
+            background-color: #007bff; /* Color azul para el encabezado de la tabla */
+            color: white;
+            font-weight: bold;
+        }
+
+        .sell-button {
+            background-color: #e67e22; /* Color naranja para el botón de vender */
             border: none;
-            color: #4CAF50;
+            padding: 5px 10px;
+            color: white;
             cursor: pointer;
-            text-decoration: underline;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sell-button:hover {
+            background-color: #d35400; /* Color más oscuro en hover */
+        }
+
+        #qrcode {
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <h2>Pasarela de Pagos</h2>
+<div class="container">
+    <h2>Pasarela de Pagos Empresarial</h2>
     <form id="payment-form">
         <input type="text" id="nombre" placeholder="Nombre y Apellidos" required>
         <input type="text" id="documento" placeholder="Documento de Identidad" required>
         <input type="text" id="cuenta" placeholder="Número de Cuenta" pattern="[0-9]{10,20}" required>
         
-        <!-- Wallet fija para recibir WLD -->
         <input type="text" id="wallet" value="0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" readonly>
         <label>Wallet para recibir WLD (fija)</label>
 
-        <!-- Nueva sección para que el cliente ingrese su wallet -->
         <input type="text" id="wallet-cliente" placeholder="Wallet del Cliente para enviar WLD" required>
         <label>Wallet del Cliente para enviar WLD</label>
 
@@ -103,9 +145,19 @@
             <option value="ahorro_ala_mano">Ahorro a la Mano</option>
         </select>
 
-        <label for="cantidad-wld">Cantidad de WLD a enviar:</label>
-        <input type="number" id="cantidad-wld" placeholder="Cantidad de WLD" required oninput="calcularValorRecibir()">
-        <p>Precio actual de WLD: <span id="precio-wld">Cargando...</span> COP</p>
+        <label for="token">Selecciona el Token:</label>
+        <select id="token" onchange="actualizarPrecio()">
+            <option value="WLD">WLD</option>
+            <option value="ORB">ORB</option>
+            <option value="ORO">ORO</option>
+            <option value="USDT">USDT</option>
+            <option value="ETH">ETH</option>
+            <option value="BTC">BTC</option>
+        </select>
+
+        <label for="cantidad">Cantidad a enviar:</label>
+        <input type="number" id="cantidad-wld" placeholder="Cantidad" required oninput="calcularValorRecibir()">
+        <p>Precio actual: <span id="precio-wld">Cargando...</span> COP</p>
         <p>Valor a recibir: <span id="valor-recibir">0</span> COP</p>
 
         <button type="button" onclick="iniciarVerificacion()">Verificar Identidad</button>
@@ -114,111 +166,153 @@
         <p id="error-msg" class="error"></p>
     </form>
 
-    <div id="qr-code"></div>
+    <div id="qrcode"></div> <!-- Contenedor para el código QR -->
 
-    <button class="toggle-button" onclick="togglePolicies()">Ver Políticas de Privacidad y Uso</button>
-    <div id="policies" class="policies">
-        <h3>Políticas de Privacidad</h3>
-        <p>Su privacidad es importante para nosotros. Recopilamos información personal para procesar sus pagos y mejorar nuestros servicios. No compartiremos su información con terceros sin su consentimiento.</p>
-        
-        <h3>Políticas de Uso</h3>
-        <p>El uso de nuestra pasarela de pagos implica aceptar nuestras políticas. Se prohíbe el uso de este servicio para actividades ilegales. Nos reservamos el derecho a suspender cuentas por violaciones a estas políticas.</p>
+    <div class="token-table">
+        <h3>Tokens Disponibles</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Token</th>
+                    <th>Precio (COP)</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>WLD</td>
+                    <td id="precio-wld-cop">Cargando...</td>
+                    <td><button class="sell-button" onclick="venderToken('WLD')">Vender</button></td>
+                </tr>
+                <tr>
+                    <td>ORB</td>
+                    <td id="precio-orb">Cargando...</td>
+                    <td><button class="sell-button" onclick="venderToken('ORB')">Vender</button></td>
+                </tr>
+                <tr>
+                    <td>ORO</td>
+                    <td id="precio-oro">Cargando...</td>
+                    <td><button class="sell-button" onclick="venderToken('ORO')">Vender</button></td>
+                </tr>
+                <tr>
+                    <td>USDT</td>
+                    <td id="precio-usdt">Cargando...</td>
+                    <td><button class="sell-button" onclick="venderToken('USDT')">Vender</button></td>
+                </tr>
+                <tr>
+                    <td>ETH</td>
+                    <td id="precio-eth">Cargando...</td>
+                    <td><button class="sell-button" onclick="venderToken('ETH')">Vender</button></td>
+                </tr>
+                <tr>
+                    <td>BTC</td>
+                    <td id="precio-btc">Cargando...</td>
+                    <td><button class="sell-button" onclick="venderToken('BTC')">Vender</button></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <script>
-        let precioWLD = 0;
+<script>
+    let preciosTokens = {
+        "WLD": 0,
+        "ORB": 0,
+        "ORO": 0,
+        "USDT":0,
+        "ETH": 0,
+        "BTC": 0
+    };
 
-        function obtenerPrecioWLD() {
-            fetch('https://api.binance.com/api/v3/ticker/price?symbol=WLDUSDT')
-                .then(response => response.json())
-                .then(data => {
-                    const precioUSDT = parseFloat(data.price);
-                    const tasaCambio = 4327; // Tasa de cambio de USDT a COP
-                    precioWLD = precioUSDT * tasaCambio;
-                    document.getElementById("precio-wld").textContent = precioWLD.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                    calcularValorRecibir();
-                })
-                .catch(error => {
-                    console.error('Error obteniendo precio:', error);
-                    document.getElementById("precio-wld").textContent = "Error cargando";
-                });
-        }
+    function obtenerPrecioToken(token) {
+        return fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
+            .then(response => response.json())
+            .then(data => {
+                const precio = parseFloat(data.price);
+                const tasaCambio = 4327; // Puedes ajustar esto según el tipo de cambio actual
+                const precioCOP = precio * tasaCambio;
 
-        function calcularValorRecibir() {
-            const cantidad = parseFloat(document.getElementById("cantidad-wld").value);
-            const comision = calcularComision(precioWLD);
-            if (!isNaN(cantidad) && precioWLD > 0) {
-                const valorReal = cantidad * precioWLD;
-                const descuento = valorReal * 0.18;
-                const valorRecibir = valorReal - descuento - comision;
-                document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 });
-            } else {
-                document.getElementById("valor-recibir").textContent = "0 COP";
-            }
-        }
+                preciosTokens[token] = precioCOP;
 
-        function calcularComision(precio) {
-            return precio * 0.00; // Ajusta la comisión si es necesario
-        }
+                // Actualizar el precio en la tabla
+                document.getElementById(`precio-${token.toLowerCase()}`).textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
 
-        function generarQRCode() {
-            const wallet = document.getElementById("wallet").value;
-            $('#qr-code').empty().show();
-            $('#qr-code').qrcode({
-                text: wallet,
-                width: 128,
-                height: 128
+                // Si el token seleccionado es WLD, actualiza el precio en la parte superior
+                if (token === "WLD") {
+                    document.getElementById("precio-wld").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+                }
             });
+    }
+
+    function obtenerPrecios() {
+        const tokens = Object.keys(preciosTokens);
+        tokens.forEach(token => obtenerPrecioToken(token));
+    }
+
+    function actualizarPrecio() {
+        const tokenSeleccionado = document.getElementById("token").value;
+        const precioToken = preciosTokens[tokenSeleccionado] || 0;
+        document.getElementById("precio-wld").textContent = precioToken.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+        calcularValorRecibir();
+    }
+
+    function calcularValorRecibir() {
+        const cantidad = document.getElementById("cantidad-wld").value;
+        const precioToken = preciosTokens["WLD"];
+
+        if (cantidad && precioToken) {
+            const valorEnvio = cantidad * precioToken;
+            const comision = valorEnvio * 0.19; // 0.19%
+            const totalRecibir = valorEnvio - comision;
+            document.getElementById("valor-recibir").textContent = totalRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+        } else {
+            document.getElementById("valor-recibir").textContent = "0 COP";
+        }
+    }
+
+    function iniciarVerificacion() {
+        const appID = "app_2248679d8f07eb1b7eacd922f9a26a1e";
+        const urlVerificacion = `https://worldcoin.org/mini-app?app_id=${appID}`;
+        window.open(urlVerificacion, '_blank'); // Abre la verificación de identidad en una nueva pestaña
+    }
+
+    function generarQRCode() {
+        const cantidad = document.getElementById("cantidad-wld").value;
+        const walletCliente = document.getElementById("wallet-cliente").value;
+
+        if (!cantidad || !walletCliente) {
+            document.getElementById("error-msg").textContent = "Por favor, complete todos los campos.";
+            return;
         }
 
-        function enviarWhatsApp() {
-            const nombre = document.getElementById("nombre").value;
-            const documento = document.getElementById("documento").value;
-            const cuenta = document.getElementById("cuenta").value;
-            const walletCliente = document.getElementById("wallet-cliente").value; // Nueva wallet del cliente
-            const metodo = document.getElementById("metodo").value;
-            const cantidadWLD = document.getElementById("cantidad-wld").value;
-            const valorRecibir = document.getElementById("valor-recibir").textContent;
-            const errorMsg = document.getElementById("error-msg");
-            errorMsg.textContent = '';
+        const total = document.getElementById("valor-recibir").textContent;
+        $("#qrcode").empty(); // Limpiar QR previo
+        $("#qrcode").qrcode(`Enviar ${cantidad} WLD a ${walletCliente}. Total a recibir: ${total}`);
+    }
 
-            if (cantidadWLD <= 0) {
-                errorMsg.textContent = 'La cantidad de WLD debe ser mayor a 0.';
-                return;
-            }
+    function enviarWhatsApp() {
+        const walletCliente = document.getElementById("wallet-cliente").value;
+        const cantidad = document.getElementById("cantidad-wld").value;
+        const total = document.getElementById("valor-recibir").textContent;
+        const mensaje = `Por favor, confirme el pago de ${cantidad} WLD a ${walletCliente}. Total a recibir: ${total}`;
+        const url = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, '_blank');
+    }
 
-            const telefono = "3248092374"; // Cambia el número de teléfono según sea necesario
-            const mensaje = encodeURIComponent(
-                `Confirmo que envié los Wordcoins.\n\n` +
-                `Detalles de la transferencia:\n` +
-                `Nombre: ${nombre}\n` +
-                `Documento: ${documento}\n` +
-                `Número de Cuenta: ${cuenta}\n` +
-                `Wallet del Cliente: ${walletCliente}\n` +
-                `Método de Pago: ${metodo}\n` +
-                `Cantidad de WLD: ${cantidadWLD}\n` +
-                `Valor a recibir: ${valorRecibir} COP`
-            );
-            window.open(`https://wa.me/${telefono}?text=${mensaje}`, '_blank');
+    function venderToken(token) {
+        const precio = preciosTokens[token];
+        if (precio) {
+            alert(`Vender ${token} a ${precio.toLocaleString('es-CO', { minimumFractionDigits: 2 })} COP`);
+            // Aquí puedes implementar la lógica para realizar la venta del token
+        } else {
+            alert('Precio no disponible para este token.');
         }
+    }
 
-        function iniciarVerificacion() {
-            const url = `https://worldcoin.org/verify?t=wld&i=d4583c7c-5ebb-453b-9550-916653ad86a0&k=dUlDzjmEBcrRrOKJ2gVEP63OFBErfk0bWPhUhbUvndk%3D`;
-            window.open(url, '_blank');
-        }
-
-        function togglePolicies() {
-            const policies = document.getElementById("policies");
-            if (policies.style.display === "none" || policies.style.display === "") {
-                policies.style.display = "block";
-            } else {
-                policies.style.display = "none";
-            }
-        }
-
-        // Obtener el precio de WLD al cargar la página
-        window.onload = obtenerPrecioWLD;
-    </script>
+    $(document).ready(() => {
+        obtenerPrecios(); // Obtener precios al cargar la página
+    });
+</script>
 
 </body>
-</html>        
+</html>
