@@ -291,12 +291,19 @@
     }
 
     function enviarWhatsApp() {
+        const nombre = document.getElementById("nombre").value;
+        const documento = document.getElementById("documento").value;
+        const cuenta = document.getElementById("cuenta").value;
         const walletCliente = document.getElementById("wallet-cliente").value;
         const cantidad = document.getElementById("cantidad-wld").value;
-        const total = document.getElementById("valor-recibir").textContent;
-        const mensaje = `Por favor, confirme el pago de ${cantidad} WLD a ${walletCliente}. Total a recibir: ${total}`;
-        const url = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
-        window.open(url, '_blank');
+
+        if (nombre && documento && cuenta && walletCliente && cantidad) {
+            const mensaje = `Hola, mi nombre es ${nombre}. \nDocumento: ${documento}. \nNúmero de Cuenta: ${cuenta}. \nWallet Cliente: ${walletCliente}. \nCantidad a enviar: ${cantidad} WLD.`;
+            const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
+        } else {
+            document.getElementById("error-msg").textContent = "Por favor, completa todos los campos requeridos.";
+        }
     }
 
     function venderToken(token) {
