@@ -5,69 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plataforma Corporativa de Minería, Pagos y Token</title>
     <style>
-        /* Estilo General - Tema Oscuro */
+        /* Estilo General - Tema Corporativo */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1000px;
-            margin: 30px auto;
-            padding: 30px;
-            background-color: #1e1e1e;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 800px;
+            margin: 20px;
+            padding: 40px;
+            background-color: #ffffff;
             border-radius: 8px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
-            color: #90caf9;
-            font-size: 2.2em;
-            margin-bottom: 20px;
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 30px;
         }
 
         .section {
-            margin-top: 30px;
+            margin-top: 20px;
             padding: 25px;
+            background-color: #f9fafc;
             border-radius: 8px;
-            text-align: center;
-            background-color: #333333;
-            border-left: 6px solid #90caf9;
+            border-left: 4px solid #3498db;
+            transition: transform 0.2s;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+            border-left-color: #2980b9;
         }
 
         .section h2 {
-            font-size: 1.8em;
-            color: #90caf9;
+            font-size: 1.6em;
+            color: #2980b9;
             margin-bottom: 10px;
         }
 
         .section p {
-            font-size: 1.1em;
-            color: #b0bec5;
-            margin-bottom: 20px;
+            font-size: 1em;
+            color: #5d6d7e;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
 
-        /* Botones de Estilo Corporativo - Tema Oscuro */
+        /* Botones con estilo empresarial */
         .button {
-            background-color: #3949ab;
+            background-color: #3498db;
             color: #ffffff;
             border: none;
-            padding: 12px 35px;
-            border-radius: 5px;
-            font-weight: bold;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 500;
             font-size: 1em;
             cursor: pointer;
             transition: background-color 0.3s;
             text-transform: uppercase;
+            box-shadow: 0px 3px 8px rgba(52, 152, 219, 0.3);
         }
 
         .button:hover {
-            background-color: #5c6bc0;
+            background-color: #2980b9;
         }
 
         /* Estilos Responsivos */
@@ -77,11 +88,11 @@
             }
 
             .section h2 {
-                font-size: 1.5em;
+                font-size: 1.4em;
             }
 
             .button {
-                padding: 10px 30px;
+                padding: 10px 20px;
                 font-size: 0.9em;
             }
         }
@@ -94,21 +105,21 @@
         <!-- Sección de Minería -->
         <div class="section">
             <h2>Minería</h2>
-            <p>Explore nuestras opciones de minería segura y confiable. Nuestra plataforma utiliza tecnologías avanzadas para ofrecer la mejor experiencia en minería de criptomonedas.</p>
+            <p>Explore nuestras opciones de minería segura y confiable. Utilizamos tecnologías avanzadas para ofrecer una experiencia de minería eficiente y rentable.</p>
             <button class="button" onclick="openMining()">Acceder a Minería</button>
         </div>
 
         <!-- Sección de Pasarela de Pagos -->
         <div class="section">
             <h2>Pasarela de Pagos</h2>
-            <p>Nuestra pasarela de pagos garantiza transacciones rápidas y seguras. Úsela para realizar sus pagos en criptomonedas con total confianza.</p>
+            <p>Nuestra pasarela de pagos permite transacciones rápidas y seguras. Úsela para realizar pagos en criptomonedas con la tranquilidad de estar en una plataforma confiable.</p>
             <button class="button" onclick="openPaymentGateway()">Ir a Pasarela de Pagos</button>
         </div>
 
         <!-- Sección del Token -->
         <div class="section">
             <h2>Token</h2>
-            <p>Acceda a la información de nuestro token corporativo y gestione sus activos con total seguridad a través de nuestra pasarela de pagos.</p>
+            <p>Acceda a la información de nuestro token corporativo y gestione sus activos de forma segura a través de nuestra plataforma.</p>
             <button class="button" onclick="openToken()">Acceder al Token</button>
         </div>
     </div>
