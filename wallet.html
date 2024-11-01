@@ -21,8 +21,8 @@
         .container {
             width: 90%;
             max-width: 800px;
-            margin: 20px;
-            padding: 40px;
+            margin: 20px auto;
+            padding: 40px 30px;
             background-color: #ffffff;
             border-radius: 8px;
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
@@ -32,7 +32,7 @@
         h1 {
             color: #2c3e50;
             font-size: 2em;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .section {
@@ -42,6 +42,7 @@
             border-radius: 8px;
             border-left: 4px solid #3498db;
             transition: transform 0.2s;
+            margin-bottom: 15px;
         }
 
         .section:hover {
@@ -50,7 +51,7 @@
         }
 
         .section h2 {
-            font-size: 1.6em;
+            font-size: 1.4em;
             color: #2980b9;
             margin-bottom: 10px;
         }
@@ -59,6 +60,22 @@
             font-size: 1em;
             color: #5d6d7e;
             line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 10px;
+            display: block;
+            color: #333;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #d1d8e0;
+            font-size: 1em;
             margin-bottom: 20px;
         }
 
@@ -75,6 +92,7 @@
             transition: background-color 0.3s;
             text-transform: uppercase;
             box-shadow: 0px 3px 8px rgba(52, 152, 219, 0.3);
+            margin-top: 10px;
         }
 
         .button:hover {
@@ -84,11 +102,16 @@
         /* Estilos Responsivos */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 15px;
             }
 
             .section h2 {
-                font-size: 1.4em;
+                font-size: 1.3em;
             }
 
             .button {
@@ -102,11 +125,27 @@
     <div class="container">
         <h1>Bienvenido a Nuestra Plataforma Corporativa</h1>
 
-        <!-- Sección de Canal de YouTube -->
+        <!-- Sección de Canal de YouTube con lista desplegable de tutoriales -->
         <div class="section">
             <h2>Canal de YouTube</h2>
-            <p>Explora nuestro contenido en YouTube, donde compartimos actualizaciones, tutoriales y mucho más sobre el mundo de las criptomonedas.</p>
-            <button class="button" onclick="openYouTube()">Ver en YouTube</button>
+            <p>Explora nuestro contenido en YouTube para aprender a utilizar todas las funciones de la plataforma.</p>
+            
+            <label for="tutoriales">Selecciona un tutorial:</label>
+            <select id="tutoriales" onchange="redirectToVideo()">
+                <option value="">-- Elige un tutorial --</option>
+                <option value="https://youtu.be/video1">Introducción a la Plataforma</option>
+                <option value="https://youtu.be/video2">Creación de Cuenta y Verificación de Identidad</option>
+                <option value="https://youtu.be/video3">Configuración de la Cartera Digital</option>
+                <option value="https://youtu.be/video4">Cómo Realizar Pagos en Criptomonedas con WLD</option>
+                <option value="https://youtu.be/video5">Uso de la Pasarela de Pagos y Confirmación de Transferencias</option>
+                <option value="https://youtu.be/video6">Consulta y Gestión de Precios en Tiempo Real de WLD</option>
+                <option value="https://youtu.be/video7">Proceso de Envío de WLD desde Wordchain</option>
+                <option value="https://youtu.be/video8">Generación de Códigos QR para Transferencias</option>
+                <option value="https://youtu.be/video9">Revisión y Seguimiento de Transacciones</option>
+                <option value="https://youtu.be/video10">Resolución de Problemas y Preguntas Frecuentes</option>
+                <option value="https://youtu.be/video11">Guía de Seguridad para Usuarios</option>
+                <option value="https://youtu.be/video12">Integración de Nuevas Funcionalidades</option>
+            </select>
         </div>
 
         <!-- Sección de Pasarela de Pagos -->
@@ -125,9 +164,12 @@
     </div>
 
     <script>
-        // Función para abrir el canal de YouTube
-        function openYouTube() {
-            window.location.href = "https://youtube.com/playlist?list=PLxnpKeDUc4kKfQkUtHNss5GLD42PdQKGe";
+        // Función para redirigir a los videos seleccionados en el menú desplegable
+        function redirectToVideo() {
+            const tutorial = document.getElementById("tutoriales").value;
+            if (tutorial) {
+                window.location.href = tutorial;
+            }
         }
 
         // Función para abrir la pasarela de pagos
