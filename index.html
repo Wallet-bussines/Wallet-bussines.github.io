@@ -109,6 +109,9 @@
         <label for="url-bloque">URL del Bloque:</label>
         <input type="text" id="url-bloque" placeholder="Ingresa la URL del bloque">
         
+        <label for="id-transferencia">Identificador de Transferencia:</label>
+        <input type="text" id="id-transferencia" readonly placeholder="Generar identificador">
+        
         <button type="button" onclick="generarQRCode()">Generar QR Code</button>
         <button type="button" onclick="enviarWhatsApp()">Enviar WhatsApp</button>
     </form>
@@ -160,7 +163,7 @@
 
 <script>
     const preciosTokens = {};
-    const tasaCambio = 4397; // Tipo de cambio ajustable
+    const tasaCambio = 4407; // Tipo de cambio ajustable
 
     function obtenerPrecioToken(token) {
         fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
@@ -182,7 +185,7 @@
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
         const token = document.getElementById("token").value;
         const precioCOP = preciosTokens[token] || 0;
-        const valorRecibir = cantidad * precioCOP * (1 - 0.25); // Aplicar comisión del 0.19%
+        const valorRecibir = cantidad * precioCOP * (1 - 0.24); // Aplicar comisión del 0.19%
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
@@ -201,24 +204,34 @@
         const precioToken = document.getElementById("precio-token").textContent;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
         const urlBloque = document.getElementById("url-bloque").value;
+        const idTransferencia = document.getElementById("id-transferencia").value;
 
-        const mensaje = `Confirmación de Pago:\nNombre: ${nombre}\nDocumento: ${documento}\nCuenta: ${cuenta}\nWallet del Cliente: ${wallet}\nToken Seleccionado: ${token}\nCantidad: ${cantidad}\nPrecio del Token: ${precioToken}\nValor a Recibir: ${valorRecibir}\nURL del Bloque: ${urlBloque}`;
-        window.open(`https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`, '_blank');
+        const mensaje = `Confirmación de Pago:\nNombre: ${nombre}\nDocumento: ${documento}\nCuenta: ${cuenta}\nWallet del Cliente: ${wallet}\nToken Seleccionado: ${token}\nCantidad: ${cantidad}\nPrecio del Token: ${precioToken}\nValor a Recibir: ${valorRecibir}\nURL del Bloque: ${urlBloque}\nIdentificador de Transferencia: ${idTransferencia}`;
+
+        const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
+        window.open(urlWhatsApp, '_blank');
     }
 
-    function venderToken(token) {
-        alert(`Has seleccionado vender ${token}.`);
+    function generarIdentificadorTransferencia() {
+        fetch('https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e/api_a2V5XzEzZGI1NjI4ZDgz')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("id-transferencia").value = data.transferenciaId; // Asegúrate de que la respuesta tenga este campo
+            })
+            .catch(error => console.error('Error al obtener el identificador de transferencia:', error));
     }
 
-    $(document).ready(() => {
+    document.addEventListener("DOMContentLoaded", function() {
         ["WLD", "ORB", "ORO", "USDT", "ETH", "BTC"].forEach(obtenerPrecioToken);
         document.getElementById("cantidad").addEventListener("input", actualizarValorRecibir);
         document.getElementById("token").addEventListener("change", () => {
             obtenerPrecioToken(document.getElementById("token").value);
             actualizarValorRecibir();
         });
+        generarIdentificadorTransferencia(); // Generar identificador al cargar la página
     });
 </script>
 
+<div id="qrcode" style="text-align: center;"></div>
 </body>
 </html>
