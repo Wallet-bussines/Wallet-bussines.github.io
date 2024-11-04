@@ -3,142 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minería Automática de Verus Coin</title>
+    <title>Dashboard de Minería de Verus Coin</title>
     <style>
+        /* Estilos de la página */
         body {
-            background-color: #121212; /* Color de fondo oscuro */
-            color: #00ff00; /* Color de texto neón */
             font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
             padding: 20px;
         }
         h1 {
-            color: #4CAF50; /* Color de encabezado */
+            color: #00c853;
+            text-align: center;
         }
-        #status {
-            margin-top: 20px;
+        .container {
+            width: 90%;
+            max-width: 800px;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
+            margin-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            color: #00e676;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #00c853;
+            padding-bottom: 5px;
+        }
+        .section p, .api-response {
+            color: #f1f1f1;
+            font-size: 1em;
+        }
+        .api-response {
+            background-color: #444;
             padding: 10px;
-            border: 1px solid #00ff00; /* Borde neón */
-            background-color: #1a1a1a; /* Fondo del estado de minería */
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow-x: auto;
         }
         button {
-            background-color: #00ff00; /* Color de botón */
-            color: #121212; /* Texto del botón */
+            background-color: #00c853;
+            color: white;
             border: none;
             padding: 10px 20px;
             font-size: 1em;
-            cursor: pointer;
             border-radius: 5px;
+            cursor: pointer;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #00cc00; /* Color de botón al pasar el ratón */
+            background-color: #009624;
         }
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            width: calc(100% - 22px); /* Ajustar el ancho */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 1em;
         }
     </style>
 </head>
 <body>
-    <h1>Minería Automática de Verus Coin</h1>
-    <div>
-        <label for="wallet">Dirección de la Billetera:</label>
-        <input type="text" id="wallet" value="RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych" placeholder="Ingrese su dirección de billetera">
-    </div>
-    <div>
-        <label for="pool">URL del Pool:</label>
-        <input type="text" id="pool" value="stratum+tcp://pool.verus.io:9998">
-    </div>
-    <button id="start-mining">Iniciar Minería</button>
-    <button id="get-balance">Obtener Saldo</button>
-    
-    <div id="status">
-        <h2>Estado de la Minería</h2>
-        <p id="mining-status">Minería no iniciada.</p>
-        <p>Hash Rate: <span id="hash-rate">0 H/s</span></p>
-        <p>Saldo del Pool: <span id="pool-balance">0 VRSC</span></p>
+
+    <h1>Minería de Verus Coin</h1>
+
+    <div class="container">
+        <div class="section">
+            <h2>Configuración del Pool</h2>
+            <p><strong>URL del Pool:</strong> sha256.unmineable.com</p>
+            <p><strong>Puerto del Pool:</strong> 3333</p>
+            <p><strong>Dirección de Wallet:</strong> 0xda235e8c947490aa039f952cc5ec3bfe3a424758</p>
+            <p><strong>Dificultad:</strong> 0x0000040000000000000000000000000000000000000000000000000000000000</p>
+        </div>
+
+        <div class="section">
+            <h2>Monitor de Recursos</h2>
+            <p><strong>Tasa de Hash Local:</strong> <span id="hashRate">0</span> H/s</p>
+            <p><strong>Uso de Memoria:</strong> <span id="memoryUsage">0</span>%</p>
+        </div>
+
+        <div class="section">
+            <h2>API de Minería</h2>
+            <div id="apiResponses"></div>
+        </div>
+
+        <div class="buttons">
+            <button onclick="startMining()">Iniciar Minería</button>
+            <button onclick="stopMining()">Detener Minería</button>
+            <button onclick="getBalance()">Obtener Saldo</button>
+            <button onclick="sendTransaction()">Enviar Monedas</button>
+        </div>
+        
+        <p class="status" id="statusMessage">Estado: Inactivo</p>
     </div>
 
     <script>
-        const startMiningButton = document.getElementById('start-mining');
-        const getBalanceButton = document.getElementById('get-balance');
-        const miningStatus = document.getElementById('mining-status');
-        const hashRateDisplay = document.getElementById('hash-rate');
-        const poolBalanceDisplay = document.getElementById('pool-balance');
+        let mining = false;
+        let hashRate = 0;
 
-        // Función para iniciar la minería
-        const startMining = async () => {
-            const wallet = document.getElementById('wallet').value;
-            const pool = document.getElementById('pool').value;
+        // Dificultad del minado (para simular)
+        const difficulty = 0x0000040000000000000000000000000000000000000000000000000000000000;
 
-            miningStatus.textContent = "Minería iniciada...";
-            hashRateDisplay.textContent = "Calculando...";
+        async function startMining() {
+            mining = true;
+            document.getElementById("statusMessage").innerText = "Estado: Minería en curso...";
+            simulateMining();
+        }
 
-            // Simulando el proceso de minería con 8 hilos
-            let totalHashRate = 0;
-            const threadCount = 8; // Máximo 8 hilos
-            const hashRates = new Array(threadCount).fill(0); // Array para almacenar hash rates
+        function stopMining() {
+            mining = false;
+            document.getElementById("statusMessage").innerText = "Estado: Minería detenida";
+        }
 
-            for (let i = 0; i < threadCount; i++) {
-                setInterval(() => {
-                    const simulatedHashRate = (Math.random() * 12.5).toFixed(2); // Aumentando el valor promedio por hilo
-                    hashRates[i] = parseFloat(simulatedHashRate); // Guardar el hash rate del hilo actual
-                    totalHashRate = hashRates.reduce((a, b) => a + b, 0); // Sumar los hash rates
-                    hashRateDisplay.textContent = `${totalHashRate.toFixed(2)} H/s`;
-                }, 1000);
-            }
-        };
+        async function simulateMining() {
+            while (mining) {
+                try {
+                    // Generar un nonce aleatorio
+                    const nonce = Math.floor(Math.random() * 1e10);
+                    const blockHeader = createBlockHeader(nonce);
+                    const hash = hashBlock(blockHeader);
 
-        startMiningButton.addEventListener('click', startMining);
+                    if (isValidHash(hash)) {
+                        hashRate += 1; // Simulación de incremento en tasa de hash
+                        document.getElementById("hashRate").innerText = hashRate;
 
-        // Iniciar minería automáticamente al cargar la página
-        window.onload = () => {
-            document.getElementById('wallet').value = 'RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych';
-            document.getElementById('pool').value = 'stratum+tcp://pool.verus.io:9998';
-            startMining();
-        };
+                        // Enviar el nonce válido al pool
+                        await sendNonceToPool(nonce, hash);
+                    }
 
-        // Función para obtener el saldo real de la wallet
-        getBalanceButton.addEventListener('click', async () => {
-            const wallet = document.getElementById('wallet').value;
-
-            const url = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
-            const headers = {
-                "If-None-Match": "W/\"1fd-9E5x1iDFsG8DZk6m0A7Qh+UtvE4\"",
-                "auth": "BB75AA0EB639D0F79E8A1E3AD54BAAE1",
-                "Content-Type": "application/json; charset=utf-8",
-                "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 13; 2201116SG Build/TKQ1.221114.001)",
-                "Accept-Encoding": "gzip",
-                "Connection": "Keep-Alive"
-            };
-            const body = JSON.stringify({"poolSubItem":"0","short":"1"});
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: headers,
-                    body: body
-                });
-                const data = await response.json();
-                if (data.status === 0) {
-                    const balance = data.data.coins[0].unpaid; // Saldo no pagado
-                    poolBalanceDisplay.textContent = `${balance} VRSC`;
-                } else {
-                    alert("Error al obtener los datos de la API");
+                    await new Promise(resolve => setTimeout(resolve, 100)); // Simulación de tiempo entre hashes
+                } catch (error) {
+                    document.getElementById("statusMessage").innerText = "Error de conexión. Intentando reconectar...";
+                    await new Promise(resolve => setTimeout(resolve, 5000)); // Intento de reconexión
                 }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Error al conectar con la API');
             }
-        });
+        }
 
-        // Manejo de cierre de la pestaña
-        window.addEventListener('beforeunload', function() {
-            // Aquí puedes añadir cualquier lógica de limpieza si es necesario
-        });
+        function createBlockHeader(nonce) {
+            // Crear el encabezado del bloque (simulado)
+            return `Bloque: ${nonce}`;
+        }
+
+        function hashBlock(blockHeader) {
+            // Simular hashing con una función hash simple (SHA-256)
+            let hash = 0;
+            for (let i = 0; i < blockHeader.length; i++) {
+                hash = ((hash << 5) - hash) + blockHeader.charCodeAt(i);
+                hash |= 0; // Convertir a 32 bits
+            }
+            return hash;
+        }
+
+        function isValidHash(hash) {
+            // Validar el hash basado en la dificultad
+            return hash < difficulty;
+        }
+
+        async function sendNonceToPool(nonce, hash) {
+            const responseArea = document.getElementById("apiResponses");
+            const response = { status: 1, description: "Nonce enviado", nonce, hash }; // Simulación de respuesta de API
+            const responseHtml = `<div class="api-response">${JSON.stringify(response)}</div>`;
+            responseArea.innerHTML += responseHtml;
+
+            // Simulación de actualización de memoria y hash rate
+            const memoryUsage = Math.floor(Math.random() * 100);
+            document.getElementById("memoryUsage").innerText = memoryUsage;
+        }
+
+        async function getBalance() {
+            const responseArea = document.getElementById("apiResponses");
+            // Simulación de obtención de saldo
+            const response = { balance: "0 SOL", status: "success" };
+            const responseHtml = `<div class="api-response">Saldo obtenido: ${response.balance}</div>`;
+            responseArea.innerHTML += responseHtml;
+        }
+
+        async function sendTransaction() {
+            const responseArea = document.getElementById("apiResponses");
+            // Simulación de envío de transacción
+            const response = { status: "success", message: "Monedas enviadas correctamente." };
+            const responseHtml = `<div class="api-response">${response.message}</div>`;
+            responseArea.innerHTML += responseHtml;
+        }
+
+        // Llamada automática a la función de minería al cargar la página
+        window.onload = startMining;
     </script>
 </body>
 </html>
