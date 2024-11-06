@@ -75,16 +75,16 @@
 <div class="form-container">
     <h2>Formulario de Pago Empresarial</h2>
     <form>
-        <label for="nombre">Nombre:</label>
+        <label for="nombre">Nombre y apellidos:</label>
         <input type="text" id="nombre" placeholder="Ingresa tu nombre">
         
-        <label for="documento">Documento:</label>
+        <label for="documento">Documento identidad:</label>
         <input type="text" id="documento" placeholder="Ingresa tu documento">
         
-        <label for="cuenta">Número de Cuenta:</label>
+        <label for="cuenta">Número de Cuenta nequi:</label>
         <input type="text" id="cuenta" placeholder="Ingresa tu cuenta">
         
-        <label for="wallet">Wallet del Cliente:</label>
+        <label for="wallet">Tu Wallet aqui:</label>
         <input type="text" id="wallet" placeholder="Ingresa la wallet del cliente">
         
         <label for="token">Selecciona el Token:</label>
@@ -185,7 +185,7 @@
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
         const token = document.getElementById("token").value;
         const precioCOP = preciosTokens[token] || 0;
-        const valorRecibir = cantidad * precioCOP * (1 - 0.24); // Aplicar comisión del 0.19%
+        const valorRecibir = cantidad * precioCOP * (1 - 0.22); // Aplicar comisión del 0.19%
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
