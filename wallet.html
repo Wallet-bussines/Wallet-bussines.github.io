@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma Corporativa: Canal de YouTube, Pasarela de Pagos y Precio de WLD</title>
+    <title>Plataforma Corporativa: Canal de YouTube, Pasarela de Pagos, Precio de WLD y Verificación Word ID</title>
     <style>
         /* Estilo General - Tema Corporativo */
         body {
@@ -157,6 +157,13 @@
             <div id="wld-price">Cargando precio...</div>
         </div>
 
+        <!-- Sección de Verificación de Identidad con Word ID -->
+        <div class="section">
+            <h2>Verificación de Identidad</h2>
+            <p>Usa Word ID para verificar tu identidad de manera segura en nuestra plataforma.</p>
+            <button class="button" onclick="verifyIdentity()">Iniciar sesión con Word ID</button>
+        </div>
+
         <!-- Sección de QR para Compartir la Aplicación -->
         <div class="section">
             <h2>Compartir Aplicación</h2>
@@ -189,6 +196,11 @@
             } catch (error) {
                 document.getElementById("wld-price").innerHTML = "Error al cargar el precio.";
             }
+        }
+
+        // Función para verificar identidad con Word ID
+        function verifyIdentity() {
+            window.location.href = "https://worldcoin.org/verify?t=wld&i=55e69498-0deb-44fc-a75f-79c18a3ea2fb&k=Iukzf7EpWekBs6x%2FhYAeAR2rqlmu3KgJ%2Fc%2B92fs1wQs%3D";
         }
 
         // Llama a la función al cargar la página
