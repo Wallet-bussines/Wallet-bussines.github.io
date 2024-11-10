@@ -225,19 +225,14 @@
         // Llamada inicial para obtener el precio
         fetchWldPrice();
 
-        // Función para simular la verificación de identidad
+        // Función para iniciar sesión con Word ID
         function verifyIdentity() {
-            document.getElementById("debug-output").innerHTML = "https://worldcoin.org/verify?t=wld&i=13072634-ca56-499e-8c98-e8ca408a04da&k=5loNfQ9cZC0jkUWrd8GWQKiep1%2F4U3dG2lGcMesneeo%3D";
-
-            setTimeout(() => {
-                const result = Math.random() > 0.5 ? "Verificación exitosa" : "Error en la verificación";
-                document.getElementById("debug-output").innerHTML = result;
-            }, 2000); // Simula el proceso de verificación
+            window.location.href = "https://worldcoin.org/verify?t=wld&i=e9781c04-fe4f-4852-856d-a0293da15edd&k=yc3ubDLgqgEI%2BUyN8Aw%2BMppXrPLuViYVsKs0DW8oOUw%3D";
         }
 
         // Función para abrir la Mini App de Worldcoin
         function openMiniApp() {
-            window.location.href = "https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app";
+            window.location.href = "https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e";
         }
     </script>
 </body>
