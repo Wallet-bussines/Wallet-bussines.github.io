@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma Corporativa: Canal de YouTube, Pasarela de Pagos, Precio de WLD y Verificación Word ID</title>
+    <title>Plataforma Corporativa: Canal de YouTube, Pasarela de Pagos, Precio de WLD, Verificación Word ID y Mini App</title>
     <style>
         /* Estilo General - Tema Corporativo */
         body {
@@ -99,6 +99,16 @@
             background-color: #2980b9;
         }
 
+        /* Estilo de la sección de depuración */
+        .debug-section {
+            background-color: #ececec;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.9em;
+            color: #333;
+        }
+
         /* Estilos Responsivos */
         @media (max-width: 768px) {
             .container {
@@ -133,13 +143,13 @@
             <label for="tutoriales">Selecciona un tutorial:</label>
             <select id="tutoriales" onchange="redirectToVideo()">
                 <option value="">-- Elige un tutorial --</option>
-                <option value="https://youtu.be/HwSt4wZcsQk?si=auzn-Nnv-JyEuyUf">como abrir cuenta word app </option>
-                <option value="https://youtu.be/MvBUPW1DVuI?si=CCrdKuFhow-Mu6Yl">como agendar cita </option>
-                <option value="https://youtube.com/shorts/X3YCqlXivlg?si=5DNb6JXqhn4mRN-a">Como redimir los bonos </option>
-                <option value="https://youtu.be/Uz8pmMyGZFU?si=xq39E5KqZx7oklLQ">Cómo migrar wordchain </option>
-                <option value="https://wallet-bussines.github.io/Token.html">como vender wld  oro y orb </option>
-                <option value="https://youtu.be/a_V2IS5rkSI?si=bh5_My7iRzV_lrWu">retiros a nequi </option>
-                <option value="https://wallet-bussines.github.io/privacidad.html">políticas de uso y privacidad </option>
+                <option value="https://youtu.be/HwSt4wZcsQk?si=auzn-Nnv-JyEuyUf">Como abrir cuenta Word App</option>
+                <option value="https://youtu.be/MvBUPW1DVuI?si=CCrdKuFhow-Mu6Yl">Como agendar cita</option>
+                <option value="https://youtube.com/shorts/X3YCqlXivlg?si=5DNb6JXqhn4mRN-a">Como redimir los bonos</option>
+                <option value="https://youtu.be/Uz8pmMyGZFU?si=xq39E5KqZx7oklLQ">Cómo migrar Wordchain</option>
+                <option value="https://wallet-bussines.github.io/Token.html">Como vender WLD oro y orb</option>
+                <option value="https://youtu.be/a_V2IS5rkSI?si=bh5_My7iRzV_lrWu">Retiros a Nequi</option>
+                <option value="https://wallet-bussines.github.io/privacidad.html">Políticas de uso y privacidad</option>
             </select>
         </div>
 
@@ -164,11 +174,24 @@
             <button class="button" onclick="verifyIdentity()">Iniciar sesión con Word ID</button>
         </div>
 
+        <!-- Sección de Mini App de Worldcoin -->
+        <div class="section">
+            <h2>Mini App de Worldcoin</h2>
+            <p>Accede a la Mini App de Worldcoin para realizar verificaciones adicionales y gestionar tu identidad.</p>
+            <button class="button" onclick="openMiniApp()">Abrir Mini App de Worldcoin</button>
+        </div>
+
         <!-- Sección de QR para Compartir la Aplicación -->
         <div class="section">
             <h2>Compartir Aplicación</h2>
             <p>Escanea el código QR para compartir nuestra aplicación con otros usuarios.</p>
             <img src="https://wallet-bussines.github.io/Pasarela.png" alt="QR para Compartir la Aplicación" style="width: 200px; height: auto;">
+        </div>
+
+        <!-- Sección de Depuración -->
+        <div class="section debug-section">
+            <h2>Depuración de Parámetros de Verificación</h2>
+            <pre id="debug-output">Esperando respuesta de verificación...</pre>
         </div>
     </div>
 
@@ -198,9 +221,28 @@
             }
         }
 
-        // Función para verificar identidad con Word ID
+        // Función para verificar identidad con Word ID y simular una respuesta para depuración
         function verifyIdentity() {
             window.location.href = "https://worldcoin.org/verify?t=wld&i=55e69498-0deb-44fc-a75f-79c18a3ea2fb&k=Iukzf7EpWekBs6x%2FhYAeAR2rqlmu3KgJ%2Fc%2B92fs1wQs%3D";
+            
+            // Simulación de respuesta para depuración
+            const response = {
+                "hash_anulador": "0x26a12376e45f7b93fba3d5ddd7f1092eb...",
+                "prueba": "0x0751916cb52efab89f7045f5174638d072ea60d9e9...",
+                "raíz_merkle": "0x0f6ee51b93a1261af6c4302c30afbbdf8af5...",
+                "nivel_verificación": "orbe"
+            };
+            displayDebugInfo(response);
+        }
+
+        // Función para abrir la Mini App de Worldcoin
+        function openMiniApp() {
+            window.open("https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app", "_blank");
+        }
+
+        // Función para mostrar información de depuración en la sección correspondiente
+        function displayDebugInfo(data) {
+            document.getElementById("debug-output").textContent = JSON.stringify(data, null, 2);
         }
 
         // Llama a la función al cargar la página
