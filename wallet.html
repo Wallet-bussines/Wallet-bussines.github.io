@@ -217,36 +217,28 @@
                 const data = await response.json();
                 document.getElementById("wld-price").innerHTML = `<strong>Precio Actual WLD:</strong> $${parseFloat(data.price).toFixed(2)} USD`;
             } catch (error) {
-                document.getElementById("wld-price").innerHTML = "Error al cargar el precio.";
+                document.getElementById("wld-price").innerHTML = "Error al obtener el precio";
+                console.error("Error al obtener el precio WLD:", error);
             }
         }
 
-        // Función para verificar identidad con Word ID y simular una respuesta para depuración
+        // Llamada inicial para obtener el precio
+        fetchWldPrice();
+
+        // Función para simular la verificación de identidad
         function verifyIdentity() {
-            window.location.href = "https://worldcoin.org/verify?t=wld&i=d0de6202-f615-4cda-8a95-b00331d5b01b&k=Vu5hIHUt4pNAAZcywANZKP9pn37w%2F8iB3eeSBHmMi60%3D";
-            
-            // Simulación de respuesta para depuración
-            const response = {
-                "hash_anulador": "0x26a12376e45f7b93fba3d5ddd7f1092eb...",
-                "prueba": "0x0751916cb52efab89f7045f5174638d072ea60d9e9...",
-                "raíz_merkle": "0x0f6ee51b93a1261af6c4302c30afbbdf8af5...",
-                "nivel_verificación": "orbe"
-            };
-            displayDebugInfo(response);
+            document.getElementById("debug-output").innerHTML = "https://worldcoin.org/verify?t=wld&i=13072634-ca56-499e-8c98-e8ca408a04da&k=5loNfQ9cZC0jkUWrd8GWQKiep1%2F4U3dG2lGcMesneeo%3D";
+
+            setTimeout(() => {
+                const result = Math.random() > 0.5 ? "Verificación exitosa" : "Error en la verificación";
+                document.getElementById("debug-output").innerHTML = result;
+            }, 2000); // Simula el proceso de verificación
         }
 
         // Función para abrir la Mini App de Worldcoin
         function openMiniApp() {
-            window.open("https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app", "_blank");
+            window.location.href = "https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app";
         }
-
-        // Función para mostrar información de depuración en la sección correspondiente
-        function displayDebugInfo(data) {
-            document.getElementById("debug-output").textContent = JSON.stringify(data, null, 2);
-        }
-
-        // Llama a la función al cargar la página
-        fetchWldPrice();
     </script>
 </body>
 </html>
