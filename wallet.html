@@ -99,6 +99,17 @@
             background-color: #2980b9;
         }
 
+        /* Estilo de la nota de sugerencias */
+        .suggestion-note {
+            background-color: #eaf7ff;
+            color: #007acc;
+            padding: 10px 15px;
+            border-left: 4px solid #007acc;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
         /* Estilo de la sección de depuración */
         .debug-section {
             background-color: #ececec;
@@ -157,6 +168,9 @@
         <div class="section">
             <h2>Pasarela de Pagos</h2>
             <p>Nuestra pasarela de pagos permite transacciones rápidas y seguras. Úsela para realizar pagos en criptomonedas con la tranquilidad de estar en una plataforma confiable.</p>
+            <div class="suggestion-note">
+                Nota: Después de realizar el envío de criptomonedas o tokens, es importante diligenciar el formulario para asegurar la recepción segura de sus fondos.
+            </div>
             <button class="button" onclick="openPaymentGateway()">Ir a Pasarela de Pagos</button>
         </div>
 
@@ -215,19 +229,16 @@
             try {
                 const response = await fetch("https://api.binance.com/api/v3/ticker/price?symbol=WLDUSDT");
                 const data = await response.json();
-                document.getElementById("wld-price").innerHTML = `<strong>Precio Actual WLD:</strong> $${parseFloat(data.price).toFixed(2)} USD`;
+                document.getElementById("wld-price").textContent = `Precio de WLD: $${parseFloat(data.price).toFixed(2)} USD`;
             } catch (error) {
-                document.getElementById("wld-price").innerHTML = "Error al obtener el precio";
-                console.error("Error al obtener el precio WLD:", error);
+                document.getElementById("wld-price").textContent = "Error al cargar el precio.";
             }
         }
-
-        // Llamada inicial para obtener el precio
         fetchWldPrice();
 
-        // Función para iniciar sesión con Word ID
+        // Función para redirigir a la verificación de identidad con Word ID
         function verifyIdentity() {
-            window.location.href = "https://worldcoin.org/verify?t=wld&i=e9781c04-fe4f-4852-856d-a0293da15edd&k=yc3ubDLgqgEI%2BUyN8Aw%2BMppXrPLuViYVsKs0DW8oOUw%3D";
+            window.location.href = "https://worldcoin.org/verify?t=wld&i=f657bf6e-98f7-4254-a224-1b3af3687057&k=tT%2FJWgzfPUk1Tuu0QvggXJ4i6U5PIHEBXH8s%2BRV1Ij0%3D";
         }
 
         // Función para abrir la Mini App de Worldcoin
