@@ -3,164 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Pago Empresarial</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
+    <title>Formulario de Transacción</title>
     <style>
-        /* Estilos del formulario */
+        /* Estilos básicos y responsivos */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Roboto', sans-serif;
+            background-color: #0d0f15;
+            color: #e5e5e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
         }
         .form-container {
-            background-color: #ffffff;
+            background-color: #1b1e26;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2), 0 -8px 20px rgba(255, 0, 255, 0.2);
         }
         h2 {
             text-align: center;
-            color: #0056b3;
+            color: #00ffff;
+            margin-bottom: 20px;
         }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
+        label, p {
+            color: #ff00ff;
         }
-        input, select {
+        input, select, button {
             width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            background-color: #262a38;
+            color: #e5e5e5;
         }
         button {
-            padding: 12px;
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            font-weight: bold;
             cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #004494;
-        }
-        .token-table {
             margin-top: 20px;
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .token-table th, .token-table td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ccc;
-        }
-        .token-table th {
-            background-color: #0056b3;
-            color: white;
         }
         .output-value {
             font-weight: bold;
-            color: #0056b3;
+            color: #00ffff;
+        }
+        /* Responsividad */
+        @media (max-width: 768px) {
+            h2 { font-size: 1.5em; }
         }
     </style>
 </head>
 <body>
 
 <div class="form-container">
-    <h2>Formulario de Pago Empresarial</h2>
-    <form>
-        <label for="nombre">Nombre y apellidos:</label>
-        <input type="text" id="nombre" placeholder="Ingresa tu nombre">
-        
-        <label for="documento">Documento identidad:</label>
-        <input type="text" id="documento" placeholder="Ingresa tu documento">
-        
-        <label for="cuenta">Número de Cuenta nequi:</label>
-        <input type="text" id="cuenta" placeholder="Ingresa tu cuenta">
-        
-        <label for="wallet">Tu Wallet aqui:</label>
-        <input type="text" id="wallet" placeholder="Ingresa la wallet del cliente">
-        
-        <label for="token">Selecciona el Token:</label>
-        <select id="token">
+    <h2>Formulario de Transacción</h2>
+    <form id="transactionForm">
+        <label for="nombre">Nombre y apellidos</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+
+        <label for="documento">Documento de Identidad</label>
+        <input type="text" id="documento" name="documento" placeholder="Ingresa tu documento de identidad" required>
+
+        <label for="cuenta">Cuenta Nequi</label>
+        <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu cuenta Nequi" required>
+
+        <label for="wallet">Wallet del Cliente</label>
+        <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet" required>
+
+        <label for="token">Selecciona un Token</label>
+        <select id="token" name="token" onchange="obtenerPrecioToken(this.value)">
             <option value="WLD">Wordcoin (WLD)</option>
-            <option value="ORB">ORB</option>
-            <option value="ORO">ORO</option>
-            <option value="USDT">USDT</option>
-            <option value="ETH">ETH</option>
-            <option value="BTC">BTC</option>
+            <option value="Oro">Oro (Oro)</option>
+            <option value="ORB">ORB Token (ORB)</option>
         </select>
-        
-        <label for="cantidad">Cantidad:</label>
-        <input type="number" id="cantidad" placeholder="Cantidad a enviar">
-        
-        <label>Precio del Token:</label>
-        <p id="precio-token" class="output-value">Cargando...</p>
-        
-        <label>Valor a Recibir:</label>
-        <p id="valor-recibir" class="output-value">0 COP</p>
-        
-        <label for="url-bloque">Detalles sobre la cadena de bloques:</label>
-        <input type="text" id="url-bloque" placeholder="Ingresa la URL del bloque">
-        
-        <label for="id-transferencia">Identificador de Transferencia:</label>
-        <input type="text" id="id-transferencia" readonly placeholder="Generar identificador">
-        
-        <button type="button" onclick="generarQRCode()">Generar QR Code</button>
-        <button type="button" onclick="enviarWhatsApp()">Enviar WhatsApp</button>
+
+        <label for="cantidad">Cantidad</label>
+        <input type="number" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" oninput="actualizarValorRecibir()" required>
+
+        <p><strong>Precio actual del token en COP:</strong> <span id="precio-token">Cargando...</span></p>
+        <p><strong>Valor a recibir:</strong> <span id="valor-recibir">0 COP</span></p>
+
+        <button type="button" onclick="enviarWhatsApp()">Enviar</button>
     </form>
 
-    <!-- Tabla de tokens disponibles -->
-    <h2>Tokens Disponibles</h2>
-    <table class="token-table">
-        <thead>
-            <tr>
-                <th>Token</th>
-                <th>Precio (COP)</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>WLD</td>
-                <td id="precio-wld">Cargando...</td>
-                <td><button onclick="venderToken('WLD')">Vender</button></td>
-            </tr>
-            <tr>
-                <td>ORB</td>
-                <td id="precio-orb">Cargando...</td>
-                <td><button onclick="venderToken('ORB')">Vender</button></td>
-            </tr>
-            <tr>
-                <td>ORO</td>
-                <td id="precio-oro">Cargando...</td>
-                <td><button onclick="venderToken('ORO')">Vender</button></td>
-            </tr>
-            <tr>
-                <td>USDT</td>
-                <td id="precio-usdt">Cargando...</td>
-                <td><button onclick="venderToken('USDT')">Vender</button></td>
-            </tr>
-            <tr>
-                <td>ETH</td>
-                <td id="precio-eth">Cargando...</td>
-                <td><button onclick="venderToken('ETH')">Vender</button></td>
-            </tr>
-            <tr>
-                <td>BTC</td>
-                <td id="precio-btc">Cargando...</td>
-                <td><button onclick="venderToken('BTC')">Vender</button></td>
-            </tr>
-        </tbody>
-    </table>
+    <div id="qrcode"></div> <!-- Contenedor para el QR Code -->
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 <script>
     const preciosTokens = {};
     const tasaCambio = 4407; // Tipo de cambio ajustable
@@ -173,11 +109,12 @@
                 const precioCOP = precioUSD * tasaCambio;
                 preciosTokens[token] = precioCOP;
 
-                document.getElementById(`precio-${token.toLowerCase()}`).textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                if (token === document.getElementById("token").value) {
-                    document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                    actualizarValorRecibir();
-                }
+                document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+                actualizarValorRecibir();
+            })
+            .catch(error => {
+                console.error('Error al obtener el precio del token:', error);
+                document.getElementById("precio-token").textContent = 'No disponible';
             });
     }
 
@@ -185,12 +122,13 @@
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
         const token = document.getElementById("token").value;
         const precioCOP = preciosTokens[token] || 0;
-        const valorRecibir = cantidad * precioCOP * (1 - 0.22); // Aplicar comisión del 0.19%
+        const valorRecibir = cantidad * precioCOP * (1 - 0.22); // Aplicar comisión del 22%
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
     function generarQRCode() {
-        const urlBloque = document.getElementById("url-bloque").value;
+        const urlBloque = document.getElementById("wallet").value;
+        $('#qrcode').html(''); // Limpiar el QR Code anterior
         $('#qrcode').qrcode(urlBloque);
     }
 
@@ -203,35 +141,27 @@
         const cantidad = document.getElementById("cantidad").value;
         const precioToken = document.getElementById("precio-token").textContent;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
-        const urlBloque = document.getElementById("url-bloque").value;
-        const idTransferencia = document.getElementById("id-transferencia").value;
 
-        const mensaje = `Confirmación de Pago:\nNombre: ${nombre}\nDocumento: ${documento}\nCuenta: ${cuenta}\nWallet del Cliente: ${wallet}\nToken Seleccionado: ${token}\nCantidad: ${cantidad}\nPrecio del Token: ${precioToken}\nValor a Recibir: ${valorRecibir}\nURL del Bloque: ${urlBloque}\nIdentificador de Transferencia: ${idTransferencia}`;
+        // Formatear el mensaje con la wallet resaltada y clickable
+        const mensaje = `*Formulario de Transacción*\n\n` +
+                        `*Nombre:* ${nombre}\n` +
+                        `*Documento de Identidad:* ${documento}\n` +
+                        `*Cuenta Nequi:* ${cuenta}\n` +
+                        `*Wallet del Cliente:* ${wallet}\n` +
+                        `*Token:* ${token}\n` +
+                        `*Cantidad:* ${cantidad}\n` +
+                        `*Precio actual del Token:* ${precioToken}\n` +
+                        `*Valor a Recibir:* ${valorRecibir}\n\n` +
+                        `Recuerda enviar la transferencia y adjuntar la captura.\n` +
+                        `Asegúrate de ingresar correctamente el número de cuenta Nequi para evitar errores.\n\n` +
+                        `*Tu wallet:* ${wallet}`; // Esto resalta la wallet para ser fácilmente seleccionada
 
         const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
-        window.open(urlWhatsApp, '_blank');
+        window.open(urlWhatsApp, "_blank");
     }
 
-    function generarIdentificadorTransferencia() {
-        fetch('https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e/api_a2V5XzEzZGI1NjI4ZDgz')
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("id-transferencia").value = data.transferenciaId; // Asegúrate de que la respuesta tenga este campo
-            })
-            .catch(error => console.error('Error al obtener el identificador de transferencia:', error));
-    }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        ["WLD", "ORB", "ORO", "USDT", "ETH", "BTC"].forEach(obtenerPrecioToken);
-        document.getElementById("cantidad").addEventListener("input", actualizarValorRecibir);
-        document.getElementById("token").addEventListener("change", () => {
-            obtenerPrecioToken(document.getElementById("token").value);
-            actualizarValorRecibir();
-        });
-        generarIdentificadorTransferencia(); // Generar identificador al cargar la página
-    });
+    obtenerPrecioToken("WLD"); // Inicializar el precio del token WLD al cargar
 </script>
 
-<div id="qrcode" style="text-align: center;"></div>
 </body>
 </html>
