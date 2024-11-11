@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Transacción</title>
     <style>
-        /* Estilos básicos y responsivos */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #0d0f15;
@@ -53,10 +52,6 @@
             font-weight: bold;
             color: #00ffff;
         }
-        /* Responsividad */
-        @media (max-width: 768px) {
-            h2 { font-size: 1.5em; }
-        }
     </style>
 </head>
 <body>
@@ -79,8 +74,6 @@
         <label for="token">Selecciona un Token</label>
         <select id="token" name="token" onchange="obtenerPrecioToken(this.value)">
             <option value="WLD">Wordcoin (WLD)</option>
-            <option value="Oro">Oro (Oro)</option>
-            <option value="ORB">ORB Token (ORB)</option>
         </select>
 
         <label for="cantidad">Cantidad</label>
@@ -89,28 +82,29 @@
         <p><strong>Precio actual del token en COP:</strong> <span id="precio-token">Cargando...</span></p>
         <p><strong>Valor a recibir:</strong> <span id="valor-recibir">0 COP</span></p>
 
-        <button type="button" onclick="enviarWhatsApp()">Enviar</button>
+        <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
     </form>
-
-    <div id="qrcode"></div> <!-- Contenedor para el QR Code -->
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 <script>
-    const preciosTokens = {};
     const tasaCambio = 4407; // Tipo de cambio ajustable
 
+    // Función para obtener el precio del token desde la API de Binance
     function obtenerPrecioToken(token) {
+        document.getElementById("precio-token").textContent = "Cargando...";
+        
         fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
             .then(response => response.json())
             .then(data => {
-                const precioUSD = parseFloat(data.price);
-                const precioCOP = precioUSD * tasaCambio;
-                preciosTokens[token] = precioCOP;
-
-                document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                actualizarValorRecibir();
+                if (data.price) {
+                    const precioUSD = parseFloat(data.price);
+                    const precioCOP = precioUSD * tasaCambio; // Convertir a COP
+                    document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+                    actualizarValorRecibir();
+                } else {
+                    document.getElementById("precio-token").textContent = 'No disponible';
+                }
             })
             .catch(error => {
                 console.error('Error al obtener el precio del token:', error);
@@ -118,20 +112,16 @@
             });
     }
 
+    // Función para actualizar el valor a recibir
     function actualizarValorRecibir() {
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
         const token = document.getElementById("token").value;
-        const precioCOP = preciosTokens[token] || 0;
+        const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(',', '')) || 0;
         const valorRecibir = cantidad * precioCOP * (1 - 0.22); // Aplicar comisión del 22%
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
-    function generarQRCode() {
-        const urlBloque = document.getElementById("wallet").value;
-        $('#qrcode').html(''); // Limpiar el QR Code anterior
-        $('#qrcode').qrcode(urlBloque);
-    }
-
+    // Función para enviar la transacción por WhatsApp
     function enviarWhatsApp() {
         const nombre = document.getElementById("nombre").value;
         const documento = document.getElementById("documento").value;
@@ -142,7 +132,11 @@
         const precioToken = document.getElementById("precio-token").textContent;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
 
-        // Formatear el mensaje con la wallet resaltada y clickable
+        // URL de wallet para compartir
+        const baseUrl = "https://worldchain-mainnet.explorer.alchemy.com/address/";
+        const fullUrl = `${baseUrl}${wallet}?tab=token_transfers`;
+
+        // Construir el mensaje
         const mensaje = `*Formulario de Transacción*\n\n` +
                         `*Nombre:* ${nombre}\n` +
                         `*Documento de Identidad:* ${documento}\n` +
@@ -150,17 +144,22 @@
                         `*Wallet del Cliente:* ${wallet}\n` +
                         `*Token:* ${token}\n` +
                         `*Cantidad:* ${cantidad}\n` +
-                        `*Precio actual del Token:* ${precioToken}\n` +
+                        `*Precio del Token:* ${precioToken}\n` +
                         `*Valor a Recibir:* ${valorRecibir}\n\n` +
-                        `Recuerda enviar la transferencia y adjuntar la captura.\n` +
-                        `Asegúrate de ingresar correctamente el número de cuenta Nequi para evitar errores.\n\n` +
-                        `*Tu wallet:* ${wallet}`; // Esto resalta la wallet para ser fácilmente seleccionada
+                        `*Enlace de Wallet:* ${fullUrl}`;
 
+        // Enviar mensaje por WhatsApp
         const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
-        window.open(urlWhatsApp, "_blank");
+        window.open(urlWhatsApp, '_blank');
     }
 
-    obtenerPrecioToken("WLD"); // Inicializar el precio del token WLD al cargar
+    // Actualizar el precio y saldo cada 30 segundos
+    setInterval(function() {
+        obtenerPrecioToken('WLD');
+    }, 30000);
+
+    // Obtener el precio del token al cargar la página
+    obtenerPrecioToken('WLD');
 </script>
 
 </body>
