@@ -1,172 +1,140 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma: Canal de YouTube, Pasarela de Pagos, Precio de WLD, Verificación World ID y Mini App</title>
-    <style>
-        /* Estilo General - Tema Neon Futurista */
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #000000;
-            color: #e1e1e1;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma Corporativa</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .container {
-            width: 90%;
-            max-width: 900px;
-            background: #111;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 0 20px #00ffea, 0 0 40px #ff00ff;
-            animation: neon-glow 1.5s ease-in-out infinite alternate;
-        }
+    /* Estilo general */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #111;
+      color: #eee;
+      line-height: 1.6;
+    }
 
-        h1 {
-            color: #00ffea;
-            font-size: 2.2em;
-            text-align: center;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px #00ffea, 0 0 20px #00ffea, 0 0 30px #ff00ff;
-        }
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(45deg, #0f0, #00f);
+    }
 
-        .section {
-            background: rgba(0, 0, 0, 0.9);
-            margin-bottom: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, background 0.3s ease;
-            border-left: 4px solid #00ffea;
-        }
+    .title {
+      font-size: 2.5rem;
+      color: #fff;
+      text-shadow: 0 0 8px #0ff;
+    }
 
-        .section:hover {
-            background: rgba(255, 0, 255, 0.1);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #00ffea, 0 0 25px #ff00ff;
-        }
+    /* Main content */
+    .main-content {
+      display: grid;
+      gap: 20px;
+      padding: 20px;
+    }
 
-        .section h2 {
-            font-size: 1.5em;
-            color: #ff00ff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-shadow: 0 0 5px #ff00ff, 0 0 10px #00ffea;
-        }
+    .section {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
 
-        .section p {
-            font-size: 1em;
-            color: #cccccc;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #ff00ff;
+      text-shadow: 0 0 6px #ff0;
+    }
 
-        label {
-            color: #e1e1e1;
-            margin-bottom: 10px;
-            display: block;
-            font-weight: bold;
-        }
+    .section p {
+      margin-bottom: 20px;
+    }
 
-        select {
-            width: 100%;
-            padding: 12px;
-            font-size: 1.1em;
-            background: #333;
-            color: #e1e1e1;
-            border: 2px solid #ff00ff;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
+    /* Botón */
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #ff0080, #00f2ff);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease-in-out;
+    }
 
-        select:focus {
-            border-color: #00ffea;
-        }
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+    }
 
-        .button {
-            background: linear-gradient(135deg, #ff00ff, #00ffea);
-            color: #fff;
-            padding: 12px 25px;
-            font-size: 1.1em;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            text-transform: uppercase;
-            font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffea;
-            width: 100%;
-        }
+    /* Dropdown */
+    .dropdown {
+      padding: 10px;
+      border: 1px solid #444;
+      border-radius: 5px;
+      background: #333;
+      color: #fff;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
 
-        .button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffea;
-        }
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 10px;
+      background: #111;
+      color: #aaa;
+      border-top: 1px solid #444;
+    }
 
-        /* Efecto de brillo neon */
-        @keyframes neon-glow {
-            from {
-                box-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffea;
-            }
-            to {
-                box-shadow: 0 0 25px #00ffea, 0 0 45px #ff00ff;
-            }
-        }
-    </style>
+    /* Responsive Design */
+    @media (min-width: 768px) {
+      .main-content {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Bienvenido a Nuestra Plataforma Corporativa</h1>
+  <header class="header">
+    <h1 class="title">Plataforma Corporativa</h1>
+  </header>
 
-        <!-- Sección de Pasarela de Pagos -->
-        <div class="section">
-            <h2>Pasarela de Pagos</h2>
-            <p>Realiza tus transacciones de manera segura utilizando nuestra pasarela de pagos.</p>
-            <a href="https://wallet-bussines.github.io" class="button">Ir a la Pasarela de Pagos</a>
-        </div>
+  <main class="main-content">
+    <!-- Sección de Pasarela de Pagos -->
+    <section class="section pasarela">
+      <h2>PASARELA DE PAGOS</h2>
+      <p>Realiza tus transacciones de manera segura utilizando nuestra pasarela de pagos.</p>
+      <a href="https://wallet-bussines.github.io/" target="_blank" class="btn">Ir a la Pasarela de Pagos</a>
+    </section>
 
-        <!-- Sección de Canal de YouTube con lista desplegable de tutoriales -->
-        <div class="section">
-            <h2>Canal de YouTube</h2>
-            <p>Explora nuestro contenido en YouTube para aprender a utilizar todas las funciones de la plataforma.</p>
-            
-            <label for="tutoriales">Selecciona un tutorial:</label>
-            <select id="tutoriales">
-                <option value="">-- Elige un tutorial --</option>
-                <option value="https://youtu.be/HwSt4wZcsQk?si=auzn-Nnv-JyEuyUf">Como abrir cuenta Word App</option>
-                <option value="https://youtu.be/MvBUPW1DVuI?si=CCrdKuFhow-Mu6Yl">Como agendar cita</option>
-                <option value="https://youtube.com/shorts/X3YCqlXivlg?si=5DNb6JXqhn4mRN-a">Como redimir los bonos</option>
-                <option value="https://youtu.be/Uz8pmMyGZFU?si=xq39E5KqZx7oklLQ">Cómo migrar Wordchain</option>
-                <option value="https://wallet-bussines.github.io/Token.html">Como vender WLD oro y orb</option>
-                <option value="https://youtu.be/-h4hbrCAr7A?si=slxsrEE9RAEq8MRn">Retiros a Nequi</option>
-                <option value="https://wallet-bussines.github.io/privacidad.html">Políticas de uso y privacidad</option>
-            </select>
-        </div>
+    <!-- Sección de Canal de YouTube -->
+    <section class="section youtube">
+      <h2>CANAL DE YOUTUBE</h2>
+      <p>Explora nuestro contenido en YouTube para aprender a utilizar todas las funciones de la plataforma.</p>
+      <label for="tutorials">Selecciona un tutorial:</label>
+      <select id="tutorials" class="dropdown" onchange="if(this.value) window.open(this.value, '_blank')">
+        <option value="" disabled selected>-- Elige un tutorial --</option>
+        <option value="https://youtu.be/bTtbSog4AUE">Retiros a nequi</option>
+        <option value="https://youtube.com/tutorial2">Tutorial 2</option>
+      </select>
+    </section>
+  </main>
 
-        <!-- Sección de Información de la Plataforma -->
-        <div class="section">
-            <h2>Más Información</h2>
-            <p>Conoce más sobre nuestra plataforma y cómo puedes sacar el máximo provecho de sus funcionalidades.</p>
-        </div>
-    </div>
-
-    <script>
-        document.getElementById('tutoriales').addEventListener('change', function() {
-            if (this.value) {
-                window.location.href = this.value;
-            } else {
-                alert("Por favor, selecciona un tutorial válido.");
-            }
-        });
-    </script>
+  <footer class="footer">
+    <p>&copy; 2024 Plataforma Corporativa. Todos los derechos reservados.</p>
+  </footer>
 </body>
 </html>
