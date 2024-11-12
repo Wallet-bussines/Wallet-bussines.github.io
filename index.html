@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Transacción</title>
     <style>
+        /* Fondo y estilo general */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #0d0f15;
@@ -16,23 +17,36 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            overflow: hidden;
         }
+
+        /* Contenedor principal del formulario */
         .form-container {
             background-color: #1b1e26;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 30px;
+            border-radius: 15px;
             max-width: 600px;
             width: 100%;
-            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2), 0 -8px 20px rgba(255, 0, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.4), 0 -8px 20px rgba(255, 0, 255, 0.4);
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Encabezado con efecto de neón */
         h2 {
             text-align: center;
             color: #00ffff;
             margin-bottom: 20px;
+            font-size: 2em;
+            text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff;
         }
+
+        /* Etiquetas y texto */
         label, p {
             color: #ff00ff;
         }
+
+        /* Estilo de entradas y botones */
         input, select, button {
             width: 100%;
             padding: 12px;
@@ -41,13 +55,25 @@
             border-radius: 6px;
             background-color: #262a38;
             color: #e5e5e5;
+            font-size: 1em;
         }
+
+        /* Estilo de botón con gradiente y animación */
         button {
             background: linear-gradient(135deg, #ff00ff, #00ffff);
             font-weight: bold;
             cursor: pointer;
             margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4), 0 0 15px rgba(255, 0, 255, 0.4);
         }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5), 0 0 25px rgba(255, 0, 255, 0.5);
+        }
+
+        /* Estilo de texto dinámico */
         .output-value {
             font-weight: bold;
             color: #00ffff;
@@ -158,9 +184,8 @@
         obtenerPrecioToken('WLD');
     }, 30000);
 
-    // Obtener el precio del token al cargar la página
+    // Obtener el precio del token al cargar
     obtenerPrecioToken('WLD');
 </script>
-
 </body>
 </html>
