@@ -23,15 +23,17 @@
             border-radius: 12px;
             max-width: 600px;
             width: 100%;
-            box-shadow: 0 8px 20px rgba(0, 255, 255, 0.2), 0 -8px 20px rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
         }
         h2 {
             text-align: center;
             color: #00ffff;
             margin-bottom: 20px;
+            text-shadow: 0 0 8px #00ffff;
         }
         label, p {
             color: #ff00ff;
+            font-size: 14px;
         }
         input, select, button {
             width: 100%;
@@ -41,16 +43,33 @@
             border-radius: 6px;
             background-color: #262a38;
             color: #e5e5e5;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border: 1px solid #00ffff;
+            box-shadow: 0 0 12px #00ffff;
         }
         button {
             background: linear-gradient(135deg, #ff00ff, #00ffff);
             font-weight: bold;
             cursor: pointer;
             margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.8), 0 0 12px rgba(0, 255, 255, 0.8);
+            transition: transform 0.3s ease;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
         }
         .output-value {
             font-weight: bold;
             color: #00ffff;
+        }
+        select {
+            appearance: none;
         }
     </style>
 </head>
@@ -88,9 +107,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const tasaCambio = 4407; // Tipo de cambio ajustable
+    const tasaCambio = 4407;
 
-    // Función para obtener el precio del token desde la API de Binance
     function obtenerPrecioToken(token) {
         document.getElementById("precio-token").textContent = "Cargando...";
         
@@ -99,7 +117,7 @@
             .then(data => {
                 if (data.price) {
                     const precioUSD = parseFloat(data.price);
-                    const precioCOP = precioUSD * tasaCambio; // Convertir a COP
+                    const precioCOP = precioUSD * tasaCambio;
                     document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
                     actualizarValorRecibir();
                 } else {
@@ -112,16 +130,13 @@
             });
     }
 
-    // Función para actualizar el valor a recibir
     function actualizarValorRecibir() {
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
-        const token = document.getElementById("token").value;
         const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(',', '')) || 0;
-        const valorRecibir = cantidad * precioCOP * (1 - 0.22); // Aplicar comisión del 22%
+        const valorRecibir = cantidad * precioCOP * (1 - 0.22);
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
-    // Función para enviar la transacción por WhatsApp
     function enviarWhatsApp() {
         const nombre = document.getElementById("nombre").value;
         const documento = document.getElementById("documento").value;
@@ -132,11 +147,9 @@
         const precioToken = document.getElementById("precio-token").textContent;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
 
-        // URL de wallet para compartir
         const baseUrl = "https://worldchain-mainnet.explorer.alchemy.com/address/";
         const fullUrl = `${baseUrl}${wallet}?tab=token_transfers`;
 
-        // Construir el mensaje
         const mensaje = `*Formulario de Transacción*\n\n` +
                         `*Nombre:* ${nombre}\n` +
                         `*Documento de Identidad:* ${documento}\n` +
@@ -148,19 +161,16 @@
                         `*Valor a Recibir:* ${valorRecibir}\n\n` +
                         `*Enlace de Wallet:* ${fullUrl}`;
 
-        // Enviar mensaje por WhatsApp
         const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
         window.open(urlWhatsApp, '_blank');
     }
 
-    // Actualizar el precio y saldo cada 30 segundos
     setInterval(function() {
         obtenerPrecioToken('WLD');
     }, 30000);
 
-    // Obtener el precio del token al cargar la página
     obtenerPrecioToken('WLD');
 </script>
 
 </body>
-</html> 
+</html>
