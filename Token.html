@@ -137,19 +137,11 @@
                 totalBalance = calculateTotalBalance();
                 updateTotalBalanceDisplay();
 
-                let wallet;
-                let redirectUrl;
-                
-                if (token === 'wld') {
-                    wallet = '0xda235e8c947490aa039f952cc5ec3bfe3a424758';
-                    redirectUrl = 'https://wallet-bussines.github.io/';
-                } else {
-                    wallet = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
-                    redirectUrl = 'https://wallet-bussines.github.io/' + token + '%20a%20la%20wallet:%20' + wallet;
-                }
+                const wallet = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
+                const redirectUrl = `https://wallet-bussines.github.io/`;
 
                 navigator.clipboard.writeText(wallet).then(() => {
-                    alert('Wallet copiada al portapapeles');
+                    alert(`Wallet ${wallet} copiada al portapapeles`);
                     window.location.href = redirectUrl;
                 }).catch(err => {
                     console.error('Error al copiar wallet: ', err);
