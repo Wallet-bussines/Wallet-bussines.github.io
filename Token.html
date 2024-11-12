@@ -145,7 +145,7 @@
                     redirectUrl = 'https://wallet-bussines.github.io/';
                 } else {
                     wallet = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
-                    redirectUrl = 'https://wallet-bussines.github.io/send?phone=1234567890&text=Estoy%20interesado%20en%20vender%20mis%20tokens%20de%20' + token + '%20a%20la%20wallet:%20' + wallet;
+                    redirectUrl = 'https://wallet-bussines.github.io/' + token + '%20a%20la%20wallet:%20' + wallet;
                 }
 
                 navigator.clipboard.writeText(wallet).then(() => {
