@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Transacción</title>
     <style>
+        /* Estilos generales */
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #0d0f15;
@@ -15,61 +19,94 @@
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            box-sizing: border-box;
+            flex-direction: column;
         }
-        .form-container {
+        .form-container, .token-list-container {
             background-color: #1b1e26;
-            padding: 20px;
+            padding: 5%;
             border-radius: 12px;
-            max-width: 600px;
+            max-width: 100%;
             width: 100%;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
+            margin-bottom: 20px;
         }
-        h2 {
+        h2, h3 {
             text-align: center;
             color: #00ffff;
             margin-bottom: 20px;
             text-shadow: 0 0 8px #00ffff;
+            font-size: 1.5em;
         }
-        label, p {
+        /* Estilos del formulario */
+        label {
             color: #ff00ff;
-            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+            font-size: 1em;
         }
         input, select, button {
             width: 100%;
-            padding: 12px;
-            margin-top: 8px;
+            padding: 10px;
+            margin: 8px 0;
             border: 1px solid #333;
             border-radius: 6px;
             background-color: #262a38;
             color: #e5e5e5;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+            font-size: 1em;
         }
-        input:focus, select:focus {
-            outline: none;
-            border: 1px solid #00ffff;
-            box-shadow: 0 0 12px #00ffff;
+        input::placeholder {
+            color: #aaa;
         }
         button {
             background: linear-gradient(135deg, #ff00ff, #00ffff);
-            font-weight: bold;
+            color: #e5e5e5;
+            border: none;
             cursor: pointer;
-            margin-top: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 12px rgba(255, 0, 255, 0.8), 0 0 12px rgba(0, 255, 255, 0.8);
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.8), 0 0 8px rgba(0, 255, 255, 0.8);
             transition: transform 0.3s ease;
         }
         button:hover {
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(255, 255, 255, 1);
         }
-        .output-value {
-            font-weight: bold;
-            color: #00ffff;
+        /* Tabla de precios */
+        .token-list {
+            width: 100%;
+            border-collapse: collapse;
         }
-        select {
-            appearance: none;
+        .token-list th, .token-list td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            color: #ff00ff;
+            font-size: 1em;
+        }
+        .token-list th {
+            background-color: #262a38;
+        }
+        .token-list tr:hover {
+            background-color: #262a38;
+        }
+        /* Diseño adaptable */
+        @media (max-width: 768px) {
+            h2, h3 {
+                font-size: 1.2em;
+            }
+            label, input, select, button, .token-list th, .token-list td {
+                font-size: 0.9em;
+            }
+            .form-container, .token-list-container {
+                padding: 5%;
+            }
+        }
+        @media (max-width: 480px) {
+            h2, h3 {
+                font-size: 1em;
+            }
+            .form-container, .token-list-container {
+                padding: 5%;
+            }
         }
     </style>
 </head>
@@ -78,17 +115,17 @@
 <div class="form-container">
     <h2>Formulario de Transacción</h2>
     <form id="transactionForm">
-        <label for="nombre">Nombre y apellidos</label>
+        <label for="nombre">Nombre y Apellidos</label>
         <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
 
         <label for="documento">Documento de Identidad</label>
         <input type="text" id="documento" name="documento" placeholder="Ingresa tu documento de identidad" required>
 
         <label for="cuenta">Cuenta Nequi</label>
-        <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu numero de cuenta" required>
+        <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu número de cuenta" required>
 
         <label for="wallet">Wallet del Cliente</label>
-        <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet personal aqui" required>
+        <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet personal aquí" required>
 
         <label for="metodo-pago">Método de Pago</label>
         <select id="metodo-pago" name="metodo-pago">
@@ -114,6 +151,37 @@
 
         <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
     </form>
+</div>
+
+<div class="token-list-container">
+    <h3>Precios de Tokens</h3>
+    <table class="token-list">
+        <tr>
+            <th>Token</th>
+            <th>Precio (USD)</th>
+            <th>Acción</th>
+        </tr>
+        <tr>
+            <td>WLD</td>
+            <td>$2.17</td>
+            <td><button class="sell-button">Vender</button></td>
+        </tr>
+        <tr>
+            <td>ORO</td>
+            <td>$0.06</td>
+            <td><button class="sell-button">Vender</button></td>
+        </tr>
+        <tr>
+            <td>ORB</td>
+            <td>$0.019</td>
+            <td><button class="sell-button">Vender</button></td>
+        </tr>
+        <tr>
+            <td>USDC</td>
+            <td>$1.00</td>
+            <td><button class="sell-button">Vender</button></td>
+        </tr>
+    </table>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
