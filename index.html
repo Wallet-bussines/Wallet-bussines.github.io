@@ -85,10 +85,18 @@
         <input type="text" id="documento" name="documento" placeholder="Ingresa tu documento de identidad" required>
 
         <label for="cuenta">Cuenta Nequi</label>
-        <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu cuenta Nequi" required>
+        <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu numero de cuenta" required>
 
         <label for="wallet">Wallet del Cliente</label>
-        <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet" required>
+        <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet personal aqui" required>
+
+        <label for="metodo-pago">Método de Pago</label>
+        <select id="metodo-pago" name="metodo-pago">
+            <option value="nequi">Nequi</option>
+            <option value="daviplata">Daviplata</option>
+            <option value="ahorro-a-la-mano">Ahorro a la Mano</option>
+            <option value="transferencia-bancaria">Transferencia Bancaria</option>
+        </select>
 
         <label for="token">Selecciona un Token</label>
         <select id="token" name="token" onchange="obtenerPrecioToken(this.value)">
