@@ -37,7 +37,6 @@
             text-shadow: 0 0 8px #00ffff;
             font-size: 1.5em;
         }
-        /* Estilos del formulario */
         label {
             color: #ff00ff;
             font-weight: bold;
@@ -70,43 +69,15 @@
             transform: scale(1.05);
             box-shadow: 0 0 15px rgba(255, 255, 255, 1);
         }
-        /* Tabla de precios */
-        .token-list {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .token-list th, .token-list td {
+        .confirmation {
+            margin-top: 20px;
             padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #333;
+            background-color: #262a38;
+            border-radius: 6px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
             color: #ff00ff;
-            font-size: 1em;
-        }
-        .token-list th {
-            background-color: #262a38;
-        }
-        .token-list tr:hover {
-            background-color: #262a38;
-        }
-        /* Diseño adaptable */
-        @media (max-width: 768px) {
-            h2, h3 {
-                font-size: 1.2em;
-            }
-            label, input, select, button, .token-list th, .token-list td {
-                font-size: 0.9em;
-            }
-            .form-container, .token-list-container {
-                padding: 5%;
-            }
-        }
-        @media (max-width: 480px) {
-            h2, h3 {
-                font-size: 1em;
-            }
-            .form-container, .token-list-container {
-                padding: 5%;
-            }
+            font-size: 1.1em;
+            text-align: center;
         }
     </style>
 </head>
@@ -121,19 +92,24 @@
         <label for="documento">Documento de Identidad</label>
         <input type="text" id="documento" name="documento" placeholder="Ingresa tu documento de identidad" required>
 
-        <label for="cuenta">Cuenta Nequi</label>
+        <label for="cuenta">Cuenta de Pago</label>
         <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu número de cuenta" required>
 
         <label for="wallet">Wallet del Cliente</label>
         <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet personal aquí" required>
 
         <label for="metodo-pago">Método de Pago</label>
-        <select id="metodo-pago" name="metodo-pago">
-            <option value="nequi">Nequi</option>
-            <option value="daviplata">Daviplata</option>
-            <option value="ahorro-a-la-mano">Ahorro a la Mano</option>
-            <option value="transferencia-bancaria">Transferencia Bancaria</option>
+        <select id="metodo-pago" name="metodo-pago" onchange="mostrarEntidad()">
+            <option value="">Selecciona un método</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Daviplata">Daviplata</option>
+            <option value="Ahorro a la Mano">Ahorro a la Mano</option>
+            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
         </select>
+
+        <div class="confirmation" id="entidadConfirmacion" style="display: none;">
+            Recibirás tu dinero en: <span id="entidadSeleccionada"></span>
+        </div>
 
         <label for="token">Selecciona un Token</label>
         <select id="token" name="token" onchange="obtenerPrecioToken(this.value)">
@@ -153,44 +129,25 @@
     </form>
 </div>
 
-<div class="token-list-container">
-    <h3>Precios de Tokens</h3>
-    <table class="token-list">
-        <tr>
-            <th>Token</th>
-            <th>Precio (USD)</th>
-            <th>Acción</th>
-        </tr>
-        <tr>
-            <td>WLD</td>
-            <td>$10.640</td>
-            <td><button class="sell-button">Vender</button></td>
-        </tr>
-        <tr>
-            <td>ORO</td>
-            <td>$260</td>
-            <td><button class="sell-button">Vender</button></td>
-        </tr>
-        <tr>
-            <td>ORB</td>
-            <td>$4.060</td>
-            <td><button class="sell-button">Vender</button></td>
-        </tr>
-        <tr>
-            <td>USDC</td>
-            <td>$4.480</td>
-            <td><button class="sell-button">Vender</button></td>
-        </tr>
-    </table>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     const tasaCambio = 4266;
 
+    function mostrarEntidad() {
+        const metodoPago = document.getElementById("metodo-pago").value;
+        const entidadConfirmacion = document.getElementById("entidadConfirmacion");
+        const entidadSeleccionada = document.getElementById("entidadSeleccionada");
+
+        if (metodoPago) {
+            entidadSeleccionada.textContent = metodoPago;
+            entidadConfirmacion.style.display = "block";
+        } else {
+            entidadConfirmacion.style.display = "none";
+        }
+    }
+
     function obtenerPrecioToken(token) {
         document.getElementById("precio-token").textContent = "Cargando...";
-        
+
         fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
             .then(response => response.json())
             .then(data => {
@@ -221,24 +178,27 @@
         const documento = document.getElementById("documento").value;
         const cuenta = document.getElementById("cuenta").value;
         const wallet = document.getElementById("wallet").value;
+        const metodoPago = document.getElementById("metodo-pago").value;
         const token = document.getElementById("token").value;
         const cantidad = document.getElementById("cantidad").value;
         const precioToken = document.getElementById("precio-token").textContent;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
 
+        // Generar enlace de wallet
         const baseUrl = "https://worldchain-mainnet.explorer.alchemy.com/address/";
-        const fullUrl = `${baseUrl}${wallet}?tab=token_transfers`;
+        const walletUrl = `${baseUrl}${wallet}?tab=token_transfers`;
 
         const mensaje = `*Formulario de Transacción*\n\n` +
                         `*Nombre:* ${nombre}\n` +
                         `*Documento de Identidad:* ${documento}\n` +
-                        `*Cuenta Nequi:* ${cuenta}\n` +
+                        `*Cuenta de Pago:* ${cuenta}\n` +
                         `*Wallet del Cliente:* ${wallet}\n` +
+                        `*Método de Pago:* ${metodoPago}\n` +
                         `*Token:* ${token}\n` +
                         `*Cantidad:* ${cantidad}\n` +
                         `*Precio del Token:* ${precioToken}\n` +
                         `*Valor a Recibir:* ${valorRecibir}\n\n` +
-                        `*Enlace de Wallet:* ${fullUrl}`;
+                        `*Enlace de Wallet:* ${walletUrl}`;
 
         const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
         window.open(urlWhatsApp, '_blank');
