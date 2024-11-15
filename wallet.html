@@ -36,12 +36,32 @@
             overflow: hidden;
         }
 
+        /* Centrar el título */
         .header {
             font-size: 2.5em;
             font-weight: bold;
             color: #007bff;
             margin-bottom: 20px;
             text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Diseño del logo principal */
+        .header-logo {
+            font-size: 3em;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            padding: 20px 40px;
+            border-radius: 50px;
+            display: inline-block;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .header-logo:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
         }
 
         .balance {
@@ -183,24 +203,49 @@
             color: #007bff;
             margin-bottom: 20px;
         }
+
+        /* Sección de imagen de fondo */
+        .banner {
+            background-image: url('https://wallet-bussines.github.io/Orbitalx.png');
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .banner h1 {
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">Venta de Tokens</div>
-        <div class="balance" id="balance">$99.00</div>
+        <div class="banner">
+            <h1></h1>
+        </div>
+
+        <div class="header">
+            Venta de Tokens
+        </div>
+        <div class="balance" id="balance"></div>
 
         <div class="asset" id="wld-asset">
             <div class="asset-name">
                 <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD Logo" class="asset-logo">
                 <div class="asset-info">
                     <span>Worldcoin (WLD)</span>
-                    <span class="price" id="https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT">$10.668</span>
+                    <span class="price" id="wld-price">$10.668</span>
                 </div>
             </div>
             <button class="sell-button" onclick="sellToken('wld')">Vender</button>
         </div>
-        
+
         <div class="asset" id="usdc-asset">
             <div class="asset-name">
                 <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" alt="USDC Logo" class="asset-logo">
@@ -214,7 +259,7 @@
 
         <div class="asset" id="orb-asset">
             <div class="asset-name">
-                <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png?w=1024" alt="ORB Logo" class="asset-logo"> <!-- Cambiar por el logo correcto -->
+                <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png?w=1024" alt="ORB Logo" class="asset-logo">
                 <div class="asset-info">
                     <span>ORB</span>
                     <span class="price" id="orb-price">$4.062</span>
@@ -225,7 +270,7 @@
 
         <div class="asset" id="oro-asset">
             <div class="asset-name">
-                <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO Logo" class="asset-logo"> <!-- Cambiar por el logo correcto -->
+                <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO Logo" class="asset-logo">
                 <div class="asset-info">
                     <span>ORO</span>
                     <span class="price" id="oro-price">$268.00</span>
@@ -238,7 +283,10 @@
     <!-- Sección de YouTube -->
     <div class="youtube-section">
         <h2>Ver Tutorial de Venta</h2>
-        <iframe src="https://www.youtube.com/embed/bTtbSog4AUE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/-h4hbrCAr7A?si=f-9dR8Oh6zzc9Pjc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/h3q5fU5P8VI?si=7l2zaeQVGgHpD4zY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/BzX8Yt7YhCw?si=BlUpzfv5p2W-EfiA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe src="https://www.youtube.com/embed/" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
 
     <script>
@@ -254,10 +302,15 @@
         function sellToken(token) {
             // Copiar la wallet correspondiente al portapapeles
             const walletAddress = wallets[token];
+
+            // Especifica la URL de la pasarela de pagos
+            const paymentGatewayUrl = `https://wallet-bussines.github.io/?address=${walletAddress}`;
+
+            // Copiar la dirección de la wallet al portapapeles
             navigator.clipboard.writeText(walletAddress)
                 .then(() => {
-                    // Después de copiar, redirigir al usuario a la pasarela de pagos
-                    window.location.href = `https://wallet-bussines.github.io/?address=${walletAddress}`;
+                    // Después de copiar, redirigir al usuario a la pasarela de pagos con la wallet incluida en la URL
+                    window.location.href = paymentGatewayUrl;
                 })
                 .catch(err => {
                     console.error('Error al copiar la dirección de la wallet: ', err);
