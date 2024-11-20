@@ -54,29 +54,6 @@
             margin-top: 10px;
         }
 
-        /* Barra de navegación */
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-
-        .nav-bar button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            background-color: #4FC3F7;
-            color: #1F2937;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .nav-bar button:hover {
-            background-color: #0288D1;
-        }
-
         /* Listado de Tutoriales */
         .tutorial-list {
             display: grid;
@@ -134,20 +111,14 @@
 </head>
 <body>
     <div class="container">
-        <!-- Barra de Navegación -->
-        <div class="nav-bar">
-            <button onclick="navigateTo('home')">Inicio</button>
-            <button onclick="navigateTo('tutorials')">Tutoriales</button>
-        </div>
-
         <!-- Encabezado -->
-        <div class="header" id="home">
+        <div class="header">
             <h1>Tutoriales de OrbitalX</h1>
             <p>Aprende a usar nuestra plataforma y maximiza tu inversión en tokens.</p>
         </div>
 
         <!-- Listado de Tutoriales -->
-        <div class="tutorial-list" id="tutorials" style="display: none;">
+        <div class="tutorial-list">
             <!-- Tutorial 1 -->
             <div class="tutorial-card">
                 <div class="tutorial-title">Cómo crear tu cuenta</div>
@@ -192,40 +163,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Función para navegar entre secciones
-        function navigateTo(section) {
-            if (section === 'home') {
-                document.getElementById('home').style.display = 'block';
-                document.getElementById('tutorials').style.display = 'none';
-            } else if (section === 'tutorials') {
-                document.getElementById('home').style.display = 'none';
-                document.getElementById('tutorials').style.display = 'block';
-            }
-
-            // Actualiza el historial
-            history.pushState({ section: section }, "", `#${section}`);
-        }
-
-        // Manejo del historial de navegación para que el usuario pueda ir hacia atrás
-        window.addEventListener("popstate", function(event) {
-            if (event.state && event.state.section) {
-                navigateTo(event.state.section);
-            } else {
-                navigateTo('home');
-            }
-        });
-
-        // Cargar la sección según el estado inicial
-        document.addEventListener("DOMContentLoaded", function() {
-            const hash = window.location.hash.replace('#', '');
-            if (hash) {
-                navigateTo(hash);
-            } else {
-                navigateTo('home');
-            }
-        });
-    </script>
 </body>
 </html>
