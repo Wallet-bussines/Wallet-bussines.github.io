@@ -127,6 +127,16 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+        // Función para manejar el botón "Volver"
+        function volver() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "https://wallet-bussines.github.io/wallet.html"; // Redirige a una página predeterminada si no hay historial
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -137,7 +147,7 @@
         </div>
 
         <!-- Botón Volver -->
-        <button class="back-button" onclick="window.history.back()">Volver</button>
+        <button class="back-button" onclick="volver()">Volver</button>
 
         <!-- Listado de Tutoriales -->
         <div class="tutorial-list">
