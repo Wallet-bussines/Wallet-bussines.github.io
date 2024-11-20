@@ -136,18 +136,18 @@
     <div class="container">
         <!-- Barra de Navegación -->
         <div class="nav-bar">
-            <button onclick="history.back()">Atrás</button>
-            <button onclick="history.forward()">Adelante</button>
+            <button onclick="navigateTo('home')">Inicio</button>
+            <button onclick="navigateTo('tutorials')">Tutoriales</button>
         </div>
 
         <!-- Encabezado -->
-        <div class="header">
+        <div class="header" id="home">
             <h1>Tutoriales de OrbitalX</h1>
             <p>Aprende a usar nuestra plataforma y maximiza tu inversión en tokens.</p>
         </div>
 
         <!-- Listado de Tutoriales -->
-        <div class="tutorial-list">
+        <div class="tutorial-list" id="tutorials" style="display: none;">
             <!-- Tutorial 1 -->
             <div class="tutorial-card">
                 <div class="tutorial-title">Cómo crear tu cuenta</div>
@@ -165,7 +165,9 @@
                     <iframe src="https://www.youtube.com/embed/-h4hbrCAr7A" allowfullscreen></iframe>
                 </div>
             </div>
-          <div class="tutorial-card">
+
+            <!-- Tutorial 3 -->
+            <div class="tutorial-card">
                 <div class="tutorial-title">Cómo invitar a un amigo</div>
                 <div class="tutorial-description">Una guía paso a paso para invitar a un amigo.</div>
                 <div class="tutorial-video">
@@ -173,7 +175,7 @@
                 </div>
             </div>
 
-            <!-- Tutorial 2 -->
+            <!-- Tutorial 4 -->
             <div class="tutorial-card">
                 <div class="tutorial-title">Cómo redimir tus bonos</div>
                 <div class="tutorial-description">Aprende a adquirir tokens de manera segura.</div>
@@ -182,7 +184,7 @@
                 </div>
             </div>
 
-            <!-- Tutorial 3 -->
+            <!-- Tutorial 5 -->
             <div class="tutorial-card">
                 <div class="tutorial-title">Seguridad en tu wallet</div>
                 <div class="tutorial-description">Consejos y mejores prácticas para proteger tus fondos.</div>
@@ -190,5 +192,40 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Función para navegar entre secciones
+        function navigateTo(section) {
+            if (section === 'home') {
+                document.getElementById('home').style.display = 'block';
+                document.getElementById('tutorials').style.display = 'none';
+            } else if (section === 'tutorials') {
+                document.getElementById('home').style.display = 'none';
+                document.getElementById('tutorials').style.display = 'block';
+            }
+
+            // Actualiza el historial
+            history.pushState({ section: section }, "", `#${section}`);
+        }
+
+        // Manejo del historial de navegación para que el usuario pueda ir hacia atrás
+        window.addEventListener("popstate", function(event) {
+            if (event.state && event.state.section) {
+                navigateTo(event.state.section);
+            } else {
+                navigateTo('home');
+            }
+        });
+
+        // Cargar la sección según el estado inicial
+        document.addEventListener("DOMContentLoaded", function() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                navigateTo(hash);
+            } else {
+                navigateTo('home');
+            }
+        });
+    </script>
 </body>
 </html>
