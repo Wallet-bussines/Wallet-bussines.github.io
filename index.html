@@ -9,6 +9,11 @@
         * {
             box-sizing: border-box;
         }
+
+        html, body {
+            overflow: hidden; /* Evita el rebote de desplazamiento */
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #0d0f15;
@@ -21,6 +26,7 @@
             margin: 0;
             padding: 20px;
         }
+
         .step-container, .form-container {
             background-color: #1b1e26;
             padding: 5%;
@@ -30,22 +36,28 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
             display: none;
             margin-bottom: 20px;
+            overflow-y: auto; /* Permite desplazamiento solo en los contenedores activos */
+            max-height: calc(100vh - 40px); /* Limita la altura para evitar desbordes */
         }
+
         .step-container.active, .form-container.active {
             display: block;
         }
+
         h2 {
             text-align: center;
             color: #00ffff;
             margin-bottom: 20px;
             text-shadow: 0 0 8px #00ffff;
         }
+
         label {
             color: #ff00ff;
             font-weight: bold;
             margin-top: 10px;
             display: block;
         }
+
         input, select, button {
             width: 100%;
             padding: 10px;
@@ -56,6 +68,7 @@
             color: #e5e5e5;
             font-size: 1em;
         }
+
         button {
             background: linear-gradient(135deg, #ff00ff, #00ffff);
             border: none;
@@ -63,6 +76,7 @@
             box-shadow: 0 0 8px rgba(255, 0, 255, 0.8), 0 0 8px rgba(0, 255, 255, 0.8);
             transition: transform 0.3s ease;
         }
+
         button:hover {
             transform: scale(1.05);
         }
@@ -70,7 +84,7 @@
 </head>
 <body>
 
-<!-- Pasos para recolección de datos -->
+<!-- Contenido de la página -->
 <div id="step1" class="step-container active">
     <h2>Paso 1: Ingresa tu nombre</h2>
     <label for="nombre">Nombre y Apellidos</label>
@@ -101,7 +115,7 @@
         <option value="WLD">WLD</option>
         <option value="ORB">ORB</option>
         <option value="USD">USDC</option>
-        <option value="ORO">ORB</option>
+        <option value="ORO">ORO</option>
         <option value="VAULT">VAULT</option>
     </select>
 
@@ -132,8 +146,8 @@
     <button onclick="showFinalForm()">Finalizar</button>
 </div>
 
-<!-- Formulario final -->
-<div id="finalForm" class="form-container">
+<!-- Resto del código permanece igual -->
+ <div id="finalForm" class="form-container">
     <h2>Formulario Completo</h2>
     <form>
         <label for="nombreFinal">Nombre y Apellidos</label>
@@ -163,7 +177,7 @@
         <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
     </form>
 </div>
-
+    
 <script>
     const tasaCambio = 4366;
 
