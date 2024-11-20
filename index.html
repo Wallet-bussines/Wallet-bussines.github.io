@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Transacción</title>
+    <title>Formulario Asistido</title>
     <style>
         /* Estilos generales */
         * {
@@ -16,33 +16,35 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-direction: column;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            flex-direction: column;
         }
-        .form-container, .token-list-container {
+        .step-container, .form-container {
             background-color: #1b1e26;
             padding: 5%;
             border-radius: 12px;
-            max-width: 100%;
+            max-width: 600px;
             width: 100%;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
+            display: none;
             margin-bottom: 20px;
         }
-        h2, h3 {
+        .step-container.active, .form-container.active {
+            display: block;
+        }
+        h2 {
             text-align: center;
             color: #00ffff;
             margin-bottom: 20px;
             text-shadow: 0 0 8px #00ffff;
-            font-size: 1.5em;
         }
         label {
             color: #ff00ff;
             font-weight: bold;
             margin-top: 10px;
             display: block;
-            font-size: 1em;
         }
         input, select, button {
             width: 100%;
@@ -54,12 +56,8 @@
             color: #e5e5e5;
             font-size: 1em;
         }
-        input::placeholder {
-            color: #aaa;
-        }
         button {
             background: linear-gradient(135deg, #ff00ff, #00ffff);
-            color: #e5e5e5;
             border: none;
             cursor: pointer;
             box-shadow: 0 0 8px rgba(255, 0, 255, 0.8), 0 0 8px rgba(0, 255, 255, 0.8);
@@ -67,64 +65,98 @@
         }
         button:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
-        }
-        .confirmation {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #262a38;
-            border-radius: 6px;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-            color: #ff00ff;
-            font-size: 1.1em;
-            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="form-container">
-    <h2>Formulario de Transacción</h2>
-    <form id="transactionForm">
-        <label for="nombre">Nombre y Apellidos</label>
-        <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+<!-- Pasos para recolección de datos -->
+<div id="step1" class="step-container active">
+    <h2>Paso 1: Ingresa tu nombre</h2>
+    <label for="nombre">Nombre y Apellidos</label>
+    <input type="text" id="nombre" placeholder="Ingresa tu nombre">
+    <button onclick="goToStep(2)">Siguiente</button>
+</div>
 
-        <label for="documento">Documento de Identidad</label>
-        <input type="text" id="documento" name="documento" placeholder="Ingresa tu documento de identidad" required>
+<div id="step2" class="step-container">
+    <h2>Paso 2: Ingresa tu Wallet</h2>
+    <label for="wallet">Wallet del Cliente</label>
+    <input type="text" id="wallet" placeholder="Ingresa tu wallet">
+    <button onclick="goToStep(1)">Atrás</button>
+    <button onclick="goToStep(3)">Siguiente</button>
+</div>
 
-        <label for="cuenta">Cuenta de Pago</label>
-        <input type="text" id="cuenta" name="cuenta" placeholder="Ingresa tu número de cuenta" required>
+<div id="step3" class="step-container">
+    <h2>Paso 3: Ingresa tu cuenta bancaria</h2>
+    <label for="cuenta">Número de Cuenta</label>
+    <input type="text" id="cuenta" placeholder="Ingresa tu cuenta bancaria">
+    <button onclick="goToStep(2)">Atrás</button>
+    <button onclick="goToStep(4)">Siguiente</button>
+</div>
 
-        <label for="wallet">Wallet del Cliente</label>
-        <input type="text" id="wallet" name="wallet" placeholder="Ingresa tu wallet personal aquí" required>
+<div id="step4" class="step-container">
+    <h2>Paso 4: Selecciona el token que vas a vender</h2>
+    <label for="token">Selecciona el Token</label>
+    <select id="token" onchange="obtenerPrecioToken()">
+        <option value="WLD">WLD</option>
+        <option value="ORB">ORB</option>
+        <option value="ORO">ORO</option>
+    </select>
 
-        <label for="metodo-pago">Método de Pago</label>
-        <select id="metodo-pago" name="metodo-pago" onchange="mostrarEntidad()">
-            <option value="">Selecciona un método</option>
-            <option value="Nequi">Nequi</option>
-            <option value="Daviplata">Daviplata</option>
-            <option value="Ahorro a la Mano">Ahorro a la Mano</option>
-            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-        </select>
+    <label for="cantidad">Cantidad</label>
+    <input type="number" id="cantidad" placeholder="Ingresa la cantidad" oninput="actualizarValorRecibir()">
+    
+    <p><strong>Precio actual del token en COP:</strong> <span id="precio-token">Cargando...</span></p>
+    <p><strong>Valor a recibir:</strong> <span id="valor-recibir">0 COP</span></p>
 
-        <div class="confirmation" id="entidadConfirmacion" style="display: none;">
-            Recibirás tu dinero en: <span id="entidadSeleccionada"></span>
-        </div>
+    <button onclick="goToStep(3)">Atrás</button>
+    <button onclick="goToStep(5)">Siguiente</button>
+</div>
 
-        <label for="token">Selecciona un Token</label>
-        <select id="token" name="token" onchange="obtenerPrecioToken(this.value)">
-            <option value="WLD">World (WLD)</option>
-            <option value="ORBITAL-X">ORBITAL-X (ORBX)</option>
-            <option value="ORO">Oro (ORO)</option>
-            <option value="ORB">Orb (ORB)</option>
-            <option value="USDC">USD Coin (USDC)</option>
-        </select>
+<div id="step5" class="step-container">
+    <h2>Paso 5: Método de pago</h2>
+    <label for="metodo-pago">Método de Pago</label>
+    <select id="metodo-pago" onchange="mostrarEntidad()">
+        <option value="">Selecciona un método</option>
+        <option value="Nequi">Nequi</option>
+        <option value="Daviplata">Daviplata</option>
+        <option value="Ahorro a la Mano">Ahorro a la Mano</option>
+        <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+    </select>
+    <div class="confirmation" id="entidadConfirmacion" style="display: none;">
+        Recibirás tu dinero en: <span id="entidadSeleccionada"></span>
+    </div>
+    <button onclick="goToStep(4)">Atrás</button>
+    <button onclick="showFinalForm()">Finalizar</button>
+</div>
 
-        <label for="cantidad">Cantidad</label>
-        <input type="number" id="cantidad" name="cantidad" placeholder="Ingresa la cantidad" oninput="actualizarValorRecibir()" required>
+<!-- Formulario final -->
+<div id="finalForm" class="form-container">
+    <h2>Formulario Completo</h2>
+    <form>
+        <label for="nombreFinal">Nombre y Apellidos</label>
+        <input type="text" id="nombreFinal" readonly>
 
-        <p><strong>Precio actual del token en COP:</strong> <span id="precio-token">Cargando...</span></p>
-        <p><strong>Valor a recibir:</strong> <span id="valor-recibir">0 COP</span></p>
+        <label for="walletFinal">Wallet del Cliente</label>
+        <input type="text" id="walletFinal" readonly>
+
+        <label for="cuentaFinal">Número de Cuenta</label>
+        <input type="text" id="cuentaFinal" readonly>
+
+        <label for="tokenFinal">Token Seleccionado</label>
+        <input type="text" id="tokenFinal" readonly>
+
+        <label for="cantidadFinal">Cantidad</label>
+        <input type="text" id="cantidadFinal" readonly>
+
+        <label for="metodoFinal">Método de Pago</label>
+        <input type="text" id="metodoFinal" readonly>
+
+        <label for="valorRecibirFinal">Valor a Recibir</label>
+        <input type="text" id="valorRecibirFinal" readonly>
+
+        <label for="walletLinkFinal">Enlace del Wallet</label>
+        <input type="text" id="walletLinkFinal" readonly>
 
         <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
     </form>
@@ -132,6 +164,11 @@
 
 <script>
     const tasaCambio = 4366;
+
+    function goToStep(step) {
+        document.querySelectorAll('.step-container').forEach(container => container.classList.remove('active'));
+        document.getElementById(`step${step}`).classList.add('active');
+    }
 
     function mostrarEntidad() {
         const metodoPago = document.getElementById("metodo-pago").value;
@@ -146,70 +183,78 @@
         }
     }
 
-    function obtenerPrecioToken(token) {
-        document.getElementById("precio-token").textContent = "Cargando...";
-
+    function obtenerPrecioToken() {
+        const token = document.getElementById("token").value;
         fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
             .then(response => response.json())
             .then(data => {
-                if (data.price) {
-                    const precioUSD = parseFloat(data.price);
-                    const precioCOP = precioUSD * tasaCambio;
-                    document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                    actualizarValorRecibir();
-                } else {
-                    document.getElementById("precio-token").textContent = 'No disponible';
-                }
+                const precioUSD = parseFloat(data.price);
+                const precioCOP = precioUSD * tasaCambio;
+                document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+                actualizarValorRecibir();
             })
-            .catch(error => {
-                console.error('Error al obtener el precio del token:', error);
-                document.getElementById("precio-token").textContent = 'No disponible';
+            .catch(() => {
+                document.getElementById("precio-token").textContent = "No disponible";
             });
     }
 
     function actualizarValorRecibir() {
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
-        const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(',', '')) || 0;
+        const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
         const valorRecibir = cantidad * precioCOP * (1 - 0.19);
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
-    function enviarWhatsApp() {
+    function showFinalForm() {
         const nombre = document.getElementById("nombre").value;
-        const documento = document.getElementById("documento").value;
-        const cuenta = document.getElementById("cuenta").value;
         const wallet = document.getElementById("wallet").value;
-        const metodoPago = document.getElementById("metodo-pago").value;
+        const cuenta = document.getElementById("cuenta").value;
         const token = document.getElementById("token").value;
         const cantidad = document.getElementById("cantidad").value;
-        const precioToken = document.getElementById("precio-token").textContent;
+        const metodoPago = document.getElementById("metodo-pago").value;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
 
-        // Generar enlace de wallet
-        const baseUrl = "https://worldchain-mainnet.explorer.alchemy.com/address/";
-        const walletUrl = `${baseUrl}${wallet}?tab=token_transfers`;
+        document.getElementById("nombreFinal").value = nombre;
+        document.getElementById("walletFinal").value = wallet;
+        document.getElementById("cuentaFinal").value = cuenta;
+        document.getElementById("tokenFinal").value = token;
+        document.getElementById("cantidadFinal").value = cantidad;
+        document.getElementById("metodoFinal").value = metodoPago;
+        document.getElementById("valorRecibirFinal").value = valorRecibir;
+
+        const walletLink = `https://worldchain-mainnet.explorer.alchemy.com/address/${wallet}?tab=token_transfers`;
+        document.getElementById("walletLinkFinal").value = walletLink;
+
+        document.querySelectorAll('.step-container').forEach(container => container.classList.remove('active'));
+        document.getElementById("finalForm").classList.add('active');
+    }
+
+    function enviarWhatsApp() {
+        const nombre = document.getElementById("nombreFinal").value;
+        const wallet = document.getElementById("walletFinal").value;
+        const cuenta = document.getElementById("cuentaFinal").value;
+        const token = document.getElementById("tokenFinal").value;
+        const cantidad = document.getElementById("cantidadFinal").value;
+        const metodoPago = document.getElementById("metodoFinal").value;
+        const valorRecibir = document.getElementById("valorRecibirFinal").value;
+        const walletLink = document.getElementById("walletLinkFinal").value;
 
         const mensaje = `*Formulario de Transacción*\n\n` +
                         `*Nombre:* ${nombre}\n` +
-                        `*Documento de Identidad:* ${documento}\n` +
-                        `*Cuenta de Pago:* ${cuenta}\n` +
-                        `*Wallet del Cliente:* ${wallet}\n` +
-                        `*Método de Pago:* ${metodoPago}\n` +
+                        `*Wallet:* ${wallet}\n` +
+                        `*Cuenta Bancaria:* ${cuenta}\n` +
                         `*Token:* ${token}\n` +
                         `*Cantidad:* ${cantidad}\n` +
-                        `*Precio del Token:* ${precioToken}\n` +
-                        `*Valor a Recibir:* ${valorRecibir}\n\n` +
-                        `*Enlace de Wallet:* ${walletUrl}`;
+                        `*Método de Pago:* ${metodoPago}\n` +
+                        `*Valor a Recibir:* ${valorRecibir}\n` +
+                        `*Enlace del Wallet:* ${walletLink}`;
 
         const urlWhatsApp = `https://wa.me/3248092374?text=${encodeURIComponent(mensaje)}`;
         window.open(urlWhatsApp, '_blank');
     }
 
-    setInterval(function() {
-        obtenerPrecioToken('WLD');
-    }, 30000);
-
-    obtenerPrecioToken('WLD');
+    setInterval(obtenerPrecioToken, 30000);
+    obtenerPrecioToken();
 </script>
 
 </body>
