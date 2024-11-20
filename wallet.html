@@ -31,10 +31,12 @@
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             padding: 20px 30px;
-            overflow: hidden;
+        }
+
+        .nav-bar {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
         .nav-bar button {
@@ -46,17 +48,11 @@
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-right: 10px;
+            margin: 0 5px;
         }
 
         .nav-bar button:hover {
             background-color: #0288D1;
-        }
-
-        .nav-bar {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
         }
 
         .header, .token-list, .tutorial-section {
@@ -67,11 +63,33 @@
             display: block;
         }
 
+        .accordion {
+            background-color: #263238;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion:hover {
+            background-color: #37474F;
+        }
+
+        .accordion-content {
+            display: none;
+            background-color: #37474F;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
         .token-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            width: 100%;
         }
 
         .token-card {
@@ -146,13 +164,6 @@
         .tutorial-section a:hover {
             text-decoration: underline;
         }
-
-        .instructions {
-            color: #B0BEC5;
-            font-size: 1rem;
-            text-align: center;
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -164,28 +175,36 @@
             <button onclick="navigateTo('tutorial-section')">Tutoriales</button>
         </div>
 
-        <!-- Encabezado (Información detallada para el usuario) -->
+        <!-- Encabezado con Información -->
         <div class="header" id="header">
-            <h1>VENTA DE TOKENS</h1>
-            <p>Bienvenido a la plataforma de venta de tokens. Aquí podrás vender diferentes tokens como WLD, ORO, ORB y USDC. Cada token tiene diferentes precios y condiciones. La aplicación es fácil de usar y te permite hacer transacciones de forma rápida y segura.</p>
+            <div class="accordion" onclick="toggleAccordion(this)">¿Quiénes somos?</div>
+            <div class="accordion-content">
+                OrbitalX es una plataforma segura y transparente donde puedes gestionar y vender tus criptomonedas sin intermediarios, dándote el control total sobre tus activos digitales.
+            </div>
 
-            <div class="instructions">
-                <h3>¿Cómo usar esta app?</h3>
-                <p>Selecciona un token que deseas vender, ingresa la cantidad que deseas vender, y serás redirigido a la pasarela de pagos. Si en cualquier momento deseas volver, puedes usar los botones de navegación.</p>
-                <p>Al elegir el token, verás información actualizada sobre su precio en tiempo real, lo que te ayudará a tomar decisiones informadas.</p>
-                <h3>Ventajas de usar OrbitalX</h3>
-                <ul>
-                    <li>Interfaz fácil de usar y amigable.</li>
-                    <li>Precios de tokens actualizados en tiempo real.</li>
-                    <li>Seguridad y transparencia en las transacciones.</li>
-                    <li>Soporte técnico disponible.</li>
-                </ul>
+            <div class="accordion" onclick="toggleAccordion(this)">¿Qué puedes hacer con esta mini app?</div>
+            <div class="accordion-content">
+                Con OrbitalX puedes vender tokens de forma sencilla y segura, además de aprender a manejar tus criptomonedas sin depender de terceros.
+            </div>
+
+            <div class="accordion" onclick="toggleAccordion(this)">¿Por qué usar nuestros servicios?</div>
+            <div class="accordion-content">
+                Nos preocupamos por la seguridad de tus fondos y te ofrecemos herramientas intuitivas para que tengas el control total sobre tus transacciones. No confíes tus criptos a terceros, confía en ti mismo y usa OrbitalX.
+            </div>
+
+            <div class="accordion" onclick="toggleAccordion(this)">Guía de Uso</div>
+            <div class="accordion-content">
+                Para empezar, selecciona un token, ingresa la cantidad que deseas vender y serás redirigido a nuestra pasarela de pagos para completar la transacción.
+            </div>
+
+            <div class="accordion" onclick="toggleAccordion(this)">Importancia de usar la app</div>
+            <div class="accordion-content">
+                OrbitalX te permite gestionar tus criptomonedas con total autonomía y seguridad. Evita riesgos asociados a servicios de terceros y controla tus activos directamente desde nuestra plataforma.
             </div>
         </div>
 
         <!-- Listado de Tokens -->
         <div class="token-list" id="token-list">
-            <h2>Listado de Tokens</h2>
             <div class="token-card">
                 <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD" class="token-logo">
                 <div class="token-name">WLD</div>
@@ -198,82 +217,50 @@
                 <div class="token-price" id="price-usdc">Cargando...</div>
                 <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
             </div>
-            <div class="token-card">
-                <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png" alt="ORB" class="token-logo">
-                <div class="token-name">ORB</div>
-                <div class="token-price" id="price-orb">Cargando...</div>
-                <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
-            </div>
-            <div class="token-card">
-                <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO" class="token-logo">
-                <div class="token-name">ORO</div>
-                <div class="token-price" id="price-oro">Cargando...</div>
-                <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
-            </div>
         </div>
 
         <!-- Sección de Tutorial -->
         <div class="tutorial-section" id="tutorial-section">
             <h2>Tutoriales de Uso</h2>
-            <p>Accede a nuestros tutoriales para aprender a usar la plataforma y conocer más sobre la venta de tokens.</p>
+            <p>Aprende a usar la plataforma y más sobre la venta de tokens.</p>
             <a href="https://wallet-bussines.github.io/Tutorial.html" target="_blank">Ver Tutoriales</a>
         </div>
     </div>
 
     <script>
-        // Función para navegar entre secciones y gestionar la historia
+        // Navegar entre secciones
         function navigateTo(sectionId) {
-            history.pushState({ section: sectionId }, "", `#${sectionId}`);
-            updateView(sectionId);
-        }
-
-        // Actualiza la vista según la sección activa
-        function updateView(sectionId) {
-            const sections = document.querySelectorAll(".container > div");
+            const sections = document.querySelectorAll('.header, .token-list, .tutorial-section');
             sections.forEach(section => {
-                section.classList.remove("active");
-                if (section.id === sectionId) {
-                    section.classList.add("active");
-                }
+                section.style.display = 'none';
             });
+            document.getElementById(sectionId).style.display = 'block';
+            sessionStorage.setItem('lastSection', sectionId); // Guardar la última sección visitada
         }
 
-        // Evento para manejar navegación con botones de "atrás" y "adelante"
-        window.addEventListener("popstate", (event) => {
-            if (event.state && event.state.section) {
-                updateView(event.state.section);
-            } else {
-                updateView("header");
-            }
-        });
+        // Restaurar la última sección visitada
+        window.onload = () => {
+            const lastSection = sessionStorage.getItem('lastSection') || 'header';
+            navigateTo(lastSection);
+        }
 
-        // API de precios simulada (para fines demostrativos)
+        // Función para desplegar el contenido del acordeón
+        function toggleAccordion(element) {
+            const content = element.nextElementSibling;
+            content.style.display = content.style.display === "block" ? "none" : "block";
+        }
+
+        // Simulación de obtención de precios
         async function fetchPrices() {
             const prices = {
-                wld: 2.5,  // Precio simulado
-                usdc: 1.0,  // Precio simulado
-                orb: 0.75,  // Precio simulado
-                oro: 1.25   // Precio simulado
+                wld: 2.5,
+                usdc: 1.0
             };
-
             document.getElementById("price-wld").textContent = `$${prices.wld} USD`;
             document.getElementById("price-usdc").textContent = `$${prices.usdc} USD`;
-            document.getElementById("price-orb").textContent = `$${prices.orb} USD`;
-            document.getElementById("price-oro").textContent = `$${prices.oro} USD`;
         }
 
-        // Llamar a la función que obtiene los precios
         fetchPrices();
-
-        // Carga inicial para manejar el hash en la URL
-        document.addEventListener("DOMContentLoaded", () => {
-            const hash = window.location.hash.replace("#", "");
-            if (hash) {
-                navigateTo(hash);
-            } else {
-                navigateTo("header");
-            }
-        });
     </script>
 </body>
 </html>
