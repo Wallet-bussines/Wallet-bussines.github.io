@@ -8,22 +8,20 @@
         /* Estilos generales */
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         html, body {
-            overflow: hidden; /* Evita el rebote de desplazamiento */
-        }
-
-        body {
+            overflow: hidden;
             font-family: 'Roboto', sans-serif;
             background-color: #0d0f15;
             color: #e5e5e5;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             flex-direction: column;
             min-height: 100vh;
-            margin: 0;
             padding: 20px;
         }
 
@@ -36,8 +34,8 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
             display: none;
             margin-bottom: 20px;
-            overflow-y: auto; /* Permite desplazamiento solo en los contenedores activos */
-            max-height: calc(100vh - 40px); /* Limita la altura para evitar desbordes */
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
         }
 
         .step-container.active, .form-container.active {
@@ -60,7 +58,7 @@
 
         input, select, button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 8px 0;
             border: 1px solid #333;
             border-radius: 6px;
@@ -80,9 +78,55 @@
         button:hover {
             transform: scale(1.05);
         }
+
+        .confirmation {
+            margin-top: 10px;
+            color: #ff00ff;
+        }
+
+        /* Ajustes para dispositivos móviles */
+        @media screen and (max-width: 768px) {
+            html, body {
+                padding: 10px;
+            }
+
+            .step-container, .form-container {
+                padding: 4%;
+            }
+
+            input, select, button {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            html, body {
+                font-size: 14px;
+            }
+
+            .step-container, .form-container {
+                padding: 3%;
+            }
+
+            button {
+                padding: 8px;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+        }
     </style>
 </head>
 <body>
+
+<!-- Botón de inicio -->
+<button onclick="window.location.href='https://wallet-bussines.github.io/wallet.html'">Inicio</button>
 
 <!-- Contenido de la página -->
 <div id="step1" class="step-container active">
@@ -146,8 +190,10 @@
     <button onclick="showFinalForm()">Finalizar</button>
 </div>
 
-<!-- Resto del código permanece igual -->
- <div id="finalForm" class="form-container">
+<div id="finalForm" class="form-container">
+    <h2>Formulario Completo</h2>
+    <form>
+        <div id="finalForm" class="form-container">
     <h2>Formulario Completo</h2>
     <form>
         <label for="nombreFinal">Nombre y Apellidos</label>
@@ -177,9 +223,12 @@
         <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
     </form>
 </div>
-    
+        <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
+    </form>
+</div>
+
 <script>
-    const tasaCambio = 4466;
+     const tasaCambio = 4466;
 
     function goToStep(step) {
         document.querySelectorAll('.step-container').forEach(container => container.classList.remove('active'));
@@ -271,6 +320,7 @@
 
     setInterval(obtenerPrecioToken, 30000);
     obtenerPrecioToken();
+    
 </script>
 
 </body>
