@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Tokens - OrbitalX</title>
+    <title>Token Sale - OrbitalX</title>
     <style>
-        /* Estilos básicos */
+        /* Basic styles */
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +13,7 @@
         }
 
         html, body {
-            overflow: hidden; /* Evita el rebote del desplazamiento */
+            overflow: hidden; /* Prevent scroll bounce */
         }
 
         body {
@@ -35,8 +35,8 @@
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             padding: 20px 30px;
-            overflow-y: auto; /* Permite el desplazamiento dentro del contenedor */
-            max-height: calc(100vh - 40px); /* Limita la altura del contenedor */
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
         }
 
         .nav-bar {
@@ -180,20 +180,19 @@
 </head>
 <body>
     <div class="container">
-        <!-- Barra de Navegación -->
+        <!-- Navigation Bar -->
         <div class="nav-bar">
             <button onclick="navigateTo('header')">Inicio</button>
             <button onclick="navigateTo('token-list')">Tokens</button>
             <button onclick="navigateTo('tutorial-section')">Tutoriales</button>
         </div>
 
-        <!-- Secciones -->
+        <!-- Sections -->
         <div class="header" id="header">
             <div class="accordion" onclick="toggleAccordion(this)">¿Quiénes somos?</div>
             <div class="accordion-content">
                 OrbitalX es una plataforma segura y transparente donde puedes gestionar y vender tus criptomonedas sin intermediarios, dándote el control total sobre tus activos digitales.
             </div>
-
             <div class="accordion" onclick="toggleAccordion(this)">¿Qué puedes hacer con esta mini app?</div>
             <div class="accordion-content">
                 Con OrbitalX puedes vender tokens de forma sencilla y segura, además de aprender a manejar tus criptomonedas sin depender de terceros.
@@ -215,7 +214,7 @@
             </div>
         </div>
 
-        <!-- Listado de Tokens -->
+        <!-- Token List -->
         <div class="token-list" id="token-list">
             <div class="token-card">
                 <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD" class="token-logo">
@@ -229,7 +228,6 @@
                 <div class="token-price" id="price-usdc">Cargando...</div>
                 <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
             </div>
-            <!-- Nuevas tarjetas de tokens -->
             <div class="token-card">
                 <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png" alt="ORB" class="token-logo">
                 <div class="token-name">ORB</div>
@@ -250,7 +248,7 @@
             </div>
         </div>
 
-        <!-- Sección de Tutorial -->
+        <!-- Tutorial Section -->
         <div class="tutorial-section" id="tutorial-section">
             <h2>Tutoriales de Uso</h2>
             <p>Aprende a usar la plataforma y más sobre la venta de tokens.</p>
@@ -259,29 +257,29 @@
     </div>
 
     <script>
-        // Navegar entre secciones
+        // Navigate between sections
         function navigateTo(sectionId) {
             const sections = document.querySelectorAll('.header, .token-list, .tutorial-section');
             sections.forEach(section => {
                 section.style.display = 'none';
             });
             document.getElementById(sectionId).style.display = 'block';
-            sessionStorage.setItem('lastSection', sectionId); // Guardar la última sección visitada
+            sessionStorage.setItem('lastSection', sectionId);
         }
 
-        // Restaurar la última sección visitada
+        // Restore the last visited section
         window.onload = () => {
             const lastSection = sessionStorage.getItem('lastSection') || 'header';
             navigateTo(lastSection);
-        }
+        };
 
-        // Función para desplegar el contenido del acordeón
+        // Toggle accordion content
         function toggleAccordion(element) {
             const content = element.nextElementSibling;
             content.style.display = content.style.display === "block" ? "none" : "block";
         }
 
-        // Simulación de obtención de precios
+        // Simulate fetching prices
         async function fetchPrices() {
             const prices = {
                 wld: 2.5,
