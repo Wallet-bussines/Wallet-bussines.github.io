@@ -217,6 +217,25 @@
                 <div class="token-price" id="price-usdc">Cargando...</div>
                 <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
             </div>
+            <!-- Nuevas tarjetas de tokens -->
+            <div class="token-card">
+                <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png" alt="ORB" class="token-logo">
+                <div class="token-name">ORB</div>
+                <div class="token-price" id="price-orb">Cargando...</div>
+                <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
+            </div>
+            <div class="token-card">
+                <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO" class="token-logo">
+                <div class="token-name">ORO</div>
+                <div class="token-price" id="price-oro">Cargando...</div>
+                <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
+            </div>
+            <div class="token-card">
+                <img src="https://wallet-bussines.github.io/Vault.jpg" alt="VAULT" class="token-logo">
+                <div class="token-name">VAULT</div>
+                <div class="token-price" id="price-vault">Cargando...</div>
+                <button class="buy-button" onclick="window.location.href='https://wallet-bussines.github.io/'">VENDER</button>
+            </div>
         </div>
 
         <!-- Sección de Tutorial -->
@@ -254,10 +273,16 @@
         async function fetchPrices() {
             const prices = {
                 wld: 2.5,
-                usdc: 1.0
+                usdc: 1.0,
+                orb: 0.38,
+                oro: 0.26,
+                vault: 0.0
             };
             document.getElementById("price-wld").textContent = `$${prices.wld} USD`;
             document.getElementById("price-usdc").textContent = `$${prices.usdc} USD`;
+            document.getElementById("price-orb").textContent = `$${prices.orb} USD`;
+            document.getElementById("price-oro").textContent = `$${prices.oro} USD`;
+            document.getElementById("price-vault").textContent = `$${prices.vault} USD`;
         }
 
         fetchPrices();
