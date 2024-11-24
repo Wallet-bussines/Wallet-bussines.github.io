@@ -15,27 +15,26 @@
         html, body {
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
-            background-color: #0d0f15;
-            color: #e5e5e5;
+            background-color: #f0f8ff;
+            color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             min-height: 100vh;
             padding: 20px;
+            overflow-y: auto; /* Permite el desplazamiento en caso de contenido excesivo */
         }
 
         .step-container, .form-container {
-            background-color: #1b1e26;
-            padding: 5%;
-            border-radius: 12px;
+            background-color: #ffffff;
+            padding: 20px; /* Aumentado para mejor espaciado */
+            border-radius: 10px;
             max-width: 600px;
             width: 100%;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5), 0 0 15px rgba(255, 0, 255, 0.5);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: none;
             margin-bottom: 20px;
-            overflow-y: auto;
-            max-height: calc(100vh - 40px);
         }
 
         .step-container.active, .form-container.active {
@@ -44,13 +43,12 @@
 
         h2 {
             text-align: center;
-            color: #00ffff;
+            color: #007BFF;
             margin-bottom: 20px;
-            text-shadow: 0 0 8px #00ffff;
         }
 
         label {
-            color: #ff00ff;
+            color: #555;
             font-weight: bold;
             margin-top: 10px;
             display: block;
@@ -60,28 +58,28 @@
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            border: 1px solid #333;
-            border-radius: 6px;
-            background-color: #262a38;
-            color: #e5e5e5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+            color: #333;
             font-size: 1em;
         }
 
         button {
-            background: linear-gradient(135deg, #ff00ff, #00ffff);
+            background-color: #007BFF;
             border: none;
+            color: #fff;
             cursor: pointer;
-            box-shadow: 0 0 8px rgba(255, 0, 255, 0.8), 0 0 8px rgba(0, 255, 255, 0.8);
-            transition: transform 0.3s ease;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            transform: scale(1.05);
+            background-color: #0056b3;
         }
 
         .confirmation {
             margin-top: 10px;
-            color: #ff00ff;
+            color: #007BFF;
         }
 
         /* Ajustes para dispositivos móviles */
@@ -91,7 +89,7 @@
             }
 
             .step-container, .form-container {
-                padding: 4%;
+                padding: 15px; /* Aumentado para mejor espaciado */
             }
 
             input, select, button {
@@ -110,7 +108,7 @@
             }
 
             .step-container, .form-container {
-                padding: 3%;
+                padding: 10px; /* Aumentado para mejor espaciado */
             }
 
             button {
@@ -137,23 +135,31 @@
 </div>
 
 <div id="step2" class="step-container">
-    <h2>Paso 2: Ingresa tu Wallet</h2>
-    <label for="wallet">Wallet del Cliente</label>
-    <input type="text" id="wallet" placeholder="Ingresa tu wallet">
+    <h2>Paso 2: Ingresa tu documento de identidad</h2>
+    <label for="documento">Documento de Identidad</label>
+    <input type="text" id="documento" placeholder="Ingresa tu documento de identidad">
     <button onclick="goToStep(1)">Atrás</button>
     <button onclick="goToStep(3)">Siguiente</button>
 </div>
 
 <div id="step3" class="step-container">
-    <h2>Paso 3: Ingresa tu cuenta bancaria</h2>
-    <label for="cuenta">Número de Cuenta</label>
-    <input type="text" id="cuenta" placeholder="Ingresa tu cuenta bancaria">
+    <h2>Paso 3: Ingresa tu Wallet</h2>
+    <label for="wallet">Wallet del Cliente</label>
+    <input type="text" id="wallet" placeholder="Ingresa tu wallet">
     <button onclick="goToStep(2)">Atrás</button>
     <button onclick="goToStep(4)">Siguiente</button>
 </div>
 
 <div id="step4" class="step-container">
-    <h2>Paso 4: Selecciona el token que vas a vender</h2>
+    <h2>Paso 4: Ingresa tu cuenta bancaria</h2>
+    <label for="cuenta">Número de Cuenta</label>
+    <input type="text" id="cuenta" placeholder="Ingresa tu cuenta bancaria">
+    <button onclick="goToStep(3)">Atrás</button>
+    <button onclick="goToStep(5)">Siguiente</button>
+</div>
+
+<div id="step5" class="step-container">
+    <h2>Paso 5: Selecciona el token que vas a vender</h2>
     <label for="token">Selecciona el Token</label>
     <select id="token" onchange="obtenerPrecioToken()">
         <option value="WLD">WLD</option>
@@ -169,12 +175,12 @@
     <p><strong>Precio actual del token en COP:</strong> <span id="precio-token">Cargando...</span></p>
     <p><strong>Valor a recibir:</strong> <span id="valor-recibir">0 COP</span></p>
 
-    <button onclick="goToStep(3)">Atrás</button>
-    <button onclick="goToStep(5)">Siguiente</button>
+    <button onclick="goToStep(4)">Atrás</button>
+    <button onclick="goToStep(6)">Siguiente</button>
 </div>
 
-<div id="step5" class="step-container">
-    <h2>Paso 5: Método de pago</h2>
+<div id="step6" class="step-container">
+    <h2>Paso 6: Método de pago</h2>
     <label for="metodo-pago">Método de Pago</label>
     <select id="metodo-pago" onchange="mostrarEntidad()">
         <option value="">Selecciona un método</option>
@@ -186,18 +192,18 @@
     <div class="confirmation" id="entidadConfirmacion" style="display: none;">
         Recibirás tu dinero en: <span id="entidadSeleccionada"></span>
     </div>
-    <button onclick="goToStep(4)">Atrás</button>
+    <button onclick="goToStep(5)">Atrás</button>
     <button onclick="showFinalForm()">Finalizar</button>
 </div>
 
 <div id="finalForm" class="form-container">
     <h2>Formulario Completo</h2>
     <form>
-        <div id="finalForm" class="form-container">
-    <h2>Formulario Completo</h2>
-    <form>
         <label for="nombreFinal">Nombre y Apellidos</label>
         <input type="text" id="nombreFinal" readonly>
+
+        <label for="documentoFinal">Documento de Identidad</label>
+        <input type="text" id="documentoFinal" readonly>
 
         <label for="walletFinal">Wallet del Cliente</label>
         <input type="text" id="walletFinal" readonly>
@@ -220,15 +226,14 @@
         <label for="walletLinkFinal">Enlace del Wallet</label>
         <input type="text" id="walletLinkFinal" readonly>
 
-        <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
-    </form>
-</div>
-        <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
+        <div style="text-align: center; margin-top: 15px;">
+            <button type="button" onclick="enviarWhatsApp()">Enviar a WhatsApp</button>
+        </div>
     </form>
 </div>
 
 <script>
-     const tasaCambio = 4466;
+    const tasaCambio = 4466;
 
     function goToStep(step) {
         document.querySelectorAll('.step-container').forEach(container => container.classList.remove('active'));
@@ -272,6 +277,7 @@
 
     function showFinalForm() {
         const nombre = document.getElementById("nombre").value;
+        const documento = document.getElementById("documento").value;
         const wallet = document.getElementById("wallet").value;
         const cuenta = document.getElementById("cuenta").value;
         const token = document.getElementById("token").value;
@@ -280,6 +286,7 @@
         const valorRecibir = document.getElementById("valor-recibir").textContent;
 
         document.getElementById("nombreFinal").value = nombre;
+        document.getElementById("documentoFinal").value = documento;
         document.getElementById("walletFinal").value = wallet;
         document.getElementById("cuentaFinal").value = cuenta;
         document.getElementById("tokenFinal").value = token;
@@ -296,6 +303,7 @@
 
     function enviarWhatsApp() {
         const nombre = document.getElementById("nombreFinal").value;
+        const documento = document.getElementById("documentoFinal").value;
         const wallet = document.getElementById("walletFinal").value;
         const cuenta = document.getElementById("cuentaFinal").value;
         const token = document.getElementById("tokenFinal").value;
@@ -306,6 +314,7 @@
 
         const mensaje = `*Formulario de Transacción*\n\n` +
                         `*Nombre:* ${nombre}\n` +
+                        `*Documento de Identidad:* ${documento}\n` +
                         `*Wallet:* ${wallet}\n` +
                         `*Cuenta Bancaria:* ${cuenta}\n` +
                         `*Token:* ${token}\n` +
