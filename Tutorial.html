@@ -56,23 +56,6 @@
             color: #6c757d; /* Gris oscuro */
         }
 
-        /* Botón volver */
-        .back-button {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            margin: 15px 0;
-            transition: background-color 0.3s ease;
-        }
-
-        .back-button:hover {
-            background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
-        }
-
         /* Listado de Tutoriales */
         .tutorial-list {
             display: grid;
@@ -126,6 +109,34 @@
         .tutorial-link:hover {
             text-decoration: underline;
         }
+
+        /* Estilos para la barra de navegación */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            background-color: #ffffff;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-item {
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-item img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-item p {
+            margin: 5px 0 0;
+            font-size: 12px;
+        }
     </style>
     <script>
         // Función para manejar el botón "Volver"
@@ -142,19 +153,16 @@
     <div class="container">
         <!-- Encabezado -->
         <div class="header">
-            <h1>Tutoriales de OrbitalX</h1>
+            <h1>Orbital-X</h1>
             <p>Aprende a usar nuestra plataforma y maximiza tu inversión en tokens.</p>
         </div>
-
-        <!-- Botón Volver -->
-        <button class="back-button" onclick="volver()">Volver</button>
 
         <!-- Listado de Tutoriales -->
         <div class="tutorial-list">
             <!-- Tutorial 1 -->
             <div class="tutorial-card">
                 <div class="tutorial-title">Cómo crear tu cuenta</div>
-                <div class="tutorial-description">Una guía paso a paso para registrarte en word app.</div>
+                <div class="tutorial-description">Una guía paso a paso para registrarte en OrbitalX.</div>
                 <div class="tutorial-video">
                     <iframe src="https://www.youtube.com/embed/BzX8Yt7YhCw" allowfullscreen></iframe>
                 </div>
@@ -186,13 +194,28 @@
                     <iframe src="https://www.youtube.com/embed/h3q5fU5P8VI" allowfullscreen></iframe>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Tutorial 5 -->
-            <div class="tutorial-card">
-                <div class="tutorial-title">Seguridad en tu wallet</div>
-                <div class="tutorial-description">Consejos y mejores prácticas para proteger tus fondos.</div>
-                <a href="https://youtube.com/playlist?list=PLxnpKeDUc4kJHRVDnamD8l4LQzBvW5Y_8" class="tutorial-link">Leer más</a>
-            </div>
+    <!-- Barra de navegación inferior -->
+    <div class="navbar">
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+                <img src="https://wallet-bussines.github.io/Home.png" alt="Home">
+                <p>HOME</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+                <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
+                <p>Wallet</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/" target="_blank">
+                <img src="https://wallet-bussines.github.io/Seting.png" alt="Settings">
+                <p>Settings</p>
+            </a>
         </div>
     </div>
 </body>
