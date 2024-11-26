@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recibir Pagos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin-bottom: 120px; /* Espacio para la barra de navegación */
+        }
+        .qr-image {
+            width: 100%;
+            max-width: 250px;
+            margin: 20px auto;
+        }
+        .description {
+            font-size: 18px;
+            color: #333;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        video {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: none;
+        }
+        /* Barra de navegación inferior */
+        .navbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #333;
+            text-decoration: none;
+        }
+        .nav-item img {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+        .nav-item p {
+            margin: 0;
+            font-size: 14px;
+        }
+        .nav-item a {
+            color: #333;
+            text-decoration: none;
+        }
+        .nav-item a:hover p {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Recibir Pagos</h1>
+        <p class="description">Escanea el código QR para canjear monedas.</p>
+        <img src="https://wallet-bussines.github.io/Wordchain.jpg" alt="QR para recibir pagos" class="qr-image">
+        <button id="startScan">Escanear QR</button>
+        <video id="qrVideo" autoplay></video>
+        <p id="result" style="display: none; font-size: 16px; color: green; font-weight: bold;"></p>
+    </div>
+
+    <!-- Barra de navegación inferior -->
+    <div class="navbar">
+        <div class="nav-item">
+            <a href="https://worldcoin.org/verify?t=wld&i=0ac8d444-161a-4324-bcc7-bde098f8d765&k=tGo3ZeTJZZyR1e7fNfADEX6l59dE%2FZiVadihyPUqYfg%3D" target="_blank">
+                <img src="https://wallet-bussines.github.io/Home.png" alt="WORD_ID">
+                <p>WORD_ID</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+                <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
+                <p>Wallet</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://worldchain-mainnet.explorer.alchemy.com/" target="_blank">
+                <img src="https://wallet-bussines.github.io/Seting.png" alt="HISTORIAL">
+                <p>HISTORIAL</p>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const startScanButton = document.getElementById("startScan");
+        const video = document.getElementById("qrVideo");
+        const result = document.getElementById("result");
+
+        startScanButton.addEventListener("click", async () => {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "environment" }
+                });
+
+                video.style.display = "block";
+                video.srcObject = stream;
+
+                const qrScanner = new BarcodeDetector({ formats: ["qr_code"] });
+
+                const scanQRCode = async () => {
+                    const frame = await new ImageCapture(stream.getVideoTracks()[0]).grabFrame();
+                    const barcodes = await qrScanner.detect(frame);
+
+                    if (barcodes.length > 0) {
+                        video.srcObject.getTracks().forEach(track => track.stop());
+                        video.style.display = "none";
+                        result.style.display = "block";
+                        result.innerText = `Código detectado: ${barcodes[0].rawValue}`;
+                    } else {
+                        requestAnimationFrame(scanQRCode);
+                    }
+                };
+
+                scanQRCode();
+            } catch (err) {
+                alert("Error al acceder a la cámara: " + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
