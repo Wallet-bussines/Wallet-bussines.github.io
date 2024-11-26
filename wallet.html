@@ -1,305 +1,199 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
-    <title>Venta de Tokens - OrbitalX</title>
-    <link rel="icon" href="https://wallet-bussines.github.io/favicon.ico" type="image/x-icon">
-    <style>
-        /* ========== Estilos Generales ========== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Aplicaciones</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            padding: 20px;
-        }
+    body {
+      background-color: #ffffff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Cambio de justify-content */
+      min-height: 100vh;
+      margin: 0;
+    }
 
-        /* Contenedor Principal */
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            margin-top: 20px;
-        }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      padding-bottom: 60px; /* Se asegura de que la barra de navegación no quede pegada al contenido */
+    }
 
-        /* Barra de Navegación */
-        .nav-bar {
-            display: flex;
-            justify-content: center;
-            background-color: #ffffff;
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
+    .row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
 
-        .nav-bar button {
-            padding: 10px 25px;
-            font-size: 1rem;
-            font-weight: bold;
-            background-color: #6c63ff;
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+      text-align: center;
+    }
 
-        .nav-bar button:hover {
-            background-color: #4b4a9c;
-            transform: scale(1.05);
-        }
+    .icon img {
+      width: 80px;
+      height: 80px;
+      border-radius: 15px;
+      background-color: #ddd;
+      padding: 10px;
+      margin-bottom: 5px;
+      transition: background-color 0.3s ease;
+    }
 
-        .section {
-            display: none;
-        }
+    .icon p {
+      font-size: 14px;
+      color: #333;
+    }
 
-        .active {
-            display: block;
-        }
+    .icon img:hover {
+      background-color: #0066cc;
+      cursor: pointer;
+    }
 
-        h2 {
-            font-size: 2.4rem;
-            font-weight: bold;
-            color: #6c63ff;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    /* Barra de navegación */
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      background-color: #fff;
+      padding: 15px 0; /* Aumentamos el padding para que se vea mejor */
+      border-top: 1px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: relative; /* Se ajusta a la parte superior */
+      top: 0;
+    }
 
-        p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 20px;
-            text-align: justify;
-        }
+    .navbar .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        /* Bloques de Información */
-        .info-block {
-            margin-bottom: 30px;
-        }
+    .navbar .nav-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: #ddd;
+      padding: 8px;
+      transition: background-color 0.3s ease;
+    }
 
-        .info-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 10px;
-        }
+    .navbar .nav-item p {
+      font-size: 12px;
+      color: #333;
+    }
 
-        .info-text {
-            font-size: 1.1rem;
-            color: #555;
-            text-align: justify;
-        }
-
-        /* Tokens Cards */
-        .token-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .token-card {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .token-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .token-logo {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin-bottom: 15px;
-            border: 2px solid #6c63ff;
-        }
-
-        .token-name {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .token-price {
-            font-size: 1.2rem;
-            color: #4caf50;
-            margin-bottom: 15px;
-        }
-
-        .buy-button {
-            padding: 10px 20px;
-            font-size: 1rem;
-            color: #ffffff;
-            background-color: #6c63ff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .buy-button:hover {
-            background-color: #4b4a9c;
-        }
-
-        /* Tutorial Section */
-        .tutorial-section {
-            text-align: center;
-        }
-
-        .tutorial-section p {
-            margin-top: 10px;
-            font-size: 1.1rem;
-            color: #555;
-        }
-
-        .tutorial-section a {
-            display: inline-block;
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #ffffff;
-            background-color: #ff5722;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .tutorial-section a:hover {
-            background-color: #e64a19;
-            text-decoration: none;
-        }
-    </style>
+    .navbar .nav-item img:hover {
+      background-color: #0066cc;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Barra de Navegación -->
-        <div class="nav-bar">
-            <button onclick="navigateTo('inicio')">Inicio</button>
-            <button onclick="navigateTo('tokens')">Tokens</button>
-            <button onclick="redirectToTutorials()">Tutoriales</button>
-        </div>
-
-        <!-- Sección de Inicio -->
-        <section id="inicio" class="section active">
-            <h2>¡Bienvenido a OrbitalX!</h2>
-            <div class="info-block">
-                <h3 class="info-title">¿Qué es OrbitalX?</h3>
-                <p class="info-text">OrbitalX es una plataforma que te permite gestionar y vender tus criptomonedas de forma segura y eficiente. Nuestro objetivo es darte control total sobre tus activos digitales y ofrecerte una experiencia intuitiva.</p>
-            </div>
-            <div class="info-block">
-                <h3 class="info-title">¿Por qué usar OrbitalX?</h3>
-                <p class="info-text">OrbitalX se centra en la seguridad, la transparencia y una interfaz intuitiva para que cada usuario pueda manejar sus criptomonedas sin intermediarios.</p>
-            </div>
-            <div class="info-block">
-                <h3 class="info-title">Guía Rápida</h3>
-                <ol class="info-text">
-                    <li>Selecciona el token que deseas vender.</li>
-                    <li>Ingresa la cantidad que quieres vender.</li>
-                    <li>Haz clic en "VENDER" para completar tu transacción.</li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- Tokens -->
-        <section id="tokens" class="section">
-            <h2>Tokens Disponibles</h2>
-            <div class="token-list">
-                <div class="token-card">
-                    <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD" class="token-logo">
-                    <div class="token-name">WLD</div>
-                    <div class="token-price" id="price-wld">Cargando...</div>
-                    <button class="buy-button" onclick="redirectToSale()">VENDER</button>
-                </div>
-                <div class="token-card">
-                    <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" alt="USDC" class="token-logo">
-                    <div class="token-name">USDC</div>
-                    <div class="token-price" id="price-usdc">Cargando...</div>
-                    <button class="buy-button" onclick="redirectToSale()">VENDER</button>
-                </div>
-                <div class="token-card">
-                    <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png" alt="ORB" class="token-logo">
-                    <div class="token-name">ORB</div>
-                    <div class="token-price" id="price-orb">Cargando...</div>
-                    <button class="buy-button" onclick="redirectToSale()">VENDER</button>
-                </div>
-                <div class="token-card">
-                    <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO" class="token-logo">
-                    <div class="token-name">ORO</div>
-                    <div class="token-price" id="price-oro">Cargando...</div>
-                    <button class="buy-button" onclick="redirectToSale()">VENDER</button>
-                </div>
-                <div class="token-card">
-                    <img src="https://wallet-bussines.github.io/Vault.jpg" alt="VAULT" class="token-logo">
-                    <div class="token-name">VAULT</div>
-                    <div class="token-price" id="price-vault">Cargando...</div>
-                    <button class="buy-button" onclick="redirectToSale()">VENDER</button>
-                </div>
-            </div>
-        </section>
+  <div class="container">
+    <div class="row">
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Btc2.jpg" alt="App Store">
+          <p>VENDER</p>
+        </a>
+      </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Eth2.jpg" alt="Worldcoin">
+          <p>VENDER</p>
+        </a>
+      </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO">
+          <p>VENDER</p>
+        </a>
+      </div>
     </div>
+    <div class="row">
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Vault.jpg" alt="VAULT">
+          <p>VENDER</p>
+        </a>
+      </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png" alt="ORB">
+          <p>VENDER</p>
+        </a>
+      </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Dna.jpg" alt="VENDER">
+          <p>VENDER</p>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Orbitalx.png" alt="Recargas">
+          <p>INFO</p>
+        </a>
+      </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Tu.png" alt="Servicios">
+          <p>TUTORIALES</p>
+        </a>
+      </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://wallet-bussines.github.io/Comp.png" alt="DNA">
+          <p>INVITA</p>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/" target="_blank">
+          <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="Pagos">
+          <p>VENDER</p>
+        </a>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        // Navegación entre secciones
-        function navigateTo(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(section => section.style.display = 'none');
-            document.getElementById(sectionId).style.display = 'block';
-        }
-
-        // Redirección a la URL de venta
-        function redirectToSale() {
-            window.location.href = "https://wallet-bussines.github.io/index.html";
-        }
-
-        // Redirección directa al tutorial
-        function redirectToTutorials() {
-            window.location.href = "https://wallet-bussines.github.io/Tutorial.html";
-        }
-
-        // Simulación de precios para tokens
-        function fetchPrices() {
-            const prices = {
-                wld: 2.5,
-                usdc: 1.0,
-                orb: 0.75,
-                oro: 0.5,
-                vault: 0.005,
-            };
-            document.getElementById('price-wld').textContent = `$${prices.wld} USD`;
-            document.getElementById('price-usdc').textContent = `$${prices.usdc} USD`;
-            document.getElementById('price-orb').textContent = `$${prices.orb} USD`;
-            document.getElementById('price-oro').textContent = `$${prices.oro} USD`;
-            document.getElementById('price-vault').textContent = `$${prices.vault} USD`;
-        
-        }
-
-        // Cargar precios al inicio
-        fetchPrices();
-    </script>
+  <!-- Barra de navegación inferior -->
+  <div class="navbar">
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/Home.png" alt="OrbitalX">
+        <p>HOME</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://worldchain-mainnet.explorer.alchemy.com/address/0xDe6B6E1cDDbfD1D94aFc01957748c36c36F43aF4?tab=token_transfers" target="_blank">
+        <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
+        <p>Wallet</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/" target="_blank">
+        <img src="https://wallet-bussines.github.io/Seting.png" alt="Settings">
+        <p>Settings</p>
+      </a>
+    </div>
+  </div>
 </body>
 </html>
