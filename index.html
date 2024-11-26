@@ -147,6 +147,8 @@
         <option value="Bancolombia">Bancolombia</option>
         <option value="Transferencia Bancaria">Transferencia Bancaria</option>
     </select>
+    <label for="numero-cuenta">Número de Cuenta</label>
+    <input type="text" id="numero-cuenta" placeholder="Ingresa tu número de cuenta" required>
     <div class="confirmation" id="entidadConfirmacion" style="display: none;">
         Recibirás tu dinero en: <span id="entidadSeleccionada"></span>
     </div>
@@ -192,6 +194,10 @@
     <div class="form-group">
         <label for="metodoFinal">Método de Pago</label>
         <input type="text" id="metodoFinal" readonly>
+    </div>
+    <div class="form-group">
+        <label for="numeroCuentaFinal">Número de Cuenta</label>
+        <input type="text" id="numeroCuentaFinal" readonly>
     </div>
     <div class="form-group">
         <label for="tokenFinal">Token Seleccionado</label>
@@ -284,6 +290,7 @@
         const documento = document.getElementById("documento").value;
         const wallet = document.getElementById("wallet").value;
         const metodoPago = document.getElementById("metodo-pago").value;
+        const numeroCuenta = document.getElementById("numero-cuenta").value;
         const token = document.getElementById("token").value;
         const cantidad = document.getElementById("cantidad").value;
         const valorRecibir = document.getElementById("valor-recibir").textContent;
@@ -292,6 +299,7 @@
         document.getElementById("documentoFinal").value = documento;
         document.getElementById("walletFinal").value = wallet;
         document.getElementById("metodoFinal").value = metodoPago;
+        document.getElementById("numeroCuentaFinal").value = numeroCuenta;
         document.getElementById("tokenFinal").value = token;
         document.getElementById("cantidadFinal").value = cantidad;
         document.getElementById("valorRecibirFinal").value = valorRecibir;
@@ -308,6 +316,7 @@
         const documento = document.getElementById("documentoFinal").value;
         const wallet = document.getElementById("walletFinal").value;
         const metodoPago = document.getElementById("metodoFinal").value;
+        const numeroCuenta = document.getElementById("numeroCuentaFinal").value;
         const token = document.getElementById("tokenFinal").value;
         const cantidad = document.getElementById("cantidadFinal").value;
         const valorRecibir = document.getElementById("valorRecibirFinal").value;
@@ -318,6 +327,7 @@
                         `*Documento:* ${documento}\n` +
                         `*Wallet:* ${wallet}\n` +
                         `*Método de Pago:* ${metodoPago}\n` +
+                        `*Número de Cuenta:* ${numeroCuenta}\n` +
                         `*Token:* ${token}\n` +
                         `*Cantidad:* ${cantidad}\n` +
                         `*Valor a Recibir:* ${valorRecibir}\n` +
