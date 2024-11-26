@@ -16,36 +16,44 @@
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* Cambio de justify-content */
+      justify-content: space-between;
       min-height: 100vh;
       margin: 0;
+      overflow-x: hidden;
     }
 
     .container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      width: 100%;
-      padding-bottom: 60px; /* Se asegura de que la barra de navegación no quede pegada al contenido */
+      align-items: flex-start;
+      flex-grow: 1;
+      padding: 10px;
+      margin-bottom: 60px; /* Espacio para la barra de navegación fija */
     }
 
     .row {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
+      width: 100%;
+      flex-wrap: wrap;
     }
 
     .icon {
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 10px;
+      margin: 5px;
       text-align: center;
+      flex-grow: 1;
+      max-width: 120px;
+      min-width: 90px;
     }
 
     .icon img {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 15px;
       background-color: #ddd;
       padding: 10px;
@@ -54,7 +62,7 @@
     }
 
     .icon p {
-      font-size: 14px;
+      font-size: 12px;
       color: #333;
     }
 
@@ -63,16 +71,18 @@
       cursor: pointer;
     }
 
-    /* Barra de navegación */
+    /* Barra de navegación fija en la parte inferior */
     .navbar {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
       background-color: #fff;
-      padding: 15px 0; /* Aumentamos el padding para que se vea mejor */
+      padding: 10px 0;
       border-top: 1px solid #ddd;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      position: relative; /* Se ajusta a la parte superior */
-      top: 0;
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
     }
 
     .navbar .nav-item {
@@ -80,11 +90,12 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      flex-grow: 1;
     }
 
     .navbar .nav-item img {
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 10px;
       background-color: #ddd;
       padding: 8px;
@@ -92,7 +103,7 @@
     }
 
     .navbar .nav-item p {
-      font-size: 12px;
+      font-size: 10px;
       color: #333;
     }
 
@@ -167,7 +178,7 @@
     <div class="row">
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="Pagos">
+          <img src="https://wallet-bussines.github.io/WLD1.jpg" alt="Pagos">
           <p>VENDER</p>
         </a>
       </div>
