@@ -110,33 +110,46 @@
             text-decoration: underline;
         }
 
-        /* Estilos para la barra de navegación */
-        .navbar {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            background-color: #ffffff;
-            padding: 10px 0;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-        }
+        /* Barra de navegación fija en la parte inferior */
+    .navbar {
+      display: flex;
+      justify-content: space-evenly;
+      background-color: #fff;
+      padding: 10px 0;
+      border-top: 1px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
 
-        .nav-item {
-            text-align: center;
-            color: #333;
-            text-decoration: none;
-        }
+    .navbar .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex-grow: 1;
+    }
 
-        .nav-item img {
-            width: 24px;
-            height: 24px;
-        }
+    .navbar .nav-item img {
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      background-color: #ddd;
+      padding: 8px;
+      transition: background-color 0.3s ease;
+    }
 
-        .nav-item p {
-            margin: 5px 0 0;
-            font-size: 12px;
-        }
+    .navbar .nav-item p {
+      font-size: 10px;
+      color: #333;
+    }
+
+    .navbar .nav-item img:hover {
+      background-color: #0066cc;
+      cursor: pointer;
+    }
     </style>
     <script>
         // Función para manejar el botón "Volver"
