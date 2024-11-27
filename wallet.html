@@ -12,14 +12,14 @@
     }
 
     body {
-      background-color: #ffffff;
-      font-family: Arial, sans-serif;
+      background-color: #ffffff; /* Fondo blanco */
+      font-family: 'Arial', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
       min-height: 100vh;
-      margin: 0;
-      padding-bottom: 60px; /* Espacio para la barra de navegación */
+      color: #333; /* Color de texto */
+      padding-bottom: 60px;
     }
 
     .container {
@@ -27,48 +27,70 @@
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
+      padding: 20px;
     }
 
     .row {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px; /* Espacio reducido entre filas */
     }
 
     .icon {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      margin: 10px;
+      align-items: center; /* Centrar horizontalmente */
+      margin: 5px; /* Menor espacio entre los cuadros */
       text-align: center;
     }
 
-    .icon img {
-      width: 80px;
-      height: 80px;
-      border-radius: 15px;
-      background-color: #ddd;
-      padding: 10px;
-      margin-bottom: 5px;
-      transition: background-color 0.3s ease;
+    .circle {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Centrar contenido */
+      border: 1px solid #ccc; /* Borde más suave */
+      border-radius: 50%; /* Bordes redondeados completamente para círculo */
+      background-color: #fff; /* Fondo blanco */
+      width: 100px; /* Ancho del círculo */
+      height: 100px; /* Alto del círculo */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+      margin-bottom: 5px; /* Espacio entre el círculo y el texto */
     }
 
-    .icon p {
-      font-size: 14px;
-      color: #333;
+    .circle img {
+      width: 100%; /* Hacer que la imagen ocupe todo el círculo */
+      height: 100%; /* Hacer que la imagen ocupe todo el círculo */
+      border-radius: 50%; /* Bordes redondeados para que la imagen tenga forma circular */
+      object-fit: cover; /* Mantener la proporción de la imagen */
     }
 
-    .icon img:hover {
-      background-color: #0066cc;
-      cursor: pointer;
+    .circle:hover {
+      transform: translateY(-2px); /* Efecto de elevación al pasar el cursor */
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
     }
 
-    /* Barra de navegación fija en la parte inferior */
+    a {
+      text-decoration: none; /* Quitar subrayado */
+      color: inherit; /* Heredar color del padre */
+      outline: none; /* Quitar el contorno azul al hacer clic */
+    }
+
+    a:focus {
+      outline: none; /* Asegura que no haya contorno en el foco */
+      box-shadow: none; /* Asegura que no haya sombra en el foco */
+    }
+
+    a:active {
+      outline: none; /* Asegura que no haya contorno al hacer clic */
+      box-shadow: none; /* Asegura que no haya sombra al hacer clic */
+    }
+
     .navbar {
       display: flex;
       justify-content: space-around;
-      background-color: #fff;
-      padding: 15px 0; /* Aumentamos el padding para que se vea mejor */
+      background: #ffffff;
+      padding: 10px 0;
       border-top: 1px solid #ddd;
       box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
       width: 100%;
@@ -82,26 +104,28 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      transition: transform 0.3s ease;
     }
 
     .navbar .nav-item img {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background-color: #ddd;
-      padding: 8px;
-      transition: background-color 0.3s ease;
+      width: 30px; /* Tamaño más pequeño */
+      height: 30px;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 5px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .navbar .nav-item p {
-      font-size: 12px;
+      font-size: 10px; /* Fuente más pequeña */
       color: #333;
     }
 
     .navbar .nav-item img:hover {
-      background-color: #0066cc;
+      transform: scale(1.1);
       cursor: pointer;
     }
+
   </style>
 </head>
 <body>
@@ -109,19 +133,25 @@
     <div class="row">
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://wallet-bussines.github.io/Btc2.jpg" alt="App Store">
+          <div class="circle">
+            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin"> <!-- Logo oficial de BTC -->
+          </div>
           <p>VENDER</p>
         </a>
       </div>
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://wallet-bussines.github.io/Eth2.jpg" alt="Worldcoin">
+          <div class="circle">
+            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum"> <!-- Logo oficial de ETH -->
+          </div>
           <p>VENDER</p>
         </a>
       </div>
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/oro.jpg" alt="ORO">
+          </div>
           <p>VENDER</p>
         </a>
       </div>
@@ -129,19 +159,25 @@
     <div class="row">
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://wallet-bussines.github.io/Vault.jpg" alt="VAULT">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Vault.jpg" alt="VAULT">
+          </div>
           <p>VENDER</p>
         </a>
       </div>
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://world-id-assets.com/app_3876b5f39809a50bb5ebe97c997bbcf1/fd6bc912-0015-4e0c-81e4-15fe700edb8e.png" alt="ORB">
+          <div class="circle">
+            <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="ORB">
+          </div>
           <p>VENDER</p>
         </a>
       </div>
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://wallet-bussines.github.io/Dna.jpg" alt="VENDER">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Dna.jpg" alt="VENDER">
+          </div>
           <p>VENDER</p>
         </a>
       </div>
@@ -149,19 +185,25 @@
     <div class="row">
       <div class="icon">
         <a href="https://wallet-bussines.github.io/informaci%C3%B3n%20.html" target="_blank">
-          <img src="https://wallet-bussines.github.io/Orbitalx.png" alt="Recargas">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Orbitalx.png" alt="Recargas">
+          </div>
           <p>INFO</p>
         </a>
       </div>
       <div class="icon">
         <a href="https://wallet-bussines.github.io/Tutorial.html" target="_blank">
-          <img src="https://wallet-bussines.github.io/Tu.png" alt="Servicios">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Tu.png" alt="Servicios">
+          </div>
           <p>TUTORIALES</p>
         </a>
       </div>
       <div class="icon">
         <a href="https://wallet-bussines.github.io/terminal.html" target="_blank">
-          <img src="https://wallet-bussines.github.io/Comp.png" alt="DNA">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Comp.png" alt="DNA">
+          </div>
           <p>INVITA</p>
         </a>
       </div>
@@ -169,14 +211,15 @@
     <div class="row">
       <div class="icon">
         <a href="https://wallet-bussines.github.io/" target="_blank">
-          <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="Pagos">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Orbe.png" alt="Pagos">
+          </div>
           <p>VENDER</p>
         </a>
       </div>
     </div>
   </div>
 
-  <!-- Barra de navegación inferior -->
   <div class="navbar">
     <div class="nav-item">
       <a href="https://worldcoin.org/verify?t=wld&i=0355729c-97be-418f-8c1f-d13ea534d19f&k=ZA4Jp9BZrIrMGUoiwcVSaf%2BRC2KQv0MQKaAqRw%2FY6eY%3D" target="_blank">
