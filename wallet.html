@@ -16,9 +16,10 @@
       font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* Cambio de justify-content */
+      justify-content: flex-start;
       min-height: 100vh;
       margin: 0;
+      padding-bottom: 60px; /* Espacio para la barra de navegación */
     }
 
     .container {
@@ -26,7 +27,6 @@
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
-      padding-bottom: 60px; /* Se asegura de que la barra de navegación no quede pegada al contenido */
     }
 
     .row {
@@ -63,16 +63,18 @@
       cursor: pointer;
     }
 
-    /* Barra de navegación */
+    /* Barra de navegación fija en la parte inferior */
     .navbar {
       display: flex;
       justify-content: space-around;
       background-color: #fff;
       padding: 15px 0; /* Aumentamos el padding para que se vea mejor */
       border-top: 1px solid #ddd;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      position: relative; /* Se ajusta a la parte superior */
-      top: 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
     }
 
     .navbar .nav-item {
