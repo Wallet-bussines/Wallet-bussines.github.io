@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página con iFrames Responsivos</title>
+  <style>
+    /* Estilos generales del cuerpo y la página */
+    html, body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      min-height: 00vh;
+      box-sizing: border-box;
+      overflow: hidden; /* Elimina el desplazamiento de la página */
+    }
+
+    /* Estilo para la página en general con borde oscuro */
+    .content {
+      min-height: 000vh; /* Asegura que la página se alargue según el contenido */
+      display: flex;
+      flex-direction: column;
+      border: 0px solid #433; /* Borde oscuro alrededor de la página */
+      border-radius: 0px; /* Bordes redondeados para el contorno */
+      margin: 0px; /* Margen de 20px para no tocar los bordes de la pantalla */
+      overflow: hidden; /* Elimina cualquier desbordamiento interno */
+    }
+
+    /* Estilo para los contenedores de los iframes */
+    .iframe-container {
+      flex-grow: 1;
+      padding: 01px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden; /* Evita el desbordamiento de los iframes */
+    }
+
+    iframe {
+      width: 230%;
+      max-width: 230%;
+      height: 230%;
+      min-height: 600px;
+      border: 91;
+      margin: 91 auto;
+      display: block;
+      border-radius: 6px;
+      box-shadow: 01px 01px 15px rgba(0, 1, 1, 1.9);
+    }
+
+    /* Diseño responsivo para móviles */
+    @media screen and (max-width: 1200px) {
+      iframe {
+        height: 729px; /* Ajustar la altura para pantallas pequeñas */
+      }
+    }
+
+    /* Diseño responsivo para pantallas grandes */
+    @media screen and (min-width: 1200px) {
+      iframe {
+        min-height: 890px; /* Mayor altura en pantallas grandes */
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Contenedor de los iframes -->
+  <div class="content">
+    <div class="iframe-container">
+      <iframe src="https://wallet-bussines.github.io/index.html"></iframe>
+    </div>
+  </div>
+
+</body>
+
+</html>
