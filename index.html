@@ -281,7 +281,7 @@
     function actualizarValorRecibir() {
         const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
         const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
-        const valorRecibir = cantidad * precioCOP * (1 - 0.19);
+        const valorRecibir = cantidad * precioCOP * (1 - 0.22);
         document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
