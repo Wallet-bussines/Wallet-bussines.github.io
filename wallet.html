@@ -12,120 +12,110 @@
     }
 
     body {
-      background-color: #ffffff; /* Fondo blanco */
-      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa; /* Fondo claro */
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      align-items: center;
       min-height: 100vh;
-      color: #333; /* Color de texto */
-      padding-bottom: 60px;
+      color: #2c3e50; /* Texto oscuro */
     }
 
     .container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      width: 100%;
       padding: 20px;
+      width: 100%;
     }
 
     .row {
       display: flex;
       justify-content: center;
-      margin-bottom: 10px; /* Espacio reducido entre filas */
+      margin-bottom: 15px;
     }
 
     .icon {
       display: flex;
       flex-direction: column;
-      align-items: center; /* Centrar horizontalmente */
-      margin: 5px; /* Menor espacio entre los cuadros */
+      align-items: center;
+      margin: 15px;
       text-align: center;
+      transition: transform 0.3s ease-in-out;
     }
 
     .circle {
       display: flex;
       align-items: center;
-      justify-content: center; /* Centrar contenido */
-      border: 1px solid #ccc; /* Borde más suave */
-      border-radius: 50%; /* Bordes redondeados completamente para círculo */
-      background-color: #fff; /* Fondo blanco */
-      width: 80px; /* Ancho del círculo */
-      height: 80px; /* Alto del círculo */
+      justify-content: center;
+      width: 80px; /* Tamaño reducido */
+      height: 80px; /* Tamaño reducido */
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d6d6d6, #f2f2f2); /* Efecto metálico */
+      border: 2px solid #a3a3a3; /* Borde metálico */
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-      margin-bottom: 5px; /* Espacio entre el círculo y el texto */
     }
 
     .circle img {
-      width: 60%; /* Hacer que la imagen ocupe todo el círculo */
-      height: 60%; /* Hacer que la imagen ocupe todo el círculo */
-      border-radius: 50%; /* Bordes redondeados para que la imagen tenga forma circular */
-      object-fit: cover; /* Mantener la proporción de la imagen */
+      width: 60%; /* Tamaño de imagen reducido */
+      height: 60%; /* Tamaño de imagen reducido */
+      border-radius: 50%;
+      object-fit: cover;
     }
 
     .circle:hover {
-      transform: translateY(-2px); /* Efecto de elevación al pasar el cursor */
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra al pasar el cursor */
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
 
-    a {
-      text-decoration: none; /* Quitar subrayado */
-      color: inherit; /* Heredar color del padre */
-      outline: none; /* Quitar el contorno azul al hacer clic */
-    }
-
-    a:focus {
-      outline: none; /* Asegura que no haya contorno en el foco */
-      box-shadow: none; /* Asegura que no haya sombra en el foco */
-    }
-
-    a:active {
-      outline: none; /* Asegura que no haya contorno al hacer clic */
-      box-shadow: none; /* Asegura que no haya sombra al hacer clic */
+    p {
+      margin-top: 5px;
+      font-size: 12px; /* Tamaño de fuente reducido */
+      color: #2c3e50;
     }
 
     .navbar {
       display: flex;
       justify-content: space-around;
-      background: #ffffff;
-      padding: 10px 0;
-      border-top: 1px solid #ddd;
-      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-      width: 100%;
       position: fixed;
       bottom: 0;
       left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #34495e, #2c3e50); /* Gradiente oscuro */
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+      padding: 10px 0;
+      border-top: 3px solid #1abc9c; /* Borde de color turquesa */
     }
 
-    .navbar .nav-item {
+    .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    .navbar .nav-item img {
-      width: 30px; /* Tamaño más pequeño */
-      height: 30px;
-      border-radius: 5px;
-      background-color: rgba(255, 255, 255, 0.1);
+    .nav-item img {
+      width: 35px; /* Tamaño aumentado */
+      height: 35px; /* Tamaño aumentado */
+      border-radius: 50%;
       padding: 5px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #ecf0f1; /* Fondo de icono claro */
+      border: 1px solid #bdc3c7; /* Borde de icono */
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     }
 
-    .navbar .nav-item p {
-      font-size: 10px; /* Fuente más pequeña */
-      color: #333;
-    }
-
-    .navbar .nav-item img:hover {
+    .nav-item img:hover {
       transform: scale(1.1);
-      cursor: pointer;
+      box-shadow: 0 0 10px #1abc9c; /* Efecto de resplandor */
     }
 
+    .nav-item p {
+      font-size: 10px; /* Tamaño de fuente más pequeño */
+      margin-top: 4px;
+      color: #ecf0f1; /* Texto claro */
+    }
   </style>
 </head>
 <body>
@@ -134,7 +124,7 @@
       <div class="icon">
         <a href="https://wallet-bussines.github.io/iframe2.html" target="_blank">
           <div class="circle">
-            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin"> <!-- Logo oficial de BTC -->
+            <img src="https://cryptologos.cc/logos/bitcoin-btc-logo.png" alt="Bitcoin">
           </div>
           <p>VENDER</p>
         </a>
@@ -142,7 +132,7 @@
       <div class="icon">
         <a href="https://wallet-bussines.github.io/iframe2.html" target="_blank">
           <div class="circle">
-            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum"> <!-- Logo oficial de ETH -->
+            <img src="https://cryptologos.cc/logos/ethereum-eth-logo.png" alt="Ethereum">
           </div>
           <p>VENDER</p>
         </a>
@@ -217,6 +207,14 @@
           <p>VENDER</p>
         </a>
       </div>
+      <div class="icon">
+        <a href="https://wallet-bussines.github.io/iframe2.html" target="_blank">
+          <div class="circle">
+            <img src="https://wallet-bussines.github.io/Usdt.png" alt="USD">
+          </div>
+          <p>VENDER</p>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -230,13 +228,13 @@
     <div class="nav-item">
       <a href="https://wallet-bussines.github.io/iframe.html" target="_blank">
         <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
-        <p>Wallet</p>
+        <p>WALLET</p>
       </a>
     </div>
     <div class="nav-item">
-      <a href="https://worldchain-mainnet.explorer.alchemy.com/address/0xDe6B6E1cDDbfD1D94aFc01957748c36c36F43aF4?tab=token_transfers" target="_blank">
-        <img src="https://wallet-bussines.github.io/Seting.png" alt="Settings">
-        <p>Settings</p>
+      <a href="https://wallet-bussines.github.io/iframe2.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/Usdt.png" alt="USD">
+        <p>HISTORY</p>
       </a>
     </div>
   </div>
