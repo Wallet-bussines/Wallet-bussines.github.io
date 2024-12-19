@@ -8,6 +8,7 @@
     <style>
         body { padding: 20px; }
         .region { margin-bottom: 20px; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
@@ -30,9 +31,9 @@
             </form>
         </div>
 
-        <!-- Sección Principal (oculta por defecto) -->
-        <div id="mainSection" style="display: none;">
-            <form id="transactionForm">
+        <!-- Sección Principal -->
+        <div id="mainSection" class="hidden">
+            <form id="transactionForm" class="hidden">
                 <h2 class="text-center">Registrar Nueva Transacción</h2>
                 <div class="mb-3">
                     <label for="region" class="form-label">Región</label>
@@ -80,9 +81,6 @@
         const loginSection = document.getElementById('loginSection');
         const mainSection = document.getElementById('mainSection');
 
-        const transactions = [];
-        const regionEarnings = {};
-
         const supportCredentials = {
             email: 'wordcoinwld6@gmail.com',
             password: '3229609433',
@@ -94,6 +92,9 @@
             { username: 'encargado2', password: 'password456', role: 'encargado' }
         ];
 
+        // Inicializar transacciones desde localStorage
+        const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        const regionEarnings = JSON.parse(localStorage.getItem('regionEarnings')) || {};
         let userRole = '';
 
         loginForm.addEventListener('submit', (e) => {
@@ -103,20 +104,28 @@
 
             if (username === supportCredentials.email && password === supportCredentials.password) {
                 userRole = 'support';
-                loginSection.style.display = 'none';
-                mainSection.style.display = 'block';
+                setupUIForRole();
             } else {
                 const encargado = encargados.find(user => user.username === username && user.password === password);
                 if (encargado) {
                     userRole = 'encargado';
-                    loginSection.style.display = 'none';
-                    mainSection.style.display = 'block';
-                    transactionForm.style.display = 'none'; // Solo soporte puede registrar transacciones
+                    setupUIForRole();
                 } else {
                     alert('Credenciales inválidas.');
                 }
             }
         });
+
+        function setupUIForRole() {
+            loginSection.classList.add('hidden');
+            mainSection.classList.remove('hidden');
+            if (userRole === 'support') {
+                transactionForm.classList.remove('hidden');
+            } else {
+                transactionForm.classList.add('hidden');
+            }
+            updateTransactionHistory();
+        }
 
         transactionForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -139,6 +148,10 @@
             transactions.push(transaction);
             regionEarnings[region] = (regionEarnings[region] || 0) + earnings;
 
+            // Guardar en localStorage
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            localStorage.setItem('regionEarnings', JSON.stringify(regionEarnings));
+
             updateTransactionHistory();
             transactionForm.reset();
         });
@@ -149,15 +162,28 @@
                 return;
             }
 
-            transactionHistory.innerHTML = transactions.map(t => `
-                <div class="card mt-2">
+            const groupedTransactions = transactions.reduce((acc, t) => {
+                acc[t.region] = acc[t.region] || [];
+                acc[t.region].push(t);
+                return acc;
+            }, {});
+
+            transactionHistory.innerHTML = Object.entries(groupedTransactions).map(([region, trans]) => `
+                <div class="region card">
                     <div class="card-body">
-                        <p><strong>Región:</strong> ${t.region}</p>
-                        <p><strong>Usuario:</strong> ${t.user}</p>
-                        <p><strong>Detalles:</strong> ${t.details}</p>
-                        <p><strong>Tokens:</strong> ${t.tokens}</p>
-                        <p><strong>Ganancias:</strong> $${t.earnings.toLocaleString()}</p>
-                        <p><small class="text-muted">Fecha: ${t.date}</small></p>
+                        <h5 class="card-title">Región: ${region}</h5>
+                        <p><strong>Ganancias Totales:</strong> $${regionEarnings[region].toLocaleString()}</p>
+                        ${trans.map(t => `
+                            <div class="card mt-2">
+                                <div class="card-body">
+                                    <p class="card-text"><strong>Usuario Encargado:</strong> ${t.user}</p>
+                                    <p class="card-text"><strong>Detalles:</strong> ${t.details}</p>
+                                    <p class="card-text"><strong>Tokens Enviados:</strong> ${t.tokens}</p>
+                                    <p class="card-text"><strong>Ganancias:</strong> $${t.earnings.toLocaleString()}</p>
+                                    <p class="card-text"><small class="text-muted">Fecha: ${t.date}</small></p>
+                                </div>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
             `).join('');
