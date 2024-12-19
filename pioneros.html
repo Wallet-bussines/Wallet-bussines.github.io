@@ -6,126 +6,162 @@
     <title>Registro de Transacciones</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <style>
-        body {
-            padding: 20px;
-        }
-        .region {
-            margin-bottom: 20px;
-        }
+        body { padding: 20px; }
+        .region { margin-bottom: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Registro de Transacciones por Regiones</h1>
-        
-        <form id="transactionForm">
-            <div class="mb-3">
-                <label for="region" class="form-label">Región</label>
-                <select id="region" class="form-select" required>
-                    <option value="">Seleccione una región</option>
-                    <option value="Armenia">Armenia</option>
-                    <option value="Calarcá">Calarcá</option>
-                    <option value="Manizales">Manizales</option>
-                    <option value="Pereira">Pereira</option>
-                    <option value="Dosquebradas">Dosquebradas</option>
-                    <option value="Medellín">Medellín</option>
-                    <option value="Bogotá">Bogotá</option>
-                    <option value="Cali">Cali</option>
-                    <option value="Barcelona">Barcelona</option>
-                </select>
-            </div>
+        <h1 class="text-center">Registro de Transacciones</h1>
 
-            <div class="mb-3">
-                <label for="user" class="form-label">Usuario Encargado</label>
-                <input type="text" id="user" class="form-control" placeholder="Nombre del usuario encargado" required>
-            </div>
-
-            <div class="mb-3">
-                <label for="transactionDetails" class="form-label">Detalles de la Transacción</label>
-                <textarea id="transactionDetails" class="form-control" rows="3" placeholder="Información de la transacción" required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label for="tokens" class="form-label">Tokens Enviados</label>
-                <input type="number" id="tokens" class="form-control" placeholder="Cantidad de tokens enviados" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Registrar Transacción</button>
-        </form>
-
-        <hr>
-
-        <h2 class="text-center">Historial de Transacciones</h2>
-        <div id="transactionHistory">
-            <p class="text-muted">No hay transacciones registradas aún.</p>
+        <!-- Sección de Inicio de Sesión -->
+        <div id="loginSection">
+            <h2 class="text-center">Inicio de Sesión</h2>
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario o Correo</label>
+                    <input type="text" id="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" id="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </form>
         </div>
 
-        <script>
-            const transactionForm = document.getElementById('transactionForm');
-            const transactionHistory = document.getElementById('transactionHistory');
+        <!-- Sección Principal (oculta por defecto) -->
+        <div id="mainSection" style="display: none;">
+            <form id="transactionForm">
+                <h2 class="text-center">Registrar Nueva Transacción</h2>
+                <div class="mb-3">
+                    <label for="region" class="form-label">Región</label>
+                    <select id="region" class="form-select" required>
+                        <option value="">Seleccione una región</option>
+                        <option value="Armenia">Armenia</option>
+                        <option value="Calarcá">Calarcá</option>
+                        <option value="Manizales">Manizales</option>
+                        <option value="Pereira">Pereira</option>
+                        <option value="Dosquebradas">Dosquebradas</option>
+                        <option value="Medellín">Medellín</option>
+                        <option value="Bogotá">Bogotá</option>
+                        <option value="Cali">Cali</option>
+                        <option value="Barcelona">Barcelona</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="user" class="form-label">Usuario Encargado</label>
+                    <input type="text" id="user" class="form-control" placeholder="Nombre del usuario encargado" required>
+                </div>
+                <div class="mb-3">
+                    <label for="transactionDetails" class="form-label">Detalles de la Transacción</label>
+                    <textarea id="transactionDetails" class="form-control" rows="3" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="tokens" class="form-label">Tokens Enviados</label>
+                    <input type="number" id="tokens" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Registrar Transacción</button>
+            </form>
 
-            const transactions = [];
-            const regionEarnings = {};
+            <hr>
 
-            transactionForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-
-                const region = document.getElementById('region').value;
-                const user = document.getElementById('user').value;
-                const details = document.getElementById('transactionDetails').value;
-                const tokens = parseInt(document.getElementById('tokens').value, 10);
-                const earnings = tokens * 100;
-
-                const transaction = {
-                    region,
-                    user,
-                    details,
-                    tokens,
-                    earnings,
-                    date: new Date().toLocaleString()
-                };
-
-                transactions.push(transaction);
-                regionEarnings[region] = (regionEarnings[region] || 0) + earnings;
-
-                updateTransactionHistory();
-
-                transactionForm.reset();
-            });
-
-            function updateTransactionHistory() {
-                if (transactions.length === 0) {
-                    transactionHistory.innerHTML = '<p class="text-muted">No hay transacciones registradas aún.</p>';
-                    return;
-                }
-
-                const groupedTransactions = transactions.reduce((acc, t) => {
-                    acc[t.region] = acc[t.region] || [];
-                    acc[t.region].push(t);
-                    return acc;
-                }, {});
-
-                transactionHistory.innerHTML = Object.entries(groupedTransactions).map(([region, trans]) => `
-                    <div class="region card">
-                        <div class="card-body">
-                            <h5 class="card-title">Región: ${region}</h5>
-                            <p><strong>Ganancias Totales:</strong> $${regionEarnings[region].toLocaleString()}</p>
-                            ${trans.map(t => `
-                                <div class="card mt-2">
-                                    <div class="card-body">
-                                        <p class="card-text"><strong>Usuario Encargado:</strong> ${t.user}</p>
-                                        <p class="card-text"><strong>Detalles:</strong> ${t.details}</p>
-                                        <p class="card-text"><strong>Tokens Enviados:</strong> ${t.tokens}</p>
-                                        <p class="card-text"><strong>Ganancias:</strong> $${t.earnings.toLocaleString()}</p>
-                                        <p class="card-text"><small class="text-muted">Fecha: ${t.date}</small></p>
-                                    </div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `).join('');
-            }
-        </script>
+            <h2 class="text-center">Historial de Transacciones</h2>
+            <div id="transactionHistory">
+                <p class="text-muted">No hay transacciones registradas aún.</p>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const transactionForm = document.getElementById('transactionForm');
+        const transactionHistory = document.getElementById('transactionHistory');
+        const loginSection = document.getElementById('loginSection');
+        const mainSection = document.getElementById('mainSection');
+
+        const transactions = [];
+        const regionEarnings = {};
+
+        const supportCredentials = {
+            email: 'wordcoinwld6@gmail.com',
+            password: '3229609433',
+            role: 'support'
+        };
+
+        const encargados = [
+            { username: 'encargado1', password: 'password123', role: 'encargado' },
+            { username: 'encargado2', password: 'password456', role: 'encargado' }
+        ];
+
+        let userRole = '';
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === supportCredentials.email && password === supportCredentials.password) {
+                userRole = 'support';
+                loginSection.style.display = 'none';
+                mainSection.style.display = 'block';
+            } else {
+                const encargado = encargados.find(user => user.username === username && user.password === password);
+                if (encargado) {
+                    userRole = 'encargado';
+                    loginSection.style.display = 'none';
+                    mainSection.style.display = 'block';
+                    transactionForm.style.display = 'none'; // Solo soporte puede registrar transacciones
+                } else {
+                    alert('Credenciales inválidas.');
+                }
+            }
+        });
+
+        transactionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const region = document.getElementById('region').value;
+            const user = document.getElementById('user').value;
+            const details = document.getElementById('transactionDetails').value;
+            const tokens = parseInt(document.getElementById('tokens').value, 10);
+            const earnings = tokens * 100;
+
+            const transaction = {
+                region,
+                user,
+                details,
+                tokens,
+                earnings,
+                date: new Date().toLocaleString()
+            };
+
+            transactions.push(transaction);
+            regionEarnings[region] = (regionEarnings[region] || 0) + earnings;
+
+            updateTransactionHistory();
+            transactionForm.reset();
+        });
+
+        function updateTransactionHistory() {
+            if (transactions.length === 0) {
+                transactionHistory.innerHTML = '<p class="text-muted">No hay transacciones registradas aún.</p>';
+                return;
+            }
+
+            transactionHistory.innerHTML = transactions.map(t => `
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <p><strong>Región:</strong> ${t.region}</p>
+                        <p><strong>Usuario:</strong> ${t.user}</p>
+                        <p><strong>Detalles:</strong> ${t.details}</p>
+                        <p><strong>Tokens:</strong> ${t.tokens}</p>
+                        <p><strong>Ganancias:</strong> $${t.earnings.toLocaleString()}</p>
+                        <p><small class="text-muted">Fecha: ${t.date}</small></p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
 </body>
 </html>
