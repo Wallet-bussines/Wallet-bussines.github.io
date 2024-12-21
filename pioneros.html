@@ -173,9 +173,9 @@
             <label for="region">Región</label>
             <select id="region" required>
                 <option value="">Seleccione una región</option>
-                <!-- Opciones de región -->
                 <option value="Bogotá">Bogotá</option>
                 <option value="Medellín">Medellín</option>
+                <option value="Cali">Cali</option>
                 <option value="Barranquilla">Barranquilla</option>
                 <option value="Cartagena">Cartagena</option>
                 <option value="Bucaramanga">Bucaramanga</option>
@@ -264,25 +264,43 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const fecha = new Date().toLocaleString();
             const region = document.getElementById('region').value;
             const usuario = document.getElementById('usuario').value;
             const detalles = document.getElementById('detalles').value;
-            const tokens = parseFloat(document.getElementById('tokens').value);
+            const tokens = document.getElementById('tokens').value;
             const estado = document.getElementById('estado').value;
+            const fecha = new Date().toLocaleString();
 
-            const transfer = { fecha, region, usuario, detalles, tokens, estado };
+            const newTransfer = {
+                fecha,
+                region,
+                usuario,
+                detalles,
+                tokens: parseFloat(tokens),
+                estado,
+            };
 
+            // Save transfer data to localStorage
             const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
-            transfers.push(transfer);
+            transfers.push(newTransfer);
             localStorage.setItem('transfers', JSON.stringify(transfers));
 
-            loadHistory();
-
-            form.reset();
+            loadHistory();  // Reload the history table
+            form.reset();   // Clear the form
         });
 
-        loadHistory();
+        // Function to send transfer history to WhatsApp
+        function sendToWhatsApp() {
+            const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
+            let message = "Historial de Transferencias:\n\n";
+
+            transfers.forEach(transfer => {
+                message += `Fecha: ${transfer.fecha}, Región: ${transfer.region}, Usuario: ${transfer.usuario}, Tokens: ${transfer.tokens}, Recompensa: $${(transfer.tokens * 100).toFixed(2)}, Estado: ${transfer.estado}, Detalles: ${transfer.detalles}\n\n`;
+            });
+
+            const whatsappURL = `https://wa.me/3248092374?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
     </script>
 
     <div class="navbar">
@@ -299,9 +317,9 @@
             </a>
         </div>
         <div class="nav-item">
-            <a href="https://wa.me/3248092374?text=Historial%20de%20Transferencias" target="_blank">
+            <a href="#" onclick="sendToWhatsApp()" target="_blank">
                 <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
-                <p>HISTORY</p>
+                <p>ENVIAR</p>
             </a>
         </div>
     </div>
