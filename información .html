@@ -1,109 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Transacción - ORO</title>
     <style>
+        /* Estilos globales */
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #fff;
-            color: #000;
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        header img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 4px solid #fff;
-            margin-bottom: 10px;
-        }
-        .content {
-            padding: 15px;
-            background-color: #fff;
-        }
-        .main-content {
-            padding-top: 10px;
-        }
-        .section-title {
-            font-size: 1.4em;
-            margin-bottom: 10px;
-            font-weight: bold;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9; /* Fondo suave */
             color: #333;
-        }
-        .description {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        .features ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .features li {
-            margin: 10px 0;
-            font-size: 1em;
-            color: #333;
-        }
-        .footer {
-            text-align: center;
-            padding: 15px;
-            background-color: #f4f4f4;
-            color: #333;
-            border-top: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Barra de navegación inferior */
-        .navbar {
-            position: fixed;
-            bottom: 0;
+        header {
+            text-align: center;
+            background-color: #34495e; /* Fondo oscuro */
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        header img {
+            width: 150px; /* Tamaño más adecuado para el logo */
+            height: auto;
+        }
+
+        /* Contenedor principal */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            flex-grow: 1;
+            z-index: 5;
+        }
+
+        .content {
             width: 100%;
-            background-color: #fff;
+            max-width: 800px;
+            padding-bottom: 60px; /* Para evitar que la barra de navegación tape el contenido */
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 26px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            text-align: center;
+            font-size: 16px;
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos para las características */
+        .features {
+            background-color: #ecf0f1; /* Fondo gris claro */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 10px 0;
+            font-size: 16px;
+            color: #2c3e50;
+        }
+
+        /* Botones y formularios */
+        input, select, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #28a745; /* Verde brillante */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838; /* Verde oscuro al pasar */
+        }
+
+        /* Barra de navegación (sin cambios) */
+        .navbar {
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
-            z-index: 1000;
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(90deg, #34495e, #2c3e50); /* Fondo degradado */
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.3);
+            padding: 15px 0;
+            border-top: 3px solid #1abc9c; /* Borde turquesa */
+            z-index: 20;
         }
+
         .nav-item {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
-        .nav-item a {
-            color: black;
-            text-decoration: none;
-            display: block;
-        }
+
         .nav-item img {
-            width: 18px;
-            height: 18px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: 2px solid #fff;
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
+            padding: 5px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
+
+        .nav-item img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px #1abc9c; /* Efecto de resplandor */
+        }
+
         .nav-item p {
-            margin-top: 5px;
             font-size: 12px;
+            margin-top: 5px;
+            color: #ecf0f1;
         }
-        .nav-item a:hover {
-            background-color: #f1f1f1;
-            padding: 10px;
-            border-radius: 5px;
+
+        /* Adaptación para pantallas pequeñas */
+        @media (max-width: 768px) {
+            header img {
+                width: 120px;
+            }
+
+            .main-content {
+                flex-direction: column;
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .content {
+                width: 90%;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .features ul {
+                padding-left: 20px;
+            }
+        }
+
+        /* Adaptación para pantallas muy pequeñas (móviles) */
+        @media (max-width: 480px) {
+            header img {
+                width: 100px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .description {
+                font-size: 13px;
+            }
+
+            input, select, button {
+                font-size: 14px;
+            }
+
+            .features li {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header con el logo -->
     <header>
         <img src="https://wallet-bussines.github.io/Orbitalx.png" alt="Orbital-X Logo">
     </header>
 
+    <!-- Contenido principal de la página -->
     <div class="main-content">
         <div class="content">
+            <!-- Sección de Introducción -->
             <section>
                 <h2 class="section-title">Pagos Digitales Seguros</h2>
                 <p class="description">
@@ -112,6 +223,7 @@
                 </p>
             </section>
 
+            <!-- Sección de Características -->
             <section class="features">
                 <h3 class="section-title">Características Principales</h3>
                 <ul>
@@ -125,7 +237,7 @@
         </div>
     </div>
 
-    <!-- Barra de navegación inferior -->
+    <!-- Barra de navegación (sin cambios) -->
     <div class="navbar">
         <div class="nav-item">
             <a href="https://wallet-bussines.github.io/iframe6.html" target="_blank">
@@ -136,20 +248,16 @@
         <div class="nav-item">
             <a href="https://wallet-bussines.github.io/iframe.html" target="_blank">
                 <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
-                <p>Wallet</p>
+                <p>WALLET</p>
             </a>
         </div>
         <div class="nav-item">
-            <a href="https://worldchain-mainnet.explorer.alchemy.com/" target="_blank">
-                <img src="https://wallet-bussines.github.io/Seting.png" alt="Settings">
-                <p>HISTORIAL</p>
+            <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+                <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
+                <p>HISTORY</p>
             </a>
         </div>
     </div>
-
-    <footer class="footer">
-        <p>© 2024 Orbital X Pagos Digitales Seguros. All rights reserved.</p>
-    </footer>
 
 </body>
 </html>
