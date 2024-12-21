@@ -10,21 +10,24 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f9;
-            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .container {
-            max-width: 600px;
-            margin: 0 auto;
+            width: 90%;
+            max-width: 800px;
+            background: #fff;
             padding: 20px;
-            background: #ffffff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
         }
 
-        h1 {
+        h2 {
             text-align: center;
-            color: #004aad;
+            color: #333;
         }
 
         form {
@@ -35,83 +38,98 @@
 
         label {
             font-weight: bold;
+            margin-bottom: 5px;
         }
 
-        select, input, textarea, button {
-            width: 100%;
+        input, select, textarea, button {
             padding: 10px;
-            font-size: 1rem;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 4px;
+            font-size: 1rem;
+            width: 100%;
             box-sizing: border-box;
         }
 
         button {
-            background-color: #004aad;
-            color: white;
-            font-size: 1rem;
+            background-color: #007bff;
+            color: #fff;
             border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-weight: bold;
+            transition: background-color 0.3s;
         }
 
         button:hover {
-            background-color: #00327e;
+            background-color: #0056b3;
         }
 
         .table-container {
-            margin-top: 20px;
             overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            text-align: left;
+            margin-top: 20px;
         }
 
         th, td {
-            padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
         }
 
         th {
-            background-color: #004aad;
+            background-color: #007bff;
             color: white;
         }
 
-        .status-pending {
-            color: #d9534f;
-            font-weight: bold;
+        td {
+            word-wrap: break-word;
         }
 
-        .status-paid {
-            color: #5cb85c;
-            font-weight: bold;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 10px;
-                padding: 15px;
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 0.9rem;
+                padding: 6px;
             }
 
-            h1 {
+            h2 {
                 font-size: 1.5rem;
             }
 
-            table {
-                font-size: 0.9rem;
+            .container {
+                padding: 15px;
             }
+        }
+
+        .estado-pendiente {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .estado-pagado {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .ver-detalles {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .ver-detalles:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Registro de Transferencias</h1>
-        <form id="transferForm">
+        <h2>Registro de Transferencias</h2>
+        <form id="transfer-form">
             <label for="region">Región</label>
-            <select id="region" name="region" required>
+            <select id="region" required>
                 <option value="">Seleccione una región</option>
                 <option value="Bogotá">Bogotá</option>
                 <option value="Medellín">Medellín</option>
@@ -119,42 +137,46 @@
                 <option value="Barranquilla">Barranquilla</option>
                 <option value="Cartagena">Cartagena</option>
                 <option value="Bucaramanga">Bucaramanga</option>
-                <option value="Manizales">Manizales</option>
-                <option value="Pereira">Pereira</option>
-                <option value="Cúcuta">Cúcuta</option>
                 <option value="Santa Marta">Santa Marta</option>
-                <option value="Villavicencio">Villavicencio</option>
-                <option value="Ibagué">Ibagué</option>
+                <option value="Pereira">Pereira</option>
+                <option value="Manizales">Manizales</option>
                 <option value="Armenia">Armenia</option>
-                <option value="Neiva">Neiva</option>
-                <option value="Tunja">Tunja</option>
-                <option value="Valledupar">Valledupar</option>
-                <option value="Riohacha">Riohacha</option>
-                <option value="Popayán">Popayán</option>
-                <option value="Montería">Montería</option>
+                <option value="Bogotá">Bogotá</option>
+                <option value="Dosquebradas">Dosquebradas</option>
+                <option value="Barcelona">Barcelona</option>
+                <option value="Pijao">Pijao</option>
+                <option value="Circacia">Circacia</option>
+                <option value="Cartago">Cartago</option>
+                <option value="Zarzal">Zarzal</option>
+                <option value="Quinbaya">Quimbaya</option>
+                <option value="Pueblo tapao">Pueblo tapao</option>
+                <option value="Tebaida">Tebaida</option>
+                <option value="Calarca">Calarca</option>
             </select>
 
             <label for="usuario">Usuario Encargado</label>
-            <input type="text" id="usuario" name="usuario" placeholder="Nombre del usuario encargado" required>
+            <input type="text" id="usuario" placeholder="Ingrese el nombre del encargado" required>
 
             <label for="detalles">Detalles</label>
-            <textarea id="detalles" name="detalles" rows="4" placeholder="Detalles de la transferencia"></textarea>
+            <textarea id="detalles" placeholder="Ingrese los detalles" rows="3"></textarea>
 
             <label for="tokens">Tokens Transferidos</label>
-            <input type="number" id="tokens" name="tokens" step="0.01" placeholder="Cantidad de tokens" required>
+            <input type="number" step="0.01" id="tokens" placeholder="Ingrese el número de tokens" required>
 
             <label for="estado">Estado</label>
-            <select id="estado" name="estado" required>
+            <select id="estado" required>
                 <option value="Pendiente">Pendiente</option>
                 <option value="Pagado">Pagado</option>
             </select>
 
             <button type="submit">Registrar Transferencia</button>
         </form>
+    </div>
 
+    <div class="container">
+        <h2>Historial de Transferencias</h2>
         <div class="table-container">
-            <h2>Historial de Transferencias</h2>
-            <table>
+            <table id="transfer-history">
                 <thead>
                     <tr>
                         <th>Fecha</th>
@@ -166,28 +188,55 @@
                         <th>Detalles</th>
                     </tr>
                 </thead>
-                <tbody id="transferHistory">
-                    <tr>
-                        <td>20/12/2024</td>
-                        <td>Bogotá</td>
-                        <td>Juan</td>
-                        <td>4.00</td>
-                        <td>$400.00</td>
-                        <td class="status-paid">Pagado</td>
-                        <td><a href="#">Ver Detalles</a></td>
-                    </tr>
-                    <tr>
-                        <td>19/12/2024</td>
-                        <td>Medellín</td>
-                        <td>Ana</td>
-                        <td>3.50</td>
-                        <td>$350.00</td>
-                        <td class="status-pending">Pendiente</td>
-                        <td><a href="#">Ver Detalles</a></td>
-                    </tr>
+                <tbody>
                 </tbody>
             </table>
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('transfer-form');
+        const historyTable = document.getElementById('transfer-history').querySelector('tbody');
+
+        const loadHistory = () => {
+            const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
+            historyTable.innerHTML = '';
+            transfers.forEach(transfer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${transfer.fecha}</td>
+                    <td>${transfer.region}</td>
+                    <td>${transfer.usuario}</td>
+                    <td>${transfer.tokens}</td>
+                    <td>$${(transfer.tokens * 100).toFixed(2)}</td>
+                    <td class="estado-${transfer.estado.toLowerCase()}">${transfer.estado}</td>
+                    <td><span class="ver-detalles">Ver Detalles</span></td>
+                `;
+                historyTable.appendChild(row);
+            });
+        };
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const fecha = new Date().toLocaleDateString();
+            const region = document.getElementById('region').value;
+            const usuario = document.getElementById('usuario').value;
+            const detalles = document.getElementById('detalles').value;
+            const tokens = parseFloat(document.getElementById('tokens').value);
+            const estado = document.getElementById('estado').value;
+
+            const transfer = { fecha, region, usuario, detalles, tokens, estado };
+
+            const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
+            transfers.push(transfer);
+            localStorage.setItem('transfers', JSON.stringify(transfers));
+
+            loadHistory();
+            form.reset();
+        });
+
+        document.addEventListener('DOMContentLoaded', loadHistory);
+    </script>
 </body>
 </html>
