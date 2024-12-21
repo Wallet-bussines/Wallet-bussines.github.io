@@ -88,21 +88,6 @@
             word-wrap: break-word;
         }
 
-        @media (max-width: 600px) {
-            th, td {
-                font-size: 0.9rem;
-                padding: 6px;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .container {
-                padding: 15px;
-            }
-        }
-
         .estado-pendiente {
             color: #ffc107;
             font-weight: bold;
@@ -121,6 +106,21 @@
 
         .ver-detalles:hover {
             text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            th, td {
+                font-size: 0.9rem;
+                padding: 6px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -141,15 +141,14 @@
                 <option value="Pereira">Pereira</option>
                 <option value="Manizales">Manizales</option>
                 <option value="Armenia">Armenia</option>
-                <option value="Bogotá">Bogotá</option>
                 <option value="Dosquebradas">Dosquebradas</option>
                 <option value="Barcelona">Barcelona</option>
                 <option value="Pijao">Pijao</option>
-                <option value="Circacia">Circacia</option>
+                <option value="Circasia">Circasia</option>
                 <option value="Cartago">Cartago</option>
                 <option value="Zarzal">Zarzal</option>
-                <option value="Quinbaya">Quimbaya</option>
-                <option value="Pueblo tapao">Pueblo tapao</option>
+                <option value="Quimbaya">Quimbaya</option>
+                <option value="Pueblo Tapao">Pueblo Tapao</option>
                 <option value="Tebaida">Tebaida</option>
                 <option value="Calarca">Calarca</option>
             </select>
@@ -210,10 +209,14 @@
                     <td>${transfer.tokens}</td>
                     <td>$${(transfer.tokens * 100).toFixed(2)}</td>
                     <td class="estado-${transfer.estado.toLowerCase()}">${transfer.estado}</td>
-                    <td><span class="ver-detalles">Ver Detalles</span></td>
+                    <td><span class="ver-detalles" onclick="showDetails('${transfer.detalles}')">Ver Detalles</span></td>
                 `;
                 historyTable.appendChild(row);
             });
+        };
+
+        const showDetails = (details) => {
+            alert(`Detalles de la transferencia:\n\n${details}`);
         };
 
         form.addEventListener('submit', (e) => {
