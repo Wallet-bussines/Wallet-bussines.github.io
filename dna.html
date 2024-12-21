@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Transacción - DNA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .step-container {
+            display: none;
+        }
+        .step-container.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        #entidadConfirmacion {
+            display: none;
+            margin-bottom: 15px;
+            color: #28a745;
+            font-weight: bold;
+        }
+        .result {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body onload="obtenerPrecioToken()">
+<div class="container">
+    <h1>Formulario de Transacción - DNA</h1>
+    <!-- Paso 1 -->
+    <div id="step1" class="step-container active">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Ingresa tu nombre" required>
+
+        <label for="documento">Documento</label>
+        <input type="text" id="documento" placeholder="Ingresa tu documento" required>
+
+        <label for="ciudad">Ciudad</label>
+        <input type="text" id="ciudad" placeholder="Ingresa tu ciudad" required>
+
+        <button onclick="goToStep(2)">Siguiente</button>
+    </div>
+
+    <!-- Paso 2 -->
+    <div id="step2" class="step-container">
+        <label for="metodo-pago">Método de Pago</label>
+        <select id="metodo-pago" onchange="mostrarEntidad()">
+            <option value="">Selecciona un método</option>
+            <option value="Nequi">Nequi</option>
+            <option value="Daviplata">Daviplata</option>
+            <option value="Ahorro a la Mano">Ahorro a la Mano</option>
+            <option value="Transferencia Bancaria">Transferencia Bancaria</option>
+        </select>
+        <div id="entidadConfirmacion">Método seleccionado: <span id="entidadSeleccionada"></span></div>
+
+        <label for="numero-cuenta">Número de Cuenta</label>
+        <input type="text" id="numero-cuenta" placeholder="Ingresa tu número de cuenta" required>
+
+        <button onclick="goToStep(3)">Siguiente</button>
+    </div>
+
+    <!-- Paso 3 -->
+    <div id="step3" class="step-container">
+        <label for="token">Token</label>
+        <input type="text" id="token" value="DNA" readonly>
+
+        <label>Precio del Token (COP)</label>
+        <div id="precio-token" class="result">Cargando...</div>
+
+        <label for="cantidad">Cantidad</label>
+        <input type="number" id="cantidad" placeholder="Ingresa la cantidad" oninput="actualizarValorRecibir()" required>
+
+        <label>Valor a Recibir</label>
+        <div id="valor-recibir" class="result">0 COP</div>
+
+        <button onclick="goToStep(4)">Siguiente</button>
+    </div>
+
+    <!-- Resumen Final -->
+    <div id="step4" class="step-container">
+        <h2>Resumen de la Transacción</h2>
+        <p><strong>Nombre:</strong> <span id="resumen-nombre"></span></p>
+        <p><strong>Documento:</strong> <span id="resumen-documento"></span></p>
+        <p><strong>Ciudad:</strong> <span id="resumen-ciudad"></span></p>
+        <p><strong>Método de Pago:</strong> <span id="resumen-metodo"></span></p>
+        <p><strong>Número de Cuenta:</strong> <span id="resumen-cuenta"></span></p>
+        <p><strong>Token:</strong> <span id="resumen-token"></span></p>
+        <p><strong>Cantidad:</strong> <span id="resumen-cantidad"></span></p>
+        <p><strong>Valor a Recibir:</strong> <span id="resumen-valor"></span></p>
+
+        <button onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
+    </div>
+</div>
+
+<script>
+    const tasaCambio = 4366;
+
+    function goToStep(step) {
+        document.querySelectorAll('.step-container').forEach(container => container.classList.remove('active'));
+        document.getElementById(`step${step}`).classList.add('active');
+        if (step === 4) {
+            showFinalForm();
+        }
+    }
+
+    function mostrarEntidad() {
+        const metodoPago = document.getElementById("metodo-pago").value;
+        const entidadConfirmacion = document.getElementById("entidadConfirmacion");
+        const entidadSeleccionada = document.getElementById("entidadSeleccionada");
+
+        if (metodoPago) {
+            entidadSeleccionada.textContent = metodoPago;
+            entidadConfirmacion.style.display = "block";
+        } else {
+            entidadConfirmacion.style.display = "none";
+        }
+    }
+
+    function obtenerPrecioToken() {
+        const token = document.getElementById("token").value;
+        fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
+            .then(response => response.json())
+            .then(data => {
+                const precioUSD = parseFloat(data.price);
+                const precioCOP = precioUSD * tasaCambio;
+                document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+                actualizarValorRecibir();
+            })
+            .catch(() => {
+                document.getElementById("precio-token").textContent = "No disponible";
+            });
+    }
+
+    function actualizarValorRecibir() {
+        const cantidad = parseFloat(document.getElementById("cantidad").value) || 0;
+        const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
+        const valorRecibir = cantidad * precioCOP * (1 - 0.16);
+        document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+    }
+
+    function showFinalForm() {
+        document.getElementById("resumen-nombre").textContent = document.getElementById("nombre").value;
+        document.getElementById("resumen-documento").textContent = document.getElementById("documento").value;
+        document.getElementById("resumen-ciudad").textContent = document.getElementById("ciudad").value;
+        document.getElementById("resumen-metodo").textContent = document.getElementById("metodo-pago").value;
+        document.getElementById("resumen-cuenta").textContent = document.getElementById("numero-cuenta").value;
+        document.getElementById("resumen-token").textContent = document.getElementById("token").value;
+        document.getElementById("resumen-cantidad").textContent = document.getElementById("cantidad").value;
+        document.getElementById("resumen-valor").textContent = document.getElementById("valor-recibir").textContent.replace(' COP', '');
+    }
+
+    function enviarWhatsApp() {
+        const nombre = document.getElementById("resumen-nombre").textContent;
+        const documento = document.getElementById("resumen-documento").textContent;
+        const ciudad = document.getElementById("resumen-ciudad").textContent;
+        const metodo = document.getElementById("resumen-metodo").textContent;
+        const cuenta = document.getElementById("resumen-cuenta").textContent;
+        const cantidad = document.getElementById("resumen-cantidad").textContent;
+        const valor = document.getElementById("resumen-valor").textContent;
+        
+        const mensaje = encodeURIComponent(
+            `Nombre: ${nombre}\n` +
+            `Documento: ${documento}\n` +
+            `Ciudad: ${ciudad}\n` +
+            `Método de Pago: ${metodo}\n` +
+            `Número de Cuenta: ${cuenta}\n` +
+            `Cantidad: ${cantidad}\n` +
+            `Valor a Recibir: ${valor} COP`
+        );
+
+        window.open(`https://wa.me/573248092374?text=${mensaje}`, '_blank');
+    }
+</script>
+</body>
+</html>
