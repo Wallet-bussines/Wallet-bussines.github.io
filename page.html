@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Portfolio Tracker by Zerion, Crypto Wallet for NFTs and DeFi</title>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:locale" content="en_US" />
+  <meta name="google" content="notranslate" />
+  <meta name="apple-itunes-app" content="app-id=1456732565" />
+  <meta name="apple-mobile-web-app-title" content="Zerion" />
+
+  <script src="https://www.gstatic.com/firebasejs/6.1.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase-messaging.js"></script>
+
+  <!-- Intercom -->
+  <script type="text/third-party-script" data-cookie-level="chat">
+      window.intercomSettings = {
+        app_id: "v4ti651s",
+        user_id: localStorage.getItem('z-user-id'),
+        name: localStorage.getItem('z-user-id'),
+        hide_default_launcher: true
+      };
+    </script>
+
+  <script type="text/third-party-script" data-cookie-level="chat">
+      (function () { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', intercomSettings); } else { var d = document; var i = function () { i.c(arguments) }; i.q = []; i.c = function (args) { i.q.push(args) }; w.Intercom = i; var l = function () { var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/v4ti651s'; d.head.appendChild(s); }; if (w.attachEvent) { w.attachEvent('onload', l); } else { document.readyState === "complete" ? l() : w.addEventListener('load', l, false) } } })()
+    </script>
+
+  <script type="text/third-party-script" data-cookie-level="chat">
+      window.dispatchEvent(new Event('intercom-init'));
+    </script>
+  <!-- end Intercom -->
+
+  <!-- plausible -->
+  <script defer type="text/third-party-script" data-cookie-level="base-analytics" data-domain="app.zerion.io"
+    src="https://plausible.io/js/script.js"></script>
+  <!-- end plausible -->
+
+  <!-- asset icons  -->
+  <link rel="preconnect" href="//s3.amazonaws.com/" />
+  <link rel="apple-touch-icon" href="https://s3.amazonaws.com/cdn.zerion.io/assets/apple-touch-icon.png" />
+<link rel="shortcut icon" href="/favicon.b452bb1604ba800d4f9111c83b4239d9.png"><link href="/19.style-90cab5cb622e6345f5d3.css" rel="stylesheet"><link href="/style-7721d85d8446a1b6e99a.css" rel="stylesheet"></head>
+
+<body>
+  <div id="root"></div>
+  <div id="modal-elements"></div>
+  <script>
+    window.prerenderReady = false;
+  </script>
+  <script type="text/javascript">
+    window.addEventListener(
+      'error',
+      function (e) {
+        if (
+          e &&
+          e.target &&
+          e.target.src &&
+          e.target.src.indexOf(
+            'bundle',
+          ) !== -1
+        ) {
+          dataLayer.push({
+            event: 'ZerionEvent',
+            eventCategory: 'Force page reload',
+            eventAction: 'Old bundle',
+            userId: localStorage.getItem('z-user-id'),
+            num_of_wallets: (
+              JSON.parse(localStorage.getItem('wallets')) || []
+            ).length,
+          });
+          setTimeout(() => {
+            window.location.reload(true);
+          }, 1000);
+        }
+      },
+      true,
+    );
+  </script>
+<script type="text/javascript" src="/bundle-vendor~app.80a7d236902ac732df3d.js"></script><script type="text/javascript" src="/bundle-app.31698199cf7a5c429dfb.js"></script></body>
+
+</html>
