@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../css/style.css" />
+    
+
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.3/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://wld.lol/js\qrcode.min.js"></script>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar bg-black fixed top-0 w-full z-50">
+        <a class="btn btn-ghost text-xl text-white">WLD.lol</a>
+    </div>
+
+        <br>
+    <br>
+    <br>
+    <section class="flex bg-vk-sky-200 animation-fade-in-010">
+        <article
+            class="hidden md:flex left-0 win-w-[300px] max-w-[350px] flex-col items-center text-vk-blue-800 sticky top-[68px] overflow-y-auto h-screen scrolling pr-2 pb-20">
+            <div class="w-full font-semibold text-center pt-6 flex flex-col gap-2">
+                <h3 class="font-semibold text-2xl">Navegación</h3>
+                <ul class="flex flex-col gap-2">
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#introduccion">1. Introducción</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#objeto-y-destinatarios">2. Objeto y destinatarios</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#alcance">3. Alcance</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#glosario">4. Glosario</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#principios">5. Princpios</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#derechos-de-los-titulares">6. Derechos de los titulares</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#tratamiento-de-los-datos-personales-de-ninos-ninas-y-adolescentes">7. Tratamiento de los
+                            Datos Personales de niños, niñas y adolescentes</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#autorizacion">8. Autorización</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#finalidades-del-tratamiento-de-datos">9. Finalidades del Tratamiento de datos</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#vigencia">10. Vigencia</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#deberes-en-calidad-de-responsable-y-encargado-del-tratamiento">11. Deberes en calidad de
+                            Responsable y Encargado del Tratamiento</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#transferencias-y-transmision-de-datos-personales">12. Transferencias y transmisión de
+                            Datos Personales</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#medidas-de-seguridad-almacenamiento">13. Medidas de seguridad - almacenamiento</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#destruccion">14. Destrucción</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#procedimiento-para-atender-los-derechos-de-los-titulares">15. Procedimiento para atender
+                            los derechos de los Titulares </a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#persona-o-area-responsable-de-la-atencion-a-peticiones-consultas-y-reclamos">16. Persona
+                            o área responsable de la atención a peticiones, consultas y reclamos</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#legislacion-vigente-y-aplicable">17. Legislación vigente y aplicable</a></li>
+                    <li class="w-auto flex"><a class="font-normal text-left pl-6 appearance-none outline-none"
+                            href="privacy.html#vigencia-y-actualizaciones">18. Vigencia y actualizaciones</a></li>
+                </ul>
+            </div>
+        </article>
+        <article class="w-full bg-vk-sky-100 text-vk-blue-800 flex flex-col relative pb-20">
+            <h1 class="w-full bg-vk-sky-100 text-2xl sm:text-3xl font-semibold text-center pt-6">Política de Privacidad</h1>
+            <div class="flex flex-col items-start px-4 md:px-20 mt-6 gap-4">
+                <p>Al continuar aceptas de igual forma lo dispuesto en los <a class="underline"
+                        href="https://wld.lol/terminos-y-condiciones">Términos y Condiciones</a> y en la <a class="underline"
+                        href="https://wld.lol/autorizacion-para-el-tratamiento-de-datos">Autorización para el Tratamiento de Datos</a>.</p>
+                <div class="my-5 flex flex-col gap-3 snap-y">
+                    <div id="introduccion" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">1.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Introducción</span>
+                            <div class="text-justify">LOLCITO SV identificada tributariamente con DIN 000.0000.000, sociedad legalmente constituida en El Salvador (en
+                                adelante, la “Compañía” o “Nosotros”) para efectos de la presente política de tratamiento de
+                                datos, de conformidad con lo dispuesto en la Ley 1581 de 2012, los Decretos 377 de 2013 y
+                                886 de 2014, así como en las demás normas jurídicas que las reglamenten, complemente y/o
+                                modifiquen como demás normas jurídicas que desarrollen el derecho fundamental de protección
+                                de Datos Personales contenido en el artículo 15 de la Constitución Política de El Salvador y
+                                dada su calidad de Responsable del Tratamiento de Datos, garantiza el derecho constitucional
+                                que tienen todas las personas a conocer, actualizar, rectificar, suprimir y revocar la
+                                autorización respecto a las informaciones que se hayan recogido sobre ellas en las bases de
+                                datos que la Compañía, ha recopilado para las finalidades previstas en la Ley, la presente
+                                política y las autorizaciones respectivas. <br><br> Igualmente, de conformidad con la
+                                sentencia C-748 de 2011 proferida por la Corte Constitucional, los derechos del Titular de
+                                Datos Personales comprenden otras facultades como las de autorizar el Tratamiento, incluir
+                                nuevos datos, excluirlos o suprimirlos de una Base de Datos o archivo.<br> <br> A través de
+                                la Ley 1266 de 2008, se reguló lo denominado “hábeas data financiero”, que comprende los
+                                derechos que tiene todo Titular para conocer, actualizar y rectificar su información
+                                personal comercial, crediticia, y financiera contenida en centrales de información públicas
+                                o privadas, que tienen como función recopilar, tratar y circular esos datos con el fin de
+                                determinar el nivel de riesgo financiero de su Titular. La Ley 1266 de 2008, considera como
+                                Titular de la información tanto a las personas naturales como jurídicas.<br> <br> A través
+                                de la Ley 1581 de 2012, se reguló el derecho de habeas data de forma más amplia que lo
+                                dispuesto en la Ley 1266 de 2008, incluyendo los derechos, privilegios y facultades de los
+                                Titulares respecto de los Datos Personales registrados en cualquier Base de Datos o archivo,
+                                administrado por entidades privadas o públicas. <br> <br> La Ley 1581 de 2012, considera
+                                como Titular a las personas naturales, sin perjuicio de la titularidad por parte de personas
+                                jurídicas para ciertas situaciones especiales, como las previstas en la sentencia C-748 de
+                                2011 proferida por la Corte Constitucional. Si bien, la Ley 1581 de 2012 determinó que el
+                                régimen de protección de datos personales contenido en dicha ley no era aplicable a las
+                                bases de datos y archivos regulados por la Ley 1266 de 2008, los principios se aplican de
+                                forma concurrente, al igual que las prohibiciones establecidas en el artículo 26 de la Ley
+                                1581 de 2012.<br> <br> La Compañía es una sociedad que en desarrollo de su objeto social
+                                recopila, comparte y utiliza su información personal y cómo usted puede ejercer sus derechos
+                                de privacidad. Esta Política de Privacidad se aplica a la información personal que
+                                recopilamos cuando utiliza nuestras aplicaciones y/o servicios y/o servicios web y/o
+                                herramientas virtuales de juegos móviles, La plataforma "WLD.LOL", sus aplicaciones de
+                                versiones móviles y de escritorio, programas, sistemas informáticos y cualquier aplicativo
+                                y/o contenido de la Compañía, foros, sitios web y otros productos y servicios en línea
+                                (colectivamente, los "Servicios") o cuando interactúa de otro modo con Nosotros o el sitio
+                                <a href="../index.html" target="_blank">https://wld.lol/</a> (el “Sitio”) y/o
+                                cualquier sistema informático de la Compañía. <br> <br> Igualmente, en desarrollo de las
+                                relaciones establecidas con sus usuarios, la Compañía actúa bajo el marco de la Ley 1266 de
+                                2008 como fuente de verificación de información financiera, crediticia y comercial, en la
+                                medida de lo dispuesto en los T&amp;C y verificaciones de pagos que se hagan a través del
+                                Sitio. En esa medida, en los eventos que la Compañía adelante actos para conocer el
+                                comportamiento de información financiera, lo hará en los términos previstos en esta
+                                normativa.<br> <br> En los demás eventos, no previstos en la Ley 1266 de 2008 en los que la
+                                Compañía utilice Datos Personales, estará actuando bajo la Ley 1581 de 2012, incluyendo,
+                                pero sin limitarse, a los eventos de solicitud, recolección, administración de información
+                                personal de Titulares que no son clientes de la Compañía con quienes tuvo en el pasado una
+                                relación, pero ésta ya expiró, o que son proveedores y/o contratistas, empleados y
+                                accionistas de la Compañía.<br> <br> En la presente política de privacidad, cuando nos
+                                referimos al usuario, se incluye, pero sin limitarse, a cualquier persona que tenga una
+                                relación contractual o comercial de cualquier índole con la Compañía, siendo cliente de
+                                ésta, como también a cualquier persona que acceda, use y/o solicite el Sitio, y en general
+                                cualquier aplicativo, correo electrónico, sistema informático y/o servicio de la Compañía
+                                así no sea un cliente ni tenga un contrato, ni haber contratado un producto y/o servicio de
+                                la Compañía.<br> <br> Para los efectos indicados, la Compañía ha elaborado la presente la
+                                presente política de tratamiento de datos personales (en adelante, la “Política de
+                                Privacidad” o la “Política”), que es obligatoria y vinculante para todas las personas que
+                                hagan Tratamiento de Datos Personales registrados en las Bases de Datos de la Compañía y/o
+                                que accedan o usen el Sitio, correos, sitios, programas, sistemas informáticos y cualquier
+                                aplicativo y/o contenido de algún sitio web de la Compañía y aplicaciones móviles (en caso
+                                de que se llegará a crear más adelante) (conjuntamente igualmente como el “Sitio”), o los
+                                Datos Personales que el Titular del Dato Personal suministre y/o le llegare a suministrar a
+                                la Compañía a través de cualquier medio.<br> </div>
+                        </div>
+                    </div>
+                    <div id="objeto-y-destinatarios" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">2.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Objeto y
+                                destinatarios</span>
+                            <div class="text-justify">La presente Política de Privacidad tiene como objeto brindar los
+                                lineamientos y la información necesaria y suficiente del derecho constitucional de hábeas
+                                data y protección de los datos personales que son objeto de Tratamiento por la Compañía, en
+                                el marco de la normatividad vigente Ley 1581 de 2012 “Ley de protección de datos personales”
+                                y Ley 1266 de 2008 “habeas data financiero”<br><br> Por lo anterior, se deja expresamente
+                                indicado que los derechos de los Titulares de la información que tengan el carácter de
+                                usuarios de la Compañía, en desarrollo del acceso y uso del Sitio se rigen por las
+                                disposiciones normativas citadas en el párrafo anterior, dependiendo el tipo de dato y el
+                                alcance de cada una de estas regulaciones; y los Datos Personales de otros Titulares de la
+                                información que no tengan esas calidades se regirán por la Ley 1581 de 2012. Igualmente, los
+                                datos de usuarios cuando vayan a ser utilizados para fines de mercadeo o publicitarios serán
+                                tratados siguiendo las previsiones de la Ley 1581 de 2012.<br> <br> Cuando se hace
+                                referencia a las Leyes y normatividad aplicable al tratamiento de datos personales y habeas
+                                datas, se hace referencia no solo a la Ley 1266 de 2008 y 1581 de 2012, sino también a los
+                                decretos reglamentarios y compilatorios existentes de las mismas. Esta Política de
+                                Privacidad se aplicará a todas las Bases de Datos, tanto físicas como electrónicas, que
+                                contengan Datos Personales y que sean objeto de Tratamiento por parte de la Compañía,
+                                considerada como Responsable del tratamiento, e igualmente, en aquellos casos en que opere
+                                como encargada del Tratamiento de Datos Personales.<br> </div>
+                        </div>
+                    </div>
+                    <div id="alcance" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">3.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Alcance</span>
+                            <div class="text-justify">Esta Política de Privacidad y tratamiento de datos, es de obligatorio
+                                conocimiento y cumplimiento para todas las personas naturales o jurídicas responsables de la
+                                administración de Bases de Datos Personales de la Compañía, usuarios, aliados comerciales,
+                                proveedores, contratistas y accionistas de la Compañía que tengan acceso a los Datos
+                                Personales de Titulares que les haya suministrado la Compañía, y a quienes se les exigirá el
+                                cumplimiento de esta Política de Privacidad.</div>
+                        </div>
+                    </div>
+                    <div id="glosario" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">4.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Glosario</span>
+                            <div class="text-justify">Para efectos de claridad y armonía, se incluyen las siguientes
+                                definiciones de términos que se usarán a través de la presente Política de Privacidad,
+                                conforme la normativa aplicable indicada anteriormente:<br> <br> <b>Autorización</b>:
+                                Consentimiento previo, expreso e informado del Titular para llevar a cabo el Tratamiento de
+                                Datos Personales.<br> <br> <b>Base de Datos</b>: Conjunto organizado de Datos Personales que
+                                serán objeto de Tratamiento. Esta podrá hacerse tanto por entidades públicas como privadas.
+                                Incluye información de archivos físicos y electrónicos (digitales).<br> <br> <b>Dato
+                                    Personal</b>: Cualquier información vinculada o que pueda asociarse a una o a varias
+                                personas naturales determinadas o determinables. De conformidad con la Ley 1581 de 2012,
+                                debe entonces entenderse el dato personal como una información relacionada con una persona
+                                natural (persona individualmente considerada y existente).<br> <br> Para efectos de la
+                                presente Política de Privacidad, se usará indistintamente el término Datos, tanto para los
+                                Datos Personales, como para la información protegida indicada en Ley 1266 de 2008,
+                                entendiendo que se aplica según corresponda, de conformidad con lo indicado en la
+                                introducción de la presente Política de Privacidad.<br> <br> <b>Dato privado</b>: Es el dato
+                                que por su naturaleza íntima o reservada sólo es relevante para el titular.<br> <br> <b>Dato
+                                    semiprivado</b>: Es el dato que no tiene naturaleza íntima, reservada, ni pública y cuyo
+                                conocimiento o divulgación puede interesar no sólo a su titular sino a cierto sector o grupo
+                                de personas o a la sociedad en general, como el dato financiero y crediticio de actividad
+                                comercial o de servicios a que se refiere el título IV de Ley 1266 de 2008.<br> <br> <b>Dato
+                                    público</b>: Es el dato calificado como tal según los mandatos de la ley o de la
+                                Constitución Política y todos aquellos que no sean semiprivados o privados, o sensible. Son
+                                públicos, entre otros, los datos contenidos en documentos públicos, sentencias judiciales
+                                debidamente ejecutoriadas que no estén sometidos a reserva y los relativos al estado civil
+                                de las personas, los referidos a la profesión u oficio, a la calidad de comerciante o de
+                                servidor público, y aquellos que puedan obtenerse sin reserva alguna. Así mismo, señaló que
+                                estos datos por su naturaleza pueden estar contenidos en registros públicos, gacetas y
+                                boletines oficiales, entre otros.<br> <br> <b>Datos sensible</b>: Aquel dato que afecta la
+                                intimidad del titular o cuyo uso indebido puede generar su discriminación, tales como
+                                aquellos que revelen el origen racial o étnico, la orientación política, las convicciones
+                                religiosas o filosóficas, la pertenencia a sindicatos, organizaciones sociales, de derechos
+                                humanos o que promueva intereses de cualquier partido político o que garanticen los derechos
+                                y garantías de partidos políticos de oposición así como los datos relativos a la salud, a la
+                                vida sexual y los datos biométricos.<br> <br> <b>Encargado del Tratamiento</b>: Persona
+                                natural o jurídica, pública o privada, que por sí misma o en asocio con otros, realice el
+                                Tratamiento de Datos Personales por cuenta del Responsable del Tratamiento. La Compañía
+                                actúa como encargado del Tratamiento de Datos Personales en los casos, en los que por sí
+                                misma o en asocio con otros, realice el Tratamiento de Datos Personales por cuenta de un
+                                Responsable del Tratamiento. <br> <br> <b>Responsable del Tratamiento</b>: Persona natural o
+                                jurídica, pública o privada, que por sí misma o en asocio con otros, decida sobre la base de
+                                datos y/o el Tratamiento de los Datos. De acuerdo con la Sentencia C-748 de 2011 proferida
+                                por la Corte Constitucional es “el que define los fines y medios esenciales para el
+                                Tratamiento del dato, incluidos quienes fungen como fuente y usuario”, pudiendo poner los
+                                datos en circulación o utilizarlos de cierta manera.<br> <br> <b>Titular</b>: Persona
+                                natural cuyos Datos Personales sean objeto de Tratamiento. Para efectos de la presente
+                                Política de Privacidad, se usará indistintamente el término Titular tanto para los titulares
+                                bajo la Ley 1266 de 2008 (incluyendo personas jurídicas) como para los titulares bajo la Ley
+                                1581 de 2012, entendiendo que se aplica según corresponda, de conformidad con lo indicado en
+                                la introducción de la presente Política de Privacidad.<br> <br> <b>Tratamiento</b>:
+                                Cualquier operación o conjunto de operaciones sobre Datos Personales, tales como la
+                                recolección, almacenamiento, uso o circulación.</div>
+                        </div>
+                    </div>
+                    <div id="principios" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">5.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Princpios</span>
+                            <div class="text-justify">La Compañía aplicará los principios contenidos en la Ley 1581 de 2012,
+                                que para claridad y facilidad se indican a continuación:<br> <br> <b>Principio de Legalidad
+                                    en Materia de Tratamiento de Datos</b>: El Tratamiento es una actividad reglada, que
+                                debe sujetarse a lo establecido en el artículo 4 de la Ley 1581 de 2012, el artículo 4 de la
+                                Ley 1266 de 2008, decretos reglamentarios y demás disposiciones que la desarrollen.<br> <br>
+                                <b>Principio de Finalidad</b>: El Tratamiento debe obedecer a una finalidad legítima de
+                                acuerdo con la Constitución y la Ley, la cual debe ser informada al Titular. <br> <br>
+                                <b>Principio de Libertad</b>: El Tratamiento sólo puede ejercerse con el consentimiento,
+                                previo, expreso e informado del Titular. Los Datos Personales no podrán ser obtenidos o
+                                divulgados sin previa autorización, o en ausencia de mandato legal o judicial que releve el
+                                consentimiento. <br> <br> <b>Principio de Veracidad o Calidad</b>: La información sujeta a
+                                Tratamiento debe ser veraz, completa, exacta, actualizada, comprobable y comprensible. Se
+                                prohíbe el Tratamiento de Datos parciales, incompletos, fraccionados o que induzcan a error.
+                                <br> <br> <b>Principio de Transparencia</b>: En el Tratamiento, debe garantizarse el derecho
+                                del Titular a obtener del Responsable del Tratamiento o del Encargado del Tratamiento, en
+                                cualquier momento y sin restricciones, información acerca de la existencia de datos que le
+                                conciernan. <br> <br> <b>Principio de Acceso y Circulación Restringida</b>: El Tratamiento
+                                se sujeta a los límites que se derivan de la naturaleza de los Datos Personales, de las
+                                disposiciones de la ley y la Constitución. En este sentido, el Tratamiento sólo podrá
+                                hacerse por personas autorizadas por el Titular y/o por las personas previstas en la ley.
+                                Los Datos Personales, salvo la información pública, no podrán estar disponibles en Internet
+                                u otros medios de divulgación o comunicación masiva, salvo que el acceso sea técnicamente
+                                controlable para brindar un conocimiento restringido sólo a los Titulares o terceros
+                                autorizados. <br> <br> <b>Principio de Seguridad</b>: La información sujeta a Tratamiento
+                                por el Responsable del Tratamiento o Encargado del Tratamiento a que se refiere la ley, se
+                                deberá manejar con las medidas técnicas, humanas y administrativas que sean necesarias para
+                                otorgar seguridad a los registros evitando su adulteración, pérdida, consulta, uso o acceso
+                                no autorizado o fraudulento.<br> <br> Principio de Confidencialidad: Todas las personas
+                                naturales o jurídicas que intervengan en la administración de Datos Personales que no tengan
+                                la naturaleza de públicos están obligadas en todo tiempo a garantizar la reserva de la
+                                información, inclusive después de finalizada su relación con alguna de las labores que
+                                comprende la administración de datos, pudiendo sólo realizar suministro o comunicación de
+                                datos cuando ello corresponda al desarrollo de las actividades autorizadas en la presente
+                                ley y en los términos de la misma.<br> <br> <b>Principio de temporalidad</b>: Los Datos
+                                Personales se conservarán únicamente por el tiempo razonable y necesario para cumplir las
+                                finalidades que justificaron el tratamiento, entendido éste principio de temporalidad como
+                                aquél que ordena que el dato no podrá ser utilizado más allá del tiempo para el que fue
+                                previsto, y por lo tanto, la consecuencia natural de ello, es su exclusión de la base de
+                                datos dentro de la cual fue registrado, con el fin de evitar que la información allí
+                                consignada pueda ser usada para fines distintos, como aquellos con propósitos ilícitos o
+                                fraudulentos o de carácter comercial.<br> <br> <b>Interpretación integral de los derechos
+                                    constitucionales</b>: Los derechos se interpretarán en armonía y en un plano de
+                                equilibrio con el derecho a la información previsto en el artículo 20 de la Constitución y
+                                con los derechos constitucionales aplicables. <br> <br> <b>Principio de Necesidad</b>: Los
+                                Datos Personales tratados deben ser los estrictamente necesarios para el cumplimiento de las
+                                finalidades perseguidas con la base de datos.</div>
+                        </div>
+                    </div>
+                    <div id="derechos-de-los-titulares" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">6.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Derechos de los
+                                titulares</span>
+                            <div class="text-justify">Son derechos de los Titulares, los siguientes, sin perjuicio de
+                                cualquier otro derecho dispuesto en cualquier otra norma jurídica de protección de Datos
+                                Personales:<br> 1. Conocer, actualizar y rectificar sus Datos Personales frente a los
+                                Responsables del Tratamiento o Encargados del Tratamiento. Este derecho se podrá ejercer,
+                                entre otros frente a datos parciales, inexactos, incompletos, fraccionados, que induzcan a
+                                error, o aquellos cuyo Tratamiento esté expresamente prohibido o no haya sido
+                                autorizado.<br> 2. Solicitar prueba de la autorización otorgada al Responsable del
+                                Tratamiento salvo cuando expresamente se exceptúe como requisito para el Tratamiento, de
+                                conformidad con el artículo 10 de la Ley 1581 de 2012.<br> 3. Ser informado por el
+                                Responsable del Tratamiento o el Encargado del Tratamiento, previa solicitud, respecto del
+                                uso que le ha dado a sus datos personales.<br> 4. Presentar ante la Superintendencia de
+                                Industria y Comercio quejas por infracciones a lo dispuesto en la presente ley y las demás
+                                normas que la modifiquen, adicionen o complementen.<br> 5. Acceder en forma gratuita a sus
+                                Datos Personales que hayan sido objeto de Tratamiento.<br> 6. Revocar la autorización y/o
+                                solicitar la supresión del dato cuando en el Tratamiento no se respeten los principios,
+                                derechos y garantías constitucionales y legales. La revocatoria y/o supresión procederá
+                                cuando la Superintendencia de Industria y Comercio haya determinado que en el Tratamiento el
+                                Responsable o Encargado han incurrido en conductas contrarias a esta ley y a la
+                                Constitución.</div>
+                        </div>
+                    </div>
+                    <div id="tratamiento-de-los-datos-personales-de-ninos-ninas-y-adolescentes"
+                        class="flex gap-2 scroll-mt-[80px]"><span class="font-semibold tracking-wider">7.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Tratamiento de los
+                                Datos Personales de niños, niñas y adolescentes</span>
+                            <div class="text-justify">El Tratamiento de este tipo de Datos Personales requiere de un
+                                especial respeto a los derechos prevalentes de los niños, niñas y adolescentes.<br> <br> El
+                                uso de los datos personales de los niños, niñas y adolescentes tendrá un trato especial en
+                                la Compañía, y este Tratamiento se hará en general cuando se trate de datos de naturaleza
+                                pública, y cuando dicho Tratamiento cumpla con los parámetros y requisitos de responder y
+                                respetar los derechos fundamentales y el interés superior de los niños, niñas y
+                                adolescentes.<br> <br> En virtud de lo anterior y en caso de que la Compañía llegare a
+                                tratar Datos Personales de niños, niñas y adolescentes, incluidos Datos sensibles, se
+                                realizará en principio a través de los canales de contacto de sus padres, los cuales
+                                aceptaran dicho Tratamiento con la autorización brindada en el Sitio al momento del registro
+                                de cuenta. <br> <br> En el evento que un menor de edad suministre sus datos sin el respaldo
+                                y autorización de sus padres, la Compañía utilizará la información recaudada del menor para
+                                contactar al padre o tutor en los eventos necesario, y para obtener la respectiva
+                                autorización que se necesite. De igual manera la información tratada de los niños respecto
+                                a la plataforma o Sitio, se entiende respaldada por la de sus padres por lo que se evitará divulgar
+                                cualquier tipo de información del menor, si no cuenta con la autorización de sus padres o
+                                tutores.</div>
+                        </div>
+                    </div>
+                    <div id="autorizacion" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">8.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Autorización</span>
+                            <div class="text-justify">Sin perjuicio de las excepciones previstas en la Ley, para el
+                                Tratamiento se requiere la autorización previa e informada del Titular, la cual deberá ser
+                                obtenida por cualquier medio que pueda ser objeto de consulta posterior. De conformidad con
+                                la Ley 1581 del 2012 y normas reglamentarias, los Titulares no están obligados a otorgar la
+                                autorización para el tratamiento de Datos sensibles.<br> <br> Los Datos sensibles
+                                biométricos tratados, tienen como finalidad la identificación de las personas, la seguridad,
+                                el cumplimiento de obligaciones legales y la adecuada prestación de los productos y/o
+                                servicios. De conformidad con el proceso de registro, verificación y validación en el Sitio
+                                como para el uso de ciertas aplicaciones y funcionalidades de la Compañía, se solicitan
+                                fotos, imágenes, localización de dispositivos, activación y habilitación de los mismos, y
+                                eventualmente otros datos biométricos. <br> <br> Se entenderá que la autorización cumple con
+                                estos requisitos cuando se manifieste (i) por escrito, (ii) de forma oral o (iii) mediante
+                                conductas inequívocas del Titular que permitan concluir de forma razonable que otorgó la
+                                autorización.<br> <br> La autorización del Titular no será necesaria cuando se trate de:<br>
+                                <br> a) Información requerida por una entidad pública o administrativa en ejercicio de sus
+                                funciones legales o por orden judicial.<br> b) Datos de naturaleza pública.<br> c) Casos de
+                                urgencia médica o sanitaria.<br> d) Tratamiento de información autorizado por la ley para
+                                fines históricos, estadísticos o científicos.<br> e) Datos relacionados con el registro
+                                civil de las personas.<br> <br> De tal manera que, respecto del uso de Datos Personales que
+                                no correspondan de manera específica al desarrollo de la relación legal o contractual
+                                establecida entre la Compañía y el Titular, sino que estén referidos al envío de información
+                                comercial o de carácter publicitario existirán los mecanismos, a través de la página web <a
+                                    href="../index.html" target="_blank">https://wld.lol/</a> , o correo
+                                electrónico <a href="mailto:admin@wld.lol">admin@wld.lol</a> que permitan al
+                                Titular de los datos, de manera sencilla y expedita manifestar su voluntad de no ser
+                                contactado para dichos fines.<br> <br> La Compañía al momento de solicitar al Titular la
+                                autorización para el tratamiento de sus Datos Personales, deberá informarle de manera clara
+                                y expresa lo siguiente:<br> <br> a) El Tratamiento al cual serán sometidos sus Datos
+                                Personales y la finalidad del mismo.<br> b) El carácter facultativo de la respuesta a las
+                                preguntas que le sean hechas, cuando éstas versen sobre Datos sensibles o sobre los datos de
+                                las niñas, niños y adolescentes.<br> c) Los derechos que le asisten como Titular.<br> d) La
+                                identificación, dirección física o electrónica y teléfono del Responsable del
+                                Tratamiento.<br> <br> La Compañía, como Responsable del Tratamiento, deberá conservar prueba
+                                del cumplimiento de lo previsto en el presente numeral y, cuando el Titular lo solicite,
+                                entregarle copia de ésta.</div>
+                        </div>
+                    </div>
+                    <div id="finalidades-del-tratamiento-de-datos" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">9.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Finalidades del
+                                Tratamiento de datos</span>
+                            <div class="text-justify">De acuerdo con lo establecido en la Ley 1266 de 2008 y en la Ley 1581
+                                de 2012, y de conformidad con las autorizaciones impartidas por los Titulares de la
+                                información, la Compañía realizará el Tratamiento de sus datos. <br> <br> Los datos
+                                recolectados por la Compañía, serán utilizados para los fines propios del acceso y/o uso del
+                                Sitio por los usuarios, de conformidad con lo previsto en el código de comercio, el Decreto
+                                único 1074 de 2015 y demás normas que regulen de manera específica la materia como respecto
+                                de los servicios que ofrece y presta la Compañía a través de su página web <a
+                                    href="../index.html" target="_blank">https://wld.lol/</a> , correos
+                                electrónicos y/o sistemas informáticos. Entre dichos fines se encuentran los de: <br> <br>
+                                a) Dar a conocer los servicios ofrecidos por la Compañía.<br> <br> b) Proporcionar, mantener
+                                y mejorar nuestros Servicios actuales.<br> <br> c) Evaluar la calidad y características de
+                                los servicios y productos de la Compañía, así como del Sitio, para personalizar los
+                                servicios, mejorar y perfeccionar los servicios de la Compañía.<br> <br> d) Evaluar,
+                                mantener, mejorar y profundizar la relación contractual, en sus distintas fases, incluyendo
+                                los actos relacionados con la etapa precontractual como el ofrecimiento de nuevos productos
+                                y/o servicios y/o información sobre eventos, novedades, promociones, publicidad y programas
+                                de fidelidad, mediante el uso de correo electrónico, correo postal, teléfono fijo, celular,
+                                fax, SMS, MSM, redes sociales o medios similares.<br> <br> e) Actualizar los datos
+                                suministrados con la información que se encuentre disponible en los operadores de
+                                información o cualquier otra persona, entidad u organización que maneje o administre Bases
+                                de Datos con los fines legalmente definidos para este tipo de entidades.<br> <br> f)
+                                Analizar, desarrollar e implementar herramientas de prevención de fraudes y/o suplantaciones
+                                y/o riesgos del sistema informático de la Compañía.<br> <br> g) Proporcionar y entregar los
+                                productos y servicios que solicita y enviarle información relacionada.<br> <br> h) Enviarle
+                                avisos técnicos, actualizaciones, alertas de seguridad, notificaciones automáticas y
+                                mensajes administrativos y de soporte.<br> <br> i) Atender oportuna y eficazmente las
+                                solicitudes, quejas o reclamos interpuestos por los usuarios.<br> <br> j) Adelantar los
+                                trámites y servicios que sean solicitados a la Compañía.<br> <br> k) Actualizar Bases de
+                                Datos, incluyendo los casos en que se requiera transmitir o transferir a un tercero, la
+                                información para la validación, depuración, enriquecimiento y homogenización de datos,
+                                previo cumplimiento de las exigencias legales.<br> <br> l) Ofrecer información adicional que
+                                beneficie la operación o uso de nuestro Sitio y/o servicios que ofrece la Compañía.<br> <br>
+                                m) Elaborar estudios, estadísticas, encuestas, análisis de tendencias, relacionados con los
+                                servicios que presta la Compañía.<br> <br> n) Análisis de datos con fines investigativos, de
+                                innovación y desarrollo de nuevos productos y/o servicios.<br> <br> o) Gestionar la
+                                información necesaria para el cumplimiento de las obligaciones tributarias, contractuales,
+                                comerciales y de registros comerciales, corporativos y contables.<br> <br> p) Transmitir o
+                                transferir la información a encargados nacionales o internacionales, de terceros países que
+                                cumplan con los estándares mínimos fijados por la Superintendencia de Industria y Comercio,
+                                con los que se tenga una relación operativa que provean los servicios necesarios para la
+                                debida operación de la Compañía.<br> <br> q) Prestar servicios de información a través de
+                                los diferentes medios de contacto.<br> <br> r) Compartir, transferir y transmitir los Datos
+                                Personales e información de los usuarios con terceros, incluyendo pero sin limitarse a, las
+                                filiales y accionistas de la Compañía como con las demás personas afiliadas y vinculadas con
+                                la Compañía y/o sus accionistas, y empresas con los cuales la Compañía tenga relación o esté
+                                en tratativas en asuntos relacionados con los productos y servicios de la Compañía, en
+                                El Salvador o en el exterior. <br> <br> s) Compartir, transferir y transmitir los Datos
+                                Personales e información de los usuarios con terceros, para darle a conocer información
+                                sobre productos y servicios así como con terceros proveedores, con el fin de llevar a cabo
+                                actividades operativas, tecnológicas, de soporte y administrativas relacionadas con la
+                                funcionalidad y/o utilización del Sitio, incluyendo pero sin limitarse a terceros que
+                                proveen servicios de soporte, análisis de datos, mercadeo, publicidad, atención al cliente,
+                                administración. <br> <br> t) Mejorar las iniciativas promocionales de la oferta de
+                                prestación de servicios y actualización de productos de la Compañía.<br> <br> u) Realizar
+                                todas las actividades necesarias para el cumplimiento de las diferentes etapas contractuales
+                                en las relaciones con los clientes actuales y potenciales. <br> <br> v) Ofrecer, a través de
+                                medios propios o conjuntamente con terceros, información de productos financieros o no
+                                financieros relacionados con los adquiridos por el usurario.<br> <br> w) Mantener un archivo
+                                digital que permita contar con la información correspondiente a cada contrato.<br> <br> x)
+                                Comprender el manejo, administración y Tratamiento de datos e información que se encuentren
+                                reportadas ante cualquier operador de información y cualquier agencia de información
+                                comercial, tal como se contemplan en la Ley 1266 de 2008 así como las alertas y monitoreos
+                                de estas entidades.<br> <br> y) Adelantar averiguaciones, hacer cruce de datos, confirmar y
+                                cualquier otra acción que la Compañía considere pertinente para la verificación de
+                                identidad, LA/FT, análisis de situación y/o información financiera y/o los datos
+                                suministrados por el usuario, acudiendo a entidades públicas, bases de datos, Internet,
+                                operadores de información de la planilla integrada de liquidación de aportes -Pila-,
+                                personas privadas que administren y pongan en conocimiento datos de usuarios, compañías
+                                especializadas o centrales de riesgo tales como Experian, TransUnion así como cualquier
+                                operador de información y cualquier agencia de información comercial tal como se contemplan
+                                en la Ley 1266 de 2008, como listas internacionales tales como ONU, FINCEN y/o OFAC (Office
+                                of Foreign Control). En todo caso el anterior listado es meramente enunciativo y no
+                                taxativo, pudiendo desestimar la consulta a dichas entidades públicas o compañías
+                                especializadas por los fines comerciales y operativos fijados por la Compañía, y acudir a
+                                unas nuevas, o adicionales, sean entidades de naturaleza pública o privada.<br> <br> z) Para
+                                atender solicitudes judiciales, administrativas o de cualquier otra índole, por las
+                                autoridades competentes y de conformidad con la ley aplicable.<br> <br> aa) Procesar
+                                información relacionada a la entrega de premios y recompensas en relación con el
+                                funcionamiento La plataforma o el Sitio.<br> <br> bb) Enviar alertas relacionadas con
+                                mantenimiento o condiciones particulares La plataforma o el Sitio.<br> <br> cc) Verificar y
+                                validar la información suministrada por los usuarios con la creación de cuenta en el Sitio,
+                                incluyendo validar información de carácter público, así como relacionada con pagos y
+                                entidades financieras.<br> <br> dd) Demás actividades, íntimamente relacionadas con el
+                                objeto social de la Compañía las actividades y Servicios de la Compañía, el funcionamiento
+                                La plataforma y/o el Sitio, paras las cuales se requieran datos personales.<br> <br> Es
+                                importante, que entiendas como Titular, que la Compañía puede compartir los datos e
+                                información del titular con terceros, a través de la API (Application Programming Interface)
+                                o Widgets u otras herramientas tecnológicas, lo que implica que dichos terceros, puedan
+                                entre otros, acceder a los datos e información de los Titulares del Sitio y/o almacenadas
+                                por la Compañía en el propio Sitio y/o las bases de datos de la Compañía.<br> <br>
+                                <b>Empleados, candidatos, proveedores y accionistas</b><br> <br> Por otro lado, en relación
+                                con las finalidades previstas para los datos de candidatos, empleados, proveedores y
+                                accionistas, los datos recolectados por la Compañía, serán utilizados para evaluar los
+                                candidatos a ser contratados por la Compañía, pudiéndose compartir su hoja de vida e
+                                información relacionada con terceros para efectos de verificar la información y analizar al
+                                correspondiente candidato. <br> <br> Los datos de los empleados tienen como finalidad
+                                desarrollar las relaciones laborales que existan con estos y la Compañía. <br> <br> Respecto
+                                de los proveedores, la Compañía tiene como finalidades: conocer, analizar y determinar la
+                                idoneidad, comportamiento y características de los mismos, como los aspectos que se
+                                relacionen con los servicios y productos que ofrece la Compañía. Igualmente, dentro de las
+                                finalidades de los proveedores y contratistas se encuentran las de:<br> <br> a) Realizar los
+                                procesos de selección, contractuales o relacionados con estos.<br> <br> b) Realizar todos
+                                los trámites internos y el cumplimiento de obligaciones contables, tributarias y de ley.<br>
+                                <br> c) Gestionar el presupuesto de la Compañía.<br> <br> d) Realizar todas las actividades
+                                necesarias para el cumplimiento de las diferentes etapas contractuales en las relaciones con
+                                proveedores y contratistas.<br> <br> e) Expedir las certificaciones contractuales
+                                solicitadas por los contratistas de la Compañía.<br> <br> f) Mantener un archivo digital que
+                                permita contar con la información correspondiente a cada contrato.<br> <br> Para los
+                                accionistas, los datos tienen como finalidad desarrollar las relaciones con los accionistas
+                                en cumplimiento de los derechos, obligaciones y deberes establecidos en las normas legales,
+                                los estatutos y demás documentos corporativos de la Compañía.</div>
+                        </div>
+                    </div>
+                    <div id="vigencia" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">10.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Vigencia</span>
+                            <div class="text-justify">Las Bases de Datos de la Compañía, tendrán el periodo de vigencia que
+                                corresponda a la finalidad para el cual se autorizó su Tratamiento y de las normas que
+                                regulen la materia.</div>
+                        </div>
+                    </div>
+                    <div id="deberes-en-calidad-de-responsable-y-encargado-del-tratamiento"
+                        class="flex gap-2 scroll-mt-[80px]"><span class="font-semibold tracking-wider">11.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Deberes en calidad de
+                                Responsable y Encargado del Tratamiento</span>
+                            <div class="text-justify"><b>a. Deberes en calidad de Responsable del Tratamiento</b><br> <br>
+                                La Compañía, como Responsable del Tratamiento deberá cumplir los siguientes deberes, sin
+                                perjuicio de las demás disposiciones previstas en la ley y en otras que rijan su actividad:
+                                <br> <br> a) Garantizar a los Titulares, en todo tiempo, el pleno y efectivo ejercicio del
+                                derecho de hábeas data.<br> <br> b) Solicitar y conservar en las condiciones previstas en la
+                                ley, copia de las autorizaciones otorgadas por los Titulares cuando estas consten por
+                                escrito; cuando se hayan obtenido de manera telefónica o el Sitio de conformidad con los
+                                mecanismos correspondientes.<br> <br> c) Informar debidamente al Titular sobre la finalidad
+                                de la recolección, y los derechos que le asisten por virtud de la autorización otorgada.
+                                <br> <br> d) Informar que el uso que hace de los datos, es el correspondiente al desarrollo
+                                de sus relaciones con los usuarios, así como indicar que podrá utilizar los Datos Personales
+                                suministrados para el desarrollo de herramientas estadísticas y de prevención de fraude.
+                                Igualmente, señalará que solicita el consentimiento del usuario para hacerle envío de
+                                información comercial referida a los productos y servicios ofrecidos por ésta, puedan enviar
+                                publicidad sobre sus productos y servicios.<br> <br> e) En el evento de permitir que aliados
+                                comerciales puedan conocer Datos Personales de contacto para realizar ofertas, se verificará
+                                que los titulares hayan dado su consentimiento para tales fines. En estos casos siempre
+                                existirá la opción clara y disponible de revocar el consentimiento, y los datos serán
+                                señalizados con el fin de evitar que se vuelvan a utilizar para realizar ese tipo de
+                                ofertas.<br> <br> f) Conservar la información bajo las condiciones de seguridad necesarias
+                                para impedir su adulteración, pérdida, consulta, uso o acceso no autorizado o
+                                fraudulento.<br> <br> g) Garantizar que la información que se suministre al Encargado del
+                                Tratamiento sea veraz, completa, exacta, actualizada, comprobable y comprensible.<br> <br>
+                                h) Actualizar la información, comunicando de forma oportuna al Encargado del Tratamiento,
+                                todas las novedades respecto de los datos que previamente le haya suministrado y adoptar las
+                                demás medidas necesarias para que la información suministrada a este se mantenga
+                                actualizada.<br> <br> i) Rectificar la información cuando sea incorrecta y comunicar lo
+                                pertinente al Encargado del Tratamiento, en los eventos que el Responsable pueda evidenciar
+                                efectivamente que la información es incorrecta.<br> <br> j) Suministrar al Encargado del
+                                Tratamiento, según el caso, únicamente datos cuyo Tratamiento esté previamente autorizado de
+                                conformidad con lo previsto en la ley.<br> <br> k) Exigir al Encargado del Tratamiento en
+                                todo momento, el respeto a las condiciones de seguridad y privacidad de la información del
+                                Titular.<br> <br> l) Tramitar las consultas y reclamos formulados en los términos señalados
+                                en la ley.<br> <br> m) Adoptar procedimientos específicos para garantizar el adecuado
+                                cumplimiento de la ley y en especial, para la atención de consultas y reclamos.<br> <br> n)
+                                Informar al Encargado del Tratamiento cuando determinada información se encuentra en
+                                discusión por parte del Titular, una vez se haya presentado la reclamación y no haya
+                                finalizado el trámite respectivo.<br> <br> o) Establecer, en los contratos celebrados con el
+                                Encargado del tratamiento, mecanismos sencillos pero eficientes de validación de datos, con
+                                el fin de procurar en todo momento el uso actualizado y adecuado de la información.<br> <br>
+                                p) Informar a solicitud del Titular sobre el uso de sus datos.<br> <br> q) Informar a la
+                                autoridad de protección de datos cuando se presenten violaciones a los códigos de seguridad
+                                y existan riesgos en la administración de la información de los Titulares<br> <br> <b>b.
+                                    Deberes en calidad de Encargado del Tratamiento</b><br> <br> Los Encargados del
+                                Tratamiento, y en el evento en el cual la Compañía actúe como encargada, deberán cumplir los
+                                siguientes deberes, sin perjuicio de las demás disposiciones previstas en la ley y en otras
+                                que rijan su actividad:<br> <br> a) Garantizar al Titular, en todo tiempo, el pleno y
+                                efectivo ejercicio del derecho de hábeas data.<br> <br> b) Conservar la información bajo las
+                                condiciones de seguridad necesarias para impedir su adulteración, pérdida, consulta, uso o
+                                acceso no autorizado o fraudulento. Los Encargados deberán cumplir las condiciones mínimas
+                                de seguridad definidas en el Registro Nacional de Bases de datos, las cuales se pueden
+                                consultar en: <a href="https://www.sic.gov.co/.<br"
+                                    target="_blank">https://www.sic.gov.co/.<br< a=""> /&gt; <br> c) Realizar oportunamente
+                                        la actualización, rectificación o supresión de los datos en los términos de la Ley
+                                        1581 de 2012 y demás normas concordantes y vigentes.<br> <br> d) Actualizar la
+                                        información reportada por los Responsables del Tratamiento dentro de los cinco (5)
+                                        días hábiles contados a partir de su recibo.<br> <br> e) Tramitar las consultas y
+                                        los reclamos formulados por los Titulares, en los términos señalados en la presente
+                                        Política de Privacidad.<br> <br> f) Adoptar un Manual interno de políticas y
+                                        procedimientos para garantizar el adecuado cumplimiento de la ley y, en especial,
+                                        para la atención de consultas y reclamos por parte de los Titulares.<br> <br> g)
+                                        Registrar en las bases de datos la leyenda "reclamo en trámite" en la forma en que
+                                        se regula en la ley.<br> <br> h) Insertar en la base de datos la leyenda
+                                        "información en discusión judicial" una vez notificado por parte de la autoridad
+                                        competente sobre procesos judiciales relacionados con la calidad del Dato
+                                        Personal.<br> <br> i) Abstenerse de circular información que esté siendo
+                                        controvertida por el Titular y cuyo bloqueo haya sido ordenado por la
+                                        Superintendencia de Industria y Comercio.<br> <br> j) Permitir el acceso a la
+                                        información únicamente a las personas que pueden tener acceso a ella.<br> <br> k)
+                                        Informar a la Superintendencia de Industria y Comercio cuando se presenten
+                                        violaciones a los códigos de seguridad y existan riesgos en la administración de la
+                                        información de los Titulares.<br> <br> l) Cumplir las instrucciones y requerimientos
+                                        que imparta la Superintendencia de Industria y Comercio.<br> <br> m) Verificar que
+                                        el Responsable del Tratamiento tiene la autorización para el tratamiento de datos
+                                        personales del Titular.</br<></a></div>
+                        </div>
+                    </div>
+                    <div id="transferencias-y-transmision-de-datos-personales" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">12.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Transferencias y
+                                transmisión de Datos Personales</span>
+                            <div class="text-justify">Sin perjuicio y en adición de lo indicado previamente sobre los datos
+                                de Titulares que compartimos con terceros, la Compañía podrá transferir y transmitir los
+                                Datos Personales a terceros con quienes tenga relación operativa, que le provean de
+                                servicios necesarios para su debida operación o funcionalidades y/o asuntos de sistema
+                                informático de la Compañía. En dichos supuestos, se adoptarán las medidas necesarias para
+                                que las personas que tengan acceso a sus Datos Personales cumplan con la presente Política
+                                de Privacidad y con los principios de protección de Datos Personales y obligaciones
+                                establecidas en la ley. <br> <br> En todo caso, cuando la Compañía transmita los datos a uno
+                                o varios Encargados ubicados dentro o fuera del territorio de la República de El Salvador,
+                                establecerá cláusulas contractuales o celebrará un contrato de transmisión de Datos
+                                Personales en el que indicarán: los alcances del tratamiento, las actividades que el
+                                Encargado realizará por cuenta del Responsable para el Tratamiento de los Datos Personales
+                                y, las obligaciones del Encargado para con el Titular y el Responsable. <br> <br> Mediante
+                                dicho contrato, el Encargado se comprometerá a dar aplicación a las obligaciones del
+                                Responsable bajo la Política y a realizar el Tratamiento de datos de acuerdo con la
+                                finalidad que los Titulares hayan autorizado y con las leyes aplicables vigentes. <br> <br>
+                                Además de las obligaciones que impongan normas aplicables dentro del citado contrato,
+                                deberán incluirse las siguientes obligaciones en cabeza del respectivo Encargado: Dar
+                                Tratamiento, a nombre del Responsable, a los Datos Personales conforme a los principios que
+                                los tutelan, salvaguardar la seguridad de las Bases de Datos en los que se contengan Datos
+                                Personales y guardar confidencialidad respecto del Tratamiento de los Datos Personales. <br>
+                                <br> En caso de transferencia, se dará cumplimiento a las obligaciones estipuladas en la Ley
+                                1581 de 2012 y normas reglamentarias.<br> <br> Si cambia la propiedad o el control de la
+                                totalidad o de una parte de uno o varios de los servicios y/o productos y/o activos y/o
+                                derechos de la Compañía, esta puede transferir la información y datos de los Titulares al
+                                nuevo propietario.</div>
+                        </div>
+                    </div>
+                    <div id="medidas-de-seguridad-almacenamiento" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">13.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Medidas de seguridad -
+                                almacenamiento</span>
+                            <div class="text-justify">La Compañía cuenta con procedimientos y medidas con adecuados
+                                controles para mantener la confidencialidad, integridad y disponibilidad de la información,
+                                incluyendo, pero sin limitarse a los Datos Personales, como para la seguridad de la
+                                información y los datos, prevenir su adulteración, pérdida, consulta, uso o acceso no
+                                autorizado o fraudulento. Lo anterior, incluye medidas y controles de seguridad física e
+                                informática, tecnológicos y de tipo ambiental, en instalaciones propias y/o centros de
+                                cómputo o centros documentales gestionados por terceros.<br> <br> Los datos pueden ser
+                                almacenados de forma electrónica y en bases de datos de terceros y/o a través de terceros
+                                expresamente autorizados por la Compañía.<br> <br> En caso de cualquier anomalía o
+                                circunstancia que afecte o pudiera afectar la seguridad de las Bases de Datos o información
+                                contenida en las mismas, o la confidencialidad o la reserva, el usuario deberá comunicarla a
+                                la Compañía, quien adoptará medidas oportunas frente al incidente reportado, sin perjuicio
+                                de las obligaciones de la Compañía de reportar a la Superintendencia de Industria y
+                                Comercio, de conformidad con lo indicado y las normas jurídicas aplicables en el caso de
+                                tratarse efectivamente de incidentes y eventos de conformidad con las normas jurídicas
+                                aplicables.</div>
+                        </div>
+                    </div>
+                    <div id="destruccion" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">14.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Destrucción</span>
+                            <div class="text-justify">La destrucción de medios físicos y electrónicos se realiza a través
+                                de mecanismos que no permiten su reconstrucción. Se realiza únicamente en los casos en que
+                                no constituya el desconocimiento de norma legal alguna, dejando siempre la respectiva
+                                trazabilidad de la acción.<br> <br> La destrucción comprende información contenida en poder
+                                de terceros como en instalaciones propias.</div>
+                        </div>
+                    </div>
+                    <div id="procedimiento-para-atender-los-derechos-de-los-titulares"
+                        class="flex gap-2 scroll-mt-[80px]"><span class="font-semibold tracking-wider">15.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Procedimiento para
+                                atender los derechos de los Titulares </span>
+                            <div class="text-justify">Los Titulares de Datos Personales, sin importar el tipo de
+                                vinculación que tengan con la Compañía pueden ejercer sus derechos a conocer, actualizar,
+                                rectificar y suprimir información y/o revocar la autorización otorgada, de acuerdo con el
+                                procedimiento que se indica a continuación, incluyendo, pero sin limitarse a las consultas
+                                establecidas en el artículo 14 de la Ley 1581 de 2012.<br> <br> <b>a. Procedimiento de
+                                    consultas</b><br> <br> La Compañía y/o los Encargados, garantizan a los titulares de los
+                                Datos Personales o a sus causahabientes o personas autorizadas, el derecho de consultar toda
+                                la información contenida en su registro individual o toda aquella que esté vinculada con su
+                                identificación conforme se establece en la presente Política de Privacidad.<br> <br> Las
+                                consultas dirigidas a Compañía deberán realizarse por medio de petición, y contener como
+                                mínimo la siguiente información: <br> <br> a) Nombres y apellidos del Titular y/o su
+                                representante y/o causahabientes.<br> <br> b) Lo que se pretende consultar.<br> <br> c) La
+                                dirección física o electrónica y teléfono de contacto del Titular y/o sus causahabientes o
+                                representantes y donde desea recibir notificaciones.<br> <br> d) Número de identificación o
+                                procedimiento de validación correspondiente.<br> <br> e) Debe haber sido presentada por los
+                                medios de consulta habilitados por la Compañía, <br> <br> f) En el caso de solicitudes
+                                presentadas a través de la página web, se deberá resolver un cuestionario de validación de
+                                identidad.<br> <br> g) Los causahabientes deberán acreditar el parentesco, adjuntando copia
+                                de la escritura donde se dio apertura a la sucesión y copia de su documento de
+                                identidad.<br> <br> h) Los apoderados, deberán presentar los documentos que acreditan el
+                                apoderamiento.<br> <br> Una vez que la Compañía reciba la solicitud de consulta de
+                                información por parte del Titular de los datos o su representante o tercero debidamente
+                                autorizado, a través de los canales establecidos por la Compañía, procederá a verificar que
+                                la solicitud contenga todas las especificaciones requeridas para efectos de poder valorar
+                                que el derecho se ejerza por un interesado o por un representante de éste, acreditando con
+                                ello, que se cuenta con la legitimidad legal.<br> <br> La consulta será atendida en un
+                                término máximo de diez (10) días hábiles contados a partir de la fecha de recibo de la
+                                misma. Cuando no fuere posible atender la consulta dentro de dicho término, se informará al
+                                interesado, expresando los motivos de la demora y señalando la fecha en que se atenderá su
+                                consulta, la cual en ningún caso podrá superar los cinco (5) días hábiles siguientes al
+                                vencimiento del primer término. Transcurridos dos (2) meses desde la fecha del requerimiento
+                                sin que el solicitante presente la información requerida, se entenderá que ha desistido de
+                                la consulta.<br> <br> <b>b. Procedimiento de reclamos</b><br> <br> El Titular o sus
+                                causahabientes que consideren que la información contenida en una base de datos debe ser
+                                objeto de corrección, actualización o supresión, o cuando adviertan el presunto
+                                incumplimiento de cualquiera de los deberes contenidos en esta ley, podrán presentar un
+                                reclamo ante el Responsable del Tratamiento o el Encargado del Tratamiento el cual será
+                                tramitado bajo las siguientes reglas:<br> <br> 1. El reclamo se formulará mediante solicitud
+                                dirigida al Responsable del Tratamiento o al Encargado del Tratamiento, con la
+                                identificación del Titular, la descripción de los hechos que dan lugar al reclamo, la
+                                dirección, y acompañando los documentos que se quiera hacer valer. Si el reclamo resulta
+                                incompleto, se requerirá al interesado dentro de los cinco (5) días siguientes a la
+                                recepción del reclamo para que subsane las fallas. Transcurridos dos (2) meses desde la
+                                fecha del requerimiento, sin que el solicitante presente la información requerida, se
+                                entenderá que ha desistido del reclamo.<br> <br> En caso de que quien reciba el reclamo no
+                                sea competente para resolverlo, dará traslado a quien corresponda en un término máximo de
+                                dos (2) días hábiles e informará de la situación al interesado.<br> <br> Si la Compañía no
+                                conoce la persona a quien deba trasladarlo, informará de inmediato al Titular.<br> <br>
+                                Recibida la reclamación de forma completa, en un término máximo de dos (2) días hábiles
+                                contados desde la recepción, la Compañía incluirá en la Base de Datos donde se encuentren
+                                los datos personales del Titular, una leyenda que diga "reclamo en trámite" y el motivo del
+                                mismo. Dicha leyenda deberá mantenerse hasta que el reclamo sea decidido<br> <br> 2. Una vez
+                                recibido el reclamo completo, se incluirá en la base de datos una leyenda que diga “reclamo
+                                en trámite” y el motivo del mismo, en un término no mayor a dos (2) días hábiles. Dicha
+                                leyenda deberá mantenerse hasta que el reclamo sea decidido.<br> <br> 3. El término máximo
+                                para atender el reclamo será de quince (15) días hábiles contados a partir del día siguiente
+                                a la fecha de su recibo. Cuando no fuere posible atender el reclamo dentro de dicho término,
+                                se informará al interesado los motivos de la demora y la fecha en que se atenderá su
+                                reclamo, la cual en ningún caso podrá superar los ocho (8) días hábiles siguientes al
+                                vencimiento del primer término.<br> <br> Igualmente, los Encargados garantizarán a los
+                                Titulares de Datos Personales contenidos en sus Bases de Datos o a sus causahabientes, el
+                                derecho de solicitar la revocatoria de la autorización o solicitar la supresión de la
+                                información contenida en su registro individual o toda aquella que esté vinculada con su
+                                identificación cuando consideren que se cumplen los parámetros establecidos por la ley o los
+                                señalados en la presente Política de Privacidad. Así mismo, se garantiza el derecho de
+                                presentar reclamos cuando adviertan el presunto incumplimiento de la Ley 1266 de 2008, la
+                                Ley 1581 de 2012 o de la presente Política de Privacidad.<br> <br> Las reclamaciones
+                                dirigidas a Compañía deberán contener como mínimo la siguiente información: <br> <br> a)
+                                Nombres y apellidos del Titular y/o su representante y/o causahabientes.<br> <br> b) La
+                                descripción clara de lo que se pretende reclamar, adjuntando los documentos que pretenda
+                                hacer valer.<br> <br> c) La dirección física o electrónica y teléfono de contacto del
+                                Titular y/o sus causahabientes o representantes y lugar de notificaciones.<br> <br> d)
+                                Número de identificación o procedimiento de validación correspondiente.<br> <br> e) Debe
+                                haber sido presentada por los medios de reclamación habilitados por la Compañía.<br> <br> f)
+                                En el caso de solicitudes presentadas a través de la página web se deberá resolver un
+                                cuestionario de validación de identidad.<br> <br> g) Los causahabientes deberán acreditar el
+                                parentesco adjuntando copia de la escritura donde se dio apertura a la sucesión y copia de
+                                su documento de identidad.<br> <br> h) Los apoderados, deberán presentar los documentos que
+                                acreditan el apoderamiento.<br> <br> El Titular, causahabiente o apoderado deberá agotar en
+                                primer lugar este trámite de consulta o reclamo ante el responsable den tratamiento en
+                                primera medida, antes de dirigirse a la Superintendencia de Industria y Comercio - SIC a
+                                formular una queja, en cuanto esta consulta o reclamo es requisito de procedibilidad para
+                                poder acudir ante la Superintendencia de Industria y Comercio - SIC.</div>
+                        </div>
+                    </div>
+                    <div id="persona-o-area-responsable-de-la-atencion-a-peticiones-consultas-y-reclamos"
+                        class="flex gap-2 scroll-mt-[80px]"><span class="font-semibold tracking-wider">16.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Persona o área
+                                responsable de la atención a peticiones, consultas y reclamos</span>
+                            <div class="text-justify">Las peticiones, consultas y reclamos formulados por los Titulares de
+                                Datos Personales bajo Tratamiento de la Compañía para ejercer sus derechos a conocer,
+                                actualizar, rectificar y suprimir datos, o revocar la autorización deberán ser dirigidas
+                                a:<br> <br> Lolcito SV El Salvador S.A.S. <br> <br> • Correo electrónico: <a
+                                    href="mailto:admin@wld.lol">admin@wld.lol</a><br> • Página web: <a
+                                    href="../index.html" target="_blank">https://wld.lol/</a></div>
+                        </div>
+                    </div>
+                    <div id="legislacion-vigente-y-aplicable" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">17.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Legislación vigente y
+                                aplicable</span>
+                            <div class="text-justify">De conformidad con lo indicado, se deja reiterada la especialidad que
+                                rige de manera preferencial para las actividades desarrolladas por la Compañía que se
+                                encuentran bajo la Ley 1266 de 2008 y sus decretos reglamentarios (habeas data), y los Datos
+                                Personales que por ser recogidos, utilizados o circulados con fines de colocación de
+                                productos entre Titulares sin relación vigente o recurrente con la Compañía, que quedan bajo
+                                el marco de la Ley 1581 de 2012 y sus decretos reglamentarios (régimen general de protección
+                                de datos personales).</div>
+                        </div>
+                    </div>
+                    <div id="vigencia-y-actualizaciones" class="flex gap-2 scroll-mt-[80px]"><span
+                            class="font-semibold tracking-wider">18.</span>
+                        <div class="flex flex-col gap-2"><span class="font-semibold tracking-wider">Vigencia y
+                                actualizaciones</span>
+                            <div class="text-justify">La presente Política de Privacidad rige a partir del 20 de febrero de
+                                2024 y complementa las políticas asociadas, con vigencia indefinida.<br> <br> Cualquier
+                                cambio sustancial en la Política de Privacidad, se comunicará de forma oportuna a los
+                                Titulares de los datos a través de los medios habituales de contacto y/o a través del sitio
+                                web: <a href="../index.html" target="_blank">https://wld.lol/</a> <br> <br> La
+                                Compañía adelantará actividades internas para que todos los trabajadores, administradores y
+                                en general personas vinculadas con la Compañía conozcan y comprendan esta Política como las
+                                normas de protección de datos.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+</body>
+
+</html>
