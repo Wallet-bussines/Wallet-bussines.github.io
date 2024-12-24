@@ -6,6 +6,76 @@
     <title>Formulario de Transacción - WLD</title>
     <style>
         body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f8f9fa; /* Fondo claro */
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      min-height: 100vh;
+      color: #2c3e50; /* Texto oscuro */
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px;
+      width: 100%;
+    }
+
+    .row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 15px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .circle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px; /* Tamaño reducido */
+      height: 80px; /* Tamaño reducido */
+      border-radius: 50%;
+      background: linear-gradient(145deg, #d6d6d6, #f2f2f2); /* Efecto metálico */
+      border: 2px solid #a3a3a3; /* Borde metálico */
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .circle img {
+      width: 60%; /* Tamaño de imagen reducido */
+      height: 60%; /* Tamaño de imagen reducido */
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .circle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    p {
+      margin-top: 5px;
+      font-size: 12px; /* Tamaño de fuente reducido */
+      color: #2c3e50;
+    }
+    body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f9;
             margin: 0;
@@ -71,11 +141,52 @@
             font-size: 1.2em;
             color: #333;
         }
+
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #34495e, #2c3e50); /* Gradiente oscuro */
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+      padding: 10px 0;
+      border-top: 3px solid #1abc9c; /* Borde de color turquesa */
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .nav-item img {
+      width: 35px; /* Tamaño aumentado */
+      height: 35px; /* Tamaño aumentado */
+      border-radius: 50%;
+      padding: 5px;
+      background: #ecf0f1; /* Fondo de icono claro */
+      border: 1px solid #bdc3c7; /* Borde de icono */
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .nav-item img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px #1abc9c; /* Efecto de resplandor */
+    }
+
+    .nav-item p {
+      font-size: 10px; /* Tamaño de fuente más pequeño */
+      margin-top: 4px;
+      color: #ecf0f1; /* Texto claro */
+    }
     </style>
 </head>
 <body onload="obtenerPrecioToken()">
 <div class="container">
-    <h1>Formulario de Transacción - WLD</h1>
+    <h1>Formulario de Transacción - VAULT</h1>
     <!-- Paso 1 -->
     <div id="step1" class="step-container active">
         <label for="nombre">Nombre</label>
@@ -220,5 +331,25 @@
         window.open(`https://wa.me/573248092374?text=${mensaje}`, '_blank');
     }
 </script>
+<div class="navbar">
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/iframe6.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/Home.png" alt="OrbitalX">
+        <p>WORD_ID</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/iframe.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
+        <p>WALLET</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+        <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
+        <p>HISTORY</p>
+      </a>
+    </div>
+  </div>
 </body>
 </html>
