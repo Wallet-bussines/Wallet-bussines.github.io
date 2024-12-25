@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" class="" data-useragent="Mozilla/5.0 (Linux; Android 13; 2201116SG Build/TKQ1.221114.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/131.0.6778.135 Mobile Safari/537.36">
+
+<head>
+    <script src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-main.js" charset="UTF-8" crossorigin="*"></script>
+    <script src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-vendor.js" charset="UTF-8" crossorigin="*"></script>
+    <script src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-vendors.js" charset="UTF-8" crossorigin="*"></script>
+    <script src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-common.js" charset="UTF-8" crossorigin="*"></script>
+    <script src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-runtime.js" charset="UTF-8" crossorigin="*"></script>
+    <script src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-app.js" charset="UTF-8" crossorigin="*"></script>
+    <script async="" src="https://embed.tawk.to/5d825f319f6b7a4457e25d4d/default" charset="UTF-8" crossorigin="*"></script>
+    <script type="text/javascript" id="debugbar_loader" data-time="1735094055" src="https://primemlmsoftware.in/binary-basic/member/?debugbar"></script>
+    <script type="text/javascript" id="debugbar_dynamic_script">
+    </script>
+    <style type="text/css" id="debugbar_dynamic_style">
+        /*! CodeIgniter 4 - Debug bar * ============================================================================ * Forum: https://forum.codeigniter.com * Github: https://github.com/codeigniter4/codeigniter4 * Slack: https://codeigniterchat.slack.com * Website: https://codeigniter.com */
+        #debug-icon {
+            bottom: 0;
+            position: fixed;
+            right: 0;
+            z-index: 10000;
+            height: 36px;
+            width: 36px;
+            margin: 0px;
+            padding: 0px;
+            clear: both;
+            text-align: center;
+        }
+
+        #debug-icon a svg {
+            margin: 8px;
+            max-width: 20px;
+            max-height: 20px;
+        }
+
+        #debug-icon.fixed-top {
+            bottom: auto;
+            top: 0;
+        }
+
+        #debug-icon .debug-bar-ndisplay {
+            display: none;
+        }
+
+        #debug-bar {
+            bottom: 0;
+            left: 0;
+            position: fixed;
+            right: 0;
+            z-index: 10000;
+            height: 36px;
+            line-height: 36px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        #debug-bar h1 {
+            bottom: 0;
+            display: inline-block;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0 16px 0 0;
+            padding: 0;
+            position: absolute;
+            right: 30px;
+            text-align: left;
+            top: 0;
+        }
+
+        #debug-bar h1 svg {
+            width: 16px;
+            margin-right: 5px;
+        }
+
+        #debug-bar h2 {
+            font-size: 16px;
+            margin: 0;
+            padding: 5px 0 10px 0;
+        }
+
+        #debug-bar h2 span {
+            font-size: 13px;
+        }
+
+        #debug-bar h3 {
+            font-size: 12px;
+            font-weight: 200;
+            margin: 0 0 0 10px;
+            padding: 0;
+            text-transform: uppercase;
+        }
+
+        #debug-bar p {
+            font-size: 12px;
+            margin: 0 0 0 15px;
+            padding: 0;
+        }
+
+        #debug-bar a {
+            text-decoration: none;
+        }
+
+        #debug-bar a:hover {
+            text-decoration: underline;
+        }
+
+        #debug-bar button {
+            border: 1px solid;
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            cursor: pointer;
+            line-height: 15px;
+        }
+
+        #debug-bar button:hover {
+            text-decoration: underline;
+        }
+
+        #debug-bar table {
+            border-collapse: collapse;
+            font-size: 14px;
+            line-height: normal;
+            margin: 5px 10px 15px 10px;
+            width: calc(100% - 10px);
+        }
+
+        #debug-bar table strong {
+            font-weight: 500;
+        }
+
+        #debug-bar table th {
+            display: table-cell;
+            font-weight: 600;
+            padding-bottom: 0.7em;
+            text-align: left;
+        }
+
+        #debug-bar table tr {
+            border: none;
+        }
+
+        #debug-bar table td {
+            border: none;
+            display: table-cell;
+            margin: 0;
+            text-align: left;
+        }
+
+        #debug-bar table td:first-child {
+            max-width: 20%;
+        }
+
+        #debug-bar table td:first-child.narrow {
+            width: 7em;
+        }
+
+        #debug-bar td[data-debugbar-route] form {
+            display: none;
+        }
+
+        #debug-bar td[data-debugbar-route]:hover form {
+            display: block;
+        }
+
+        #debug-bar td[data-debugbar-route]:hover>div {
+            display: none;
+        }
+
+        #debug-bar td[data-debugbar-route] input[type=text] {
+            padding: 2px;
+        }
+
+        #debug-bar .toolbar {
+            display: flex;
+            overflow: hidden;
+            overflow-y: auto;
+            padding: 0 12px 0 12px;
+            /* give room for OS X scrollbar */
+            white-space: nowrap;
+            z-index: 10000;
+        }
+
+        #debug-bar.fixed-top {
+            bottom: auto;
+            top: 0;
+        }
+
+        #debug-bar.fixed-top .tab {
+            bottom: auto;
+            top: 36px;
+        }
+
+        #debug-bar #toolbar-position a,
+        #debug-bar #toolbar-theme a {
+            padding: 0 6px;
+            display: inline-flex;
+            vertical-align: top;
+        }
+
+        #debug-bar #toolbar-position a:hover,
+        #debug-bar #toolbar-theme a:hover {
+            text-decoration: none;
+        }
+
+        #debug-bar #debug-bar-link {
+            bottom: 0;
+            display: inline-block;
+            font-size: 16px;
+            line-height: 36px;
+            padding: 6px;
+            position: absolute;
+            right: 10px;
+            top: 0;
+            width: 24px;
+        }
+
+        #debug-bar .ci-label {
+            display: inline-flex;
+            font-size: 14px;
+        }
+
+        #debug-bar .ci-label:hover {
+            cursor: pointer;
+        }
+
+        #debug-bar .ci-label a {
+            color: inherit;
+            display: flex;
+            letter-spacing: normal;
+            padding: 0 10px;
+            text-decoration: none;
+            align-items: center;
+        }
+
+        #debug-bar .ci-label img {
+            margin: 6px 3px 6px 0;
+            width: 16px !important;
+        }
+
+        #debug-bar .ci-label .badge {
+            border-radius: 12px;
+            -moz-border-radius: 12px;
+            -webkit-border-radius: 12px;
+            display: inline-block;
+            font-size: 75%;
+            font-weight: bold;
+            line-height: 12px;
+            margin-left: 5px;
+            padding: 2px 5px;
+            text-align: center;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+        #debug-bar .tab {
+            bottom: 35px;
+            display: none;
+            left: 0;
+            max-height: 62%;
+            overflow: hidden;
+            overflow-y: auto;
+            padding: 1em 2em;
+            position: fixed;
+            right: 0;
+            z-index: 9999;
+        }
+
+        #debug-bar .timeline {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #debug-bar .timeline th {
+            border-left: 1px solid;
+            font-size: 12px;
+            font-weight: 200;
+            padding: 5px 5px 10px 5px;
+            position: relative;
+            text-align: left;
+        }
+
+        #debug-bar .timeline th:first-child {
+            border-left: 0;
+        }
+
+        #debug-bar .timeline td {
+            border-left: 1px solid;
+            padding: 5px;
+            position: relative;
+        }
+
+        #debug-bar .timeline td:first-child {
+            border-left: 0;
+        }
+
+        #debug-bar .timeline .timer {
+            border-radius: 4px;
+            -moz-border-radius: 4px;
+            -webkit-border-radius: 4px;
+            display: inline-block;
+            padding: 5px;
+            position: absolute;
+            top: 30%;
+        }
+
+        #debug-bar .route-params,
+        #debug-bar .route-params-item {
+            vertical-align: top;
+        }
+
+        #debug-bar .route-params td:first-child,
+        #debug-bar .route-params-item td:first-child {
+            font-style: italic;
+            padding-left: 1em;
+            text-align: right;
+        }
+
+        .debug-view.show-view {
+            border: 1px solid;
+            margin: 4px;
+        }
+
+        .debug-view-path {
+            font-family: monospace;
+            font-size: 12px;
+            letter-spacing: normal;
+            min-height: 16px;
+            padding: 2px;
+            text-align: left;
+        }
+
+        .show-view .debug-view-path {
+            display: block !important;
+        }
+
+        @media screen and (max-width: 1024px) {
+            #debug-bar .ci-label img {
+                margin: unset;
+            }
+
+            .hide-sm {
+                display: none !important;
+            }
+        }
+
+        #debug-icon {
+            background-color: #FFFFFF;
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #debug-icon a:active,
+        #debug-icon a:link,
+        #debug-icon a:visited {
+            color: #DD8615;
+        }
+
+        #debug-bar {
+            background-color: #FFFFFF;
+            color: #434343;
+        }
+
+        #debug-bar h1,
+        #debug-bar h2,
+        #debug-bar h3,
+        #debug-bar p,
+        #debug-bar a,
+        #debug-bar button,
+        #debug-bar table,
+        #debug-bar thead,
+        #debug-bar tr,
+        #debug-bar td,
+        #debug-bar button,
+        #debug-bar .toolbar {
+            background-color: transparent;
+            color: #434343;
+        }
+
+        #debug-bar button {
+            background-color: #FFFFFF;
+        }
+
+        #debug-bar table strong {
+            color: #FDC894;
+        }
+
+        #debug-bar table tbody tr:hover {
+            background-color: #DFDFDF;
+        }
+
+        #debug-bar table tbody tr.current {
+            background-color: #FDC894;
+        }
+
+        #debug-bar table tbody tr.current:hover td {
+            background-color: #DD4814;
+            color: #FFFFFF;
+        }
+
+        #debug-bar .toolbar {
+            background-color: #FFFFFF;
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #debug-bar .toolbar img {
+            filter: brightness(0) invert(0.4);
+        }
+
+        #debug-bar.fixed-top .toolbar {
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #debug-bar.fixed-top .tab {
+            box-shadow: 0 1px 4px #DFDFDF;
+            -moz-box-shadow: 0 1px 4px #DFDFDF;
+            -webkit-box-shadow: 0 1px 4px #DFDFDF;
+        }
+
+        #debug-bar .muted {
+            color: #434343;
+        }
+
+        #debug-bar .muted td {
+            color: #DFDFDF;
+        }
+
+        #debug-bar .muted:hover td {
+            color: #434343;
+        }
+
+        #debug-bar #toolbar-position,
+        #debug-bar #toolbar-theme {
+            filter: brightness(0) invert(0.6);
+        }
+
+        #debug-bar .ci-label.active {
+            background-color: #DFDFDF;
+        }
+
+        #debug-bar .ci-label:hover {
+            background-color: #DFDFDF;
+        }
+
+        #debug-bar .ci-label .badge {
+            background-color: #5BC0DE;
+            color: #FFFFFF;
+        }
+
+        #debug-bar .tab {
+            background-color: #FFFFFF;
+            box-shadow: 0 -1px 4px #DFDFDF;
+            -moz-box-shadow: 0 -1px 4px #DFDFDF;
+            -webkit-box-shadow: 0 -1px 4px #DFDFDF;
+        }
+
+        #debug-bar .timeline th,
+        #debug-bar .timeline td {
+            border-color: #DFDFDF;
+        }
+
+        #debug-bar .timeline .timer {
+            background-color: #DD8615;
+        }
+
+        .debug-view.show-view {
+            border-color: #DD8615;
+        }
+
+        .debug-view-path {
+            background-color: #FDC894;
+            color: #434343;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            #debug-icon {
+                background-color: #252525;
+                box-shadow: 0 0 4px #DFDFDF;
+                -moz-box-shadow: 0 0 4px #DFDFDF;
+                -webkit-box-shadow: 0 0 4px #DFDFDF;
+            }
+
+            #debug-icon a:active,
+            #debug-icon a:link,
+            #debug-icon a:visited {
+                color: #DD8615;
+            }
+
+            #debug-bar {
+                background-color: #252525;
+                color: #DFDFDF;
+            }
+
+            #debug-bar h1,
+            #debug-bar h2,
+            #debug-bar h3,
+            #debug-bar p,
+            #debug-bar a,
+            #debug-bar button,
+            #debug-bar table,
+            #debug-bar thead,
+            #debug-bar tr,
+            #debug-bar td,
+            #debug-bar button,
+            #debug-bar .toolbar {
+                background-color: transparent;
+                color: #DFDFDF;
+            }
+
+            #debug-bar button {
+                background-color: #252525;
+            }
+
+            #debug-bar table strong {
+                color: #FDC894;
+            }
+
+            #debug-bar table tbody tr:hover {
+                background-color: #434343;
+            }
+
+            #debug-bar table tbody tr.current {
+                background-color: #FDC894;
+            }
+
+            #debug-bar table tbody tr.current td {
+                color: #252525;
+            }
+
+            #debug-bar table tbody tr.current:hover td {
+                background-color: #DD4814;
+                color: #FFFFFF;
+            }
+
+            #debug-bar .toolbar {
+                background-color: #434343;
+                box-shadow: 0 0 4px #434343;
+                -moz-box-shadow: 0 0 4px #434343;
+                -webkit-box-shadow: 0 0 4px #434343;
+            }
+
+            #debug-bar .toolbar img {
+                filter: brightness(0) invert(1);
+            }
+
+            #debug-bar.fixed-top .toolbar {
+                box-shadow: 0 0 4px #434343;
+                -moz-box-shadow: 0 0 4px #434343;
+                -webkit-box-shadow: 0 0 4px #434343;
+            }
+
+            #debug-bar.fixed-top .tab {
+                box-shadow: 0 1px 4px #434343;
+                -moz-box-shadow: 0 1px 4px #434343;
+                -webkit-box-shadow: 0 1px 4px #434343;
+            }
+
+            #debug-bar .muted {
+                color: #DFDFDF;
+            }
+
+            #debug-bar .muted td {
+                color: #434343;
+            }
+
+            #debug-bar .muted:hover td {
+                color: #DFDFDF;
+            }
+
+            #debug-bar #toolbar-position,
+            #debug-bar #toolbar-theme {
+                filter: brightness(0) invert(0.6);
+            }
+
+            #debug-bar .ci-label.active {
+                background-color: #252525;
+            }
+
+            #debug-bar .ci-label:hover {
+                background-color: #252525;
+            }
+
+            #debug-bar .ci-label .badge {
+                background-color: #5BC0DE;
+                color: #DFDFDF;
+            }
+
+            #debug-bar .tab {
+                background-color: #252525;
+                box-shadow: 0 -1px 4px #434343;
+                -moz-box-shadow: 0 -1px 4px #434343;
+                -webkit-box-shadow: 0 -1px 4px #434343;
+            }
+
+            #debug-bar .timeline th,
+            #debug-bar .timeline td {
+                border-color: #434343;
+            }
+
+            #debug-bar .timeline .timer {
+                background-color: #DD8615;
+            }
+
+            .debug-view.show-view {
+                border-color: #DD8615;
+            }
+
+            .debug-view-path {
+                background-color: #FDC894;
+                color: #434343;
+            }
+        }
+
+        #toolbarContainer.dark #debug-icon {
+            background-color: #252525;
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #toolbarContainer.dark #debug-icon a:active,
+        #toolbarContainer.dark #debug-icon a:link,
+        #toolbarContainer.dark #debug-icon a:visited {
+            color: #DD8615;
+        }
+
+        #toolbarContainer.dark #debug-bar {
+            background-color: #252525;
+            color: #DFDFDF;
+        }
+
+        #toolbarContainer.dark #debug-bar h1,
+        #toolbarContainer.dark #debug-bar h2,
+        #toolbarContainer.dark #debug-bar h3,
+        #toolbarContainer.dark #debug-bar p,
+        #toolbarContainer.dark #debug-bar a,
+        #toolbarContainer.dark #debug-bar button,
+        #toolbarContainer.dark #debug-bar table,
+        #toolbarContainer.dark #debug-bar thead,
+        #toolbarContainer.dark #debug-bar tr,
+        #toolbarContainer.dark #debug-bar td,
+        #toolbarContainer.dark #debug-bar button,
+        #toolbarContainer.dark #debug-bar .toolbar {
+            background-color: transparent;
+            color: #DFDFDF;
+        }
+
+        #toolbarContainer.dark #debug-bar button {
+            background-color: #252525;
+        }
+
+        #toolbarContainer.dark #debug-bar table strong {
+            color: #FDC894;
+        }
+
+        #toolbarContainer.dark #debug-bar table tbody tr:hover {
+            background-color: #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar table tbody tr.current {
+            background-color: #FDC894;
+        }
+
+        #toolbarContainer.dark #debug-bar table tbody tr.current td {
+            color: #252525;
+        }
+
+        #toolbarContainer.dark #debug-bar table tbody tr.current:hover td {
+            background-color: #DD4814;
+            color: #FFFFFF;
+        }
+
+        #toolbarContainer.dark #debug-bar .toolbar {
+            background-color: #434343;
+            box-shadow: 0 0 4px #434343;
+            -moz-box-shadow: 0 0 4px #434343;
+            -webkit-box-shadow: 0 0 4px #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar .toolbar img {
+            filter: brightness(0) invert(1);
+        }
+
+        #toolbarContainer.dark #debug-bar.fixed-top .toolbar {
+            box-shadow: 0 0 4px #434343;
+            -moz-box-shadow: 0 0 4px #434343;
+            -webkit-box-shadow: 0 0 4px #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar.fixed-top .tab {
+            box-shadow: 0 1px 4px #434343;
+            -moz-box-shadow: 0 1px 4px #434343;
+            -webkit-box-shadow: 0 1px 4px #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar .muted {
+            color: #DFDFDF;
+        }
+
+        #toolbarContainer.dark #debug-bar .muted td {
+            color: #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar .muted:hover td {
+            color: #DFDFDF;
+        }
+
+        #toolbarContainer.dark #debug-bar #toolbar-position,
+        #toolbarContainer.dark #debug-bar #toolbar-theme {
+            filter: brightness(0) invert(0.6);
+        }
+
+        #toolbarContainer.dark #debug-bar .ci-label.active {
+            background-color: #252525;
+        }
+
+        #toolbarContainer.dark #debug-bar .ci-label:hover {
+            background-color: #252525;
+        }
+
+        #toolbarContainer.dark #debug-bar .ci-label .badge {
+            background-color: #5BC0DE;
+            color: #DFDFDF;
+        }
+
+        #toolbarContainer.dark #debug-bar .tab {
+            background-color: #252525;
+            box-shadow: 0 -1px 4px #434343;
+            -moz-box-shadow: 0 -1px 4px #434343;
+            -webkit-box-shadow: 0 -1px 4px #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar .timeline th,
+        #toolbarContainer.dark #debug-bar .timeline td {
+            border-color: #434343;
+        }
+
+        #toolbarContainer.dark #debug-bar .timeline .timer {
+            background-color: #DD8615;
+        }
+
+        #toolbarContainer.dark .debug-view.show-view {
+            border-color: #DD8615;
+        }
+
+        #toolbarContainer.dark .debug-view-path {
+            background-color: #FDC894;
+            color: #434343;
+        }
+
+        #toolbarContainer.dark td[data-debugbar-route] input[type=text] {
+            background: #000;
+            color: #fff;
+        }
+
+        #toolbarContainer.light #debug-icon {
+            background-color: #FFFFFF;
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-icon a:active,
+        #toolbarContainer.light #debug-icon a:link,
+        #toolbarContainer.light #debug-icon a:visited {
+            color: #DD8615;
+        }
+
+        #toolbarContainer.light #debug-bar {
+            background-color: #FFFFFF;
+            color: #434343;
+        }
+
+        #toolbarContainer.light #debug-bar h1,
+        #toolbarContainer.light #debug-bar h2,
+        #toolbarContainer.light #debug-bar h3,
+        #toolbarContainer.light #debug-bar p,
+        #toolbarContainer.light #debug-bar a,
+        #toolbarContainer.light #debug-bar button,
+        #toolbarContainer.light #debug-bar table,
+        #toolbarContainer.light #debug-bar thead,
+        #toolbarContainer.light #debug-bar tr,
+        #toolbarContainer.light #debug-bar td,
+        #toolbarContainer.light #debug-bar button,
+        #toolbarContainer.light #debug-bar .toolbar {
+            background-color: transparent;
+            color: #434343;
+        }
+
+        #toolbarContainer.light #debug-bar button {
+            background-color: #FFFFFF;
+        }
+
+        #toolbarContainer.light #debug-bar table strong {
+            color: #FDC894;
+        }
+
+        #toolbarContainer.light #debug-bar table tbody tr:hover {
+            background-color: #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar table tbody tr.current {
+            background-color: #FDC894;
+        }
+
+        #toolbarContainer.light #debug-bar table tbody tr.current:hover td {
+            background-color: #DD4814;
+            color: #FFFFFF;
+        }
+
+        #toolbarContainer.light #debug-bar .toolbar {
+            background-color: #FFFFFF;
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .toolbar img {
+            filter: brightness(0) invert(0.4);
+        }
+
+        #toolbarContainer.light #debug-bar.fixed-top .toolbar {
+            box-shadow: 0 0 4px #DFDFDF;
+            -moz-box-shadow: 0 0 4px #DFDFDF;
+            -webkit-box-shadow: 0 0 4px #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar.fixed-top .tab {
+            box-shadow: 0 1px 4px #DFDFDF;
+            -moz-box-shadow: 0 1px 4px #DFDFDF;
+            -webkit-box-shadow: 0 1px 4px #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .muted {
+            color: #434343;
+        }
+
+        #toolbarContainer.light #debug-bar .muted td {
+            color: #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .muted:hover td {
+            color: #434343;
+        }
+
+        #toolbarContainer.light #debug-bar #toolbar-position,
+        #toolbarContainer.light #debug-bar #toolbar-theme {
+            filter: brightness(0) invert(0.6);
+        }
+
+        #toolbarContainer.light #debug-bar .ci-label.active {
+            background-color: #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .ci-label:hover {
+            background-color: #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .ci-label .badge {
+            background-color: #5BC0DE;
+            color: #FFFFFF;
+        }
+
+        #toolbarContainer.light #debug-bar .tab {
+            background-color: #FFFFFF;
+            box-shadow: 0 -1px 4px #DFDFDF;
+            -moz-box-shadow: 0 -1px 4px #DFDFDF;
+            -webkit-box-shadow: 0 -1px 4px #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .timeline th,
+        #toolbarContainer.light #debug-bar .timeline td {
+            border-color: #DFDFDF;
+        }
+
+        #toolbarContainer.light #debug-bar .timeline .timer {
+            background-color: #DD8615;
+        }
+
+        #toolbarContainer.light .debug-view.show-view {
+            border-color: #DD8615;
+        }
+
+        #toolbarContainer.light .debug-view-path {
+            background-color: #FDC894;
+            color: #434343;
+        }
+
+        .debug-bar-width30 {
+            width: 30%;
+        }
+
+        .debug-bar-width10 {
+            width: 10%;
+        }
+
+        .debug-bar-width70p {
+            width: 70px;
+        }
+
+        .debug-bar-width140p {
+            width: 140px;
+        }
+
+        .debug-bar-width20e {
+            width: 20em;
+        }
+
+        .debug-bar-width6r {
+            width: 6rem;
+        }
+
+        .debug-bar-ndisplay {
+            display: none;
+        }
+
+        .debug-bar-alignRight {
+            text-align: right;
+        }
+
+        .debug-bar-alignLeft {
+            text-align: left;
+        }
+
+        .debug-bar-noverflow {
+            overflow: hidden;
+        }
+    </style>
+
+    <meta charset="utf-8" />
+    <title>Prime mlm software | Inicio</title>
+    <meta name="description" content="" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/libs/assets/animate.css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/libs/assets/font-awesome/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/libs/assets/simple-line-icons/css/simple-line-icons.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/libs/angular/angularjs-toaster/toaster.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/css/loader-data.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/css/header.css" />
+
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/css/spark/modern.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/css/spark/app.js"></script>
+    <link rel="shortcut icon" type="image/png" href="https://primemlmsoftware.in/binary-basic/member/../images/1711384830_916582ca0fd5d9e5aa9a.png" />
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/jquery/jquery-3.3.1.min.js"></script>
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/jquery/jquery.min.js"></script>
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/jquery/wow.min.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-bf24a88e.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-71978bb6.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-7c2f6ba4.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-48f3b594.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-4fe9d5dd.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-2d0b9454.js"></script>
+    <script charset="utf-8" src="https://embed.tawk.to/_s/v4/app/67354992019/js/twk-chunk-24d8db78.js"></script>
+    <style type="text/css">
+        #n6vplgvf2d61735094056103 {
+            outline: none !important;
+            visibility: visible !important;
+            resize: none !important;
+            box-shadow: none !important;
+            overflow: visible !important;
+            background: none !important;
+            opacity: 1 !important;
+            filter: alpha(opacity=100) !important;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity 1
+            }
+
+        ) !important;
+        -mz-opacity:1 !important;
+        -khtml-opacity:1 !important;
+        top:auto !important;
+        right:0px !important;
+        bottom:0px !important;
+        left:auto !important;
+        position:fixed !important;
+        border:0 !important;
+        min-height:0px !important;
+        min-width:0px !important;
+        max-height:none !important;
+        max-width:none !important;
+        padding:0px !important;
+        margin:0px !important;
+        -moz-transition-property:none !important;
+        -webkit-transition-property:none !important;
+        -o-transition-property:none !important;
+        transition-property:none !important;
+        transform:none !important;
+        -webkit-transform:none !important;
+        -ms-transform:none !important;
+        width:auto !important;
+        height:auto !important;
+        display:none !important;
+        z-index:2000000000 !important;
+        background-color:transparent !important;
+        cursor:none !important;
+        float:none !important;
+        border-radius:unset !important;
+        pointer-events:auto !important;
+        clip:auto !important;
+        color-scheme:light !important;
+        }
+
+        #n6vplgvf2d61735094056103.widget-hidden {
+            display: none !important;
+        }
+
+        #n6vplgvf2d61735094056103.widget-visible {
+            display: block !important;
+        }
+
+        @media print {
+            #n6vplgvf2d61735094056103.widget-visible {
+                display: none !important;
+            }
+        }
+    </style>
+    <style type="text/css">
+        /* Chart.js */
+        /*
+ * DOM element rendering detection
+ * https://davidwalsh.name/detect-node-insertion
+ */
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chartjs-render-monitor {
+            animation: chartjs-render-animation 0.001s;
+        }
+
+        /*
+ * DOM element resizing detection
+ * https://github.com/marcj/css-element-queries
+ */
+        .chartjs-size-monitor,
+        .chartjs-size-monitor-expand,
+        .chartjs-size-monitor-shrink {
+            position: absolute;
+            direction: ltr;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+            visibility: hidden;
+            z-index: -1;
+        }
+
+        .chartjs-size-monitor-expand>div {
+            position: absolute;
+            width: 1000000px;
+            height: 1000000px;
+            left: 0;
+            top: 0;
+        }
+
+        .chartjs-size-monitor-shrink>div {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            left: 0;
+            top: 0;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js" type="text/javascript" async="" defer=""></script>
+    <script src="https://cdn.jsdelivr.net/emojione/2.2.7/lib/js/emojione.min.js" type="text/javascript" async="" defer=""></script>
+    <style type="text/css">
+        @keyframes tawkMaxOpen {
+            0% {
+                opacity: 0;
+                transform: translate(0, 30px);
+                ;
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(0, 0px);
+            }
+        }
+
+        @-moz-keyframes tawkMaxOpen {
+            0% {
+                opacity: 0;
+                transform: translate(0, 30px);
+                ;
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(0, 0px);
+            }
+        }
+
+        @-webkit-keyframes tawkMaxOpen {
+            0% {
+                opacity: 0;
+                transform: translate(0, 30px);
+                ;
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(0, 0px);
+            }
+        }
+
+        #l74cdff6jono1735094056156.open {
+            animation: tawkMaxOpen .25s ease !important;
+        }
+    </style>
+</head>
+
+<body class="">
+    <style>
+        body {
+            /*dont remove this,because the code is used to fix the body size when modal is open */
+            padding-right: 0 !important
+        }
+
+        .progress-toast {
+            height: 1px;
+            background-color: white;
+            position: relative;
+            margin-top: 5px;
+        }
+
+        .progress-toast:before {
+            content: "";
+            height: 100%;
+            width: 100%;
+            background-color: green;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: decrease 6s linear;
+        }
+
+        @keyframes decrease {
+            from {
+                width: 100%;
+            }
+
+            to {
+                width: 0;
+            }
+        }
+
+        .error-toast {
+            height: 1px;
+            background-color: white;
+            position: relative;
+            margin-top: 5px;
+        }
+
+        .error-toast:before {
+            content: "";
+            height: 100%;
+            width: 100%;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+            animation: decrease 6s linear;
+        }
+    </style>
+
+    <input type="hidden" name="base_url" id="base_url" value="https://primemlmsoftware.in/binary-basic/member" />
+    <input type="hidden" id="pwd_strength" name="pwd_strength" value="no" />
+    <input type="hidden" name="current_url" id="current_url" value="Home/index" />
+
+    <div class="splash">
+        <div class="splash-icon"></div>
+    </div>
+
+    <div class="wrapper">
+
+        <style>
+            .simplebar-mask {
+                direction: inherit;
+                height: auto !important;
+                overflow: scroll;
+                width: auto !important;
+                z-index: 0;
+            }
+        </style>
+
+        <nav id="sidebar" class="sidebar">
+            <a class="sidebar-brand" href="https://primemlmsoftware.in/binary-basic/member/Home/index">
+                <img src="https://primemlmsoftware.in/binary-basic/member/../images/1715318767_b4667600e5422c0e23af.png" class="main-logo" style="display: block;margin-right: auto;margin-left: auto;height: 62px;margin-left: 20px;margin-top: 14px;" />
+            </a>
+            <div class="css-qp4vre">
+                <div class="sidebar-content ">
+
+                    <div class="MuiBox-root css-t0051x">
+
+                        <ul class="sidebar-nav">
+                            <li class="css-dfx7ae">
+                                Home
+                            </li>
+
+
+                            <li class="sidebar-item main-menu active">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Home/index" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon fa fa-desktop" style=""></i>
+                                    <span class="align-middle">Tablero</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_6" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon fa fa-sitemap text-info-lter" style=""></i>
+                                    <span class="align-middle">La red</span>
+                                </a>
+
+                                <ul id="root_menu_6" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Team/genology_tree">Árbol genealógico</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/all_downlines">Lista de línea descendente</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/referral_list">Lista de referencias</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Team/sponsor_tree">Árbol de patrocinadores</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Register/introducer_details" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon fa fa-sign-in" style=""></i>
+                                    <span class="align-middle">Registrarse</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Order/buy_package" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon fa fa-suitcase text-primary-dker" style=""></i>
+                                    <span class="align-middle">Actualización del paquete</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Products/index" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon fa fa-shopping-cart text-warning" style=""></i>
+                                    <span class="align-middle">Readquirir</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_25" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon fa fa-share-square-o" style=""></i>
+                                    <span class="align-middle">Pagar</span>
+                                </a>
+
+                                <ul id="root_menu_25" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Withdraw/withdraw">Petición de retiro</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Wallet/wallet_details">Declaraciones de retiro</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_7" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon fa fa-money text-success-lter" style=""></i>
+                                    <span class="align-middle">Finanzas</span>
+                                </a>
+
+                                <ul id="root_menu_7" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Wallet/all_transaction">Billetera comercial</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Wallet/income_details">Billetera de comisiones</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Wallet/transfer_history">Historial de transferencias</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Wallet/fund_transfer">Fund Transfer</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_2" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon icon-user icon text-success-lter" style=""></i>
+                                    <span class="align-middle">Perfil</span>
+                                </a>
+
+                                <ul id="root_menu_2" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Profile/user_profile">Perfil del usuario</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Verifyaccount/change_credential">Cambiar credencial</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_29" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon fa fa-history" style=""></i>
+                                    <span class="align-middle">Historia PV</span>
+                                </a>
+
+                                <ul id="root_menu_29" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/personal_pv_report">Historial PV personal</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/group_pv_report">Historia PV del grupo</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_12" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon fa fa-file-o" style=""></i>
+                                    <span class="align-middle">Reporte</span>
+                                </a>
+
+                                <ul id="root_menu_12" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/commission_report">Informe de la Comisión</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/sales_report">Reporte de ventas</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/carry_history">Llevar historial</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Report/repurchase_report">Informe de recompra</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Member/inbox" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon glyphicon glyphicon-envelope icon text-info-lter" style=""></i>
+                                    <span class="align-middle">casilla de correo</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Profile/affiliate_setting" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon fa fa-cogs" style=""></i>
+                                    <span class="align-middle">Configuración del sitio web</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a data-bs-toggle="collapse" data-bs-target="#root_menu_19" class="sidebar-link css-141bmuw" aria-expanded="true">
+                                    <i class="align-middle me-3 m-icon fa fa-sun-o" style=""></i>
+                                    <span class="align-middle">Instrumentos</span>
+                                </a>
+
+                                <ul id="root_menu_19" data-bs-parent="#sidebar" class="sidebar-dropdown list-unstyled collapse">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Member/news">Noticias</a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="https://primemlmsoftware.in/binary-basic/member/Home/events">Eventos</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="sidebar-item">
+
+                                <a href="https://primemlmsoftware.in/binary-basic/member/Login/logout" class="sidebar-link">
+                                    <i class="align-middle me-3 m-icon icon-power text-success-lter" style=""></i>
+                                    <span class="align-middle">Cerrar sesión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="MuiBox-root css-autyzp">
+                <div class="MuiAvatar-root MuiAvatar-circular css-1rml7x2">
+                    <img alt="Remy Sharp" src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                </div>
+                <div class="MuiBox-root css-0">
+                    <h6 class="MuiTypography-root MuiTypography-h6 css-mq7gx5">demouser01</h6>
+                    <span class="MuiTypography-root MuiTypography-caption css-85labr">demouser </span>
+                </div>
+                <div class="MuiBox-root css-zdpt2t">
+                    <a class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorPrimary MuiIconButton-sizeSmall css-1xhvhgj" tabindex="0" aria-label="logout" href="https://primemlmsoftware.in/binary-basic/member/Login/logout">
+                        <i class="icon-power" style=""></i>
+                        <span class="MuiTouchRipple-root css-w0pj6f"></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-theme">
+                <a class="sidebar-toggle bars">
+                    <!--<i class="hamburger align-self-center"></i>-->
+                    <span class="bar1"></span>
+                    <span class="bar2"></span>
+                    <span class="bar3"></span>
+                </a>
+                <div class="navbar-collapse collapse">
+                    <ul class="navbar-nav ms-auto">
+
+
+
+                        <li class="nav-item dropdown ms-lg-2">
+                            <a style="font-size: 16px;" class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown" data-bs-toggle="dropdown">
+
+                                $ USD
+
+
+
+
+
+
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown ms-lg-2 country-select">
+                            <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown" data-bs-toggle="dropdown">
+
+
+                                <img style="height: 15px;" class="align-middle" src="https://primemlmsoftware.in/binary-basic/member/../images/lang-flag/es.svg" />
+                                <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+                                <a class="dropdown-item" href="" onclick="getSwitchLanguage('en');">
+                                    <img style="height: 12px;" src="https://primemlmsoftware.in/binary-basic/member/../images/lang-flag/en.svg" /> English</a>
+
+                                <a class="dropdown-item" href="" onclick="getSwitchLanguage('es');">
+                                    <img style="height: 12px;" src="https://primemlmsoftware.in/binary-basic/member/../images/lang-flag/es.svg" /> Español</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown ms-lg-2">
+                            <a class="nav-link dropdown-toggle position-relative" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+
+                                <i class="icon-envelope-open"></i>
+                                <span class="badge badge-sm up bg-danger pull-right-xs">0</span>
+
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown ms-lg-2">
+                            <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown" data-bs-toggle="dropdown">
+                                <i class="align-middle fa fa-cog"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="https://primemlmsoftware.in/binary-basic/member/Profile/user_profile"><i class="align-middle me-1 fa fa-fw fa-user"></i>Perfil</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="https://primemlmsoftware.in/binary-basic/member/Login/logout" "=""><i class=" align-middle me-1 fa-fw fa fa-arrow-circle-right"></i>Cerrar sesión</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/libs/jquery/jquery/dist/jquery.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/libs/jquery/bootstrap/dist/js/bootstrap.js"></script>
+
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/bootstrap-fileupload/bootstrap-fileupload.min.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/jquery.pulsate/jquery.pulsate.min.js"></script>
+            <!-- / for js validation-->
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/jquery.icheck.min.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/perfect-scrollbar.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/jquery.cookie.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/main.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/clip/jquery.validate.min.js"></script>
+            <script src="https://primemlmsoftware.in/binary-basic/member/public/js/header.js"></script>
+
+            <script>
+                $.ajaxSetup({
+                    data: {
+                        'csrf_token_name': 'af3b74da67aae58c7f283298e10b7319'
+                    }
+                });
+            </script>
+
+
+
+
+
+
+            <style>
+
+            </style>
+            <div style="display: none;">
+                <span id="income">Bonificación</span>
+                <span id="sales">Home.text_sales</span>
+                <span id="revenu">Home.text_revenu</span>
+                <span id="curr">$</span>
+            </div>
+            <main class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-12 MuiGrid-grid-lg-12 css-h719to">
+                                <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-1bi5hwq">
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 MuiGrid-grid-lg-2 css-1e35mkm">
+                                        <a href="#">
+                                            <div class="MuiBox-root css-z9vtzs">
+                                                <div class="MuiCardContent-root css-18mhetb">
+                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/icon/joining.svg" width="50" />
+                                                    <h6 class="MuiTypography-root MuiTypography-subtitle1 css-jcm8es">Unirse</h6>
+                                                    <h4 class="MuiTypography-root MuiTypography-h4 css-iz6scz">#2025</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 MuiGrid-grid-lg-2 css-1e35mkm">
+                                        <a href="#">
+                                            <div class="MuiBox-root css-9qnejo">
+                                                <div class="MuiCardContent-root css-18mhetb">
+                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/icon/bonus.svg" width="50" />
+                                                    <h6 class="MuiTypography-root MuiTypography-subtitle1 css-6qdrmb">Pagado</h6>
+                                                    <h4 class="MuiTypography-root MuiTypography-h4 css-vt2xyb">$0.00</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 MuiGrid-grid-lg-2 css-1e35mkm">
+                                        <a href="#">
+                                            <div class="MuiBox-root css-1d5q2y6">
+                                                <div class="MuiCardContent-root css-18mhetb">
+                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/icon/pending.svg" width="50" />
+                                                    <h6 class="MuiTypography-root MuiTypography-subtitle1 css-19mq96j">Bonificación</h6>
+                                                    <h4 class="MuiTypography-root MuiTypography-h4 css-1s9cwyn">$507.50</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 MuiGrid-grid-lg-2 css-1e35mkm">
+                                        <a href="#">
+                                            <div class="MuiBox-root css-177kdpp">
+                                                <div class="MuiCardContent-root css-18mhetb">
+                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/icon/requested.svg" width="50" />
+                                                    <h6 class="MuiTypography-root MuiTypography-subtitle1 css-1m1o1qi">Pago activo</h6>
+                                                    <h4 class="MuiTypography-root MuiTypography-h4 css-1b1q3m6">$0.00</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 MuiGrid-grid-lg-2 css-1e35mkm">
+                                        <a href="#">
+                                            <div class="MuiBox-root css-5zfaq9">
+                                                <div class="MuiCardContent-root css-18mhetb">
+                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/icon/pending_amount-01.svg" width="50" />
+                                                    <h6 class="MuiTypography-root MuiTypography-subtitle1 css-1jm5lng">Monedero electrónico</h6>
+                                                    <h4 class="MuiTypography-root MuiTypography-h4 css-bnvtb8">$507.5</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-4 MuiGrid-grid-lg-2 css-1e35mkm">
+                                        <a href="#">
+                                            <div class="MuiBox-root css-11nw8t4">
+                                                <div class="MuiCardContent-root css-18mhetb">
+                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/icon/sales.svg" width="50" />
+                                                    <h6 class="MuiTypography-root MuiTypography-subtitle1 css-r6anhz">Total de referencias</h6>
+                                                    <h4 class="MuiTypography-root MuiTypography-h4 css-v40nvz">#2029</h4>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7 csw col-xxl-5 d-flex">
+                            <div class="card flex-fill w-100">
+                                <div class="card-body">
+                                    <div class="MuiCardContent-root css-t76ygq">
+                                        <div class="css-1wxtabd">
+                                            <div class="MuiBox-root css-0">
+                                                <h5 class="MuiTypography-root MuiTypography-h5 css-kw4zy4">Resumen de pagos</h5>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="dashboard-loader2" class="dashboard-loader-payout" style="display: none;"></div>
+                                            <div class="col-md-12 mb-md-0">
+                                                <div class="wallet-balance">
+                                                    <div class="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-3 css-1h77wgb">
+                                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 col-sm-6 css-1iqiv84">
+                                                            <div class="ibox-content">
+                                                                <div class="chartjs-size-monitor">
+                                                                    <div class="chartjs-size-monitor-expand">
+                                                                        <div class=""></div>
+                                                                    </div>
+                                                                    <div class="chartjs-size-monitor-shrink">
+                                                                        <div class=""></div>
+                                                                    </div>
+                                                                </div>
+                                                                <canvas id="myChart1" height="522" width="860" style="display: block; height: 190px; width: 313px;" class="chartjs-render-monitor"></canvas>
+                                                            </div>
+                                                            <div class="css-v7bvpz">
+                                                                <div class="css-1abzdwk mob-1abzdwk">
+                                                                    <div class="MuiBox-root css-18fcgf6">
+                                                                        <p class="MuiTypography-root MuiTypography-body1 css-rskbn1">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-grid-dots" width="22" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                                <circle cx="5" cy="5" r="1" />
+                                                                                <circle cx="12" cy="5" r="1" />
+                                                                                <circle cx="19" cy="5" r="1" />
+                                                                                <circle cx="5" cy="12" r="1" />
+                                                                                <circle cx="12" cy="12" r="1" />
+                                                                                <circle cx="19" cy="12" r="1" />
+                                                                                <circle cx="5" cy="19" r="1" />
+                                                                                <circle cx="12" cy="19" r="1" />
+                                                                                <circle cx="19" cy="19" r="1" />
+                                                                            </svg>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="MuiBox-root css-0">
+                                                                        <h6 class="MuiTypography-root MuiTypography-h6 css-mlugr1 mob-css-mlugr1">$0.00</h6>
+                                                                        <h6 class="MuiTypography-root MuiTypography-subtitle2 css-1uab2gu">Pagado</h6>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="css-1abzdwk">
+                                                                    <div class="MuiBox-root css-r4d26e">
+                                                                        <p class="MuiTypography-root MuiTypography-body1 css-14uwjuw">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-grid-dots" width="22" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                                <circle cx="5" cy="5" r="1" />
+                                                                                <circle cx="12" cy="5" r="1" />
+                                                                                <circle cx="19" cy="5" r="1" />
+                                                                                <circle cx="5" cy="12" r="1" />
+                                                                                <circle cx="12" cy="12" r="1" />
+                                                                                <circle cx="19" cy="12" r="1" />
+                                                                                <circle cx="5" cy="19" r="1" />
+                                                                                <circle cx="12" cy="19" r="1" />
+                                                                                <circle cx="19" cy="19" r="1" />
+                                                                            </svg>
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="MuiBox-root css-0">
+                                                                        <h6 class="MuiTypography-root MuiTypography-h6 css-mlugr1 mob-css-mlugr1">$507.5</h6>
+                                                                        <h6 class="MuiTypography-root MuiTypography-subtitle2 css-1uab2gu">Pendiente</h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12  col-sm-6 css-h3o6is">
+
+                                                            <div class="css-mob-h3o6is">
+                                                                <div class="css-7kd3vg">
+                                                                    <div class="css-1abzdwk">
+                                                                        <div class="MuiBox-root css-1g36mrm">
+                                                                            <h6 class="MuiTypography-root MuiTypography-h6 css-12pj7fy">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-grid-dots" width="21" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                                    <circle cx="5" cy="5" r="1" />
+                                                                                    <circle cx="12" cy="5" r="1" />
+                                                                                    <circle cx="19" cy="5" r="1" />
+                                                                                    <circle cx="5" cy="12" r="1" />
+                                                                                    <circle cx="12" cy="12" r="1" />
+                                                                                    <circle cx="19" cy="12" r="1" />
+                                                                                    <circle cx="5" cy="19" r="1" />
+                                                                                    <circle cx="12" cy="19" r="1" />
+                                                                                    <circle cx="19" cy="19" r="1" />
+                                                                                </svg>
+                                                                            </h6>
+                                                                        </div>
+                                                                        <div class="MuiBox-root css-0">
+                                                                            <h3 class="MuiTypography-root MuiTypography-h3 css-mlugr1">$0</h3>
+                                                                            <h6 class="MuiTypography-root MuiTypography-subtitle2 css-1uab2gu">Total Profit</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="css-1mparf5">
+                                                                    <div class="css-1t62lt9">
+                                                                        <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-ualsym">
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium MuiAvatar-fallback css-13y7ul3" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="PersonIcon">
+
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="MuiBox-root css-0">
+                                                                            <h6 class="MuiTypography-root MuiTypography-subtitle1 css-1tnlz6w">Ingresos de hoy </h6>
+                                                                            <h5 class="MuiTypography-root MuiTypography-h5 css-kw4zy4">$0.00</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="css-1t62lt9">
+                                                                        <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-jlubp5">
+
+                                                                        </div>
+                                                                        <div class="MuiBox-root css-0">
+                                                                            <h6 class="MuiTypography-root MuiTypography-subtitle1 css-1tnlz6w">Earning this month</h6>
+                                                                            <h5 class="MuiTypography-root MuiTypography-h5 css-kw4zy4">$10577.5</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <a href="https://primemlmsoftware.in/binary-basic/member/Wallet/income_details" class="css-15dlb82" type="button">Ver monedero de comisiones<span class="MuiTouchRipple-root css-w0pj6f"></span></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 csw col-lg-5 d-flex">
+                            <div class="card card-user-info">
+                                <div class="card-body">
+                                    <div class="">
+                                        <div class="col-md-12 mb-md-0">
+                                            <div class="Profile-section">
+                                                <div class="Profile">
+                                                    <div class="profile-avatar">
+                                                        <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" />
+                                                    </div>
+                                                    <div class="profile-Details">
+                                                        <h4>demouser01</h4>
+                                                        <h5>demouser </h5>
+                                                        <h6>Fecha de ingreso : Feb 2nd 2024-7:30AM</h6>
+                                                        <p>Paquete : <span>my</span></p>
+                                                        <p>Grupo Pv : <b>213997</b></p>
+                                                        <p>PV Personal : <b>16041</b></p>
+
+                                                    </div>
+                                                </div>
+                                                <div class="Profile-view">
+                                                    <a href="https://primemlmsoftware.in/binary-basic/member/Profile/user_profile">
+                                                        Ver perfil
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                            <div class="wallet-balance">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="wallet-head"> Saldo de Wallet</span>
+                                                       
+                                                </div>
+                                                <div class="wallet-amount-payout">
+                                                    <h2 class="counter wallet-amount" style="visibility: visible;">$507.50 </h2>
+                                                    <a href="https://primemlmsoftware.in/binary-basic/member/Withdraw/withdraw">Request Payout</a>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="mb-3">
+                                                    <div class="">
+                                                        <ul class="list-unstyled mb-0" style="padding-left: 0px;">
+                                                            <div class="referal-link">
+                                                                <div class="form-group">
+                                                                    <div class="rep-head">
+                                                                        <h4>Enlace de referencia</h4>
+                                                                        <a onclick="fb_primeshare('https://www.facebook.com/sharer/sharer.php?u=https://primemlmsoftware.in/binary-basic/affiliate/Home/demouser01');" class="social-icon social-iconf"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                                                        <a onclick="primeshare('https://primemlmsoftware.in/binary-basic/affiliate/Home/demouser01');" class="social-icon social-icont"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                                                        <a onclick="link_primeshare('https://primemlmsoftware.in/binary-basic/affiliate/Home/demouser01');" class="social-icon social-iconi"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                                                                        </a>
+                                                                        <span id="rfl-copied" class="rfl-copied" style="font-size: 9px;"></span>
+                                                                        <span id="lcp-copied" class="lcp-copied" style="font-size: 9px;"></span>
+                                                                    </div>
+
+                                                                    <div class="link-replica-container">
+                                                                        <div class="link-replica">
+                                                                            <input type="text" class="form-control" id="referral_link" maxlength="" value="https://primemlmsoftware.in/binary-basic/affiliate/Home/demouser01" />
+                                                                            <button id="clickCopyreferral_link" class="btn btn-primary" data-clipboard-text="https://primemlmsoftware.in/binary-basic/affiliate/Home/demouser01">
+                                                                                <i class="fa fa-copy "></i></button>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-xxl-5 d-flex">
+                            <div class="card flex-fill w-100">
+
+                                <div class="card-body">
+                                    <div class="MuiCardContent-root css-t76ygq">
+                                        <div class="css-1wxtabd">
+                                            <div class="MuiBox-root css-0">
+                                                <h5 class="MuiTypography-root MuiTypography-h5 css-kw4zy4">Mayores ingresos</h5>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead-cnt-color first-tdL-0">
+                                                    <tr>
+                                                        <th>Nombre completo</th>
+                                                        <th>Importe total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="tbody-cnt-color first-tdL-0">
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-xxl-5 d-flex">
+                            <div class="card flex-fill w-100">
+
+                                <div class="card-body">
+                                    <div class="MuiCardContent-root css-t76ygq">
+                                        <div class="css-1wxtabd">
+                                            <div class="MuiBox-root css-0">
+                                                <h5 class="MuiTypography-root MuiTypography-h5 css-kw4zy4">Ingresos recientes</h5>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead-cnt-color first-tdL-0">
+                                                    <tr>
+                                                        <th>Nombre completo</th>
+                                                        <th>Importe total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="tbody-cnt-color first-tdL-0">
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">(demouser01)</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Comisión de recomendación</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-nef440" style="color:rgb(93, 135, 255);background-color:rgb(236, 242, 255)">
+                                                                <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">$100</h6>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">(demouser01)</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Comisión de recomendación</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-nef440" style="color:rgb(19, 222, 185);background-color:rgb(230, 255, 250)">
+                                                                <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">$160</h6>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">(demouser01)</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Comisión de recomendación</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-nef440" style="color:rgb(255, 174, 31);background-color:rgb(254, 245, 229)">
+                                                                <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">$10</h6>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">(demouser01)</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Comisión de recomendación</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-nef440" style="color:rgb(250, 137, 107);background-color:rgb(253, 237, 232)">
+                                                                <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">$20</h6>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">(demouser01)</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Comisión de recomendación</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td>
+                                                            <div class="MuiAvatar-root MuiAvatar-circular MuiAvatar-colorDefault css-nef440" style="color:rgb(73, 190, 255);background-color:rgb(232, 247, 255)">
+                                                                <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">$200</h6>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-xxl-5 d-flex">
+                            <div class="card flex-fill w-100">
+
+                                <div class="card-body">
+                                    <div class="MuiCardContent-root css-t76ygq">
+                                        <div class="css-1wxtabd">
+                                            <div class="MuiBox-root css-0">
+                                                <h5 class="MuiTypography-root MuiTypography-h5 css-kw4zy4">Uniones recientes</h5>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="thead-cnt-color first-tdL-0">
+                                                    <tr>
+                                                        <th>Nombre completo</th>
+                                                        <th>País</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="tbody-cnt-color first-tdL-0">
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">test fghfgh</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">testse</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td class="sorting_1"><img src="https://primemlmsoftware.in/binary-basic/member/../images/flags/1x1/as.svg" class="flag-table" />
+                                                            <span>American Samoa</span>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">Ahmad Ahmadi</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Yaftom</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td class="sorting_1"><img src="https://primemlmsoftware.in/binary-basic/member/../images/flags/1x1/af.svg" class="flag-table" />
+                                                            <span>Afghanistan</span>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">Ron Wiebing</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Ron1910</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td class="sorting_1"><img src="https://primemlmsoftware.in/binary-basic/member/../images/flags/1x1/nl.svg" class="flag-table" />
+                                                            <span>Netherlands</span>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">prashant singh </h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">psrty</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td class="sorting_1"><img src="https://primemlmsoftware.in/binary-basic/member/../images/flags/1x1/in.svg" class="flag-table" />
+                                                            <span>India</span>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="odd">
+                                                        <td class="sorting_1">
+
+                                                            <div class="css-1t62lt9">
+                                                                <div class="MuiAvatar-root MuiAvatar-circular css-ndy58q">
+                                                                    <img src="https://primemlmsoftware.in/binary-basic/member/../images/profile_picture/u-ser.png" class="MuiAvatar-img css-1hy9t21" />
+                                                                </div>
+                                                                <div class="MuiBox-root css-0">
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-viall1">Muhammad Haseeb</h6>
+                                                                    <h6 class="MuiTypography-root MuiTypography-subtitle2 css-18hls09">Hddjjfjd</h6>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+                                                        <td class="sorting_1"><img src="https://primemlmsoftware.in/binary-basic/member/../images/flags/1x1/pk.svg" class="flag-table" />
+                                                            <span>Pakistan</span>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="margin-bottom: 40px;">
+                    </div>
+                </div>
+            </main>
+
+            <link rel="stylesheet" href="https://primemlmsoftware.in/binary-basic/member/public/libs/angular/angularjs-toaster/toaster-new.css" type="text/css" />
+            <br />
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row text-muted">
+
+                        <div class="col-12 text-end">
+                            <p class="mb-0">
+                                © 2024 - <a href="primemlmsoftware.in" class="text-muted">Prime mlm software</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+    <nav class="bar bar-tab" style="  position: fixed;bottom: 0;z-index: 10;">
+        <a class="tab-item" href="https://primemlmsoftware.in/binary-basic/member/Home/index" data-transition="slide-in">
+            <i class="icon fa fa-home"></i>
+            <span class="tab-label"> Inicio </span>
+        </a>
+        <a class="tab-item" href="https://primemlmsoftware.in/binary-basic/member/Profile/user_profile" data-transition="slide-in">
+            <i class="icon fa fa-user"></i>
+            <span class="tab-label">Perfil</span>
+        </a>
+        <a class="tab-item" href="https://primemlmsoftware.in/binary-basic/member/Register/introducer_details" data-transition="slide-in">
+            <i class="icon fa fa-sign-in"></i>
+            <span class="tab-label"> Registrarse</span>
+        </a>
+        <a class="tab-item item-cart" href="https://primemlmsoftware.in/binary-basic/member/Member/inbox" data-transition="slide-in">
+            <i class="icon glyphicon glyphicon-envelope"></i>
+            <div id="cart-1" class="btn-shopping-cart1">
+                <span class="total-shopping-cart cart-total-full">
+                    <span class="item-mail-count">0</span>
+                </span>
+            </div>
+            <span class="tab-label">Correo</span>
+        </a>
+        <a class="tab-item" href="https://primemlmsoftware.in/binary-basic/member/Login/logout" data-transition="slide-in">
+            <i class="icon-user icon"></i>
+            <span class="tab-label">Cerrar sesión</span>
+        </a>
+        <a class="tab-item" href="" data-transition="slide-in" ui-toggle-class="off-screen" target=".app-aside" ui-scroll="app" style="text-decoration: none;">
+            <span class="icon">⋮</span>
+            <span class="tab-label" style="margin-top: -1px;">More</span>
+        </a>
+    </nav>
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5d825f319f6b7a4457e25d4d/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+
+
+        document.onkeydown = function(e) {
+            if (e.ctrlKey && (e.keyCode === 85) || e.keyCode === 123) {
+                e.preventDefault();
+
+            }
+        };
+    </script>
+
+
+
+
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/Triangle/js/apexchart.js"></script>
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/js/clipboard.min.js"></script>
+    <script src="https://primemlmsoftware.in/binary-basic/member/public/Triangle/js/allplan.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-doughnutlabel@1.0.1/dist/chartjs-plugin-doughnutlabel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-doughnutlabel@1.0.1/dist/chartjs-plugin-doughnutlabel.js"></script>
+
+    <script type="text/javascript">
+        if (jQuery('.my-organisation-tabitem').length) {
+            jQuery('.my-organisation-tabitem').click(function() {
+                jQuery('.my-organisation-tabitem').removeClass('active');
+            });
+        }
+
+        function toaster_hide() {
+            document.getElementById("toast-container-new").style.display = "none";
+        }
+    </script>
+    <script>
+        jQuery(document).ready(function() {
+            Main.init();
+        });
+        var clipboard = new ClipboardJS('.btn');
+        var gdpData =
+            clipboard.on('success', function(e) {
+                $("#toast-container").css('visibility', 'visible');
+                $('#toast-container').fadeOut(1000);
+            });
+
+        function primeshare(url) {
+            window.open('http://twitter.com/share?url=' + encodeURIComponent(url), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+        }
+
+        function fb_primeshare(url) {
+            window.open(url, '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+        }
+
+        function link_primeshare(url) {
+            window.open('http://www.linkedin.com/shareArticle?url=' + encodeURIComponent(url), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+        }
+
+        function eventHide() {
+            var x = document.getElementById("mymodal-event");
+            x.style.display = "none";
+        }
+    </script>
+    <script>
+        document.getElementById("clickCopyreferral_link").onclick = function() {
+            copyToClipboard(document.getElementById('referral_link').value);
+            $("#rfl-copied").text("Copied!").fadeOut('2000');
+        }
+
+        function copyToClipboard(e) {
+            var tempItem = document.createElement('input');
+
+            tempItem.setAttribute('type', 'text');
+            tempItem.setAttribute('display', 'none');
+
+            let content = e;
+            if (e instanceof HTMLElement) {
+                content = e.innerHTML;
+            }
+
+            tempItem.setAttribute('value', content);
+            document.body.appendChild(tempItem);
+
+            tempItem.select();
+            document.execCommand('Copy');
+
+            tempItem.parentElement.removeChild(tempItem);
+        }
+    </script>
+
+
+
+    <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;">
+        <defs id="SvgjsDefs1002" />
+        <polyline id="SvgjsPolyline1003" points="0,0" />
+        <path id="SvgjsPath1004" d="M0 0 " />
+    </svg><svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;">
+        <defs id="SvgjsDefs1002" />
+        <polyline id="SvgjsPolyline1003" points="0,0" />
+        <path id="SvgjsPath1004" d="M0 0 " />
+    </svg>
+    <script async="" charset="UTF-8" src="https://embed.tawk.to/_s/v4/app/67354992019/languages/en.js"></script>
+    <div id="n6vplgvf2d61735094056103" class="widget-visible"><iframe src="about:blank" frameborder="0" scrolling="no" width="67px" height="64px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:20px !important; bottom:20px !important; left:auto !important; position:fixed !important; border:0 !important; min-height:64px !important; min-width:67px !important; max-height:64px !important; max-width:67px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:67px !important; height:64px !important; display:block !important; z-index:1000001 !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="k5u2t41rfsl1735094056128" class="" title="chat widget"></iframe><iframe src="about:blank" frameborder="0" scrolling="no" width="100%" height="100%" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:0px !important; right:0px !important; bottom:0px !important; left:0px !important; position:fixed !important; border:0 !important; min-height:100% !important; min-width:100% !important; max-height:100% !important; max-width:100% !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:100% !important; height:100% !important; display:none !important; z-index:1000002 !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:0px !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="l74cdff6jono1735094056156" class="" title="chat widget"></iframe><iframe src="about:blank" frameborder="0" scrolling="no" width="353px" height="145px" style="outline:none !important; visibility:visible !important; resize:none !important; box-shadow:none !important; overflow:visible !important; background:none !important; opacity:1 !important; filter:alpha(opacity=100) !important; -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity 1}) !important; -mz-opacity:1 !important; -khtml-opacity:1 !important; top:auto !important; right:20px !important; bottom:100px; left:auto !important; position:fixed !important; border:0 !important; min-height:145px !important; min-width:353px !important; max-height:145px !important; max-width:353px !important; padding:0 !important; margin:0 !important; -moz-transition-property:none !important; -webkit-transition-property:none !important; -o-transition-property:none !important; transition-property:none !important; transform:none !important; -webkit-transform:none !important; -ms-transform:none !important; width:353px !important; height:145px !important; display:none !important; z-index:auto !important; background-color:transparent !important; cursor:none !important; float:none !important; border-radius:unset !important; pointer-events:auto !important; clip:auto !important; color-scheme:light !important;" id="a0k8lnf1s23g1735094056142" class="" title="chat widget"></iframe>
+        <div id="chat-bubble"></div>
+    </div>
+    <div id="toolbarContainer">
+        <div id="" class="">
+
+        </div>
+
+        <style type="text/css">
+            </styl
+        </style>
+    </div>
+</body>
+
+</html>
