@@ -20,6 +20,7 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            flex-direction: column;
             padding: 20px;
         }
 
@@ -31,6 +32,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
+            margin-bottom: 60px; /* Para que no se superponga con la barra de navegación */
         }
 
         h1 {
@@ -101,10 +103,6 @@
             text-align: center;
         }
 
-        a {
-            text-decoration: none;
-        }
-
         /* Responsive adjustments */
         @media (max-width: 480px) {
             .nav-item img {
@@ -116,7 +114,8 @@
                 font-size: 8px;
             }
         }
-    .navbar {
+    
+     .navbar {
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -178,31 +177,19 @@
     /* General */
     a {
       text-decoration: none;
-    }
+    } 
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Bienvenido a WorldCoin</h1>
         <p>Únete a nuestra comunidad global y sé parte del cambio financiero con WorldCoin.</p>
-        <a href="https://wa.me/+573248092374" class="whatsapp-button">Unirse por WhatsApp</a>
+        <a href="https://wa.me/?text=¡Hola! Te invito a conocer WorldCoin. Únete desde aquí: https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app" class="whatsapp-button" target="_blank">
+            Compartir por WhatsApp
+        </a>
     </div>
 
-    <!-- Navbar with social links -->
-    <div class="navbar">
-        <a href="https://facebook.com" target="_blank" class="nav-item">
-            <img src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="Facebook">
-            <p>Facebook</p>
-        </a>
-        <a href="https://x.com" target="_blank" class="nav-item">
-            <img src="https://img.icons8.com/ios-filled/50/000000/x.png" alt="X/Twitter">
-            <p>Xpace</p>
-        </a>
-        <a href="https://t.me/yourgroup" target="_blank" class="nav-item">
-            <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png" alt="Telegram">
-            <p>Telegram</p>
-        </a>
-    </div>
+    <!-- Barra de navegación -->
     <div class="navbar">
   <div class="nav-item">
     <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
