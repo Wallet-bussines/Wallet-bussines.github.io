@@ -159,6 +159,32 @@
             background-color: #007BFF; /* Color azul vibrante al pasar el ratón */
             cursor: pointer;
         }
+        /* Eliminar cuadro azul y efectos visuales al hacer clic */
+    a, button, .circle {
+      outline: none;
+      border: none;
+      transition: none; /* Eliminar animaciones y efectos */
+      -webkit-tap-highlight-color: transparent; /* Desactivar resaltado en móviles */
+    }
+
+    a:focus, button:focus, .circle:focus {
+      outline: none; /* Eliminar cuadro de enfoque */
+    }
+
+    a:active, button:active, .circle:active {
+      transform: none; /* Evitar cambios de escala */
+      box-shadow: none; /* Evitar cambios de sombra */
+    }
+
+    /* Desactivar selección de texto/iconos */
+    a, .circle {
+      user-select: none; /* Desactivar selección */
+    }
+
+    /* General */
+    a {
+      text-decoration: none;
+    }
     </style>
     <script>
         function volver() {
