@@ -20,252 +20,125 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 0 20px;
-        }
-
-        .container {
-            text-align: center;
             padding: 20px;
         }
 
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
         h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 20px;
             color: #007bff;
         }
 
         p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+            font-size: 1rem;
+            margin-bottom: 20px;
             color: #555;
+            line-height: 1.5;
         }
 
         .whatsapp-button {
             display: inline-block;
-            padding: 12px 30px;
-            font-size: 1.2rem;
+            padding: 12px 25px;
+            font-size: 1.1rem;
             font-weight: bold;
             color: #fff;
             background-color: #25d366;
             text-decoration: none;
             border-radius: 50px;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .whatsapp-button:hover {
             background-color: #128C7E;
             transform: scale(1.05);
         }
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    body {
-      background-color: #f8f9fa; /* Fondo claro */
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      min-height: 100vh;
-      color: #2c3e50; /* Texto oscuro */
-    }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px;
-      width: 100%;
-    }
-
-    .row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 15px;
-    }
-
-    .icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 15px;
-      text-align: center;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .circle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px; /* Tamaño reducido */
-      height: 80px; /* Tamaño reducido */
-      border-radius: 50%;
-      background: linear-gradient(145deg, #d6d6d6, #f2f2f2); /* Efecto metálico */
-      border: 2px solid #a3a3a3; /* Borde metálico */
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .circle img {
-      width: 60%; /* Tamaño de imagen reducido */
-      height: 60%; /* Tamaño de imagen reducido */
-      border-radius: 50%;
-      object-fit: cover;
-    }
-
-    .circle:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    p {
-      margin-top: 5px;
-      font-size: 12px; /* Tamaño de fuente reducido */
-      color: #2c3e50;
-    }
-    body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            border-top: 3px solid #1abc9c;
         }
-        .container {
-            width: 90%;
-            max-width: 600px;
-            margin: 20px auto;
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 10px;
-            padding: 20px;
-        }
-        h1 {
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
-        }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .step-container {
-            display: none;
-        }
-        .step-container.active {
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        #entidadConfirmacion {
-            display: none;
-            margin-bottom: 15px;
-            color: #28a745;
-            font-weight: bold;
-        }
-        .result {
-            font-weight: bold;
-            font-size: 1.2em;
-            color: #333;
         }
 
-    .navbar {
-      display: flex;
-      justify-content: space-around;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: linear-gradient(90deg, #34495e, #2c3e50); /* Gradiente oscuro */
-      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5); /* Sombra sutil */
-      padding: 10px 0;
-      border-top: 3px solid #1abc9c; /* Borde de color turquesa */
-    }
+        .nav-item img {
+            width: 30px;
+            height: 30px;
+            border-radius: 30%;
+            padding: 1px;
+            background: #ecf0f1;
+            border: 5px solid #bdc3c7;
+        }
 
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
+        .nav-item p {
+            font-size: 10px;
+            margin-top: 5px;
+            color: #ecf0f1;
+            text-align: center;
+        }
 
-    .nav-item img {
-      width: 35px; /* Tamaño aumentado */
-      height: 35px; /* Tamaño aumentado */
-      border-radius: 50%;
-      padding: 5px;
-      background: #ecf0f1; /* Fondo de icono claro */
-      border: 1px solid #bdc3c7; /* Borde de icono */
-      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    }
+        a {
+            text-decoration: none;
+        }
 
-    .nav-item img:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 10px #1abc9c; /* Efecto de resplandor */
-    }
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .nav-item img {
+                width: 25px;
+                height: 25px;
+            }
 
-    .nav-item p {
-      font-size: 10px; /* Tamaño de fuente más pequeño */
-      margin-top: 4px;
-      color: #ecf0f1; /* Texto claro */
-    }
+            .nav-item p {
+                font-size: 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>¡Invitación a WorldCoin!</h1>
-        <p>Haz clic en el botón para compartir tu invitación en WhatsApp:</p>
-        <a href="https://wa.me/?text=¡Únete%20a%20WorldCoin!%20Haz%20clic%20aquí%20para%20registrarte%20https%3A%2F%2Fworldcoin.org%2Fmini-app%3Fapp_id%3Dapp_2248679d8f07eb1b7eacd922f9a26a1e%26app_mode%3Dmini-app" 
-           class="whatsapp-button" 
-           target="_blank">
-           Compartir por WhatsApp
-        </a>
-        <!-- Imagen que quieres agregar -->
-        <img src="https://wallet-bussines.github.io/descarga%20(3).png" alt="WorldCoin Image" style="width: 100%; max-width: 600px; margin-top: 20px;"/>
+        <h1>Bienvenido a WorldCoin</h1>
+        <p>Únete a nuestra comunidad global y sé parte del cambio financiero con WorldCoin.</p>
+        <a href="https://wa.me/1234567890" class="whatsapp-button">Unirse por WhatsApp</a>
     </div>
+
+    <!-- Navbar with social links -->
     <div class="navbar">
-        <div class="nav-item">
-            <a href="https://wallet-bussines.github.io/iframe6.html" target="_blank">
-                <img src="https://wallet-bussines.github.io/Home.png" alt="OrbitalX">
-                <p>WORD_ID</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="https://wallet-bussines.github.io/iframe.html" target="_blank">
-                <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
-                <p>WALLET</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
-                <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
-                <p>HISTORY</p>
-            </a>
-        </div>
+        <a href="https://facebook.com" target="_blank" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/000000/facebook-new.png" alt="Facebook">
+            <p>Facebook</p>
+        </a>
+        <a href="https://x.com" target="_blank" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/000000/x.png" alt="X/Twitter">
+            <p>Xpace</p>
+        </a>
+        <a href="https://t.me/yourgroup" target="_blank" class="nav-item">
+            <img src="https://img.icons8.com/ios-filled/50/000000/telegram-app.png" alt="Telegram">
+            <p>Telegram</p>
+        </a>
     </div>
 </body>
 </html>
