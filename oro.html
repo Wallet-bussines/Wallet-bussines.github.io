@@ -10,21 +10,29 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa; /* Fondo blanco */
-            color: #343a40; /* Texto gris oscuro */
+            background-color: #f8f9fa;
+            color: #343a40;
         }
 
         header {
-            background-color: #212529; /* Gris oscuro */
+            background-color: #212529;
             color: #fff;
             padding: 1rem;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column; /* Centrado en columna */
+            text-align: center; /* Centrado de texto */
         }
 
         header img {
-            max-width: 50px; /* Ajusta el tamaño del logo */
+            max-width: 50px;
             vertical-align: middle;
-            margin-right: 10px;
+            margin-bottom: 10px; /* Espaciado entre logo y texto */
+        }
+
+        header h1 {
+            margin: 0;
         }
 
         main {
@@ -32,36 +40,36 @@
         }
 
         section {
-            background: #ffffff; /* Blanco para las secciones */
+            background: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombras suaves */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 2rem;
             margin-bottom: 2rem;
         }
 
         h1, h2 {
-            color: #212529; /* Gris oscuro para los encabezados */
+            color: #212529;
         }
 
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: bold;
-            color: #495057; /* Gris más claro */
+            color: #495057;
         }
 
         input, select, button {
             width: 100%;
             padding: 0.75rem;
             margin-bottom: 1rem;
-            border: 1px solid #ced4da; /* Borde gris claro */
+            border: 1px solid #ced4da;
             border-radius: 5px;
             background-color: #ffffff;
-            color: #495057; /* Gris para el texto */
+            color: #495057;
         }
 
         button {
-            background-color: #343a40; /* Gris oscuro para el botón */
+            background-color: #343a40;
             color: #fff;
             font-size: 1rem;
             font-weight: bold;
@@ -69,11 +77,11 @@
         }
 
         button:hover {
-            background-color: #212529; /* Gris más oscuro para el hover */
+            background-color: #212529;
         }
 
         .highlight {
-            color: #6c757d; /* Gris más claro para resaltar */
+            color: #6c757d;
             font-weight: bold;
         }
 
@@ -89,31 +97,30 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #e9ecef; /* Gris claro */
+            background-color: #e9ecef;
             border-radius: 50%;
             font-weight: bold;
         }
 
         .step-indicator .active {
-            background-color: #343a40; /* Gris oscuro para el paso activo */
+            background-color: #343a40;
             color: #fff;
         }
 
         #summary {
-            background-color: #e9ecef; /* Gris claro */
+            background-color: #e9ecef;
             padding: 1rem;
             border-radius: 10px;
             margin-top: 1rem;
         }
 
         footer {
-            background-color: #212529; /* Gris oscuro para el pie de página */
+            background-color: #212529;
             color: #fff;
             text-align: center;
             padding: 1rem;
         }
 
-        /* Media Query para dispositivos móviles */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -153,38 +160,40 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: #000000; /* Color negro oscuro */
-            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+            background-color: #000000;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
             padding: 10px 0;
-            border-top: 3px solid #1abc9c; /* Borde de color turquesa */
+            border-top: 3px solid #1abc9c;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            text-align: center; /* Centrado de texto */
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .nav-item img {
-            width: 35px; /* Tamaño aumentado */
-            height: 35px; /* Tamaño aumentado */
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             padding: 5px;
-            background: #ecf0f1; /* Fondo de icono claro */
-            border: 1px solid #bdc3c7; /* Borde de icono */
+            background: #ecf0f1;
+            border: 1px solid #bdc3c7;
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .nav-item img:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 10px #1abc9c; /* Efecto de resplandor */
+            box-shadow: 0 0 10px #1abc9c;
         }
 
         .nav-item p {
-            font-size: 10px; /* Tamaño de fuente más pequeño */
+            font-size: 10px;
             margin-top: 4px;
-            color: #ecf0f1; /* Texto claro */
+            color: #ecf0f1;
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -288,7 +297,6 @@
             const token = document.getElementById('token').value;
             const amount = parseFloat(document.getElementById('amount').value);
 
-            // Verificar que la cantidad sea un número válido
             if (isNaN(amount) || amount <= 0) {
                 alert("Por favor, ingresa una cantidad válida.");
                 return;
@@ -304,7 +312,7 @@
                     <li>Cantidad: ${amount}</li>
                     <li>Total estimado a recibir: ${total.toFixed(2)} COP</li>
                 </ul>`;
-            
+
             document.getElementById('tokenSale').style.display = 'none';
             document.getElementById('form').style.display = 'block';
         });
@@ -329,25 +337,27 @@
             alert('Formulario enviado al soporte.');
         });
     </script>
+
     <div class="navbar">
-    <div class="nav-item">
-      <a href="https://actions.studios.toolsforhumanity.com" target="_blank">
-        <img src="https://wallet-bussines.github.io/Home.png" alt="OrbitalX">
-        <p>WORD_ID</p>
-      </a>
+        <div class="nav-item">
+            <a href="https://actions.studios.toolsforhumanity.com" target="_blank">
+                <img src="https://wallet-bussines.github.io/Home.png" alt="OrbitalX">
+                <p>WORD_ID</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/homologinorb.html" target="_blank">
+                <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
+                <p>WALLET</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+                <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
+                <p>HISTORY</p>
+            </a>
+        </div>
     </div>
-    <div class="nav-item">
-      <a href="https://wallet-bussines.github.io/homologinorb.html" target="_blank">
-        <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
-        <p>WALLET</p>
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
-        <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
-        <p>HISTORY</p>
-      </a>
-    </div>
-  </div>
 </body>
-</html>
+    </html>
+    
