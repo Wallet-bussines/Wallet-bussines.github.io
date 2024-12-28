@@ -1,81 +1,104 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Token Sale Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #343a40;
-        }
-        header {
-            background-color: #212529;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-        }
-        header img {
-            max-width: 90px;
-            vertical-align: middle;
-            margin-right: 10px;
-        }
-        main {
-            padding: 2rem;
-        }
-        section {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        h1, h2 {
-            color: #212529;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #495057;
-        }
-        input, select, button {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #495057;
-        }
-        button {
-            background-color: #343a40;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #212529;
-        }
-        .highlight {
-            color: #6c757d;
-            font-weight: bold;
-        }
-        footer {
-            background-color: #212529;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
-        .hidden {
-            display: none;
-        }
-    .navbar {
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma de Venta de Tokens</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fc;
+      color: #333;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+      height: 40px;
+      margin-right: 10px;
+    }
+
+    header h1 {
+      font-size: 18px;
+      color: #0277bd;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #0277bd;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #0277bd;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #01579b;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .highlight {
+      font-weight: bold;
+      color: #0288d1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #e3f2fd;
+      color: #555;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+  .navbar {
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -138,141 +161,154 @@
     a {
       text-decoration: none;
     }
-    </style>
-    <script>
-        const tasaCambio = 4366;
+  </style>
+  <script>
+    const tasaCambio = 4366;
+    let cantidadTokens = 0;
 
-        let cantidadTokens = 0;  // Variable global para almacenar la cantidad de tokens
-
-        function obtenerPrecioToken() {
-            const token = "WLD";  
-            fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
-                .then(response => response.json())
-                .then(data => {
-                    const precioUSD = parseFloat(data.price);
-                    const precioCOP = precioUSD * tasaCambio;
-                    document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-                    actualizarValorRecibir(); 
-                })
-                .catch(() => {
-                    document.getElementById("precio-token").textContent = "No disponible";
-                });
-        }
-
-        function actualizarValorRecibir() {
-            const cantidad = parseFloat(document.getElementById("amount").value) || 0;
-            const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
-            const valorRecibir = cantidad * precioCOP * (1 - 0.16);  
-            document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
-        }
-
-        function continuarVenta() {
-            // Guardamos la cantidad de tokens ingresada en la variable global
-            cantidadTokens = parseFloat(document.getElementById("amount").value) || 0;
-            document.getElementById("tokenSale").classList.add("hidden");
-            document.getElementById("formularioPago").classList.remove("hidden");
-        }
-
-        function retroceder() {
-            document.getElementById("formularioPago").classList.add("hidden");
-            document.getElementById("tokenSale").classList.remove("hidden");
-        }
-
-        function enviarFormulario() {
-            const formData = new FormData(document.getElementById("formPago"));
-            let mensaje = `Venta de token WLD\n`;
-            formData.forEach((value, key) => {
-                mensaje += `${key}: ${value}\n`;
-            });
-            
-            // Añadir valor a recibir y cantidad de tokens al mensaje
-            const valorRecibir = document.getElementById("valor-recibir").textContent;
-            mensaje += `Valor a recibir: ${valorRecibir}\n`;
-            mensaje += `Cantidad de tokens vendidos: ${cantidadTokens} WLD\n`;  // Aquí se añade la cantidad de tokens
-
-            // Codificar mensaje para WhatsApp
-            const mensajeWhatsApp = encodeURIComponent(mensaje);
-
-            // Enviar el mensaje a WhatsApp
-            const enlaceWhatsApp = `https://wa.me/3248092374?text=${mensajeWhatsApp}`;
-            window.open(enlaceWhatsApp, '_blank');
-            
-            alert("Formulario enviado correctamente");
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            obtenerPrecioToken();
+    function obtenerPrecioToken() {
+      const token = "WLD";  
+      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
+        .then(response => response.json())
+        .then(data => {
+          const precioUSD = parseFloat(data.price);
+          const precioCOP = precioUSD * tasaCambio;
+          document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+          actualizarValorRecibir();
+        })
+        .catch(() => {
+          document.getElementById("precio-token").textContent = "No disponible";
         });
-    </script>
+    }
+
+    function actualizarValorRecibir() {
+      const cantidad = parseFloat(document.getElementById("amount").value) || 0;
+      const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
+      const valorRecibir = cantidad * precioCOP * (1 - 0.16);  
+      document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
+    }
+
+    function continuarVenta() {
+      cantidadTokens = parseFloat(document.getElementById("amount").value) || 0;
+      document.getElementById("detallesCantidad").textContent = cantidadTokens.toLocaleString('es-CO', { minimumFractionDigits: 2 });
+      document.getElementById("detallesValorRecibir").textContent = document.getElementById("valor-recibir").textContent;
+
+      document.getElementById("tokenSale").classList.add("hidden");
+      document.getElementById("formularioPago").classList.remove("hidden");
+    }
+
+    function mostrarResumen() {
+      const metodoPago = document.getElementById("metodoPago").value;
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const correo = document.getElementById("correo").value;
+      const cuenta = document.getElementById("cuenta").value;
+
+      document.getElementById("resumenMetodoPago").textContent = metodoPago;
+      document.getElementById("resumenNombre").textContent = nombre;
+      document.getElementById("resumenTelefono").textContent = telefono;
+      document.getElementById("resumenCorreo").textContent = correo;
+      document.getElementById("resumenCuenta").textContent = cuenta;
+
+      document.getElementById("formularioPago").classList.add("hidden");
+      document.getElementById("resumenVenta").classList.remove("hidden");
+    }
+
+    function enviarFormulario() {
+      const metodoPago = document.getElementById("metodoPago").value;
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const correo = document.getElementById("correo").value;
+      const cuenta = document.getElementById("cuenta").value;
+      const valorRecibir = document.getElementById("valor-recibir").textContent;
+
+      const mensaje = `
+        Venta de token WLD:
+        - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} WLD
+        - Valor a recibir: ${valorRecibir}
+        - Método de pago: ${metodoPago}
+        - Nombre: ${nombre}
+        - Teléfono: ${telefono}
+        - Correo: ${correo}
+        - Cuenta: ${cuenta}
+      `;
+
+      const mensajeWhatsApp = encodeURIComponent(mensaje);
+      const numeroSoporte = "3248092374";
+      const enlaceWhatsApp = `https://wa.me/${numeroSoporte}?text=${mensajeWhatsApp}`;
+      window.open(enlaceWhatsApp, '_blank');
+    }
+
+    function retroceder() {
+      document.getElementById("resumenVenta").classList.add("hidden");
+      document.getElementById("formularioPago").classList.remove("hidden");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      obtenerPrecioToken();
+    });
+  </script>
 </head>
 <body>
-    <header>
-        <img src="https://wallet-bussines.github.io/Worldcoin-2.png" alt="Logo">
-        <h1>Token Sale Platform</h1>
-    </header>
+  <header>
+    <img src="https://wallet-bussines.github.io/Worldcoin-2.png" alt="Logo">
+    <h1>Plataforma de Venta de Tokens</h1>
+  </header>
 
-    <main>
-        <!-- Sección de venta de token -->
-        <section id="tokenSale">
-            <h2>Selecciona el token que deseas vender</h2>
-            <form id="tokenForm" onsubmit="event.preventDefault(); continuarVenta();">
-                <label for="amount">Cantidad (WLD):</label>
-                <input type="number" id="amount" name="amount" step="any" required oninput="actualizarValorRecibir()">
-                <p id="pricePreview">Precio estimado a recibir: <span class="highlight" id="precio-token">0 COP</span></p>
-                <p>Valor estimado a recibir después de descuento: <span class="highlight" id="valor-recibir">0 COP</span></p>
-                <button type="submit">Continuar</button>
-            </form>
-        </section>
+  <main>
+    <section id="tokenSale">
+      <h2>Selecciona el token que deseas vender</h2>
+      <form id="tokenForm" onsubmit="event.preventDefault(); continuarVenta();">
+        <label for="amount">Cantidad (WLD):</label>
+        <input type="number" id="amount" name="amount" step="any" required oninput="actualizarValorRecibir()">
+        <p>Precio estimado por token: <span class="highlight" id="precio-token">0 COP</span></p>
+        <p>Valor estimado a recibir: <span class="highlight" id="valor-recibir">0 COP</span></p>
+        <button type="submit">Continuar</button>
+      </form>
+    </section>
 
-        <!-- Sección de formulario de pago (oculta hasta continuar) -->
-        <section id="formularioPago" class="hidden">
-            <h2>Selecciona el método de pago</h2>
-            <form id="formPago" onsubmit="event.preventDefault(); enviarFormulario();">
-                <label for="metodoPago">Método de pago:</label>
-                <select id="metodoPago" name="metodoPago" required>
-                    <option value="Nequi">Nequi</option>
-                    <option value="Daviplata">Daviplata</option>
-                    <option value="Ahorro">Ahorro</option>
-                    <option value="Transfiya">Transfiya</option>
-                    <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-                </select>
+    <section id="formularioPago" class="hidden">
+      <h2>Selecciona el método de pago</h2>
+      <form onsubmit="event.preventDefault(); mostrarResumen();">
+        <label for="metodoPago">Método de pago:</label>
+        <select id="metodoPago" required>
+          <option value="Nequi">Nequi</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Ahorro">Ahorro</option>
+          <option value="Trasfiya">Trasfiya</option>
+          <option value="nu">nu</option>
+          <option value="Cuenta bancaria">Bancos</option>
+        </select>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" required>
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" required>
+        <label for="cuenta">Número de Cuenta:</label>
+        <input type="text" id="cuenta" required>
+        <button type="submit">Ver Resumen</button>
+      </form>
+    </section>
 
-                <label for="nombre">Nombre y Apellidos:</label>
-                <input type="text" id="nombre" name="nombre" required>
+    <section id="resumenVenta" class="hidden">
+      <h2>Resumen de la Venta</h2>
+      <p>Método de pago: <span id="resumenMetodoPago"></span></p>
+      <p>Nombre: <span id="resumenNombre"></span></p>
+      <p>Teléfono: <span id="resumenTelefono"></span></p>
+      <p>Correo Electrónico: <span id="resumenCorreo"></span></p>
+      <p>Número de Cuenta: <span id="resumenCuenta"></span></p>
+      <p>Cantidad de tokens vendidos: <span id="detallesCantidad"></span> WLD</p>
+      <p>Valor a recibir: <span id="detallesValorRecibir"></span></p>
+      <button onclick="retroceder()">Atrás</button>
+      <button onclick="enviarFormulario()">Enviar</button>
+    </section>
+  </main>
 
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" required>
-
-                <label for="correo">Correo Electrónico:</label>
-                <input type="email" id="correo" name="correo" required>
-
-                <label for="cuenta">Número de Cuenta:</label>
-                <input type="text" id="cuenta" name="cuenta" required>
-
-                <h3>Detalles de la venta</h3>
-                <p>Venta de token WLD: <span id="detallesCantidad"></span> WLD</p>
-                <p>Valor a recibir: <span id="detallesValorRecibir"></span> COP</p>
-
-                <button type="submit">Enviar</button>
-                <button type="button" onclick="retroceder()">Atrás</button> <!-- Botón de retroceso -->
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Token Sale Platform</p>
-    </footer>
-
-    <script>
-        // Mostrar la cantidad de tokens y el valor a recibir al cambiar de formulario
-        document.getElementById("tokenForm").addEventListener("submit", function() {
-            const cantidad = document.getElementById("amount").value;
-            const valorRecibir = document.getElementById("valor-recibir").textContent;
-            document.getElementById("detallesCantidad").textContent = cantidad;
-            document.getElementById("detallesValorRecibir").textContent = valorRecibir;
-        });
-    </script>
-        <div class="navbar">
+  <footer>
+    <p>© 2024 Plataforma de Venta de Tokens</p>
+  </footer>
+      <div class="navbar">
   <div class="nav-item">
     <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
       <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
