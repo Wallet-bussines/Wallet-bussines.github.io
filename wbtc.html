@@ -1,200 +1,141 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Token Sale Platform</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            color: #343a40;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plataforma de Venta de Tokens</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f7fc;
+      color: #333;
+    }
 
-        header {
-            background-color: #212529;
-            color: #fff;
-            padding: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column; /* Centrado en columna */
-            text-align: center; /* Centrado de texto */
-        }
+    header {
+      display: flex;
+      align-items: center;
+      background-color: #e3f2fd;
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
 
-        header img {
-            max-width: 50px;
-            vertical-align: middle;
-            margin-bottom: 10px; /* Espaciado entre logo y texto */
-        }
+    header img {
+      height: 40px;
+      margin-right: 10px;
+    }
 
-        header h1 {
-            margin: 0;
-        }
+    header h1 {
+      font-size: 18px;
+      color: #0277bd;
+    }
 
-        main {
-            padding: 2rem;
-        }
+    main {
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
 
-        section {
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
+    section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
 
-        h1, h2 {
-            color: #212529;
-        }
+    h2 {
+      color: #0277bd;
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #495057;
-        }
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
 
-        input, select, button {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            background-color: #ffffff;
-            color: #495057;
-        }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
 
-        button {
-            background-color: #343a40;
-            color: #fff;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    button {
+      background-color: #0277bd;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-        button:hover {
-            background-color: #212529;
-        }
+    button:hover {
+      background-color: #01579b;
+    }
 
-        .highlight {
-            color: #6c757d;
-            font-weight: bold;
-        }
+    .hidden {
+      display: none;
+    }
 
-        .step-indicator {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-        }
+    .highlight {
+      font-weight: bold;
+      color: #0288d1;
+    }
 
-        .step-indicator div {
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #e9ecef;
-            border-radius: 50%;
-            font-weight: bold;
-        }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background: #e3f2fd;
+      color: #555;
+    }
 
-        .step-indicator .active {
-            background-color: #343a40;
-            color: #fff;
-        }
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+  .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+      padding: 10px 0;
+      border-top: 3px solid #1abc9c;
+    }
 
-        #summary {
-            background-color: #e9ecef;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-top: 1rem;
-        }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        footer {
-            background-color: #212529;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-        }
+    .nav-item img {
+      width: 30px;
+      height: 30px;
+      border-radius: 30%;
+      padding: 1px;
+      background: #ecf0f1;
+      border: 5px solid #bdc3c7;
+    }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
+    .nav-item p {
+      font-size: 10px;
+      margin-top: 5px;
+      color: #ecf0f1;
+      text-align: center;
+    }
 
-            main {
-                padding: 1rem;
-            }
-
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            section {
-                padding: 1.5rem;
-            }
-
-            .step-indicator div {
-                width: 25px;
-                height: 25px;
-            }
-
-            button {
-                padding: 0.75rem;
-                font-size: 0.9rem;
-            }
-
-            label, input, select {
-                font-size: 0.9rem;
-            }
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-around;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #000000;
-            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
-            padding: 10px 0;
-            border-top: 3px solid #1abc9c;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center; /* Centrado de texto */
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .nav-item img {
-            width: 35px;
-            height: 35px;
-            border-radius: 30%;
-            padding: 1px;
-            background: #ecf0f1;
-            border: 5px solid #bdc3c7;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .nav-item img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px #1abc9c;
-        }
-
-        .nav-item p {
-            font-size: 10px;
-            margin-top: 4px;
-            color: #ecf0f1;
-        }/* Eliminar cuadro azul y efectos visuales al hacer clic */
+    /* Eliminar cuadro azul y efectos visuales al hacer clic */
     a, button, .circle {
       outline: none;
       border: none;
@@ -220,150 +161,154 @@
     a {
       text-decoration: none;
     }
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </style>
+  <script>
+    const tasaCambio = 4366;
+    let cantidadTokens = 0;
+
+    function obtenerPrecioToken() {
+      const token = "BTC";  
+      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
+        .then(response => response.json())
+        .then(data => {
+          const precioUSD = parseFloat(data.price);
+          const precioCOP = precioUSD * tasaCambio;
+          document.getElementById("precio-token").textContent = precioCOP.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' USDT';
+          actualizarValorRecibir();
+        })
+        .catch(() => {
+          document.getElementById("precio-token").textContent = "No disponible";
+        });
+    }
+
+    function actualizarValorRecibir() {
+      const cantidad = parseFloat(document.getElementById("amount").value) || 0;
+      const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
+      const valorRecibir = cantidad * precioCOP * (1 - 0.16);  
+      document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' USDT';
+    }
+
+    function continuarVenta() {
+      cantidadTokens = parseFloat(document.getElementById("amount").value) || 0;
+      document.getElementById("detallesCantidad").textContent = cantidadTokens.toLocaleString('es-CO', { minimumFractionDigits: 2 });
+      document.getElementById("detallesValorRecibir").textContent = document.getElementById("valor-recibir").textContent;
+
+      document.getElementById("tokenSale").classList.add("hidden");
+      document.getElementById("formularioPago").classList.remove("hidden");
+    }
+
+    function mostrarResumen() {
+      const metodoPago = document.getElementById("metodoPago").value;
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const correo = document.getElementById("correo").value;
+      const cuenta = document.getElementById("cuenta").value;
+
+      document.getElementById("resumenMetodoPago").textContent = metodoPago;
+      document.getElementById("resumenNombre").textContent = nombre;
+      document.getElementById("resumenTelefono").textContent = telefono;
+      document.getElementById("resumenCorreo").textContent = correo;
+      document.getElementById("resumenCuenta").textContent = cuenta;
+
+      document.getElementById("formularioPago").classList.add("hidden");
+      document.getElementById("resumenVenta").classList.remove("hidden");
+    }
+
+    function enviarFormulario() {
+      const metodoPago = document.getElementById("metodoPago").value;
+      const nombre = document.getElementById("nombre").value;
+      const telefono = document.getElementById("telefono").value;
+      const correo = document.getElementById("correo").value;
+      const cuenta = document.getElementById("cuenta").value;
+      const valorRecibir = document.getElementById("valor-recibir").textContent;
+
+      const mensaje = `
+        Venta de token WLD:
+        - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} BTC
+        - Valor a recibir: ${valorRecibir}
+        - Método de pago: ${metodoPago}
+        - Nombre: ${nombre}
+        - Teléfono: ${telefono}
+        - Correo: ${correo}
+        - Cuenta: ${cuenta}
+      `;
+
+      const mensajeWhatsApp = encodeURIComponent(mensaje);
+      const numeroSoporte = "3248092374";
+      const enlaceWhatsApp = `https://wa.me/${numeroSoporte}?text=${mensajeWhatsApp}`;
+      window.open(enlaceWhatsApp, '_blank');
+    }
+
+    function retroceder() {
+      document.getElementById("resumenVenta").classList.add("hidden");
+      document.getElementById("formularioPago").classList.remove("hidden");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      obtenerPrecioToken();
+    });
+  </script>
 </head>
 <body>
-    <header>
-        <img src="https://wallet-bussines.github.io/bitcoin%20(2).png" alt="Logo">
-        <h1>Token Sale Platform</h1>
-    </header>
+  <header>
+    <img src="https://wallet-bussines.github.io/bitcoin.png" alt="Logo">
+    <h1>Plataforma de Venta de Tokens</h1>
+  </header>
 
-    <main>
-        <section id="login">
-            <h2>Inicia Sesión con tu World ID</h2>
-            <button id="worldIdLogin">Iniciar Sesión</button>
-        </section>
+  <main>
+    <section id="tokenSale">
+      <h2>Selecciona el token que deseas vender</h2>
+      <form id="tokenForm" onsubmit="event.preventDefault(); continuarVenta();">
+        <label for="amount">Cantidad (BTC):</label>
+        <input type="number" id="amount" name="amount" step="any" required oninput="actualizarValorRecibir()">
+        <p>Precio estimado por token: <span class="highlight" id="precio-token">0 COP</span></p>
+        <p>Valor estimado a recibir: <span class="highlight" id="valor-recibir">0 COP</span></p>
+        <button type="submit">Continuar</button>
+      </form>
+    </section>
 
-        <section id="tokenSale" style="display: none;">
-            <div class="step-indicator">
-                <div class="active">1</div>
-                <div>2</div>
-                <div>3</div>
-            </div>
-            <h2>Selecciona el token que deseas vender</h2>
-            <form id="tokenForm">
-                <label for="token">Token:</label>
-                <select id="token" name="token">
-                    <option value="wBTC">wBTC</option>
-                </select>
-                <label for="amount">Cantidad:</label>
-                <input type="number" id="amount" name="amount" step="any" required>
-                <p class="highlight"></p>
-                <p id="pricePreview">Precio estimado a recibir: <span class="highlight">0 COP</span></p>
-                <button type="submit">Continuar</button>
-            </form>
-        </section>
+    <section id="formularioPago" class="hidden">
+      <h2>Selecciona el método de pago</h2>
+      <form onsubmit="event.preventDefault(); mostrarResumen();">
+        <label for="metodoPago">Método de pago:</label>
+        <select id="metodoPago" required>
+          <option value="Nequi">Nequi</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Ahorro">Ahorro</option>
+          <option value="Trasfiya">Trasfiya</option>
+          <option value="nu">nu</option>
+          <option value="Cuenta bancaria">Bancos</option>
+        </select>
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required>
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" required>
+        <label for="correo">Correo Electrónico:</label>
+        <input type="email" id="correo" required>
+        <label for="cuenta">Número de Cuenta:</label>
+        <input type="text" id="cuenta" required>
+        <button type="submit">Ver Resumen</button>
+      </form>
+    </section>
 
-        <section id="form" style="display: none;">
-            <div class="step-indicator">
-                <div>1</div>
-                <div class="active">2</div>
-                <div>3</div>
-            </div>
-            <h2>Formulario para recibir fondos</h2>
-            <form id="fundsForm">
-                <label for="paymentMethod">Método de Pago:</label>
-                <select id="paymentMethod" name="paymentMethod">
-                    <option value="Nequi">Nequi</option>
-                    <option value="Daviplata">Daviplata</option>
-                    <option value="Ahorro a la Mano">Ahorro a la Mano</option>
-                    <option value="Transfiya">Transfiya</option>
-                    <option value="Transferencia Bancaria">Transferencia Bancaria</option>
-                </select>
+    <section id="resumenVenta" class="hidden">
+      <h2>Resumen de la Venta</h2>
+      <p>Método de pago: <span id="resumenMetodoPago"></span></p>
+      <p>Nombre: <span id="resumenNombre"></span></p>
+      <p>Teléfono: <span id="resumenTelefono"></span></p>
+      <p>Correo Electrónico: <span id="resumenCorreo"></span></p>
+      <p>Número de Cuenta: <span id="resumenCuenta"></span></p>
+      <p>Cantidad de tokens vendidos: <span id="detallesCantidad"></span> WLD</p>
+      <p>Valor a recibir: <span id="detallesValorRecibir"></span></p>
+      <button onclick="retroceder()">Atrás</button>
+      <button onclick="enviarFormulario()">Enviar</button>
+    </section>
+  </main>
 
-                <label for="name">Nombre Completo:</label>
-                <input type="text" id="name" name="name" required>
-
-                <label for="account">Cuenta:</label>
-                <input type="text" id="account" name="account" required>
-
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" required>
-
-                <label for="phone">Teléfono:</label>
-                <input type="tel" id="phone" name="phone" required>
-
-                <div id="summary"></div>
-
-                <button type="submit">Enviar al Soporte</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2024 Token Sale Platform</p>
-    </footer>
-
-    <script>
-        const tokenPrices = {
-            wBTC: 000
-        };
-
-        document.getElementById('worldIdLogin').addEventListener('click', function() {
-            alert('Sesión iniciada con World ID');
-            document.getElementById('login').style.display = 'none';
-            document.getElementById('tokenSale').style.display = 'block';
-        });
-
-        document.getElementById('token').addEventListener('change', updatePrice);
-        document.getElementById('amount').addEventListener('input', updatePrice);
-
-        function updatePrice() {
-            const token = document.getElementById('token').value;
-            const amount = document.getElementById('amount').value;
-            const price = tokenPrices[token] || 0;
-            const total = amount * price * 0.84;
-            document.getElementById('pricePreview').innerHTML = `Precio estimado a recibir: <span class="highlight">${total.toFixed(2)} COP</span>`;
-        }
-
-        document.getElementById('tokenForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const token = document.getElementById('token').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-
-            if (isNaN(amount) || amount <= 0) {
-                alert("Por favor, ingresa una cantidad válida.");
-                return;
-            }
-
-            const price = tokenPrices[token] || 0;
-            const total = amount * price * 0.84;
-
-            alert(`Has enviado ${amount} ${token}`);
-            document.getElementById('summary').innerHTML = `<p>Resumen:</p>
-                <ul>
-                    <li>Token: ${token}</li>
-                    <li>Cantidad: ${amount}</li>
-                    <li>Total estimado a recibir: ${total.toFixed(2)} COP</li>
-                </ul>`;
-
-            document.getElementById('tokenSale').style.display = 'none';
-            document.getElementById('form').style.display = 'block';
-        });
-
-        document.getElementById('fundsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const account = document.getElementById('account').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const paymentMethod = document.getElementById('paymentMethod').value;
-            const token = document.getElementById('token').value;
-            const amount = document.getElementById('amount').value;
-            const price = tokenPrices[token] || 0;
-            const total = amount * price * 0.84;
-
-            const message = `Formulario de solicitud de fondos\nToken: ${token}\nCantidad: ${amount}\nValor estimado a recibir: ${total.toFixed(2)} COP\nNombre: ${name}\nCuenta: ${account}\nEmail: ${email}\nTeléfono: ${phone}\nMétodo de Pago: ${paymentMethod}`;
-
-            const whatsappLink = `https://wa.me/573248092374?text=${encodeURIComponent(message)}`;
-            window.open(whatsappLink, '_blank');
-
-            alert('Formulario enviado al soporte.');
-        });
-    </script>
-
-    <div class="navbar">
+  <footer>
+    <p>© 2024 Plataforma de Venta de Tokens</p>
+  </footer>
+      <div class="navbar">
   <div class="nav-item">
     <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
       <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
@@ -390,4 +335,4 @@
   </div>
 </div>
 </body>
-    </html>
+</html>
