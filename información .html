@@ -20,10 +20,7 @@
 
         header {
             text-align: center;
-            background-color: #34495e; /* Fondo oscuro */
             padding: 20px;
-            position: relative;
-            z-index: 10;
         }
 
         header img {
@@ -43,7 +40,6 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin: 20px;
             flex-grow: 1;
-            z-index: 5;
         }
 
         .content {
@@ -108,47 +104,44 @@
             background-color: #218838; /* Verde oscuro al pasar */
         }
 
-        /* Barra de navegación (sin cambios) */
+        /* Barra de navegación */
         .navbar {
             display: flex;
             justify-content: space-around;
+            align-items: center;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(90deg, #34495e, #2c3e50); /* Fondo degradado */
-            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.3);
-            padding: 15px 0;
-            border-top: 3px solid #1abc9c; /* Borde turquesa */
+            background-color: #000000; /* Fondo negro */
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            border-top: 3px solid #1abc9c;
             z-index: 20;
+            height: 70px; /* Ajuste de altura de la barra */
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            text-align: center;
         }
 
         .nav-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            border-radius: 30%;
+            padding: 1px;
             background: #ecf0f1;
-            border: 1px solid #bdc3c7;
-            padding: 5px;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .nav-item img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px #1abc9c; /* Efecto de resplandor */
+            border: 5px solid #bdc3c7;
         }
 
         .nav-item p {
-            font-size: 12px;
+            font-size: 10px;
             margin-top: 5px;
             color: #ecf0f1;
+            text-align: center;
         }
 
         /* Adaptación para pantallas pequeñas */
@@ -201,69 +194,34 @@
             .features li {
                 font-size: 14px;
             }
-        } .navbar {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #000000;
-      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
-      padding: 10px 0;
-      border-top: 3px solid #1abc9c;
-    }
+        }
 
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
+        /* Eliminar cuadro azul y efectos visuales al hacer clic */
+        a, button, .circle {
+            outline: none;
+            border: none;
+            transition: none; /* Eliminar animaciones y efectos */
+            -webkit-tap-highlight-color: transparent; /* Desactivar resaltado en móviles */
+        }
 
-    .nav-item img {
-      width: 30px;
-      height: 30px;
-      border-radius: 30%;
-      padding: 1px;
-      background: #ecf0f1;
-      border: 5px solid #bdc3c7;
-    }
+        a:focus, button:focus, .circle:focus {
+            outline: none; /* Eliminar cuadro de enfoque */
+        }
 
-    .nav-item p {
-      font-size: 10px;
-      margin-top: 5px;
-      color: #ecf0f1;
-      text-align: center;
-    }
+        a:active, button:active, .circle:active {
+            transform: none; /* Evitar cambios de escala */
+            box-shadow: none; /* Evitar cambios de sombra */
+        }
 
-    /* Eliminar cuadro azul y efectos visuales al hacer clic */
-    a, button, .circle {
-      outline: none;
-      border: none;
-      transition: none; /* Eliminar animaciones y efectos */
-      -webkit-tap-highlight-color: transparent; /* Desactivar resaltado en móviles */
-    }
+        /* Desactivar selección de texto/iconos */
+        a, .circle {
+            user-select: none; /* Desactivar selección */
+        }
 
-    a:focus, button:focus, .circle:focus {
-      outline: none; /* Eliminar cuadro de enfoque */
-    }
-
-    a:active, button:active, .circle:active {
-      transform: none; /* Evitar cambios de escala */
-      box-shadow: none; /* Evitar cambios de sombra */
-    }
-
-    /* Desactivar selección de texto/iconos */
-    a, .circle {
-      user-select: none; /* Desactivar selección */
-    }
-
-    /* General */
-    a {
-      text-decoration: none;
-    }
+        /* General */
+        a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -299,33 +257,33 @@
         </div>
     </div>
 
-    <!-- Barra de navegación (sin cambios) -->
+    <!-- Barra de navegación -->
     <div class="navbar">
-  <div class="nav-item">
-    <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
-      <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
-      <p>Invitar</p>
-    </a>
-  </div>
-  <div class="nav-item">
-    <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
-      <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
-      <p>Vender</p>
-    </a>
-  </div>
-  <div class="nav-item">
-    <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
-      <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
-      <p>Historial</p>
-    </a>
-  </div>
-  <div class="nav-item">
-    <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
-      <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
-      <p>Soporte</p>
-    </a>
-  </div>
-</div>
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
+                <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
+                <p>Invitar</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+                <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
+                <p>Vender</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+                <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
+                <p>Historial</p>
+            </a>
+        </div>
+        <div class="nav-item">
+            <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
+                <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
+                <p>Soporte</p>
+            </a>
+        </div>
+    </div>
     
 </body>
-</html>    
+</html>
