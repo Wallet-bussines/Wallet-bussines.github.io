@@ -163,7 +163,7 @@
     }
   </style>
   <script>
-    const tasaCambio = 4366;
+    const tasaCambio = 0.0353;
     let cantidadTokens = 0;
 
     function obtenerPrecioToken() {
@@ -223,8 +223,8 @@
       const valorRecibir = document.getElementById("valor-recibir").textContent;
 
       const mensaje = `
-        Venta de token WLD:
-        - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} WLD
+        Venta de token ORO:
+        - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} ORO
         - Valor a recibir: ${valorRecibir}
         - Método de pago: ${metodoPago}
         - Nombre: ${nombre}
@@ -251,7 +251,7 @@
 </head>
 <body>
   <header>
-    <img src="https://wallet-bussines.github.io/Worldcoin-2.png" alt="Logo">
+    <img src="https://wallet-bussines.github.io/fichas-de-casino.png" alt="Logo">
     <h1>Plataforma de Venta de Tokens</h1>
   </header>
 
@@ -259,7 +259,7 @@
     <section id="tokenSale">
       <h2>Selecciona el token que deseas vender</h2>
       <form id="tokenForm" onsubmit="event.preventDefault(); continuarVenta();">
-        <label for="amount">Cantidad (WLD):</label>
+        <label for="amount">Cantidad (ORO):</label>
         <input type="number" id="amount" name="amount" step="any" required oninput="actualizarValorRecibir()">
         <p>Precio estimado por token: <span class="highlight" id="precio-token">0 COP</span></p>
         <p>Valor estimado a recibir: <span class="highlight" id="valor-recibir">0 COP</span></p>
@@ -298,7 +298,7 @@
       <p>Teléfono: <span id="resumenTelefono"></span></p>
       <p>Correo Electrónico: <span id="resumenCorreo"></span></p>
       <p>Número de Cuenta: <span id="resumenCuenta"></span></p>
-      <p>Cantidad de tokens vendidos: <span id="detallesCantidad"></span> WLD</p>
+      <p>Cantidad de tokens vendidos: <span id="detallesCantidad"></span> ORO</p>
       <p>Valor a recibir: <span id="detallesValorRecibir"></span></p>
       <button onclick="retroceder()">Atrás</button>
       <button onclick="enviarFormulario()">Enviar</button>
