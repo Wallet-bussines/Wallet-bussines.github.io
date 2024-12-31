@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Enviar WLD - Worldcoin Mini App</title>
   <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
-  <script src="https://worldcoin.org/mini-app.js"></script> <!-- Incluye la librería de Worldcoin -->
+  <script src="https://worldcoin.org/mini-app.js"></script> <!-- Asegúrate de que esta URL sea correcta -->
 </head>
 
 <body>
@@ -41,10 +41,13 @@
 
     const wldContract = new web3.eth.Contract(wldContractABI, contractAddress);
 
-    // Autenticación de Worldcoin y obtener la dirección de la billetera del usuario
+    // Autenticación de Worldcoin con nuevas credenciales
     async function authenticateUser() {
       try {
-        const user = await Worldcoin.auth.authenticate();
+        const user = await Worldcoin.auth.authenticate({
+          appId: 'app_5e1cd32810dfb1070731f9612899aaaa', // Nueva app_id
+          clientSecret: 'sk_2fcb218f52cfda73be4189fd438a8c81f0bfa330ed3886cbfbd8f08b8c9f7b66', // Nuevo client_secret
+        });
         const userAddress = user.walletAddress;
         console.log("Dirección de la billetera del usuario:", userAddress);
         document.getElementById('walletAddress').value = userAddress;
