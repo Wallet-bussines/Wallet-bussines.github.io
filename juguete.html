@@ -6,20 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Login - Orbital-X</title>
     <link rel="icon" href="https://wallet-bussines.github.io/orbita.png" type="image/png">
-    <!-- Link to external stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://primemlmsoftware.in/matrix-basic/manager/public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://primemlmsoftware.in/matrix-basic/manager/public/css/style.css">
-    <link rel="stylesheet" href="https://primemlmsoftware.in/matrix-basic/manager/public/login-css/util.css">
-    <link rel="stylesheet" href="https://primemlmsoftware.in/matrix-basic/manager/public/login-css/main.css">
-    <link rel="stylesheet" href="https://primemlmsoftware.in/matrix-basic/manager/public/libs/angular/angularjs-toaster/toaster.css">
-    <script src="https://primemlmsoftware.in/matrix-basic/manager/public/jquery/jquery.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="https://primemlmsoftware.in/matrix-basic/manager/public/js/header_login.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #ffffff; /* Fondo blanco */
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
             overflow: hidden;
@@ -30,20 +22,21 @@
             max-width: 380px;
             padding: 30px;
             margin: 0;
-            background-color: #ffffff; /* Fondo blanco */
+            background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            text-align: center;
         }
 
         .login100-form-title {
             text-align: center;
             font-size: 24px;
             margin-bottom: 20px;
-            color: #333333; /* Texto oscuro */
+            color: #333333;
         }
 
         .wrap-input100 {
@@ -54,11 +47,11 @@
         .input100 {
             width: 100%;
             padding: 10px 20px;
-            border: 1px solid #ccc; /* Bordes claros */
+            border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 16px;
-            color: #333333; /* Texto oscuro */
-            background-color: #f7f7f7; /* Fondo gris claro */
+            color: #333333;
+            background-color: #f7f7f7;
         }
 
         .symbol-input100 {
@@ -66,12 +59,12 @@
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            color: #7f8c8d; /* Color gris para íconos */
+            color: #7f8c8d;
         }
 
         .login100-form-btn {
             width: 100%;
-            background-color: #3498db; /* Azul brillante */
+            background-color: #3498db;
             color: #fff;
             padding: 12px;
             font-size: 16px;
@@ -81,23 +74,26 @@
         }
 
         .login100-form-btn:hover {
-            background-color: #2980b9; /* Azul más oscuro en hover */
+            background-color: #2980b9;
         }
 
         .text-center {
             text-align: center;
         }
 
-        .text-muted {
-            color: #bdc3c7; /* Color de texto suave */
-        }
-
         .footer-text {
             font-size: 12px;
-            color: #7f8c8d; /* Texto gris claro */
+            color: #7f8c8d;
         }
 
-        .navbar {
+        img {
+            display: block;
+            margin: 0 auto 20px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+        }
+  .navbar {
       display: flex;
       justify-content: space-around;
       align-items: center;
@@ -167,12 +163,8 @@
 
     <div class="container-login100">
         <form id="frmUsers" name="frmUsers" method="post" onsubmit="return handleUserLogin()">
-            <input type="hidden" name="csrf_token_name" value="af3b74da67aae58c7f283298e10b7319">
-            <input type="hidden" id="base_url" name="base_url" value="https://wallet-bussines.github.io/user2dasboars.html">
-
-            <span class="login100-form-title">
-                <img src="https://wallet-bussines.github.io/orbita.png" style="width: 140px; border-radius: 50%;" alt="Orbital-X Logo">
-            </span>
+            <img src="https://wallet-bussines.github.io/orbita.png" alt="Orbital-X Logo">
+            <div class="login100-form-title">Inicia Sesión</div>
 
             <div class="wrap-input100">
                 <input type="text" placeholder="Username" id="username" name="username" class="input100" required />
@@ -188,10 +180,6 @@
                 </span>
             </div>
 
-            <div class="wrap-input100" id="captcha_div" style="display:none;">
-                <div class="g-recaptcha" data-sitekey="6Ld9NqMUAAAAAMsd7QW2GEbZeHh2HUpG_2GHoKMa"></div>
-            </div>
-
             <div class="container-login100-form-btn">
                 <button type="submit" class="login100-form-btn">Log In</button>
             </div>
@@ -204,40 +192,30 @@
         </form>
     </div>
 
-    <div class="navbar">
-        <div class="nav-item">
-            <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
-                <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Invite">
-                <p>Invite</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
-                <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Sell">
-                <p>Sell</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
-                <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="History">
-                <p>History</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
-                <img src="https://wallet-bussines.github.io/apoyo.png" alt="Support">
-                <p>Support</p>
-            </a>
-        </div>
-    </div>
-
     <script>
-        function handleUserLogin() {
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value;
+        const redirectUrl = "https://wallet-bussines.github.io/pioneros.html";
 
-            if (username === "user" && password === "user12345") {
-                window.location.href = document.getElementById("base_url").value;
+        // Check if user is already logged in
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedUser = localStorage.getItem("username");
+            const savedPass = localStorage.getItem("password");
+
+            if (savedUser === "admin" && savedPass === "admin123") {
+                window.location.href = redirectUrl;
+            }
+        });
+
+        function handleUserLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "admin" && password === "admin123") {
+                // Save credentials to localStorage
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+
+                // Redirect to the specified page
+                window.location.href = redirectUrl;
                 return false;
             } else {
                 alert("Invalid username or password.");
@@ -245,7 +223,32 @@
             }
         }
     </script>
-
+  </div>
+  <div class="navbar">
+  <div class="nav-item">
+    <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
+      <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
+      <p>Invitar</p>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+      <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
+      <p>Vender</p>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+      <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
+      <p>Historial</p>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
+      <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
+      <p>Soporte</p>
+    </a>
+  </div>
+</div>
 </body>
-
-</html>
+    </html>
