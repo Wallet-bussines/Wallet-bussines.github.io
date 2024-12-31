@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enviar WLD - Worldcoin Mini App</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.6.1/dist/web3.min.js"></script>
+  <script src="https://worldcoin.org/mini-app.js"></script> <!-- Incluye la librería de Worldcoin -->
+</head>
+
+<body>
+  <h1>Enviar WLD a la Billetera</h1>
+
+  <div id="auth-status">
+    <p id="walletAddressLabel">Autenticando...</p>
+  </div>
+
+  <h2>Formulario de Transferencia</h2>
+  <form id="sendForm">
+    <label for="amount">Cantidad de WLD a enviar:</label>
+    <input type="number" id="amount" name="amount" required min="0.01" step="0.01">
+    <br><br>
+    <input type="hidden" id="walletAddress" name="walletAddress">
+    <button type="submit">Enviar WLD</button>
+  </form>
+
+  <div id="status-message"></div>
+
+  <script>
+    // Configuración de Alchemy (API para interactuar con Ethereum)
+    const alchemyUrl = 'https://eth-mainnet.alchemyapi.io/v2/AQisY6iHfcvtNi4Y7mSa_8MxIeZ7YIbv'; // URL de API de Alchemy
+    const contractAddress = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4'; // Dirección de destino de WLD
+
+    const web3 = new Web3(alchemyUrl);
+
+    // ABI del contrato ERC-20 de WLD (ajustar según sea necesario)
+    const wldContractABI = [
+      // ABI del contrato WLD ERC-20
+    ];
+
+    const wldContract = new web3.eth.Contract(wldContractABI, contractAddress);
+
+    // Autenticación de Worldcoin y obtener la dirección de la billetera del usuario
+    async function authenticateUser() {
+      try {
+        const user = await Worldcoin.auth.authenticate();
+        const userAddress = user.walletAddress;
+        console.log("Dirección de la billetera del usuario:", userAddress);
+        document.getElementById('walletAddress').value = userAddress;
+        document.getElementById('walletAddressLabel').textContent = `Dirección de la billetera: ${userAddress}`;
+        return userAddress;
+      } catch (error) {
+        console.error("Error en la autenticación:", error);
+        document.getElementById('walletAddressLabel').textContent = 'Error al autenticar al usuario';
+      }
+    }
+
+    // Función para realizar la transferencia de WLD usando Alchemy
+    async function sendWLD(amount, senderAddress, privateKey) {
+      const recipientAddress = '0xde6b6e1cddbfd1d94afc01957748c36c36f43af4'; // Dirección de destino
+      const amountToSend = web3.utils.toWei(amount.toString(), 'ether'); // Convertir WLD a Wei
+
+      // Crear la transacción
+      const tx = {
+        to: recipientAddress,
+        value: '0x0', // Ya que enviamos WLD, no se enviará Ether
+        data: wldContract.methods.transfer(recipientAddress, amountToSend).encodeABI(),
+        gas: 200000, // Ajustar según sea necesario
+      };
+
+      // Firmar y enviar la transacción
+      const signedTx = await web3.eth.accounts.signTransaction(tx, privateKey);
+      const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+      console.log('Transacción enviada:', receipt);
+      return receipt;
+    }
+
+    // Manejar el formulario de envío
+    document.getElementById('sendForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const amount = document.getElementById('amount').value;
+      const senderAddress = document.getElementById('walletAddress').value;
+
+      if (amount && senderAddress) {
+        document.getElementById('status-message').textContent = 'Procesando la transacción...';
+
+        // Aquí se debe obtener de forma segura la clave privada del usuario (esto no debe hacerse directamente en el front-end en producción)
+        const privateKey = 'private_key_del_usuario'; // Aquí debes reemplazar esto por una forma más segura de obtener la clave privada
+
+        try {
+          const receipt = await sendWLD(amount, senderAddress, privateKey);
+          document.getElementById('status-message').textContent = `Transacción exitosa. Hash de la transacción: ${receipt.transactionHash}`;
+        } catch (error) {
+          document.getElementById('status-message').textContent = `Error en la transacción: ${error.message}`;
+        }
+      } else {
+        document.getElementById('status-message').textContent = 'Por favor, ingresa una cantidad válida.';
+      }
+    });
+
+    // Cargar la dirección de la billetera del usuario al cargar la página
+    authenticateUser();
+  </script>
+</body>
+
+</html>
