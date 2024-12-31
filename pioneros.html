@@ -1,327 +1,315 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Transferencias</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario y Historial</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 1rem;
+      text-align: center;
+    }
+    header h1 {
+      color: #00ffcc;
+      margin: 0;
+    }
+    main {
+      padding: 1rem;
+    }
+    form {
+      background-color: #1f1f1f;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    form label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    form input, form textarea, form select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 4px;
+    }
+    form button {
+      background-color: #00ffcc;
+      color: #000;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .table-container {
+      overflow-x: auto; /* Permite scroll horizontal */
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #1f1f1f;
+      min-width: 600px; /* Asegura que no se compacte demasiado */
+    }
+    table th, table td {
+      border: 1px solid #333;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    table th {
+      background-color: #2b2b2b;
+    }
+    .estado-aprobado {
+      color: #00ff00;
+    }
+    .estado-pendiente {
+      color: #ffff00;
+    }
+    .estado-rechazado {
+      color: #ff0000;
+    }
+    .ver-detalles {
+      color: #00ffcc;
+      cursor: pointer;
+    }
 
-        .container {
-            width: 90%;
-            max-width: 800px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px 0;
-        }
+    /* Estilos responsive */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5rem;
+      }
+      form {
+        padding: 0.5rem;
+      }
+      form label {
+        font-size: 0.9rem;
+      }
+      form input, form textarea, form select, form button {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+      }
+      table th, table td {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+      }
+    }
 
-        h2 {
-            text-align: center;
-            color: #333;
-        }
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.2rem;
+      }
+      form {
+        padding: 0.3rem;
+      }
+      form input, form textarea, form select, form button {
+        font-size: 0.8rem;
+        padding: 0.3rem;
+      }
+      table th, table td {
+        font-size: 0.8rem;
+        padding: 0.3rem;
+      }
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+      padding: 10px 0;
+      border-top: 3px solid #1abc9c;
+    }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
 
-        label {
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    .nav-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 30%;
+      padding: 1px;
+      background: #ecf0f1;
+      border: 5px solid #bdc3c7;
+    }
 
-        input, select, textarea, button {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
+    .nav-item p {
+      font-size: 10px;
+      margin-top: 5px;
+      color: #ecf0f1;
+      text-align: center;
+    }
 
-        button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+    /* Eliminar cuadro azul y efectos visuales al hacer clic */
+    a, button, .circle {
+      outline: none;
+      border: none;
+      transition: none; /* Eliminar animaciones y efectos */
+      -webkit-tap-highlight-color: transparent; /* Desactivar resaltado en móviles */
+    }
 
-        button:hover {
-            background-color: #0056b3;
-        }
+    a:focus, button:focus, .circle:focus {
+      outline: none; /* Eliminar cuadro de enfoque */
+    }
 
-        .table-container {
-            overflow-x: auto;
-        }
+    a:active, button:active, .circle:active {
+      transform: none; /* Evitar cambios de escala */
+      box-shadow: none; /* Evitar cambios de sombra */
+    }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+    /* Desactivar selección de texto/iconos */
+    a, .circle {
+      user-select: none; /* Desactivar selección */
+    }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        td {
-            word-wrap: break-word;
-        }
-
-        .estado-pendiente {
-            color: #ffc107;
-            font-weight: bold;
-        }
-
-        .estado-pagado {
-            color: #28a745;
-            font-weight: bold;
-        }
-
-        .ver-detalles {
-            color: #007bff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .ver-detalles:hover {
-            text-decoration: underline;
-        }
-
-        .navbar {
-            display: flex;
-            justify-content: space-around;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(90deg, #34495e, #2c3e50);
-            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
-            padding: 10px 0;
-            border-top: 3px solid #1abc9c;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .nav-item img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            padding: 5px;
-            background: #ecf0f1;
-            border: 1px solid #bdc3c7;
-            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        }
-
-        .nav-item img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 10px #1abc9c;
-        }
-
-        .nav-item p {
-            font-size: 10px;
-            margin-top: 4px;
-            color: #ecf0f1;
-        }
-
-        @media (max-width: 600px) {
-            th, td {
-                font-size: 0.9rem;
-                padding: 6px;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            .container {
-                padding: 15px;
-            }
-        }
-
-    </style>
+    /* General */
+    a {
+      text-decoration: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Registro de Transferencias</h2>
-        <form id="transfer-form">
-            <label for="region">Región</label>
-            <select id="region" required>
-                <option value="">Seleccione una región</option>
-                <option value="Bogotá">Bogotá</option>
-                <option value="Medellín">Medellín</option>
-                <option value="Cali">Cali</option>
-                <option value="Barranquilla">Barranquilla</option>
-                <option value="Cartagena">Cartagena</option>
-                <option value="Bucaramanga">Bucaramanga</option>
-                <option value="Santa Marta">Santa Marta</option>
-                <option value="Pereira">Pereira</option>
-                <option value="Manizales">Manizales</option>
-                <option value="Armenia">Armenia</option>
-                <option value="Dosquebradas">Dosquebradas</option>
-                <option value="Barcelona">Barcelona</option>
-                <option value="Pijao">Pijao</option>
-                <option value="Circasia">Circasia</option>
-                <option value="Cartago">Cartago</option>
-                <option value="Zarzal">Zarzal</option>
-                <option value="Quimbaya">Quimbaya</option>
-                <option value="Pueblo Tapao">Pueblo Tapao</option>
-                <option value="Tebaida">Tebaida</option>
-                <option value="Calarca">Calarca</option>
-            </select>
-
-            <label for="usuario">Usuario Encargado</label>
-            <input type="text" id="usuario" placeholder="Ingrese el nombre del encargado" required>
-
-            <label for="detalles">Detalles</label>
-            <textarea id="detalles" placeholder="Ingrese los detalles" rows="3"></textarea>
-
-            <label for="tokens">Tokens Transferidos</label>
-            <input type="number" step="0.01" id="tokens" placeholder="Ingrese el número de tokens" required>
-
-            <label for="estado">Estado</label>
-            <select id="estado" required>
-                <option value="Pendiente">Pendiente</option>
-                <option value="Pagado">Pagado</option>
-            </select>
-
-            <button type="submit">Registrar Transferencia</button>
-        </form>
+  <header>
+    <h1>Formulario de Transferencias</h1>
+  </header>
+  <main>
+    <form id="transferForm">
+      <label for="ciudad">Ciudad</label>
+      <select id="ciudad" required>
+        <option value="Bogotá">Bogotá</option>
+        <option value="Medellín">Medellín</option>
+        <option value="Cali">Cali</option>
+        <option value="Barranquilla">Barranquilla</option>
+        <option value="Cartagena">Cartagena</option>
+        <option value="Bucaramanga">Bucaramanga</option>
+        <option value="Santa Marta">Santa Marta</option>
+        <option value="Pereira">Pereira</option>
+        <option value="Manizales">Manizales</option>
+        <option value="Armenia">Armenia</option>
+        <option value="Dosquebradas">Dosquebradas</option>
+        <option value="Barcelona">Barcelona</option>
+        <option value="Pijao">Pijao</option>
+        <option value="Circasia">Circasia</option>
+        <option value="Cartago">Cartago</option>
+        <option value="Zarzal">Zarzal</option>
+        <option value="Quimbaya">Quimbaya</option>
+        <option value="Pueblo Tapao">Pueblo Tapao</option>
+        <option value="Tebaida">Tebaida</option>
+        <option value="Calarca">Calarca</option>
+      </select>
+      <label for="usuario">Usuario</label>
+      <input type="text" id="usuario" placeholder="Nombre del usuario" required>
+      <label for="tokens">Cantidad de Tokens</label>
+      <input type="number" id="tokens" placeholder="Cantidad de tokens" required>
+      <label for="detalles">Detalles</label>
+      <textarea id="detalles" placeholder="Detalles adicionales"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <h2>Historial de Transferencias</h2>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Ciudad</th>
+            <th>Usuario</th>
+            <th>Tokens</th>
+            <th>Total en USD</th>
+            <th>Estado</th>
+            <th>Detalles</th>
+          </tr>
+        </thead>
+        <tbody id="historyTable"></tbody>
+      </table>
     </div>
+  </main>
+  <script>
+    const transferForm = document.getElementById('transferForm');
+    const historyTable = document.getElementById('historyTable');
 
-    <div class="container">
-        <h2>Historial de Transferencias</h2>
-        <div class="table-container">
-            <table id="transfer-history">
-                <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Región</th>
-                        <th>Usuario</th>
-                        <th>Tokens</th>
-                        <th>Recompensa</th>
-                        <th>Estado</th>
-                        <th>Detalles</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    const loadHistory = () => {
+      const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
+      historyTable.innerHTML = '';
+      transfers.forEach(transfer => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${transfer.fecha}</td>
+          <td>${transfer.ciudad}</td>
+          <td>${transfer.usuario}</td>
+          <td>${transfer.tokens}</td>
+          <td>$${(transfer.tokens * 100).toFixed(2)}</td>
+          <td class="estado-${transfer.estado.toLowerCase()}">${transfer.estado}</td>
+          <td><span class="ver-detalles" onclick="showDetails('${transfer.detalles}')">Ver Detalles</span></td>
+        `;
+        historyTable.appendChild(row);
+      });
+    };
 
-    <script>
-        const form = document.getElementById('transfer-form');
-        const historyTable = document.getElementById('transfer-history').querySelector('tbody');
+    const showDetails = (details) => {
+      alert(`Detalles de la transferencia:\n\n${details}`);
+    };
 
-        const loadHistory = () => {
-            const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
-            historyTable.innerHTML = '';
-            transfers.forEach(transfer => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${transfer.fecha}</td>
-                    <td>${transfer.region}</td>
-                    <td>${transfer.usuario}</td>
-                    <td>${transfer.tokens}</td>
-                    <td>$${(transfer.tokens * 100).toFixed(2)}</td>
-                    <td class="estado-${transfer.estado.toLowerCase()}">${transfer.estado}</td>
-                    <td><span class="ver-detalles" onclick="showDetails('${transfer.detalles}')">Ver Detalles</span></td>
-                `;
-                historyTable.appendChild(row);
-            });
-        };
+    transferForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const ciudad = document.getElementById('ciudad').value;
+      const usuario = document.getElementById('usuario').value;
+      const tokens = document.getElementById('tokens').value;
+      const detalles = document.getElementById('detalles').value;
+      const estado = ['Aprobado', 'Pendiente', 'Rechazado'][Math.floor(Math.random() * 3)];
+      const fecha = new Date().toLocaleString();
 
-        const showDetails = (details) => {
-            alert(`Detalles de la transferencia:\n\n${details}`);
-        };
+      const newTransfer = { fecha, ciudad, usuario, tokens, detalles, estado };
+      const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
+      transfers.push(newTransfer);
+      localStorage.setItem('transfers', JSON.stringify(transfers));
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
+      transferForm.reset();
+      loadHistory();
+    });
 
-            const region = document.getElementById('region').value;
-            const usuario = document.getElementById('usuario').value;
-            const detalles = document.getElementById('detalles').value;
-            const tokens = document.getElementById('tokens').value;
-            const estado = document.getElementById('estado').value;
-            const fecha = new Date().toLocaleString();
+    loadHistory();
+  </script>
+ </div>
+  <div class="navbar">
+  <div class="nav-item">
+    <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
+      <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
+      <p>Invitar</p>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+      <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
+      <p>Vender</p>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+      <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
+      <p>Historial</p>
+    </a>
+  </div>
+  <div class="nav-item">
+    <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
+      <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
+      <p>Soporte</p>
+    </a>
+  </div>
+</div>
 
-            const newTransfer = {
-                fecha,
-                region,
-                usuario,
-                detalles,
-                tokens: parseFloat(tokens),
-                estado,
-            };
-
-            // Save transfer data to localStorage
-            const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
-            transfers.push(newTransfer);
-            localStorage.setItem('transfers', JSON.stringify(transfers));
-
-            loadHistory();  // Reload the history table
-            form.reset();   // Clear the form
-        });
-
-        // Function to send transfer history to WhatsApp
-        function sendToWhatsApp() {
-            const transfers = JSON.parse(localStorage.getItem('transfers')) || [];
-            let message = "Historial de Transferencias:\n\n";
-
-            transfers.forEach(transfer => {
-                message += `Fecha: ${transfer.fecha}, Región: ${transfer.region}, Usuario: ${transfer.usuario}, Tokens: ${transfer.tokens}, Recompensa: $${(transfer.tokens * 100).toFixed(2)}, Estado: ${transfer.estado}, Detalles: ${transfer.detalles}\n\n`;
-            });
-
-            const whatsappURL = `https://wa.me/3248092374?text=${encodeURIComponent(message)}`;
-            window.open(whatsappURL, '_blank');
-        }
-    </script>
-
-    <div class="navbar">
-        <div class="nav-item">
-            <a href="https://wallet-bussines.github.io/iframe6.html" target="_blank">
-                <img src="https://wallet-bussines.github.io/Home.png" alt="OrbitalX">
-                <p>WORD_ID</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="https://wallet-bussines.github.io/iframe.html" target="_blank">
-                <img src="https://wallet-bussines.github.io/Peso.png" alt="Wallet">
-                <p>WALLET</p>
-            </a>
-        </div>
-        <div class="nav-item">
-            <a href="#" onclick="sendToWhatsApp()" target="_blank">
-                <img src="https://wallet-bussines.github.io/Seting.png" alt="USD">
-                <p>ENVIAR</p>
-            </a>
-        </div>
-    </div>
 </body>
 </html>
