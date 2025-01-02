@@ -190,6 +190,12 @@
 
     function continuarVenta() {
       cantidadTokens = parseFloat(document.getElementById("amount").value) || 0;
+
+      if (cantidadTokens < 40) {
+        alert("La cantidad mínima de retiro es de 40 ORO. Por favor, ajusta la cantidad.");
+        return;
+      }
+
       document.getElementById("detallesCantidad").textContent = cantidadTokens.toLocaleString('es-CO', { minimumFractionDigits: 2 });
       document.getElementById("detallesValorRecibir").textContent = document.getElementById("valor-recibir").textContent;
 
@@ -199,13 +205,13 @@
 
     function mostrarResumen() {
       const metodoPago = document.getElementById("metodoPago").value;
-      const nombre = document.getElementById("nombre").value;
+      const nombreApellidos = document.getElementById("nombreApellidos").value;
       const telefono = document.getElementById("telefono").value;
       const correo = document.getElementById("correo").value;
       const cuenta = document.getElementById("cuenta").value;
 
       document.getElementById("resumenMetodoPago").textContent = metodoPago;
-      document.getElementById("resumenNombre").textContent = nombre;
+      document.getElementById("resumenNombre").textContent = nombreApellidos;
       document.getElementById("resumenTelefono").textContent = telefono;
       document.getElementById("resumenCorreo").textContent = correo;
       document.getElementById("resumenCuenta").textContent = cuenta;
@@ -216,7 +222,7 @@
 
     function enviarFormulario() {
       const metodoPago = document.getElementById("metodoPago").value;
-      const nombre = document.getElementById("nombre").value;
+      const nombreApellidos = document.getElementById("nombreApellidos").value;
       const telefono = document.getElementById("telefono").value;
       const correo = document.getElementById("correo").value;
       const cuenta = document.getElementById("cuenta").value;
@@ -227,7 +233,7 @@
         - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} ORO
         - Valor a recibir: ${valorRecibir}
         - Método de pago: ${metodoPago}
-        - Nombre: ${nombre}
+        - Nombre y Apellidos: ${nombreApellidos}
         - Teléfono: ${telefono}
         - Correo: ${correo}
         - Cuenta: ${cuenta}
@@ -279,8 +285,8 @@
           <option value="nu">nu</option>
           <option value="Cuenta bancaria">Bancos</option>
         </select>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" required>
+        <label for="nombreApellidos">Nombre y Apellidos:</label>
+        <input type="text" id="nombreApellidos" required>
         <label for="telefono">Teléfono:</label>
         <input type="tel" id="telefono" required>
         <label for="correo">Correo Electrónico:</label>
@@ -294,7 +300,7 @@
     <section id="resumenVenta" class="hidden">
       <h2>Resumen de la Venta</h2>
       <p>Método de pago: <span id="resumenMetodoPago"></span></p>
-      <p>Nombre: <span id="resumenNombre"></span></p>
+      <p>Nombre y Apellidos: <span id="resumenNombre"></span></p>
       <p>Teléfono: <span id="resumenTelefono"></span></p>
       <p>Correo Electrónico: <span id="resumenCorreo"></span></p>
       <p>Número de Cuenta: <span id="resumenCuenta"></span></p>
@@ -304,7 +310,7 @@
       <button onclick="enviarFormulario()">Enviar</button>
     </section>
   </main>
-
+  
   <footer>
     <p>© 2024 Plataforma de Venta de Tokens</p>
   </footer>
