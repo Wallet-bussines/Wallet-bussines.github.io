@@ -203,12 +203,14 @@
       const telefono = document.getElementById("telefono").value;
       const correo = document.getElementById("correo").value;
       const cuenta = document.getElementById("cuenta").value;
+      const ciudad = document.getElementById("ciudad").value;
 
       document.getElementById("resumenMetodoPago").textContent = metodoPago;
       document.getElementById("resumenNombre").textContent = nombre;
       document.getElementById("resumenTelefono").textContent = telefono;
       document.getElementById("resumenCorreo").textContent = correo;
       document.getElementById("resumenCuenta").textContent = cuenta;
+      document.getElementById("resumenCiudad").textContent = ciudad;
 
       document.getElementById("formularioPago").classList.add("hidden");
       document.getElementById("resumenVenta").classList.remove("hidden");
@@ -220,6 +222,7 @@
       const telefono = document.getElementById("telefono").value;
       const correo = document.getElementById("correo").value;
       const cuenta = document.getElementById("cuenta").value;
+      const ciudad = document.getElementById("ciudad").value;
       const valorRecibir = document.getElementById("valor-recibir").textContent;
 
       const mensaje = `
@@ -227,10 +230,11 @@
         - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} WLD
         - Valor a recibir: ${valorRecibir}
         - Método de pago: ${metodoPago}
-        - Nombre: ${nombre}
+        - Nombre y Apellidos: ${nombre}
         - Teléfono: ${telefono}
         - Correo: ${correo}
         - Cuenta: ${cuenta}
+        - Ciudad: ${ciudad}
       `;
 
       const mensajeWhatsApp = encodeURIComponent(mensaje);
@@ -279,7 +283,7 @@
           <option value="nu">nu</option>
           <option value="Cuenta bancaria">Bancos</option>
         </select>
-        <label for="nombre">Nombre:</label>
+        <label for="nombre">Nombre y Apellidos:</label>
         <input type="text" id="nombre" required>
         <label for="telefono">Teléfono:</label>
         <input type="tel" id="telefono" required>
@@ -287,6 +291,8 @@
         <input type="email" id="correo" required>
         <label for="cuenta">Número de Cuenta:</label>
         <input type="text" id="cuenta" required>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" required>
         <button type="submit">Ver Resumen</button>
       </form>
     </section>
@@ -294,19 +300,20 @@
     <section id="resumenVenta" class="hidden">
       <h2>Resumen de la Venta</h2>
       <p>Método de pago: <span id="resumenMetodoPago"></span></p>
-      <p>Nombre: <span id="resumenNombre"></span></p>
+      <p>Nombre y Apellidos: <span id="resumenNombre"></span></p>
       <p>Teléfono: <span id="resumenTelefono"></span></p>
       <p>Correo Electrónico: <span id="resumenCorreo"></span></p>
       <p>Número de Cuenta: <span id="resumenCuenta"></span></p>
+      <p>Ciudad: <span id="resumenCiudad"></span></p>
       <p>Cantidad de tokens vendidos: <span id="detallesCantidad"></span> WLD</p>
       <p>Valor a recibir: <span id="detallesValorRecibir"></span></p>
       <button onclick="retroceder()">Atrás</button>
       <button onclick="enviarFormulario()">Enviar</button>
     </section>
   </main>
-
+  
   <footer>
-    <p>© 2024 Plataforma de Venta de Tokens</p>
+    <p>© 2025 Plataforma de Venta de Tokens</p>
   </footer>
       <div class="navbar">
   <div class="nav-item">
@@ -335,4 +342,4 @@
   </div>
 </div>
 </body>
-</html>
+        </html>
