@@ -196,11 +196,11 @@
         }
   </style>
   <script>
-    const tasaCambio = 0.001;
+    const tasaCambio = 4366;
     let cantidadTokens = 0;
 
     function obtenerPrecioToken() {
-      const token = "WLD";  
+      const token = "USDC";  
       fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${token}USDT`)
         .then(response => response.json())
         .then(data => {
@@ -217,7 +217,7 @@
     function actualizarValorRecibir() {
       const cantidad = parseFloat(document.getElementById("amount").value) || 0;
       const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
-      const valorRecibir = cantidad * precioCOP * (1 - 0.8);  
+      const valorRecibir = cantidad * precioCOP * (1 - 0.16);  
       document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
@@ -256,7 +256,7 @@
       const valorRecibir = document.getElementById("valor-recibir").textContent;
 
       const mensaje = `
-        Venta de token VAULT:
+        Venta de token USDC:
         - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} VAULT
         - Valor a recibir: ${valorRecibir}
         - Método de pago: ${metodoPago}
