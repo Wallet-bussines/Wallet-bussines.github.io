@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super App</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+    }
+    .header {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #34495e;
+    }
+    .description {
+      font-size: 16px;
+      margin-bottom: 30px;
+      color: #7f8c8d;
+    }
+    .icons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    .icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 15px;
+      padding: 20px;
+      width: 120px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    .icon:hover {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    .icon img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+    .icon a {
+      text-decoration: none;
+      color: #27ae60;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000; /* Barra de navegación negra */
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+      padding: 15px 0;
+      border-top: 3px solid #1abc9c;
+    }
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .nav-item img {
+      width: 30px;
+      height: 30px;
+      border-radius: 30%;
+      padding: 1px;
+      background: #ecf0f1;
+      border: 3px solid #bdc3c7;
+    }
+    .nav-item p {
+      font-size: 12px;
+      margin-top: 5px;
+      color: #ecf0f1;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 50px;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+    .chart-container {
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+    }
+    canvas {
+      max-width: 100%;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="header">Super App for Humans</h1>
+    <p class="description">Personaliza tu experiencia con enlaces rápidos a tus funciones favoritas.</p>
+    <div class="icons">
+      <div class="icon">
+        <img src="https://wallet-bussines.github.io/orbita.png" alt="PAGOS">
+        <a href="https://worldcoin.org/mini-app?app_id=app_954af3412db849c794fe31df7fc3b841" target="_blank">PAGOS</a>
+      </div>
+      <div class="icon">
+        <img src="https://wallet-bussines.github.io/personal.png" alt="HOME">
+        <a href="https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e" target="_blank">GANAR TOKEN</a>
+      </div>
+      <div class="icon">
+        <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="VENTA">
+        <a href="https://worldcoin.org/mini-app?app_id=app_5e1cd32810dfb1070731f9612899aaaa" target="_blank">VENTA</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="navbar">
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
+        <p>Invitar</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
+        <p>Vender</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+        <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
+        <p>Historial</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
+        <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
+        <p>Soporte</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas id="myChart"></canvas>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('myChart').getContext('2d');
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
+        datasets: [{
+          label: 'Progreso Mensual',
+          data: [12, 19, 3, 5, 2, 3],
+          backgroundColor: 'rgba(39, 174, 96, 0.2)',
+          borderColor: 'rgba(39, 174, 96, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
