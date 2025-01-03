@@ -3,192 +3,249 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Super App</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Diseño Circular con Redirección</title>
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f4f6f9;
-      color: #2c3e50;
-      text-align: center;
+      box-sizing: border-box;
     }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      padding: 30px;
-    }
-    .header {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #34495e;
-    }
-    .description {
-      font-size: 16px;
-      margin-bottom: 30px;
-      color: #7f8c8d;
-    }
-    .icons {
+
+    body {
+      background-color: #000000;
       display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
-    .icon {
-      display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      background: #ffffff;
-      border-radius: 15px;
-      padding: 20px;
-      width: 120px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease;
+      height: 100vh;
+      font-family: Arial, sans-serif;
     }
-    .icon:hover {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+    .circle-container {
+      position: relative;
+      width: 350px;
+      height: 350px;
     }
-    .icon img {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 10px;
-    }
-    .icon a {
-      text-decoration: none;
-      color: #27ae60;
-      font-weight: 500;
-      font-size: 14px;
-    }
-    .navbar {
+
+    .circle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #ffffff;
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       align-items: center;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: #000000; /* Barra de navegación negra */
-      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
-      padding: 15px 0;
-      border-top: 3px solid #1abc9c;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
     }
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+
+    .circle img {
+      width: 60%;
+      height: 60%;
     }
-    .nav-item img {
-      width: 30px;
-      height: 30px;
-      border-radius: 30%;
-      padding: 1px;
-      background: #ecf0f1;
-      border: 3px solid #bdc3c7;
+
+    /* Centro */
+    .center {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #dcdcdc; /* Engranaje */
+      pointer-events: none;
     }
-    .nav-item p {
-      font-size: 12px;
-      margin-top: 5px;
-      color: #ecf0f1;
-      text-align: center;
+
+    /* Círculos externos */
+    .top {
+      top: 0%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background-color: #dcdcdc; /* Naranja */
     }
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      margin-bottom: 50px;
-      font-size: 14px;
-      color: #7f8c8d;
+
+    .top-right {
+      top: 25%;
+      left: 85%;
+      transform: translate(-50%, -50%);
+      background-color: #dcdcdc; /* Amarillo */
     }
-    .chart-container {
-      margin: 30px auto;
-      padding: 20px;
-      background: #fff;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      width: 90%;
+
+    .bottom-right {
+      bottom: 25%;
+      left: 85%;
+      transform: translate(-50%, 50%);
+      background-color: #dcdcdc; /* Azul */
     }
-    canvas {
-      max-width: 100%;
-      height: 300px;
+
+    .bottom {
+      bottom: 0%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      background-color: #dcdcdc; /* Verde */
     }
+
+    .bottom-left {
+      bottom: 25%;
+      left: 15%;
+      transform: translate(-50%, 50%);
+      background-color: #dcdcdc; /* Rosa */
+    }
+
+    .top-left {
+      top: 25%;
+      left: 15%;
+      transform: translate(-50%, -50%);
+      background-color: #dcdcdc; /* Rojo */
+    }
+  .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000000;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            border-top: 3px solid #1abc9c;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .nav-item img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            padding: 1px;
+            background: #ecf0f1;
+            border: 5px solid #bdc3c7;
+        }
+        .nav-item p {
+            font-size: 20px;
+            margin-top: 5px;
+            color: #ecf0f1;
+            text-align: center;
+        }
+        a, button, .circle {
+            outline: none;
+            border: none;
+            transition: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        a:focus, button:focus, .circle:focus {
+            outline: none;
+        }
+        a:active, button:active, .circle:active {
+            transform: none;
+            box-shadow: none;
+        }
+        a, .circle {
+            user-select: none;
+        }
+        a {
+            text-decoration: none;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 70px;
+            font-size: 14px;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            .card {
+                padding: 15px;
+            }
+            .step {
+                width: 25px;
+                height: 25px;
+                font-size: 14px;
+            }
+            input, select, button {
+                font-size: 16px;
+                padding: 10px;
+            }
+            .button-group button {
+                padding: 10px;
+            }
+            .navbar {
+                padding: 5px 0;
+            }
+            .nav-item img {
+                width: 45px;
+                height: 45px;
+            }
+            .nav-item p {
+                font-size: 9px;
+            }
+        }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1 class="header">Super App for Humans</h1>
-    <p class="description">Personaliza tu experiencia con enlaces rápidos a tus funciones favoritas.</p>
-    <div class="icons">
-      <div class="icon">
-        <img src="https://wallet-bussines.github.io/orbita.png" alt="PAGOS">
-        <a href="https://worldcoin.org/mini-app?app_id=app_954af3412db849c794fe31df7fc3b841" target="_blank">PAGOS</a>
-      </div>
-      <div class="icon">
-        <img src="https://wallet-bussines.github.io/personal.png" alt="HOME">
-        <a href="https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e" target="_blank">GANAR TOKEN</a>
-      </div>
-      <div class="icon">
-        <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="VENTA">
-        <a href="https://worldcoin.org/mini-app?app_id=app_5e1cd32810dfb1070731f9612899aaaa" target="_blank">VENTA</a>
-      </div>
+  <div class="circle-container">
+    <!-- Centro -->
+    <div class="circle center">
+      <img src="https://wallet-bussines.github.io/engranaje-electrico.png" alt="Engranaje">
     </div>
+    <!-- Círculos externos con enlaces -->
+    <a href="https://worldcoin.org/mini-app?app_id=app_013bbbd7b5803a25c8d10d10299608e7&app_mode=mini-app" target="_blank" class="circle top">
+      <img src="https://wallet-bussines.github.io/nft.png" alt="Token 1">
+    </a>
+    <a href="https://worldcoin.org/mini-app?app_id=grants&app_mode=native" target="_blank" class="circle top-right">
+      <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD">
+    </a>
+    <a href="https://worldcoin.org/mini-app?app_id=app_f1e44837a5e3c2af4da8925b46027645&app_mode=mini-app" target="_blank" class="circle bottom-right">
+      <img src="https://wallet-bussines.github.io/fichas-de-casino.png" alt="ORO">
+    </a>
+    <a href="https://worldcoin.org/mini-app?app_id=app_ee968e983074cb090e6f12cd75b63bb3&app_mode=mini-app" target="_blank" class="circle bottom">
+      <img src="https://wallet-bussines.github.io/el-huevo-de-pascua.png" alt="VAUTL">
+    </a>
+    <a href="https://worldcoin.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&app_mode=mini-app" target="_blank" class="circle bottom-left">
+      <img src="https://wallet-bussines.github.io/barba.png" alt="DNA">
+    </a>
+    <a href="https://worldcoin.org/mini-app?app_id=app_3876b5f39809a50bb5ebe97c997bbcf1&app_mode=mini-app" target="_blank" class="circle top-left">
+      <img src="https://wallet-bussines.github.io/pelota-de-golf.png" alt="ORB">
+    </a>
+    <footer>
+    <p>© 2025 Plataforma de Venta de Tokens</p>
+  </footer>
+      <div class="navbar">
+  <div class="nav-item">
+    <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
+      <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
+      <p>ENVIAR</p>
+    </a>
   </div>
-
-  <div class="navbar">
-    <div class="nav-item">
-      <a href="https://wallet-bussines.github.io/invitacion.html" target="_blank">
-        <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
-        <p>Invitar</p>
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
-        <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
-        <p>Vender</p>
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
-        <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
-        <p>Historial</p>
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
-        <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
-        <p>Soporte</p>
-      </a>
-    </div>
+  <div class="nav-item">
+    <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+      <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
+      <p>RECONPENSAS</p>
+    </a>
   </div>
-
-  <div class="chart-container">
-    <canvas id="myChart"></canvas>
+  <div class="nav-item">
+    <a href="https://worldscan.org/token/0x2cfc85d8e48f8eab294be644d9e25c3030863003?a=0xde6b6e1cddbfd1d94afc01957748c36c36f43af4" target="_blank">
+      <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
+      <p>PAGOS</p>
+    </a>
   </div>
-
-  <script>
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio'],
-        datasets: [{
-          label: 'Progreso Mensual',
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: 'rgba(39, 174, 96, 0.2)',
-          borderColor: 'rgba(39, 174, 96, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          }
-        }
-      }
-    });
-  </script>
+  <div class="nav-item">
+    <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
+      <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
+      <p>INFORMACION</p>
+    </a>
+  </div>
+</div>
 </body>
 </html>
