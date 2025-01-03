@@ -88,7 +88,17 @@
     }
 
     footer {
-      text-ali.navbar {
+      text-align: center;
+      padding: 10px;
+      background: #e3f2fd;
+      color: #555;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 14px;
+    }
+  .navbar {
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -183,20 +193,10 @@
             .nav-item p {
                 font-size: 9px;
             }
-        }gn: center;
-      padding: 10px;
-      background: #e3f2fd;
-      color: #555;
-    }
-
-    footer p {
-      margin: 0;
-      font-size: 14px;
-    }
-  
+        }
   </style>
   <script>
-    const tasaCambio = 0.01;
+    const tasaCambio = 0.00043;
     let cantidadTokens = 0;
 
     function obtenerPrecioToken() {
@@ -217,7 +217,7 @@
     function actualizarValorRecibir() {
       const cantidad = parseFloat(document.getElementById("amount").value) || 0;
       const precioCOP = parseFloat(document.getElementById("precio-token").textContent.replace(' COP', '').replace(/,/g, '')) || 0;
-      const valorRecibir = cantidad * precioCOP * (1 - 0.8);  
+      const valorRecibir = cantidad * precioCOP * (1 - 0.16);  
       document.getElementById("valor-recibir").textContent = valorRecibir.toLocaleString('es-CO', { minimumFractionDigits: 2 }) + ' COP';
     }
 
@@ -236,12 +236,14 @@
       const telefono = document.getElementById("telefono").value;
       const correo = document.getElementById("correo").value;
       const cuenta = document.getElementById("cuenta").value;
+      const ciudad = document.getElementById("ciudad").value;
 
       document.getElementById("resumenMetodoPago").textContent = metodoPago;
       document.getElementById("resumenNombre").textContent = nombre;
       document.getElementById("resumenTelefono").textContent = telefono;
       document.getElementById("resumenCorreo").textContent = correo;
       document.getElementById("resumenCuenta").textContent = cuenta;
+      document.getElementById("resumenCiudad").textContent = ciudad;
 
       document.getElementById("formularioPago").classList.add("hidden");
       document.getElementById("resumenVenta").classList.remove("hidden");
@@ -253,17 +255,19 @@
       const telefono = document.getElementById("telefono").value;
       const correo = document.getElementById("correo").value;
       const cuenta = document.getElementById("cuenta").value;
+      const ciudad = document.getElementById("ciudad").value;
       const valorRecibir = document.getElementById("valor-recibir").textContent;
 
       const mensaje = `
-        Venta de token ORO:
-        - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} ORO
+        Venta de token WLD:
+        - Cantidad: ${cantidadTokens.toLocaleString('es-CO')} ORB
         - Valor a recibir: ${valorRecibir}
         - Método de pago: ${metodoPago}
-        - Nombre: ${nombre}
+        - Nombre y Apellidos: ${nombre}
         - Teléfono: ${telefono}
         - Correo: ${correo}
         - Cuenta: ${cuenta}
+        - Ciudad: ${ciudad}
       `;
 
       const mensajeWhatsApp = encodeURIComponent(mensaje);
@@ -284,7 +288,7 @@
 </head>
 <body>
   <header>
-    <img src="https://wallet-bussines.github.io/icono-bola-golf-icono-pelota-golf-blanco-negro-aislado-blanco_118339-7302-removebg-preview.png" alt="Logo">
+    <img src="https://wallet-bussines.github.io/Worldcoin-2.png" alt="Logo">
     <h1>Plataforma de Venta de Tokens</h1>
   </header>
 
@@ -292,7 +296,7 @@
     <section id="tokenSale">
       <h2>Selecciona el token que deseas vender</h2>
       <form id="tokenForm" onsubmit="event.preventDefault(); continuarVenta();">
-        <label for="amount">Cantidad (ORB):</label>
+        <label for="amount">Cantidad (WLD):</label>
         <input type="number" id="amount" name="amount" step="any" required oninput="actualizarValorRecibir()">
         <p>Precio estimado por token: <span class="highlight" id="precio-token">0 COP</span></p>
         <p>Valor estimado a recibir: <span class="highlight" id="valor-recibir">0 COP</span></p>
@@ -312,7 +316,7 @@
           <option value="nu">nu</option>
           <option value="Cuenta bancaria">Bancos</option>
         </select>
-        <label for="nombre">Nombre:</label>
+        <label for="nombre">Nombre y Apellidos:</label>
         <input type="text" id="nombre" required>
         <label for="telefono">Teléfono:</label>
         <input type="tel" id="telefono" required>
@@ -320,6 +324,8 @@
         <input type="email" id="correo" required>
         <label for="cuenta">Número de Cuenta:</label>
         <input type="text" id="cuenta" required>
+        <label for="ciudad">Ciudad:</label>
+        <input type="text" id="ciudad" required>
         <button type="submit">Ver Resumen</button>
       </form>
     </section>
@@ -327,19 +333,20 @@
     <section id="resumenVenta" class="hidden">
       <h2>Resumen de la Venta</h2>
       <p>Método de pago: <span id="resumenMetodoPago"></span></p>
-      <p>Nombre: <span id="resumenNombre"></span></p>
+      <p>Nombre y Apellidos: <span id="resumenNombre"></span></p>
       <p>Teléfono: <span id="resumenTelefono"></span></p>
       <p>Correo Electrónico: <span id="resumenCorreo"></span></p>
       <p>Número de Cuenta: <span id="resumenCuenta"></span></p>
+      <p>Ciudad: <span id="resumenCiudad"></span></p>
       <p>Cantidad de tokens vendidos: <span id="detallesCantidad"></span> ORB</p>
       <p>Valor a recibir: <span id="detallesValorRecibir"></span></p>
       <button onclick="retroceder()">Atrás</button>
       <button onclick="enviarFormulario()">Enviar</button>
     </section>
   </main>
-
+  
   <footer>
-    <p>© 2024 Plataforma de Venta de Tokens</p>
+    <p>© 2025 Plataforma de Venta de Tokens</p>
   </footer>
       <div class="navbar">
   <div class="nav-item">
@@ -368,4 +375,4 @@
   </div>
 </div>
 </body>
-  </html>
+</html>
