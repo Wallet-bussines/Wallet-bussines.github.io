@@ -12,15 +12,25 @@
     }
 
     body {
-      background-color: #000000; /* Fondo negro */
+      background-color: #ffffff; /* Fondo blanco */
       font-family: 'Segoe UI', sans-serif;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
       min-height: 100vh;
-      color: #ffffff; /* Texto blanco */
+      color: #000000; /* Texto negro */
       user-select: none; /* Desactivar selección de texto/iconos */
+    }
+
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
     }
 
     .container {
@@ -28,7 +38,6 @@
       flex-wrap: wrap;
       justify-content: center;
       width: 100%;
-      padding: 20px 0;
     }
 
     .row {
@@ -73,14 +82,6 @@
       animation: neonGlow 3s linear infinite;
     }
 
-    .circle:nth-child(3n)::before {
-      background: linear-gradient(45deg, #ff00ff, #ffff00, #ff00ff, #ffff00);
-    }
-
-    .circle:nth-child(3n+1)::before {
-      background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff, #ff00ff);
-    }
-
     @keyframes neonGlow {
       0% {
         opacity: 0.5;
@@ -93,25 +94,16 @@
       }
     }
 
-    .circle:hover {
-      transform: scale(1.05);
-    }
-
-    .circle:hover::before {
-      filter: blur(12px);
-    }
-
     .circle img {
-      width: 60%;
-      height: 60%;
+      width: 90%;
+      height: 90%;
       object-fit: contain;
     }
 
     p {
       margin-top: 6px;
-      font-size: 12px;
-      color: #ffffff; /* Texto blanco */
-      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff, 0 0 15px #00ffff; /* Efecto de neón cyan */
+      font-size: 18px;
+      color: #000000; /* Texto negro */
     }
 
     .navbar {
@@ -122,17 +114,10 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 -2px 15px rgba(255, 0, 255, 0.3);
+      background-color: rgba(255, 255, 255, 0.8);
       padding: 10px 0;
-      border-top: 3px solid #ff00ff; /* Borde superior magenta */
-      transition: all 0.3s ease;
+      border-top: 5px solid #00ffff;
       z-index: 1000;
-    }
-
-    .navbar:hover {
-      background-color: rgba(0, 0, 0, 0.9); /* Cambio de color de fondo en hover */
-      box-shadow: 0 -4px 20px rgba(255, 0, 255, 0.5); /* Sombra más intensa en hover */
     }
 
     .nav-item {
@@ -140,35 +125,20 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      transition: all 0.3s ease;
-    }
-
-    .nav-item:hover {
-      transform: scale(1.1); /* Aumentar el tamaño de los íconos */
-      background-color: rgba(255, 0, 255, 0.2); /* Efecto de fondo cuando se pasa el mouse */
-      border-radius: 8px; /* Bordes redondeados cuando se pasa el mouse */
     }
 
     .nav-item img {
       width: 40px;
       height: 40px;
-      border-radius: 30%;
-      padding: 1px;
+      border-radius: 50%;
       background: #ffffff;
-      border: 2px solid #ff00ff;
-      transition: all 0.3s ease;
-    }
-
-    .nav-item img:hover {
-      transform: scale(1.2); /* Agrandar el ícono al pasar el mouse */
-      box-shadow: 0 0 15px rgba(255, 0, 255, 0.8); /* Efecto de neón cuando se pasa el mouse */
+      border: 2px solid #00ffff;
     }
 
     .nav-item p {
-      font-size: 10px;
+      font-size: 12px;
       margin-top: 5px;
-      color: #ffffff;
-      text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff; /* Efecto de neón magenta */
+      color: #000000;
     }
 
     a, button, .circle {
@@ -181,96 +151,94 @@
       outline: none;
     }
 
-    a, .circle {
-      user-select: none;
-    }
-
     a {
       text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Fila 1 -->
-    <div class="row">
-      <div class="icon">
-        <a href="https://wallet-bussines.github.io/oro.html" target="_blank">
-          <div class="circle">
-            <img src="https://wallet-bussines.github.io/fichas-de-casino.png" alt="ORO">
-          </div>
-          <p>ORO</p>
-        </a>
+  <div class="wrapper">
+    <div class="container">
+      <!-- Fila 1 -->
+      <div class="row">
+        <div class="icon">
+          <a href="https://wallet-bussines.github.io/oro.html" target="_blank">
+            <div class="circle">
+              <img src="https://wallet-bussines.github.io/fichas-de-casino.png" alt="ORO">
+            </div>
+            <p>ORO</p>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <!-- Fila 2 -->
-    <div class="row">
-      <div class="icon">
-        <a href="https://wallet-bussines.github.io/vailt.html" target="_blank">
-          <div class="circle">
-            <img src="https://wallet-bussines.github.io/el-huevo-de-pascua.png" alt="VAULT">
-          </div>
-          <p>VAULT</p>
-        </a>
+      <!-- Fila 2 -->
+      <div class="row">
+        <div class="icon">
+          <a href="https://wallet-bussines.github.io/vailt.html" target="_blank">
+            <div class="circle">
+              <img src="https://wallet-bussines.github.io/el-huevo-de-pascua.png" alt="VAULT">
+            </div>
+            <p>VAULT</p>
+          </a>
+        </div>
+        <div class="icon">
+          <a href="https://wallet-bussines.github.io/index8.html" target="_blank">
+            <div class="circle">
+              <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD">
+            </div>
+            <p>WLD</p>
+          </a>
+        </div>
+        <div class="icon">
+          <a href="https://wallet-bussines.github.io/dna.html" target="_blank">
+            <div class="circle">
+              <img src="https://wallet-bussines.github.io/barba.png" alt="DNA">
+            </div>
+            <p>DNA</p>
+          </a>
+        </div>
       </div>
-      <div class="icon">
-        <a href="https://wallet-bussines.github.io/index8.html" target="_blank">
-          <div class="circle">
-            <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD">
-          </div>
-          <p>WLD</p>
-        </a>
-      </div>
-      <div class="icon">
-        <a href="https://wallet-bussines.github.io/dna.html" target="_blank">
-          <div class="circle">
-            <img src="https://wallet-bussines.github.io/barba.png" alt="DNA">
-          </div>
-          <p>DNA</p>
-        </a>
-      </div>
-    </div>
 
-    <!-- Fila 3 -->
-    <div class="row">
-      <div class="icon">
-        <a href="https://wallet-bussines.github.io/orb.html" target="_blank">
-          <div class="circle">
-            <img src="https://wallet-bussines.github.io/pelota-de-golf.png" alt="ORB">
-          </div>
-          <p>ORB</p>
-        </a>
+      <!-- Fila 3 -->
+      <div class="row">
+        <div class="icon">
+          <a href="https://wallet-bussines.github.io/orb.html" target="_blank">
+            <div class="circle">
+              <img src="https://wallet-bussines.github.io/pelota-de-golf.png" alt="ORB">
+            </div>
+            <p>ORB</p>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Barra de navegación -->
   <div class="navbar">
-  <div class="nav-item">
-    <a href="https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&app_mode=mini-app" target="_blank">
-      <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
-      <p>ENVIAR</p>
-    </a>
+    <div class="nav-item">
+      <a href="https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&app_mode=mini-app" target="_blank">
+        <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
+        <p>ENVIAR</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app" target="_blank">
+        <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Recompensa">
+        <p>RECOMPENSA</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
+        <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Pagos">
+        <p>PAGOS</p>
+      </a>
+    </div>
+    <div class="nav-item">
+      <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
+        <img src="https://wallet-bussines.github.io/apoyo.png" alt="Información">
+        <p>INFORMACIÓN</p>
+      </a>
+    </div>
   </div>
-  <div class="nav-item">
-    <a href="https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app" target="_blank">
-      <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Vender">
-      <p>RECOMPENSA</p>
-    </a>
-  </div>
-  <div class="nav-item">
-    <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
-      <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Historial">
-      <p>PAGOS</p>
-    </a>
-  </div>
-  <div class="nav-item">
-    <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
-      <img src="https://wallet-bussines.github.io/apoyo.png" alt="Soporte">
-      <p>INFORMACION</p>
-    </a>
-  </div>
-</div>
 </body>
 </html>
