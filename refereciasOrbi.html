@@ -20,7 +20,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
+            width: 90%;
             max-width: 500px;
         }
         .form-container h1 {
@@ -41,6 +41,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-size: 16px;
         }
         .form-group textarea {
             resize: vertical;
@@ -135,26 +136,27 @@
 
             const referrerName = document.getElementById('referrer-name').value;
             const referrerEmail = document.getElementById('referrer-email').value;
-            const referrerPhone = document.getElementById('referrer-phone').value || 'No especificado';
+            const referrerPhone = document.getElementById('referrer-phone').value;
             const referredName = document.getElementById('referred-name').value;
             const referredEmail = document.getElementById('referred-email').value;
-            const referredPhone = document.getElementById('referred-phone').value || 'No especificado';
+            const referredPhone = document.getElementById('referred-phone').value;
             const relationship = document.getElementById('relationship').value;
-            const reason = document.getElementById('reason').value || 'No especificado';
+            const reason = document.getElementById('reason').value;
 
-            const message = `Hola, aquí tienes los detalles de un referido:\n\n` +
-                `*Referidor:*\n` +
-                `Nombre: ${referrerName}\n` +
-                `Correo: ${referrerEmail}\n` +
-                `Teléfono: ${referrerPhone}\n\n` +
-                `*Referido:*\n` +
-                `Nombre: ${referredName}\n` +
-                `Correo: ${referredEmail}\n` +
-                `Teléfono: ${referredPhone}\n` +
-                `Relación: ${relationship}\n` +
-                `Motivo: ${reason}`;
+            const message = `Hola, aquí tienes una nueva referencia:%0A%0A` +
+                `*Referidor:* %0A` +
+                `Nombre: ${referrerName}%0A` +
+                `Correo: ${referrerEmail}%0A` +
+                `Teléfono: ${referrerPhone || 'No proporcionado'}%0A%0A` +
+                `*Referido:* %0A` +
+                `Nombre: ${referredName}%0A` +
+                `Correo: ${referredEmail}%0A` +
+                `Teléfono: ${referredPhone || 'No proporcionado'}%0A` +
+                `Relación: ${relationship}%0A%0A` +
+                `*Motivo de la Referencia:* %0A${reason || 'No especificado'}%0A`;
 
-            const whatsappURL = `https://wa.me/573164048291?text=${encodeURIComponent(message)}`;
+            const whatsappURL = `https://wa.me/3164048291?text=${message}`;
+
             window.open(whatsappURL, '_blank');
         }
     </script>
