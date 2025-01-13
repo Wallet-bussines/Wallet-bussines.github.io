@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Login - Orbital-X</title>
+    <link rel="icon" href="https://wallet-bussines.github.io/orbita.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://primemlmsoftware.in/matrix-basic/manager/public/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container-login100 {
+            width: 100%;
+            max-width: 380px;
+            padding: 30px;
+            margin: 0;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .login100-form-title {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+
+        .wrap-input100 {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input100 {
+            width: 100%;
+            padding: 10px 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333333;
+            background-color: #f7f7f7;
+        }
+
+        .symbol-input100 {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+
+        .login100-form-btn {
+            width: 100%;
+            background-color: #3498db;
+            color: #fff;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login100-form-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        img {
+            display: block;
+            margin: 0 auto 20px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+        }
+  .navbar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #000000;
+      box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.5);
+      padding: 10px 0;
+      border-top: 3px solid #1abc9c;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .nav-item img {
+      width: 30px;
+      height: 30px;
+      border-radius: 30%;
+      padding: 1px;
+      background: #ecf0f1;
+      border: 5px solid #bdc3c7;
+    }
+
+    .nav-item p {
+      font-size: 10px;
+      margin-top: 5px;
+      color: #ecf0f1;
+      text-align: center;
+    }
+
+    /* Eliminar cuadro azul y efectos visuales al hacer clic */
+    a, button, .circle {
+      outline: none;
+      border: none;
+      transition: none; /* Eliminar animaciones y efectos */
+      -webkit-tap-highlight-color: transparent; /* Desactivar resaltado en móviles */
+    }
+
+    a:focus, button:focus, .circle:focus {
+      outline: none; /* Eliminar cuadro de enfoque */
+    }
+
+    a:active, button:active, .circle:active {
+      transform: none; /* Evitar cambios de escala */
+      box-shadow: none; /* Evitar cambios de sombra */
+    }
+
+    /* Desactivar selección de texto/iconos */
+    a, .circle {
+      user-select: none; /* Desactivar selección */
+    }
+
+    /* General */
+    a {
+      text-decoration: none;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-login100">
+        <form id="frmUsers" name="frmUsers" method="post" onsubmit="return handleUserLogin()">
+            <img src="https://wallet-bussines.github.io/orbita.png" alt="Orbital-X Logo">
+            <div class="login100-form-title">Inicia Sesión</div>
+
+            <div class="wrap-input100">
+                <input type="text" placeholder="Username" id="username" name="username" class="input100" required />
+                <span class="symbol-input100">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div class="wrap-input100">
+                <input type="password" placeholder="Password" class="input100" name="password" id="password" required />
+                <span class="symbol-input100">
+                    <i class="fa fa-key" aria-hidden="true"></i>
+                </span>
+            </div>
+
+            <div class="container-login100-form-btn">
+                <button type="submit" class="login100-form-btn">Log In</button>
+            </div>
+
+            <div class="text-center p-t-136">
+                <p class="footer-text">
+                    <small class="text-muted">2024 Orbital-X | All rights reserved</small>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const redirectUrl = "https://de4b-179-19-141-189.ngrok-free.app/";
+
+        // Check if user is already logged in
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedUser = localStorage.getItem("username");
+            const savedPass = localStorage.getItem("password");
+
+            if (savedUser === "admin" && savedPass === "admin123") {
+                window.location.href = redirectUrl;
+            }
+        });
+
+        function handleUserLogin() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            if (username === "admin" && password === "admin123") {
+                // Save credentials to localStorage
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+
+                // Redirect to the specified page
+                window.location.href = redirectUrl;
+                return false;
+            } else {
+                alert("Invalid username or password.");
+                return false;
+            }
+        }
+    </script>
+  
+</div>
+</body>
+</html>
