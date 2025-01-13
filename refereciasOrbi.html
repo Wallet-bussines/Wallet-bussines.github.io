@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Referidos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group .consent {
+            display: flex;
+            align-items: center;
+        }
+        .form-group .consent input {
+            margin-right: 10px;
+        }
+        .form-group .terms {
+            font-size: 12px;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Formulario de Referidos</h1>
+        <form onsubmit="sendToWhatsApp(event)">
+            <!-- Información del Referidor -->
+            <div class="form-group">
+                <label for="referrer-name">Nombre del Referidor</label>
+                <input type="text" id="referrer-name" name="referrer_name" placeholder="Ingresa tu nombre completo" required>
+            </div>
+            <div class="form-group">
+                <label for="referrer-email">Correo Electrónico</label>
+                <input type="email" id="referrer-email" name="referrer_email" placeholder="Ingresa tu correo electrónico" required>
+            </div>
+            <div class="form-group">
+                <label for="referrer-phone">Teléfono (Opcional)</label>
+                <input type="tel" id="referrer-phone" name="referrer_phone" placeholder="Ingresa tu número de teléfono">
+            </div>
+
+            <!-- Información del Referido -->
+            <div class="form-group">
+                <label for="referred-name">Nombre del Referido</label>
+                <input type="text" id="referred-name" name="referred_name" placeholder="Ingresa el nombre completo del referido" required>
+            </div>
+            <div class="form-group">
+                <label for="referred-email">Correo Electrónico</label>
+                <input type="email" id="referred-email" name="referred_email" placeholder="Ingresa el correo electrónico del referido" required>
+            </div>
+            <div class="form-group">
+                <label for="referred-phone">Teléfono (Opcional)</label>
+                <input type="tel" id="referred-phone" name="referred_phone" placeholder="Ingresa el número de teléfono del referido">
+            </div>
+            <div class="form-group">
+                <label for="relationship">Relación con el Referido</label>
+                <select id="relationship" name="relationship" required>
+                    <option value="">Selecciona una opción</option>
+                    <option value="amigo">Amigo</option>
+                    <option value="familiar">Familiar</option>
+                    <option value="colega">Colega</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+
+            <!-- Motivo de la Referencia -->
+            <div class="form-group">
+                <label for="reason">Motivo de la Referencia</label>
+                <textarea id="reason" name="reason" rows="4" placeholder="Explica brevemente por qué recomiendas a esta persona"></textarea>
+            </div>
+
+            <!-- Consentimiento y Términos -->
+            <div class="form-group consent">
+                <input type="checkbox" id="consent" name="consent" required>
+                <label for="consent">Confirmo que tengo el consentimiento del referido para compartir sus datos.</label>
+            </div>
+
+            <!-- Botón de envío -->
+            <button type="submit" class="submit-button">Enviar Referencia</button>
+        </form>
+    </div>
+
+    <script>
+        function sendToWhatsApp(event) {
+            event.preventDefault();
+
+            const referrerName = document.getElementById('referrer-name').value;
+            const referrerEmail = document.getElementById('referrer-email').value;
+            const referrerPhone = document.getElementById('referrer-phone').value || 'No especificado';
+            const referredName = document.getElementById('referred-name').value;
+            const referredEmail = document.getElementById('referred-email').value;
+            const referredPhone = document.getElementById('referred-phone').value || 'No especificado';
+            const relationship = document.getElementById('relationship').value;
+            const reason = document.getElementById('reason').value || 'No especificado';
+
+            const message = `Hola, aquí tienes los detalles de un referido:\n\n` +
+                `*Referidor:*\n` +
+                `Nombre: ${referrerName}\n` +
+                `Correo: ${referrerEmail}\n` +
+                `Teléfono: ${referrerPhone}\n\n` +
+                `*Referido:*\n` +
+                `Nombre: ${referredName}\n` +
+                `Correo: ${referredEmail}\n` +
+                `Teléfono: ${referredPhone}\n` +
+                `Relación: ${relationship}\n` +
+                `Motivo: ${reason}`;
+
+            const whatsappURL = `https://wa.me/573164048291?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
