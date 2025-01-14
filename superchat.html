@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirigiendo...</title>
+  <style>
+    /* Estilos básicos para el fondo y diseño centrado */
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #4A90E2, #50E3C2);
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    /* Contenedor del contenido */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Estilos del logo */
+    .logo {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+    }
+
+    /* Texto de redirección */
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    /* Animación del círculo de carga */
+    .spinner {
+      margin-top: 20px;
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="https://wallet-bussines.github.io/orbita.png" alt="Orbital">
+    <h1>Redirigiendo a la Mini App...</h1>
+    <p>Espera un momento mientras te llevamos a la aplicación.</p>
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    // Redirige automáticamente después de 3 segundos
+    setTimeout(() => {
+      window.location.href = "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=orbiitalx";
+    }, 3000); // 3 segundos de espera
+  </script>
+</body>
+</html>
