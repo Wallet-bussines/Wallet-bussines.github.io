@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Página de Aplicaciones</title>
   <style>
+    /* Tus estilos permanecen iguales */
     * {
       margin: 0;
       padding: 0;
@@ -12,14 +13,13 @@
     }
 
     body {
-      background-color: #ffffff; /* Fondo blanco */
+      background-color: #ffffff;
       font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      color: #000000; /* Texto negro */
-      user-select: none; /* Desactivar selección de texto/iconos */
+      color: #000000;
     }
 
     .wrapper {
@@ -33,210 +33,42 @@
       padding: 20px;
     }
 
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
-    }
-
     .row {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 15px;
-      width: 100%;
+      margin: 20px 0;
     }
 
-    .icon {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 15px;
-      text-align: center;
-    }
-
-    .circle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: #ffffff; /* Fondo blanco para los iconos */
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .circle::before {
-      content: '';
-      position: absolute;
-      top: -5px;
-      left: -5px;
-      right: -5px;
-      bottom: -5px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff, #00ffff);
-      z-index: -1;
-      filter: blur(8px);
-      animation: neonGlow 3s linear infinite;
-    }
-
-    @keyframes neonGlow {
-      0% {
-        opacity: 0.5;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        opacity: 0.5;
-      }
-    }
-
-    .circle img {
-      width: 90%;
-      height: 90%;
-      object-fit: contain;
-    }
-
-    p {
-      margin-top: 6px;
-      font-size: 18px;
-      color: #000000; /* Texto negro */
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 10px 0;
-      border-top: 5px solid #00ffff;
-      z-index: 1000;
-    }
-
-    .nav-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .nav-item img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 2px solid #00ffff;
-    }
-
-    .nav-item p {
-      font-size: 12px;
-      margin-top: 5px;
-      color: #000000;
-    }
-
-    a, button, .circle {
-      outline: none;
-      border: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    a:focus, button:focus, .circle:focus {
-      outline: none;
-    }
-
-    a {
+    .link {
+      padding: 10px 20px;
+      background-color: #00ffff;
+      color: #000;
       text-decoration: none;
+      font-size: 18px;
+      border-radius: 5px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .link:hover {
+      background-color: #00cccc;
     }
   </style>
 </head>
 <body>
   <div class="wrapper">
-    <div class="container">
-      <!-- Fila 1 -->
-      <div class="row">
-        <div class="icon">
-          <a href="https://wallet-bussines.github.io/oro.html" target="_blank">
-            <div class="circle">
-              <img src="https://wallet-bussines.github.io/fichas-de-casino.png" alt="ORO">
-            </div>
-            <p>ORO</p>
-          </a>
-        </div>
-      </div>
-
-      <!-- Fila 2 -->
-      <div class="row">
-        <div class="icon">
-          <a href="https://wallet-bussines.github.io/vailt.html" target="_blank">
-            <div class="circle">
-              <img src="https://wallet-bussines.github.io/el-huevo-de-pascua.png" alt="VAULT">
-            </div>
-            <p>VAULT</p>
-          </a>
-        </div>
-        <div class="icon">
-          <a href="https://wallet-bussines.github.io/index8.html" target="_blank">
-            <div class="circle">
-              <img src="https://cryptologos.cc/logos/worldcoin-wld-logo.png" alt="WLD">
-            </div>
-            <p>WLD</p>
-          </a>
-        </div>
-        <div class="icon">
-          <a href="https://wallet-bussines.github.io/dna.html" target="_blank">
-            <div class="circle">
-              <img src="https://wallet-bussines.github.io/barba.png" alt="DNA">
-            </div>
-            <p>DNA</p>
-          </a>
-        </div>
-      </div>
-
-      <!-- Fila 3 -->
-      <div class="row">
-        <div class="icon">
-          <a href="https://wallet-bussines.github.io/orb.html" target="_blank">
-            <div class="circle">
-              <img src="https://wallet-bussines.github.io/pelota-de-golf.png" alt="ORB">
-            </div>
-            <p>ORB</p>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Barra de navegación -->
-  <div class="navbar">
-    <div class="nav-item">
-      <a href="https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&app_mode=mini-app" target="_blank">
-        <img src="https://wallet-bussines.github.io/anadir-amigo.png" alt="Inicio">
-        <p>ENVIAR</p>
+    <h1>Página de Redirección</h1>
+    <p>Haz clic en el enlace para redirigirte entre las mini aplicaciones:</p>
+    
+    <!-- Enlace de la primera mini aplicación redirigiendo a la segunda -->
+    <div class="row">
+      <a class="link" href="https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&path=/redirect-to/app_f1e44837a5e3c2af4da8925b46027645" target="_blank">
+        Ir a la Segunda Mini Aplicación
       </a>
     </div>
-    <div class="nav-item">
-      <a href="https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&app_mode=mini-app" target="_blank">
-        <img src="https://wallet-bussines.github.io/negociacion-de-comercio-de-propiedades.png" alt="Recompensa">
-        <p>RECOMPENSA</p>
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="https://wallet-bussines.github.io/wallet.html" target="_blank">
-        <img src="https://wallet-bussines.github.io/historial-de-pedidos.png" alt="Pagos">
-        <p>PAGOS</p>
-      </a>
-    </div>
-    <div class="nav-item">
-      <a href="https://api.whatsapp.com/send/?phone=573248092374&text=" target="_blank">
-        <img src="https://wallet-bussines.github.io/apoyo.png" alt="Información">
-        <p>INFORMACIÓN</p>
+    
+    <!-- Enlace de la segunda mini aplicación redirigiendo a la primera -->
+    <div class="row">
+      <a class="link" href="https://worldcoin.org/mini-app?app_id=app_f1e44837a5e3c2af4da8925b46027645&path=/redirect-to/app_2248679d8f07eb1b7eacd922f9a26a1e" target="_blank">
+        Ir a la Primera Mini Aplicación
       </a>
     </div>
   </div>
