@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enlaces Dinámicos de Mini Apps</title>
+    <title>Generador de Enlaces</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,26 +34,22 @@
             display: block;
             margin: 10px 0 5px;
         }
-        input, select {
+        select, button {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
             border-radius: 5px;
+            border: 1px solid #ccc;
         }
         button {
             background-color: #0070f3;
             color: white;
-            border: none;
-            padding: 10px 15px;
             cursor: pointer;
-            border-radius: 5px;
         }
         button:hover {
             background-color: #005bb5;
         }
         .link-display {
-            margin-top: 20px;
             background-color: #f9f9f9;
             padding: 10px;
             border: 1px solid #ddd;
@@ -64,21 +60,18 @@
 </head>
 <body>
     <header>
-        <h1>Enlaces Dinámicos de Mini Apps</h1>
+        <h1>Generador de Enlaces para Mini Apps</h1>
     </header>
     <main>
         <section>
-            <h2>Generar Enlace de Mini App</h2>
+            <h2>Selecciona un Enlace</h2>
             <form id="miniAppForm">
-                <label for="appId">Selecciona una Mini App</label>
-                <select id="appId" required>
-                    <!-- Opciones cargadas dinámicamente -->
+                <label for="miniAppSelect">Mini App:</label>
+                <select id="miniAppSelect" required>
+                    <!-- Mini apps cargadas dinámicamente -->
                 </select>
 
-                <label for="path">Ruta de la Mini App</label>
-                <input type="text" id="path" placeholder="Ejemplo: /resource/path" required>
-
-                <button type="button" onclick="generateLink()">Generar Enlace</button>
+                <button type="button" onclick="copyLink()">Copiar Enlace</button>
             </form>
 
             <div id="generatedLink" class="link-display" style="display: none;"></div>
@@ -86,41 +79,57 @@
     </main>
 
     <script>
-        // Configuración inicial de mini apps (puede venir de una API o archivo JSON)
-        const miniApps = [
-            { app_id: "app_12345", name: "Mini App 1" },
-            { app_id: "app_67890", name: "Mini App 2" },
-            { app_id: "app_54321", name: "Mini App 3" }
+        // Lista de URLs con la estructura https://worldcoin.org/mini-app?app_id={app_id}&path={path}
+        const urls = [
+            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=orbiitalx",
+            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fruta%2Fdeseada",
+            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fruta%2Fdeseada",
+            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=/ruta/deseada",
+            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fruta%2Fdeseada",
+            "https://worldcoin.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_3876b5f39809a50bb5ebe97c997bbcf1&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_5e1cd32810dfb1070731f9612899aaaa&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=grants&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_013bbbd7b5803a25c8d10d10299608e7&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_3876b5f39809a50bb5ebe97c997bbcf1&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_5e1cd32810dfb1070731f9612899aaaa&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_b0d01dd8f2bdfbff06c9e123de487eb8&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_f1e44837a5e3c2af4da8925b46027645&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_013bbbd7b5803a25c8d10d10299608e7&path=%2Fdashboard",
+            "https://worldcoin.org/mini-app?app_id=app_e4a7e1fafd7c43097627703ffba2cddb&path=%2Fdashboard"
         ];
 
-        // Cargar mini apps en el selector
+        // Función para cargar las URLs en el desplegable
         function loadMiniApps() {
-            const appIdSelect = document.getElementById("appId");
-            miniApps.forEach(app => {
+            const selectElement = document.getElementById("miniAppSelect");
+            urls.forEach((url, index) => {
                 const option = document.createElement("option");
-                option.value = app.app_id;
-                option.textContent = app.name;
-                appIdSelect.appendChild(option);
+                option.value = url;
+                option.textContent = `Enlace ${index + 1}`;
+                selectElement.appendChild(option);
             });
         }
 
-        // Generar enlace dinámico
-        function generateLink() {
-            const appId = document.getElementById("appId").value;
-            const path = document.getElementById("path").value;
-
-            if (!appId || !path) {
-                alert("Por favor, completa todos los campos.");
-                return;
-            }
-
-            const link = `https://worldcoin.org/mini-app?app_id=${encodeURIComponent(appId)}&path=${encodeURIComponent(path)}`;
+        // Función para copiar el enlace seleccionado
+        function copyLink() {
+            const selectedUrl = document.getElementById("miniAppSelect").value;
             const linkDisplay = document.getElementById("generatedLink");
-            linkDisplay.textContent = link;
+            linkDisplay.textContent = selectedUrl;
             linkDisplay.style.display = "block";
+
+            // Copiar al portapapeles
+            navigator.clipboard.writeText(selectedUrl).then(() => {
+                alert("Enlace copiado al portapapeles: " + selectedUrl);
+            }).catch(err => {
+                alert("No se pudo copiar el enlace: " + err);
+            });
         }
 
-        // Inicializar la página
+        // Llamada para cargar las opciones cuando la página se carga
         window.onload = loadMiniApps;
     </script>
 </body>
