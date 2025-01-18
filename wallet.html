@@ -95,23 +95,28 @@
     </footer>
 
     <script>
-        // Lista de app_id con un ejemplo de path por defecto
+        // Lista de mini aplicaciones con app_id y paths personalizados
         const miniApps = [
-            { app_id: "app_e293fcd0565f45ca296aa317212d8741", path: "" },
-            { app_id: "app_a4f7f3e62c1de0b9490a5260cb390b56", path: "" },
-            { app_id: "app_f1e44837a5e3c2af4da8925b46027645", path: "" },
-            { app_id: "app_ee968e983074cb090e6f12cd75b63bb3", path: "" }
+            { app_id: "app_e293fcd0565f45ca296aa317212d8741", path: "home" },
+            { app_id: "app_a4f7f3e62c1de0b9490a5260cb390b56", path: "settings" },
+            { app_id: "app_f1e44837a5e3c2af4da8925b46027645", path: "dashboard" },
+            { app_id: "app_ee968e983074cb090e6f12cd75b63bb3", path: "profile" }
         ];
 
         // Función para generar enlaces dinámicos
         function generateLinks() {
             const container = document.getElementById("links-container");
+
             miniApps.forEach((miniApp, index) => {
                 const listItem = document.createElement("li");
                 const link = document.createElement("a");
-                link.href = `https://worldcoin.org/mini-app?app_id=${miniApp.app_id}&path=${miniApp.path}`;
+
+                // Estructura de enlace siguiendo la documentación
+                const url = `https://worldcoin.org/mini-app?app_id=${miniApp.app_id}&path=${encodeURIComponent(miniApp.path)}`;
+
+                link.href = url;
                 link.target = "_blank";
-                link.textContent = `Mini App ${index + 1}`;
+                link.textContent = `Mini App ${index + 1}: ${miniApp.path}`;
                 listItem.appendChild(link);
                 container.appendChild(listItem);
             });
