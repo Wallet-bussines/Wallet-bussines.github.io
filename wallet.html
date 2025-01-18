@@ -3,15 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Apps</title>
+    <title>Dynamic Mini Apps</title>
+    <script>
+        // Lista de app_id
+        const appIds = [
+            "app_e293fcd0565f45ca296aa317212d8741",
+            "app_a4f7f3e62c1de0b9490a5260cb390b56",
+            "app_f1e44837a5e3c2af4da8925b46027645",
+            "app_ee968e983074cb090e6f12cd75b63bb3"
+        ];
+
+        // Path configurable
+        const path = ""; // Puedes reemplazar esto con el path que desees
+
+        // Función para generar enlaces
+        function generateLinks() {
+            const container = document.getElementById("links-container");
+            appIds.forEach((appId, index) => {
+                const link = document.createElement("a");
+                link.href = `https://worldcoin.org/mini-app?app_id=${appId}&path=${path}&app_mode=mini-app`;
+                link.target = "_blank";
+                link.textContent = `Mini App ${index + 1}`;
+                const listItem = document.createElement("li");
+                listItem.appendChild(link);
+                container.appendChild(listItem);
+            });
+        }
+
+        // Generar enlaces al cargar la página
+        window.onload = generateLinks;
+    </script>
 </head>
 <body>
-    <h1>Lista de Mini Apps</h1>
-    <ul>
-        <li><a href="https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=&app_mode=mini-app" target="_blank">Mini App 1</a></li>
-        <li><a href="https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&path=&app_mode=mini-app" target="_blank">Mini App 2</a></li>
-        <li><a href="https://worldcoin.org/mini-app?app_id=app_f1e44837a5e3c2af4da8925b46027645&path=&app_mode=mini-app" target="_blank">Mini App 3</a></li>
-        <li><a href="https://worldcoin.org/mini-app?app_id=app_ee968e983074cb090e6f12cd75b63bb3&path=&app_mode=mini-app" target="_blank">Mini App 4</a></li>
+    <h1>Lista de Mini Apps Dinámicas</h1>
+    <ul id="links-container">
+        <!-- Los enlaces se generarán aquí automáticamente -->
     </ul>
 </body>
 </html>
