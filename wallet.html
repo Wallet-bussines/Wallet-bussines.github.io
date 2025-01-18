@@ -1,30 +1,117 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic Mini Apps</title>
+    <title>Acciones Rápidas - Mini Apps</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #0070f3;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            margin: 0 15px;
+            color: #0070f3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        a {
+            color: #0070f3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .note {
+            background-color: #eaf4fe;
+            border: 1px solid #b3d7ff;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Acciones Rápidas</h1>
+        <p>Conecta tus mini aplicaciones de manera fácil y eficiente.</p>
+    </header>
+    <nav>
+        <a href="#mundo">Mundo</a>
+        <a href="#hogar">Hogar</a>
+        <a href="#mini-apps">Mini aplicaciones</a>
+        <a href="#identificacion">Identificación Mundial</a>
+        <a href="#cadena">Cadena Mundial</a>
+        <a href="#acciones-rapidas">Acciones Rápidas</a>
+    </nav>
+    <main>
+        <section id="acciones-rapidas">
+            <h2>Mini Apps - Acciones Rápidas</h2>
+            <p class="note">Haz clic en los enlaces para abrir una mini aplicación dentro de la aplicación World App o dirigir al usuario a la tienda si no está instalada.</p>
+            <ul id="links-container">
+                <!-- Los enlaces se generarán dinámicamente aquí -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>© 2025 Fundación Mundial</p>
+        <p>
+            <a href="https://twitter.com" target="_blank">Síguenos en Twitter</a> |
+            <a href="https://github.com" target="_blank">Síguenos en GitHub</a> |
+            <a href="https://discord.com" target="_blank">Únete a nuestro servidor de Discord</a>
+        </p>
+    </footer>
+
     <script>
-        // Lista de app_id
-        const appIds = [
-            "app_e293fcd0565f45ca296aa317212d8741",
-            "app_a4f7f3e62c1de0b9490a5260cb390b56",
-            "app_f1e44837a5e3c2af4da8925b46027645",
-            "app_ee968e983074cb090e6f12cd75b63bb3"
+        // Lista de app_id con un ejemplo de path por defecto
+        const miniApps = [
+            { app_id: "app_e293fcd0565f45ca296aa317212d8741", path: "" },
+            { app_id: "app_a4f7f3e62c1de0b9490a5260cb390b56", path: "" },
+            { app_id: "app_f1e44837a5e3c2af4da8925b46027645", path: "" },
+            { app_id: "app_ee968e983074cb090e6f12cd75b63bb3", path: "" }
         ];
 
-        // Path configurable
-        const path = ""; // Puedes reemplazar esto con el path que desees
-
-        // Función para generar enlaces
+        // Función para generar enlaces dinámicos
         function generateLinks() {
             const container = document.getElementById("links-container");
-            appIds.forEach((appId, index) => {
+            miniApps.forEach((miniApp, index) => {
+                const listItem = document.createElement("li");
                 const link = document.createElement("a");
-                link.href = `https://worldcoin.org/mini-app?app_id=${appId}&path=${path}&app_mode=mini-app`;
+                link.href = `https://worldcoin.org/mini-app?app_id=${miniApp.app_id}&path=${miniApp.path}`;
                 link.target = "_blank";
                 link.textContent = `Mini App ${index + 1}`;
-                const listItem = document.createElement("li");
                 listItem.appendChild(link);
                 container.appendChild(listItem);
             });
@@ -33,11 +120,5 @@
         // Generar enlaces al cargar la página
         window.onload = generateLinks;
     </script>
-</head>
-<body>
-    <h1>Lista de Mini Apps Dinámicas</h1>
-    <ul id="links-container">
-        <!-- Los enlaces se generarán aquí automáticamente -->
-    </ul>
 </body>
 </html>
