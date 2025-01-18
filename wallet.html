@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini Apps Dinámicas</title>
+    <title>Enlaces Dinámicos de Mini Apps</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,7 +34,7 @@
             display: block;
             margin: 10px 0 5px;
         }
-        input, select, textarea {
+        input, select {
             width: 100%;
             padding: 8px;
             margin-bottom: 15px;
@@ -52,107 +52,72 @@
         button:hover {
             background-color: #005bb5;
         }
-        .response {
-            background: #f8f9fa;
+        .link-display {
+            margin-top: 20px;
+            background-color: #f9f9f9;
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            overflow-x: auto;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Mini Apps Dinámicas</h1>
+        <h1>Enlaces Dinámicos de Mini Apps</h1>
     </header>
     <main>
         <section>
-            <h2>Seleccionar Mini App</h2>
-            <form id="miniAppSelectorForm">
-                <label for="miniAppSelector">Selecciona una Mini App</label>
-                <select id="miniAppSelector" onchange="loadMiniAppConfig()">
-                    <!-- Las opciones se generan dinámicamente -->
+            <h2>Generar Enlace de Mini App</h2>
+            <form id="miniAppForm">
+                <label for="appId">Selecciona una Mini App</label>
+                <select id="appId" required>
+                    <!-- Opciones cargadas dinámicamente -->
                 </select>
+
+                <label for="path">Ruta de la Mini App</label>
+                <input type="text" id="path" placeholder="Ejemplo: /resource/path" required>
+
+                <button type="button" onclick="generateLink()">Generar Enlace</button>
             </form>
-        </section>
 
-        <section id="miniAppConfigSection" style="display: none;">
-            <h2>Configuración de la Mini App</h2>
-            <form id="miniAppConfigForm">
-                <label for="apiKey">API Key</label>
-                <input type="text" id="apiKey" placeholder="Tu API Key" required>
-
-                <label for="walletAddresses">Direcciones de Monedero (separadas por comas)</label>
-                <input type="text" id="walletAddresses" placeholder="0x123, 0x456" required>
-
-                <label for="title">Título de Notificación</label>
-                <input type="text" id="title" maxlength="30" required>
-
-                <label for="message">Mensaje</label>
-                <textarea id="message" maxlength="200" required></textarea>
-
-                <label for="miniAppPath">Ruta de la Mini App</label>
-                <input type="text" id="miniAppPath" readonly>
-
-                <button type="button" onclick="sendNotification()">Enviar Notificación</button>
-            </form>
-            <div id="miniAppResponse" class="response"></div>
+            <div id="generatedLink" class="link-display" style="display: none;"></div>
         </section>
     </main>
 
     <script>
-        // Configuración inicial de mini apps (esto podría venir de una API o archivo JSON)
+        // Configuración inicial de mini apps (puede venir de una API o archivo JSON)
         const miniApps = [
-            { app_id: "app_12345", name: "Mini App 1", default_path: "path/to/resource1" },
-            { app_id: "app_67890", name: "Mini App 2", default_path: "path/to/resource2" },
-            { app_id: "app_54321", name: "Mini App 3", default_path: "path/to/resource3" }
+            { app_id: "app_12345", name: "Mini App 1" },
+            { app_id: "app_67890", name: "Mini App 2" },
+            { app_id: "app_54321", name: "Mini App 3" }
         ];
 
         // Cargar mini apps en el selector
         function loadMiniApps() {
-            const selector = document.getElementById("miniAppSelector");
-            selector.innerHTML = miniApps.map(app => `<option value="${app.app_id}">${app.name}</option>`).join("");
+            const appIdSelect = document.getElementById("appId");
+            miniApps.forEach(app => {
+                const option = document.createElement("option");
+                option.value = app.app_id;
+                option.textContent = app.name;
+                appIdSelect.appendChild(option);
+            });
         }
 
-        // Cargar configuración de la mini app seleccionada
-        function loadMiniAppConfig() {
-            const selectedAppId = document.getElementById("miniAppSelector").value;
-            const selectedApp = miniApps.find(app => app.app_id === selectedAppId);
+        // Generar enlace dinámico
+        function generateLink() {
+            const appId = document.getElementById("appId").value;
+            const path = document.getElementById("path").value;
 
-            if (selectedApp) {
-                document.getElementById("miniAppPath").value = `worldapp://mini-app?app_id=${selectedApp.app_id}&path=${selectedApp.default_path}`;
-                document.getElementById("miniAppConfigSection").style.display = "block";
+            if (!appId || !path) {
+                alert("Por favor, completa todos los campos.");
+                return;
             }
-        }
 
-        // Enviar notificación
-        async function sendNotification() {
-            const apiKey = document.getElementById("apiKey").value;
-            const walletAddresses = document.getElementById("walletAddresses").value.split(",");
-            const title = document.getElementById("title").value;
-            const message = document.getElementById("message").value;
-            const miniAppPath = document.getElementById("miniAppPath").value;
-
-            try {
-                const response = await fetch("https://developer.worldcoin.org/api/v2/minikit/send-notification", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Bearer ${apiKey}`,
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        wallet_addresses: walletAddresses,
-                        title: title,
-                        message: message,
-                        mini_app_path: miniAppPath
-                    })
-                });
-
-                const data = await response.json();
-                document.getElementById("miniAppResponse").innerText = JSON.stringify(data, null, 2);
-            } catch (error) {
-                document.getElementById("miniAppResponse").innerText = `Error: ${error.message}`;
-            }
+            const link = `https://worldcoin.org/mini-app?app_id=${encodeURIComponent(appId)}&path=${encodeURIComponent(path)}`;
+            const linkDisplay = document.getElementById("generatedLink");
+            linkDisplay.textContent = link;
+            linkDisplay.style.display = "block";
         }
 
         // Inicializar la página
