@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Enlaces</title>
+    <title>Generador de Enlaces Aleatorios para Mini Apps</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,7 +60,7 @@
 </head>
 <body>
     <header>
-        <h1>Generador de Enlaces para Mini Apps</h1>
+        <h1>Generador de Enlaces Aleatorios para Mini Apps</h1>
     </header>
     <main>
         <section>
@@ -83,30 +83,39 @@
         const urls = [
             "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=orbiitalx",
             "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fruta%2Fdeseada",
-            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fruta%2Fdeseada",
-            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=/ruta/deseada",
-            "https://worldcoin.org/mini-app?app_id=app_e293fcd0565f45ca296aa317212d8741&path=%2Fruta%2Fdeseada",
             "https://worldcoin.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_3876b5f39809a50bb5ebe97c997bbcf1&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_5e1cd32810dfb1070731f9612899aaaa&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=grants&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_013bbbd7b5803a25c8d10d10299608e7&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&path=%2Fdashboard",
-            "https://worldcoin.org/mini-app?app_id=app_8e407cfbae7ae51c19b07faff837aeeb&path=%2Fdashboard",
-            "https://worldcoin.org/mini-app?app_id=app_3876b5f39809a50bb5ebe97c997bbcf1&path=%2Fdashboard",
-            "https://worldcoin.org/mini-app?app_id=app_5e1cd32810dfb1070731f9612899aaaa&path=%2Fdashboard",
-            "https://worldcoin.org/mini-app?app_id=app_a4f7f3e62c1de0b9490a5260cb390b56&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_2248679d8f07eb1b7eacd922f9a26a1e&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_b0d01dd8f2bdfbff06c9e123de487eb8&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_f1e44837a5e3c2af4da8925b46027645&path=%2Fdashboard",
-            "https://worldcoin.org/mini-app?app_id=app_013bbbd7b5803a25c8d10d10299608e7&path=%2Fdashboard",
             "https://worldcoin.org/mini-app?app_id=app_e4a7e1fafd7c43097627703ffba2cddb&path=%2Fdashboard"
         ];
 
-        // Función para cargar las URLs en el desplegable
+        // Función para eliminar duplicados
+        function removeDuplicates(arr) {
+            return [...new Set(arr)];
+        }
+
+        // Función para mezclar los elementos de un array (Fisher-Yates Shuffle)
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]]; // Intercambiar elementos
+            }
+            return arr;
+        }
+
+        // Función para cargar las mini apps sin duplicados y con orden aleatorio
         function loadMiniApps() {
+            const uniqueUrls = removeDuplicates(urls); // Eliminar duplicados
+            const shuffledUrls = shuffleArray(uniqueUrls); // Mezclar aleatoriamente
+
             const selectElement = document.getElementById("miniAppSelect");
-            urls.forEach((url, index) => {
+            shuffledUrls.forEach((url, index) => {
                 const option = document.createElement("option");
                 option.value = url;
                 option.textContent = `Enlace ${index + 1}`;
