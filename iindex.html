@@ -3,281 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Worldcoin Full Integration</title>
+    <title>Worldcoin Betting Platform</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+    <script src="https://unpkg.com/@worldcoin/mini-kit-js/dist/index.umd.js"></script>
     <style>
         :root {
-            --primary: #4F46E5;
-            --success: #10B981;
-            --error: #EF4444;
-            --background: #f3f4f6;
-            --text: #111827;
+            --primary: #2B6CB0;
+            --success: #38A169;
+            --error: #E53E3E;
+            --background: #F7FAFC;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', system-ui;
             background: var(--background);
-            margin: 0;
-            padding: 2rem;
-            color: var(--text);
+            margin: 2rem;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             padding: 2rem;
         }
 
-        .section {
-            margin: 2rem 0;
-            padding: 1.5rem;
-            border: 1px solid #e5e7eb;
+        .bet-card {
+            border: 1px solid #E2E8F0;
             border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            transition: transform 0.2s;
         }
 
-        button {
+        .bet-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .odds-badge {
             background: var(--primary);
             color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
             cursor: pointer;
-            transition: opacity 0.3s;
         }
 
-        button:hover {
-            opacity: 0.9;
-        }
-
-        input {
-            padding: 0.75rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.5rem;
-            width: 100%;
-            margin: 0.5rem 0;
-        }
-
-        .status {
-            padding: 1rem;
-            border-radius: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .success { background: #D1FAE5; color: var(--success); }
-        .error { background: #FEE2E2; color: var(--error); }
-        .loading { background: #EFF6FF; color: var(--primary); }
-
-        .spinner {
-            animation: spin 1s linear infinite;
-            border: 3px solid #e5e7eb;
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            width: 1.5rem;
-            height: 1.5rem;
-            display: inline-block;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .wallet-section {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2rem;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Worldcoin Integration Demo</h1>
-        
-        <!-- Sección de Login -->
-        <div class="section">
-            <h2>🔑 Autenticación</h2>
-            <button onclick="handleLogin()" id="loginBtn">Iniciar Sesión con Worldcoin</button>
-            <div id="loginStatus"></div>
-        </div>
+    <div id="root"></div>
 
-        <!-- Sección de Verificación -->
-        <div class="section">
-            <h2>🆔 Verificación World ID</h2>
-            <button onclick="handleVerification()">Verificar Identidad</button>
-            <div id="verificationStatus"></div>
-        </div>
+    <script type="text/babel">
+        const { WorldIDComponent, SignIn } = window.WorldCoinMiniKit;
 
-        <!-- Sección de Pagos -->
-        <div class="section">
-            <h2>💸 Sistema de Pagos</h2>
-            <input type="number" id="amount" value="0.5" step="0.1" placeholder="Monto en WLD">
-            <button onclick="handlePayment()">Realizar Pago</button>
-            <div id="paymentStatus"></div>
-        </div>
-    </div>
-
-    <script>
-        // Configuración con variables proporcionadas
-        const CONFIG = {
-            APP_ID: "app_2248679d8f07eb1b7eacd922f9a26a1e",
-            API_KEY: "api_a2V5XzM1M2U4ZDA4NjBkZjU5Y2MxZDE3NGNmODZjZjc4MTcwOnNrX2YwMzVmYzA3ZTFiNGY0MTQ5NWQxZmNkMjNkMDY2NGYxMTk3MGVkMTA2ZWFkMDhiMw",
-            RECIPIENT: "0xde6b6e1cddbfd1d94afc01957748c36c36f43af4",
-            JWT_SECRET: "sk_f41d2e783bf3990613e53d8e76c8ce9fc4ccb25f93859e14"
-        };
-
-        // Simulación de MiniKit
-        const MiniKit = {
-            commandsAsync: {
-                walletAuth: async () => ({
-                    finalPayload: {
-                        status: 'success',
-                        app_id: CONFIG.APP_ID,
-                        jwt: CONFIG.JWT_SECRET
-                    }
-                }),
-                verify: async (payload) => ({
-                    finalPayload: {
-                        status: 'success',
-                        action_id: payload.action,
-                        app_id: CONFIG.APP_ID
-                    }
-                }),
-                pay: async (paymentData) => ({
-                    finalPayload: {
-                        status: 'success',
-                        transaction_id: crypto.randomUUID(),
-                        recipient: CONFIG.RECIPIENT,
-                        amount: paymentData.tokens[0].token_amount
-                    }
-                })
-            },
-            isInstalled: () => true
-        };
-
-        // Manejo de Login
-        async function handleLogin() {
-            try {
-                showLoading('login');
-                
-                // Generar nonce
-                const nonce = await generateNonce();
-                
-                // Simular autenticación
-                const { finalPayload } = await MiniKit.commandsAsync.walletAuth();
-                
-                if (finalPayload.jwt === CONFIG.JWT_SECRET) {
-                    await verifyAuth(finalPayload);
-                    showSuccess('login', 'Autenticación exitosa!');
-                } else {
-                    showError('login', 'Error en autenticación');
-                }
-            } catch (error) {
-                showError('login', error.message);
+        class BettingPlatform extends React.Component {
+            state = {
+                isVerified: false,
+                walletAddress: '',
+                balance: 0,
+                events: [],
+                selectedBet: null
             }
-        }
 
-        // Manejo de Verificación
-        async function handleVerification() {
-            try {
-                showLoading('verification');
-                
-                const action = "test-action-2";
-                const { finalPayload } = await MiniKit.commandsAsync.verify({ 
-                    action,
-                    verification_level: 'orb',
-                    app_id: CONFIG.APP_ID
+            componentDidMount() {
+                this.loadSportsEvents();
+                this.checkWalletConnection();
+            }
+
+            loadSportsEvents = async () => {
+                // Simular datos en tiempo real
+                setInterval(() => {
+                    this.setState({
+                        events: [
+                            {
+                                id: 1,
+                                teams: 'Real Madrid vs Barcelona',
+                                odds: { home: 1.85, draw: 3.40, away: 4.20 },
+                                score: '2-1',
+                                time: '63\''
+                            },
+                            {
+                                id: 2,
+                                teams: 'Manchester City vs Liverpool',
+                                odds: { home: 2.10, draw: 3.25, away: 3.80 },
+                                score: '0-0',
+                                time: '15\''
+                            }
+                        ]
+                    });
+                }, 5000);
+            }
+
+            checkWalletConnection = async () => {
+                if (window.ethereum) {
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const accounts = await provider.listAccounts();
+                    if (accounts.length > 0) {
+                        this.setState({
+                            walletAddress: accounts[0],
+                            balance: await this.getUSDCBalance(accounts[0])
+                        });
+                    }
+                }
+            }
+
+            getUSDCBalance = async (address) => {
+                // Simular balance
+                return 1500; // USDC
+            }
+
+            handleVerificationSuccess = (proof) => {
+                // Verificar prueba en backend
+                fetch('/api/verify-worldid', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ proof })
+                }).then(res => {
+                    if (res.ok) this.setState({ isVerified: true });
                 });
+            }
 
-                const verification = await verifyCloudProof(finalPayload, action);
+            placeBet = async (eventId, outcome, amount) => {
+                if (!this.state.isVerified) return alert('Verifica con Worldcoin primero');
                 
-                if (verification.success) {
-                    showSuccess('verification', 'Verificación exitosa!');
-                } else {
-                    showError('verification', 'Error en verificación');
+                const tx = await this.sendUSDCTransaction(
+                    '0xBookmakerAddress', 
+                    amount
+                );
+
+                if (tx) {
+                    // Registrar apuesta en contrato inteligente
+                    const betResult = await fetch('/api/place-bet', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            eventId,
+                            outcome,
+                            amount,
+                            txHash: tx.hash
+                        })
+                    });
+
+                    if (betResult.ok) alert('Apuesta colocada!');
                 }
-            } catch (error) {
-                showError('verification', error.message);
+            }
+
+            sendUSDCTransaction = async (to, amount) => {
+                try {
+                    const provider = new ethers.providers.Web3Provider(window.ethereum);
+                    const signer = provider.getSigner();
+                    
+                    const usdcContract = new ethers.Contract(
+                        '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+                        ['function transfer(address, uint256)'],
+                        signer
+                    );
+
+                    return await usdcContract.transfer(
+                        to,
+                        ethers.utils.parseUnits(amount.toString(), 6)
+                    );
+                } catch (error) {
+                    console.error('Transaction error:', error);
+                }
+            }
+
+            connectWallet = async () => {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                this.checkWalletConnection();
+            }
+
+            render() {
+                return (
+                    <div className="container">
+                        <div className="wallet-section">
+                            <WorldIDComponent
+                                actionId="wid_prod_123456"
+                                signal={this.state.walletAddress}
+                                onSuccess={this.handleVerificationSuccess}
+                            >
+                                {(props) => (
+                                    <SignIn.Button 
+                                        {...props}
+                                        style={{ 
+                                            backgroundColor: this.state.isVerified ? var(--success) : var(--primary),
+                                            padding: '0.75rem 1.5rem'
+                                        }}
+                                    />
+                                )}
+                            </WorldIDComponent>
+
+                            {this.state.walletAddress ? (
+                                <div>
+                                    <p>{this.state.walletAddress.slice(0,6)}...{this.state.walletAddress.slice(-4)}</p>
+                                    <p>Balance: {this.state.balance} USDC</p>
+                                </div>
+                            ) : (
+                                <button onClick={this.connectWallet}>Conectar Wallet</button>
+                            )}
+                        </div>
+
+                        {this.state.isVerified && (
+                            <div>
+                                <h2>⚽ Eventos en Vivo</h2>
+                                {this.state.events.map(event => (
+                                    <div key={event.id} className="bet-card">
+                                        <h3>{event.teams}</h3>
+                                        <p>Marcador: {event.score} ({event.time})</p>
+                                        <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                                            <div className="odds-badge" onClick={() => this.placeBet(event.id, 'home', 100)}>
+                                                Local {event.odds.home}
+                                            </div>
+                                            <div className="odds-badge" onClick={() => this.placeBet(event.id, 'draw', 100)}>
+                                                Empate {event.odds.draw}
+                                            </div>
+                                            <div className="odds-badge" onClick={() => this.placeBet(event.id, 'away', 100)}>
+                                                Visitante {event.odds.away}
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                );
             }
         }
 
-        // Manejo de Pagos
-        async function handlePayment() {
-            try {
-                showLoading('payment');
-                const amount = document.getElementById('amount').value;
-                
-                // Generar referencia
-                const reference = await generatePaymentReference();
-                
-                // Simular pago
-                const { finalPayload } = await MiniKit.commandsAsync.pay({
-                    reference,
-                    to: CONFIG.RECIPIENT,
-                    tokens: [{
-                        symbol: 'WLD',
-                        token_amount: amount * 10**18
-                    }]
-                });
-
-                // Confirmar pago
-                const confirmation = await confirmPayment(reference);
-                
-                if (confirmation.success) {
-                    showSuccess('payment', `Pago de ${amount} WLD exitoso!`);
-                } else {
-                    showError('payment', 'Error en transacción');
-                }
-            } catch (error) {
-                showError('payment', error.message);
-            }
-        }
-
-        // Funciones auxiliares
-        async function generateNonce() {
-            return crypto.randomUUID();
-        }
-
-        async function verifyAuth(payload) {
-            // Simular verificación en backend
-            return new Promise((resolve) => {
-                setTimeout(() => resolve(payload.jwt === CONFIG.JWT_SECRET), 1000);
-            });
-        }
-
-        async function verifyCloudProof(payload, action) {
-            // Simular llamada a API de Worldcoin
-            return {
-                success: payload.app_id === CONFIG.APP_ID,
-                action_id: action
-            };
-        }
-
-        async function generatePaymentReference() {
-            return crypto.randomUUID().replace(/-/g, '');
-        }
-
-        async function confirmPayment(reference) {
-            // Simular confirmación de transacción
-            return {
-                success: true,
-                transaction_id: reference,
-                recipient: CONFIG.RECIPIENT
-            };
-        }
-
-        // Manejo de UI
-        function showLoading(section) {
-            const element = document.getElementById(`${section}Status`);
-            element.className = 'status loading';
-            element.innerHTML = `<div class="spinner"></div> Procesando...`;
-        }
-
-        function showSuccess(section, message) {
-            const element = document.getElementById(`${section}Status`);
-            element.className = 'status success';
-            element.textContent = message;
-        }
-
-        function showError(section, message) {
-            const element = document.getElementById(`${section}Status`);
-            element.className = 'status error';
-            element.textContent = message;
-        }
+        ReactDOM.render(<BettingPlatform />, document.getElementById('root'));
     </script>
 </body>
 </html>
