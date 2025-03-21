@@ -3,170 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minería Wordcoin</title>
+    <title>Worldcoin Full Integration</title>
     <style>
+        :root {
+            --primary: #4F46E5;
+            --success: #10B981;
+            --error: #EF4444;
+            --background: #f3f4f6;
+            --text: #111827;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
             margin: 0;
-            padding: 20px;
+            padding: 2rem;
+            color: var(--text);
         }
+
         .container {
-            max-width: 600px;
-            margin: auto;
+            max-width: 800px;
+            margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
-        h1 {
-            text-align: center;
-            color: #4CAF50;
+
+        .section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
         }
-        .wallet-info {
-            margin: 20px 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        .wallet-info p {
-            margin: 5px 0;
-            font-weight: bold;
-        }
+
         button {
-            background-color: #28a745;
+            background: var(--primary);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
             cursor: pointer;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: opacity 0.3s;
         }
+
         button:hover {
-            background-color: #218838;
+            opacity: 0.9;
         }
-        #error-message {
-            color: red;
-            margin: 10px 0;
-            font-weight: bold;
+
+        input {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            width: 100%;
+            margin: 0.5rem 0;
         }
-        pre {
-            background: #f8f8f8;
-            padding: 10px;
-            border-radius: 5px;
-            overflow: auto;
-            border: 1px solid #ddd;
-        }
+
         .status {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9ecef;
-            border-radius: 5px;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .success { background: #D1FAE5; color: var(--success); }
+        .error { background: #FEE2E2; color: var(--error); }
+        .loading { background: #EFF6FF; color: var(--primary); }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+            border: 3px solid #e5e7eb;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Minería Wordcoin</h1>
-        <div class="wallet-info">
-            <p>Dirección de Wallet: <span id="wallet-address">RPqwP8wuRWFGiP31f7NTDq6KgF6B5Crych</span></p>
-            <p>Host: <span id="host">pool.verus.io</span></p>
-            <p>Puerto: <span id="port">9998</span></p>
-            <p>Número de hilos: <span id="threads">8</span></p>
+        <h1>Worldcoin Integration Demo</h1>
+        
+        <!-- Sección de Login -->
+        <div class="section">
+            <h2>🔑 Autenticación</h2>
+            <button onclick="handleLogin()" id="loginBtn">Iniciar Sesión con Worldcoin</button>
+            <div id="loginStatus"></div>
         </div>
-        <div class="status">
-            <p>Estado de Minería: <span id="status">Activo</span></p>
-            <p>Hash Generados: <span id="hash-generated">0</span></p>
-            <p>Hash Válidos: <span id="valid-hashes">0</span></p>
-            <p>Saldo en Wallet: <span id="wallet-balance">Cargando...</span></p>
+
+        <!-- Sección de Verificación -->
+        <div class="section">
+            <h2>🆔 Verificación World ID</h2>
+            <button onclick="handleVerification()">Verificar Identidad</button>
+            <div id="verificationStatus"></div>
         </div>
-        <div id="error-message"></div>
-        <pre id="log"></pre>
+
+        <!-- Sección de Pagos -->
+        <div class="section">
+            <h2>💸 Sistema de Pagos</h2>
+            <input type="number" id="amount" value="0.5" step="0.1" placeholder="Monto en WLD">
+            <button onclick="handlePayment()">Realizar Pago</button>
+            <div id="paymentStatus"></div>
+        </div>
     </div>
 
     <script>
-        const API_URL_SETTINGS = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/settings";
-        const API_URL_SUBMIT_HASH = "http://45.33.47.25:3000/api/poolData/72/6596237097b04b05eb151553/67028dbd5f09df3d488db72e/workers";
-        const AUTH_TOKEN = "BB75AA0EB639D0F79E8A1E3AD54BAAE1";
-        let miningInterval;
-        let hashGenerated = 0;
-        let validHashes = 0;
+        // Configuración con variables proporcionadas
+        const CONFIG = {
+            APP_ID: "app_2248679d8f07eb1b7eacd922f9a26a1e",
+            API_KEY: "api_a2V5XzM1M2U4ZDA4NjBkZjU5Y2MxZDE3NGNmODZjZjc4MTcwOnNrX2YwMzVmYzA3ZTFiNGY0MTQ5NWQxZmNkMjNkMDY2NGYxMTk3MGVkMTA2ZWFkMDhiMw",
+            RECIPIENT: "0xde6b6e1cddbfd1d94afc01957748c36c36f43af4",
+            JWT_SECRET: "sk_f41d2e783bf3990613e53d8e76c8ce9fc4ccb25f93859e14"
+        };
 
-        window.onload = startMining;
+        // Simulación de MiniKit
+        const MiniKit = {
+            commandsAsync: {
+                walletAuth: async () => ({
+                    finalPayload: {
+                        status: 'success',
+                        app_id: CONFIG.APP_ID,
+                        jwt: CONFIG.JWT_SECRET
+                    }
+                }),
+                verify: async (payload) => ({
+                    finalPayload: {
+                        status: 'success',
+                        action_id: payload.action,
+                        app_id: CONFIG.APP_ID
+                    }
+                }),
+                pay: async (paymentData) => ({
+                    finalPayload: {
+                        status: 'success',
+                        transaction_id: crypto.randomUUID(),
+                        recipient: CONFIG.RECIPIENT,
+                        amount: paymentData.tokens[0].token_amount
+                    }
+                })
+            },
+            isInstalled: () => true
+        };
 
-        function startMining() {
-            miningInterval = setInterval(() => {
-                const hash = generateHash();
-                sendHashToPool(hash);
-                fetchPoolData();
-            }, 1000);
-        }
-
-        function generateHash() {
-            hashGenerated++;
-            document.getElementById("hash-generated").innerText = hashGenerated;
-            console.log(`Generando hash #${hashGenerated}...`);
-            return hashGenerated;
-        }
-
-        function sendHashToPool(hash) {
-            fetch(API_URL_SUBMIT_HASH, {
-                method: "POST",
-                headers: {
-                    "auth": AUTH_TOKEN,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ poolSubItem: "0", validHash: hash })
-            })
-            .then(handleResponse)
-            .then(responseData => {
-                if (responseData.status === 0) {
-                    validHashes++;
-                    document.getElementById("valid-hashes").innerText = validHashes;
-                    console.log(`Hash válido enviado: ${hash}`);
+        // Manejo de Login
+        async function handleLogin() {
+            try {
+                showLoading('login');
+                
+                // Generar nonce
+                const nonce = await generateNonce();
+                
+                // Simular autenticación
+                const { finalPayload } = await MiniKit.commandsAsync.walletAuth();
+                
+                if (finalPayload.jwt === CONFIG.JWT_SECRET) {
+                    await verifyAuth(finalPayload);
+                    showSuccess('login', 'Autenticación exitosa!');
                 } else {
-                    showError("Hash no aceptado por el pool.");
+                    showError('login', 'Error en autenticación');
                 }
-            })
-            .catch(showError);
-        }
-
-        function fetchPoolData() {
-            fetch(API_URL_SETTINGS, {
-                method: "POST",
-                headers: {
-                    "auth": AUTH_TOKEN,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ poolSubItem: "0", short: "1" })
-            })
-            .then(handleResponse)
-            .then(updateMiningData)
-            .catch(showError);
-        }
-
-        function handleResponse(response) {
-            if (!response.ok) {
-                throw new Error("Error en la respuesta de la API");
-            }
-            return response.json();
-        }
-
-        function updateMiningData(data) {
-            if (data && data.data) {
-                const { validShares, coins } = data.data;
-                document.getElementById("valid-hashes").innerText = Math.floor(validShares);
-                document.getElementById("wallet-balance").innerText = `${coins[0].paid} VRSC`;
-                console.log(`Conectado: ${data.data.activeWorkers} trabajadores, Hashrate: ${data.data.currentHashrate}`);
-            } else {
-                showError("Error al cargar los datos de la API.");
+            } catch (error) {
+                showError('login', error.message);
             }
         }
 
-        function showError(message) {
-            const errorDiv = document.getElementById("error-message");
-            errorDiv.innerText = message;
-            console.error(message);
+        // Manejo de Verificación
+        async function handleVerification() {
+            try {
+                showLoading('verification');
+                
+                const action = "test-action-2";
+                const { finalPayload } = await MiniKit.commandsAsync.verify({ 
+                    action,
+                    verification_level: 'orb',
+                    app_id: CONFIG.APP_ID
+                });
+
+                const verification = await verifyCloudProof(finalPayload, action);
+                
+                if (verification.success) {
+                    showSuccess('verification', 'Verificación exitosa!');
+                } else {
+                    showError('verification', 'Error en verificación');
+                }
+            } catch (error) {
+                showError('verification', error.message);
+            }
+        }
+
+        // Manejo de Pagos
+        async function handlePayment() {
+            try {
+                showLoading('payment');
+                const amount = document.getElementById('amount').value;
+                
+                // Generar referencia
+                const reference = await generatePaymentReference();
+                
+                // Simular pago
+                const { finalPayload } = await MiniKit.commandsAsync.pay({
+                    reference,
+                    to: CONFIG.RECIPIENT,
+                    tokens: [{
+                        symbol: 'WLD',
+                        token_amount: amount * 10**18
+                    }]
+                });
+
+                // Confirmar pago
+                const confirmation = await confirmPayment(reference);
+                
+                if (confirmation.success) {
+                    showSuccess('payment', `Pago de ${amount} WLD exitoso!`);
+                } else {
+                    showError('payment', 'Error en transacción');
+                }
+            } catch (error) {
+                showError('payment', error.message);
+            }
+        }
+
+        // Funciones auxiliares
+        async function generateNonce() {
+            return crypto.randomUUID();
+        }
+
+        async function verifyAuth(payload) {
+            // Simular verificación en backend
+            return new Promise((resolve) => {
+                setTimeout(() => resolve(payload.jwt === CONFIG.JWT_SECRET), 1000);
+            });
+        }
+
+        async function verifyCloudProof(payload, action) {
+            // Simular llamada a API de Worldcoin
+            return {
+                success: payload.app_id === CONFIG.APP_ID,
+                action_id: action
+            };
+        }
+
+        async function generatePaymentReference() {
+            return crypto.randomUUID().replace(/-/g, '');
+        }
+
+        async function confirmPayment(reference) {
+            // Simular confirmación de transacción
+            return {
+                success: true,
+                transaction_id: reference,
+                recipient: CONFIG.RECIPIENT
+            };
+        }
+
+        // Manejo de UI
+        function showLoading(section) {
+            const element = document.getElementById(`${section}Status`);
+            element.className = 'status loading';
+            element.innerHTML = `<div class="spinner"></div> Procesando...`;
+        }
+
+        function showSuccess(section, message) {
+            const element = document.getElementById(`${section}Status`);
+            element.className = 'status success';
+            element.textContent = message;
+        }
+
+        function showError(section, message) {
+            const element = document.getElementById(`${section}Status`);
+            element.className = 'status error';
+            element.textContent = message;
         }
     </script>
 </body>
